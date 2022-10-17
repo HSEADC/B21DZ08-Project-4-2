@@ -4,27 +4,77 @@
     <meta charset="utf-8" />
     <title>расклад</title>
     <analytics></analytics>
+    <link rel="shortcut icon" href="images/ok.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   </head>
 
   <body class="index">
+    <img src="images/eyes.png" alt="" class="eyes1" />
     <div class="textblock">
-      <h1>узнать</h1>
-      <h1>о картах</h1>
-      <h1>таро</h1>
-      <h1>и</h1>
-      <h1>
-        <a href="">погадать</a> <br /><a href="">на</a>
-        <a
-          href=""
-          class="typewrite"
-          data-period="2000"
-          data-type='[ "любимого", "отношения", "будущее", "олега", "деньги", "политику", "настю м", "карьеру", "карину р", "свободу" ]'
-        >
-          <span class="wrap"></span>
-        </a>
-      </h1>
+      <h1 class="word1">узнать</h1>
+      <h1 class="word2">о картах</h1>
+      <h1 class="word3" style="font-style: italic;">таро</h1>
+      <h1 class="word4">и</h1>
+      <h1 class="word5" style="font-style: italic;">погадать</h1>
     </div>
+    <a href="">на </a>
+    <a
+      style="left: 15vw;"
+      href=""
+      class="typewrite"
+      data-period="2000"
+      data-type='[ " любимого", " отношения", " будущее", " олега", " деньги", " политику", " настю м", " карьеру", " карину р", " свободу" ]'
+    >
+      <span class="wrap"></span>
+    </a>
+    <!-- modify this form HTML and place wherever you want your form -->
+    <form id="my-form" action="https://formspree.io/f/mnqrzvnk" method="POST">
+      <input
+        placeholder="введи свой ник в телеграм"
+        type="text"
+        name="message"
+      />
+      <img id="my-form-button" src="images/ok.png" alt="" />
+      <p id="my-form-status"></p>
+    </form>
+    <!-- Place this script at the end of the body tag -->
+    <script>
+      var form = document.getElementById('my-form')
+
+      async function handleSubmit(event) {
+        event.preventDefault()
+        var status = document.getElementById('my-form-status')
+        var data = new FormData(event.target)
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            Accept: 'application/json'
+          }
+        })
+          .then((response) => {
+            if (response.ok) {
+              status.innerHTML = 'Thanks for your submission!'
+              form.reset()
+            } else {
+              response.json().then((data) => {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.innerHTML = data['errors']
+                    .map((error) => error['message'])
+                    .join(', ')
+                } else {
+                  status.innerHTML =
+                    'Oops! There was a problem submitting your form'
+                }
+              })
+            }
+          })
+          .catch((error) => {
+            status.innerHTML = 'Oops! There was a problem submitting your form'
+          })
+      }
+      form.addEventListener('submit', handleSubmit)
+    </script>
   </body>
 </html>
