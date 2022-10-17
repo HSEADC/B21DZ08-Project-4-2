@@ -29,3 +29,17 @@
   font-weight: 700;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Steinbeck Demo';
+  src: url('fonts/SteinbeckDemo-Italic.woff2') format('woff2'),
+    url('fonts/SteinbeckDemo-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Steinbeck Demo';
+  src: url('fonts/SteinbeckDemo-Regular.woff2') format('woff2'),
+    url('fonts/SteinbeckDemo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}

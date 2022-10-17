@@ -1,11 +1,32 @@
-body.index {
+body {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  & > div,
-  & > a {
-    margin: 10px 0;
-  }
+  background: linear-gradient(
+      180deg,
+      #ff8bec 0%,
+      rgba(255, 139, 236, 0) 12.5%,
+      rgba(255, 139, 236, 0) 100%
+    ),
+    #f5f6ee;
+  font-family: 'Steinbeck Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.textblock a {
+  color: #313131;
+  font-size: 12.5vw;
+  text-decoration: none;
+}
+.textblock {
+  position: absolute;
+  color: #313131;
+  font-size: 10vw;
+}
+.change {
+  width: 60vw;
+  font-size: 12.5vw;
+  /* font-size: 40px;
+  white-space: nowrap;
+  border-right: 4px solid orange;
+  animation: printed-text 5s steps(8), flashin-border 0.75s step-start infinite; */
 }
