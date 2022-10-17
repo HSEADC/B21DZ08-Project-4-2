@@ -92,6 +92,46 @@ module.exports = {
       filename: './pages/page.html',
       chunks: ['page']
     }),
+    new HtmlWebpackPlugin({
+      template: './src/articles/article.html',
+      filename: './articles/article.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/articles.html',
+      filename: './articles.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/cards/fool.html',
+      filename: './cards/fool.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/cards/moon.html',
+      filename: './cards/moon.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/cards/sun.html',
+      filename: './cards/sun.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/fortunetellings/family.html',
+      filename: './fortunetellings/family.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/fortunetellings/love.html',
+      filename: './fortunetellings/love.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/fortunetellings/future.html',
+      filename: './fortunetellings/future.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/cardoftheday.html',
+      filename: './cardoftheday.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/fortunetellings.html',
+      filename: './fortunetellings.html'
+    }),
 
     // Partials
     new HtmlWebpackPartialsPlugin([
