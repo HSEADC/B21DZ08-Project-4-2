@@ -2,42 +2,69 @@
 <html lang="ru" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>расклад</title>
+    <title>(рас)клад</title>
     <analytics></analytics>
     <link rel="shortcut icon" href="images/ok.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="javascript\solitaireVictory.js" charset="utf-8"></script>
   </head>
 
   <body class="index">
-    <img src="images/eyes.png" alt="" class="eyes1" />
-    <div class="textblock">
-      <h1 class="word1">узнать</h1>
-      <h1 class="word2">о картах</h1>
-      <h1 class="word3" style="font-style: italic;">таро</h1>
-      <h1 class="word4">и</h1>
-      <h1 class="word5" style="font-style: italic;">погадать</h1>
+    <div class="header">
+      <div class="logo"></div>
+      <div class="menu">
+        <div class="about">о проекте</div>
+        <img class="starsvg1" src="images/star.svg" alt="" />
+        <div class="promo">промо</div>
+        <img class="starsvg1" src="images/star.svg" alt="" />
+        <div class="platform">платформа</div>
+      </div>
+      <div class="but">гадать сейчас</div>
     </div>
-    <a href="">на </a>
-    <a
-      style="left: 15vw;"
-      href=""
-      class="typewrite"
-      data-period="2000"
-      data-type='[ " любимого", " отношения", " будущее", " олега", " деньги", " политику", " настю м", " карьеру", " карину р", " свободу" ]'
-    >
-      <span class="wrap"></span>
-    </a>
-    <!-- modify this form HTML and place wherever you want your form -->
-    <form id="my-form" action="https://formspree.io/f/mnqrzvnk" method="POST">
-      <input
-        placeholder="введи свой ник в телеграм"
-        type="text"
-        name="message"
-      />
-      <img id="my-form-button" src="images/ok.png" alt="" />
-      <p id="my-form-status"></p>
-    </form>
+    <div class="textblock">
+      <img src="images/eyes.png" alt="" class="eyes2" />
+      <h1 class="word1" style="font-size: 10vw;">узнать</h1>
+      <br />
+      <h1 class="word2" style="font-size: 10vw;">о картах</h1>
+      <img src="images/joker2.png" alt="" class="joker" />
+      <h1
+        class="word3"
+        style="font-size: 10vw; font-style: italic; color: #313131;"
+      >
+        таро
+      </h1>
+      <br />
+      <h1 class="word4" style="font-size: 10vw;">и</h1>
+      <h1 class="word5" style="font-size: 10vw; font-style: italic;">
+        погадать
+      </h1>
+      <img src="images/ball2.png" alt="" class="ball" />
+      <br />
+
+      <a href="">на </a>
+      <a
+        href=""
+        class="typewrite"
+        data-period="2000"
+        data-type='[ " любимого", " отношения", " будущее", " олега", " деньги", " политику", " настю м", " карьеру", " карину р", " свободу" ]'
+      >
+        <span class="wrap"></span>
+      </a>
+      <!-- modify this form HTML and place wherever you want your form -->
+      <form id="my-form" action="https://formspree.io/f/mnqrzvnk" method="POST">
+        <input
+          placeholder="введи свой ник в телеграм"
+          type="text"
+          name="message"
+        />
+
+        <p id="my-form-status"></p>
+      </form>
+      <p>оставь свой телеграм, чтобы быть в курсе запуска медиа</p>
+      <img id="my-form-button" class="everything" src="images/ok.png" alt="" />
+    </div>
     <!-- Place this script at the end of the body tag -->
     <script>
       var form = document.getElementById('my-form')
@@ -75,6 +102,13 @@
           })
       }
       form.addEventListener('submit', handleSubmit)
+
+      $(document).on('ready', function () {
+        $(document).on('click', 'img.everything', function () {
+          console.log('frji')
+          $('img,.word3, button').solitaireVictory()
+        })
+      })
     </script>
   </body>
 </html>
