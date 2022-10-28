@@ -64,3 +64,42 @@ window.onload = function () {
     '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw text-aligh center}'
   document.body.appendChild(css)
 }
+
+// ховеры емае
+$('.part1').hover(
+  function () {
+    $(this).addClass('hovertext')
+    $('.arrowleft').addClass('hovertext2')
+    $('.theme2').addClass('hovertext3')
+    $('.arrowright').addClass('hovertext4')
+    $('.theme1').addClass('hovertext4')
+    $('.part3').addClass('hovertext4')
+  },
+  function () {
+    $(this).removeClass('hovertext')
+    $('.arrowleft').removeClass('hovertext2')
+    $('.theme2').removeClass('hovertext3')
+    $('.arrowright').removeClass('hovertext4')
+    $('.theme1').removeClass('hovertext4')
+    $('.part3').removeClass('hovertext4')
+  }
+)
+
+$('.part3').hover(
+  function () {
+    $(this).addClass('hovertext')
+    $('.arrowright').addClass('hovertext2')
+    $('.theme1').addClass('hovertext3')
+    $('.arrowleft').addClass('hovertext4')
+    $('.theme2').addClass('hovertext4')
+    $('.part1').addClass('hovertext4')
+  },
+  function () {
+    $(this).removeClass('hovertext')
+    $('.arrowright').removeClass('hovertext2')
+    $('.theme1').removeClass('hovertext3')
+    $('.arrowleft').removeClass('hovertext4')
+    $('.theme2').removeClass('hovertext4')
+    $('.part1').removeClass('hovertext4')
+  }
+)

@@ -1,4 +1,5 @@
 body {
+  overflow-x: hidden;
   width: 100vw;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -346,6 +347,7 @@ body {
   position: relative;
   font-family: 'Steinbeck Demo';
   width: 100vw;
+  margin-bottom: 5vh;
 }
 .part2 {
   display: flex;
@@ -397,4 +399,132 @@ body {
   align-self: flex-start;
   background-repeat: no-repeat;
   background-size: contain;
+}
+.hovertext {
+  text-shadow: 0px 1px 2vw #ff00d6;
+}
+.hovertext2 {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.hovertext3 {
+  background-color: #fb58e0;
+  color: white;
+}
+.hovertext4 {
+  opacity: 20%;
+}
+.block5 {
+  margin-top: 5vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 14.66666vw;
+}
+.block6 {
+  margin-top: 10vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  height: 5vw;
+}
+.hreftopromo {
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: 'Steinbeck Demo';
+  font-style: italic;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  padding-bottom: 1vw;
+  width: 94vw;
+  height: 7vw;
+  box-shadow: 0px 1px 5vw #ff00d6;
+  justify-content: space-around;
+  background: #313131;
+  border-radius: 2vw;
+  color: white;
+  font-size: 3.5vw;
+  transition: 0.5s;
+  img {
+    height: 4vw;
+    top: 0.5vw;
+    width: 4vw;
+  }
+}
+.hreftopromo:hover {
+  background-color: #ff00d6;
+}
+.block7 {
+  margin-top: 5vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  height: 20vw;
+  padding-bottom: 4vh;
+  .part4,
+  .part5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    font-size: 1.4vw;
+    font-style: normal;
+    width: 37.527777vw;
+  }
+  .part5 {
+    align-items: flex-end;
+  }
+  a {
+    transition: 0.5s;
+  }
+  a:hover {
+    text-shadow: 0px 1px 1vw #ff00d6;
+  }
+}
+.quest1,
+.quest2,
+.quest3,
+.quest4,
+.quest5,
+.quest6 {
+  position: absolute;
+  display: block;
+  width: 15vw;
+  height: 20vh;
+  font-family: 'Steinbeck Demo';
+  font-size: 1.5vw;
+}
+.quest1 {
+  left: 6vw;
+  top: 2vh;
+}
+.quest2 {
+  left: 15vw;
+  top: 17vh;
+}
+.quest3 {
+  left: 6vw;
+  top: 38vh;
+}
+.quest4 {
+  left: 77vw;
+  top: 6vh;
+}
+.quest5 {
+  left: 72vw;
+  top: 17vh;
+}
+.quest6 {
+  left: 79vw;
+  top: 38vh;
 }
