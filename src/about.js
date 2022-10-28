@@ -65,6 +65,13 @@ window.onload = function () {
   document.body.appendChild(css)
 }
 
+// function success() {
+//   if ($('#myform').value === '') {
+//     $('.everything').disabled = true
+//   } else {
+//     $('.everything').disabled = false
+//   }
+// }
 // ховеры емае
 $('.part1').hover(
   function () {
