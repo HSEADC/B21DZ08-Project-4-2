@@ -47,7 +47,7 @@ setInterval(function () {
   element.classList.remove('animationstep1')
   element.classList.add('animationstep2')
   $('.pagewithoutanimation').removeClass('hidden')
-}, 8000)
+}, 9000)
 window.onload = function () {
   var elements = document.getElementsByClassName('typewrite')
   for (var i = 0; i < elements.length; i++) {
