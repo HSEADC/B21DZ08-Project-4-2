@@ -1,14 +1,15 @@
-import './index.css'
+import './about.css'
+var element = document.querySelector('.logoanimation')
 var TxtType = function (el, toRotate, period) {
   this.toRotate = toRotate
   this.el = el
   this.loopNum = 0
-  this.period = parseInt(period, 10) || 2000
+  this.period = parseInt(period, 1) || 2000
   this.txt = ''
   this.tick()
   this.isDeleting = false
 }
-
+let timeoutID
 TxtType.prototype.tick = function () {
   var i = this.loopNum % this.toRotate.length
   var fullTxt = this.toRotate[i]
@@ -36,21 +37,17 @@ TxtType.prototype.tick = function () {
     this.loopNum++
     delta = 500
   }
-  let timeoutID
   timeoutID = setTimeout(function () {
     that.tick()
   }, delta)
-  // setInterval(function () {
-  //   console.log('работает')
-  //   clearTimeout(timeoutID)
-  //   var f = $('.wrap')
-  //   let content = f.innerText
-  //   if (content == ' любим') {
-  //     console.log('работает???')
-  //   }
-  // }, 1000)
 }
-
+setInterval(function () {
+  console.log('работает')
+  clearTimeout(timeoutID)
+  element.classList.remove('animationstep1')
+  element.classList.add('animationstep2')
+  $('.pagewithoutanimation').removeClass('hidden')
+}, 8000)
 window.onload = function () {
   var elements = document.getElementsByClassName('typewrite')
   for (var i = 0; i < elements.length; i++) {
@@ -64,16 +61,6 @@ window.onload = function () {
   var css = document.createElement('style')
   css.type = 'text/css'
   css.innerHTML =
-    '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw}'
+    '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw text-aligh center}'
   document.body.appendChild(css)
 }
-
-$('.starsvg1').on('mouseout', function () {
-  $(this).css('-webkit-animation-play-state', 'paused')
-  $(this).css('animation-play-state', 'paused')
-})
-
-$('.starsvg1').on('mouseover', function () {
-  $(this).css('-webkit-animation-play-state', 'running')
-  $(this).css('animation-play-state', 'running')
-})

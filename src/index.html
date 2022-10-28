@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>(рас)клад</title>
     <analytics></analytics>
-    <link rel="shortcut icon" href="images/joker.png" />
+    <link rel="shortcut icon" href="images/joker2.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -13,19 +13,34 @@
 
   <body class="index">
     <div class="header">
-      <div class="logo"></div>
+      <div
+        class="logo"
+        onclick="window.location='http://www.tiktok.com/@tarotmediaproject';"
+      ></div>
       <div class="menu">
         <!-- <button class="about" type="button" name="button">о проекте</button> -->
-        <div class="about">о проекте</div>
-        <img class="starsvg1" src="images/star.svg" alt="" />
+        <div class="about" onclick="window.location='about.html'">
+          о проекте
+        </div>
+        <img class="starsvg1 rotate" src="images/star.svg" alt="" />
         <!-- <button class="promo" type="button" name="button">промо</button> -->
-        <div class="promo">промо</div>
-        <img class="starsvg1" src="images/star.svg" alt="" />
-        <div class="platform">платформа</div>
+        <div
+          class="promo"
+          onclick="window.location='index.html'"
+          style="color: #ff00d6;"
+        >
+          промо
+        </div>
+        <img class="starsvg1 rotate" src="images/star.svg" alt="" />
+        <div class="platform" onclick="window.location='platform.html'">
+          платформа
+        </div>
         <!-- <button class="platform" type="button" name="button">платформа</button> -->
       </div>
       <!-- <button class="but" type="button" name="button">гадать сейчас</button> -->
-      <div class="but">гадать сейчас</div>
+      <div class="but" onclick="window.location='https://t.me/surofthedaybot';">
+        гадать сейчас
+      </div>
     </div>
     <div class="textblock">
       <img src="images/eyes.png" alt="" class="eyes2" />

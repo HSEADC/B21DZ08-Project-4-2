@@ -9,6 +9,7 @@ const path = require('path')
 module.exports = {
   entry: {
     index: './src/index.js',
+    about: './src/about.js',
     page: './src/page.jsx'
   },
   output: {
@@ -131,6 +132,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
       filename: './fortunetellings.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/platform.html',
+      filename: './platform.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/about.html',
+      filename: './about.html'
     }),
 
     // Partials

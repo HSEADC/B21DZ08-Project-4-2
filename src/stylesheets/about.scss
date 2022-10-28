@@ -1,4 +1,5 @@
 body {
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
@@ -13,7 +14,14 @@ body {
   font-style: normal;
   font-display: swap;
 }
+.pagewithoutanimation {
+  transition: 0.5s;
+}
 
+.hidden {
+  display: none;
+  transition: 0.5s;
+}
 .header {
   top: 1vh;
   position: fixed;
@@ -119,6 +127,7 @@ body {
   background-color: #313131;
   padding-bottom: 1vh;
   cursor: pointer;
+  font-family: 'Steinbeck Demo';
 }
 .logo {
   background-image: url('images/logo.svg');
@@ -127,87 +136,25 @@ body {
   background-position: center;
   cursor: pointer;
 }
-
-a {
-  position: relative;
-  display: inline-block;
-  color: #313131;
-  font-size: 10vw;
-  text-decoration: none;
-  line-height: 78.69%;
-  overflow-wrap: break-word;
+.logoanimation {
+  box-sizing: border-box;
+  margin-top: 7vh;
+  display: flex;
+  height: 86vh;
+  justify-content: center;
+  transition: 0.4s;
+  // align-items: center;
+  // align-items: flex-start;
 }
-.textblock {
-  display: block;
-  position: absolute;
-  width: 98vw;
-  color: #313131;
-  font-size: 10vw;
-  line-height: 78.69%;
-  left: 2vh;
-  height: 97vh;
-  top: 3vh;
+.animationstep1 {
+  padding-top: 20vh;
 }
-.word1,
-.word2,
-.word3,
-.word4,
-.word5,
-.eyes1,
-img {
-  position: relative;
-  display: inline-block;
+.animationstep2 {
+  padding-top: 0vh;
 }
-img {
-  width: 15vw;
-  height: 15vw;
-  margin-bottom: -10vw;
-  margin-left: -3vw;
-  margin-right: -3vw;
-  top: -5vw;
-}
-.ball,
-.joker {
-  width: 10vw;
-  height: 10vw;
-  margin-bottom: -7vw;
-}
-
-.everything {
-  position: absolute;
-  top: auto;
-  bottom: 2.5vh;
-  right: 0.5vh;
-  height: 10vh;
-  width: 10vh;
-  margin: 0;
-  display: block;
-}
-
-p {
-  font-size: 2vw;
-  color: #313131;
-}
-
-input {
-  text-indent: 5vw;
-  margin: 0;
-  line-height: 6vw;
-  height: 7vw;
-  -webkit-appearance: none;
-  position: absolute;
-  bottom: 2vh;
-  background: #f5f6ee;
-  opacity: 0.9;
-  border: 2px solid #ff8bec;
-  box-shadow: inset 0px 15.7503px 32.9324px #ff8bec;
-  border-radius: 2vw;
-  width: 98vw;
-  // height: 10vh;
-  cursor: pointer;
-}
-input::placeholder {
-  font-family: 'Steinbeck Demo';
+.wrap {
+  text-align: center;
   font-style: italic;
-  font-size: 2vw;
+  font-size: 20vw;
+  margin-right: 4vw;
 }
