@@ -54,6 +54,7 @@ window.onload = function () {
   // INJECT CSS
   var css = document.createElement('style')
   css.type = 'text/css'
-  css.innerHTML = '.typewrite > .wrap { border-right: 0.5vw solid #313131}'
+  css.innerHTML =
+    '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw}'
   document.body.appendChild(css)
 }

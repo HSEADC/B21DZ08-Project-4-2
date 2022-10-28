@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>(рас)клад</title>
     <analytics></analytics>
-    <link rel="shortcut icon" href="images/ok.png" />
+    <link rel="shortcut icon" href="images/joker.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -15,12 +15,16 @@
     <div class="header">
       <div class="logo"></div>
       <div class="menu">
+        <!-- <button class="about" type="button" name="button">о проекте</button> -->
         <div class="about">о проекте</div>
         <img class="starsvg1" src="images/star.svg" alt="" />
+        <!-- <button class="promo" type="button" name="button">промо</button> -->
         <div class="promo">промо</div>
         <img class="starsvg1" src="images/star.svg" alt="" />
         <div class="platform">платформа</div>
+        <!-- <button class="platform" type="button" name="button">платформа</button> -->
       </div>
+      <!-- <button class="but" type="button" name="button">гадать сейчас</button> -->
       <div class="but">гадать сейчас</div>
     </div>
     <div class="textblock">
@@ -43,8 +47,9 @@
       <img src="images/ball2.png" alt="" class="ball" />
       <br />
 
-      <a href="">на </a>
+      <a style="cursor: default; margin-bottom: 2vh;" href="">на </a>
       <a
+        style="cursor: default;"
         href=""
         class="typewrite"
         data-period="2000"
@@ -62,7 +67,10 @@
 
         <p id="my-form-status"></p>
       </form>
-      <p>оставь свой телеграм, чтобы быть в курсе запуска медиа</p>
+      <p>
+        оставь свой телеграм, чтобы быть в курсе запуска медиа, а пока погадать
+        можно здесь
+      </p>
       <img id="my-form-button" class="everything" src="images/ok.png" alt="" />
     </div>
     <!-- Place this script at the end of the body tag -->
@@ -106,7 +114,7 @@
       $(document).on('ready', function () {
         $(document).on('click', 'img.everything', function () {
           console.log('frji')
-          $('img,.word3, button').solitaireVictory()
+          $('.eyes2, .joker, .ball, .logo, .ok').solitaireVictory()
         })
       })
     </script>
