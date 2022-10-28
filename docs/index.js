@@ -40,9 +40,18 @@ TxtType.prototype.tick = function () {
     delta = 500;
   }
 
-  setTimeout(function () {
+  var timeoutID;
+  timeoutID = setTimeout(function () {
     that.tick();
-  }, delta);
+  }, delta); // setInterval(function () {
+  //   console.log('работает')
+  //   clearTimeout(timeoutID)
+  //   var f = $('.wrap')
+  //   let content = f.innerText
+  //   if (content == ' любим') {
+  //     console.log('работает???')
+  //   }
+  // }, 1000)
 };
 
 window.onload = function () {
@@ -60,8 +69,17 @@ window.onload = function () {
 
   var css = document.createElement('style');
   css.type = 'text/css';
-  css.innerHTML = '.typewrite > .wrap { border-right: 0.5vw solid #313131}';
+  css.innerHTML = '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw}';
   document.body.appendChild(css);
 };
+
+$('.starsvg1').on('mouseout', function () {
+  $(this).css('-webkit-animation-play-state', 'paused');
+  $(this).css('animation-play-state', 'paused');
+});
+$('.starsvg1').on('mouseover', function () {
+  $(this).css('-webkit-animation-play-state', 'running');
+  $(this).css('animation-play-state', 'running');
+});
 /******/ })()
 ;
