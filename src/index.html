@@ -20,7 +20,9 @@
       <div class="menu">
         <!-- <button class="about" type="button" name="button">о проекте</button> -->
         <div class="about" onclick="window.location='about.html'">
-          о проекте
+          <div class="classforhover">
+            о проекте
+          </div>
         </div>
         <img class="starsvg1 rotate" src="images/star.svg" alt="" />
         <!-- <button class="promo" type="button" name="button">промо</button> -->
@@ -29,11 +31,15 @@
           onclick="window.location='index.html'"
           style="color: #ff00d6;"
         >
-          промо
+          <div class="classforhover">
+            промо
+          </div>
         </div>
         <img class="starsvg1 rotate" src="images/star.svg" alt="" />
         <div class="platform" onclick="window.location='platform.html'">
-          платформа
+          <div class="classforhover">
+            платформа
+          </div>
         </div>
         <!-- <button class="platform" type="button" name="button">платформа</button> -->
       </div>
@@ -75,6 +81,7 @@
       <!-- modify this form HTML and place wherever you want your form -->
       <form id="my-form" action="https://formspree.io/f/mnqrzvnk" method="POST">
         <input
+          id="myform"
           placeholder="введи свой ник в телеграм"
           type="text"
           name="message"
@@ -83,8 +90,7 @@
         <p id="my-form-status"></p>
       </form>
       <p>
-        оставь свой телеграм, чтобы быть в курсе запуска медиа, а пока погадать
-        можно здесь
+        оставь свой телеграм, чтобы быть в курсе запуска медиа
       </p>
       <img id="my-form-button" class="everything" src="images/ok.png" alt="" />
     </div>
@@ -105,7 +111,7 @@
         })
           .then((response) => {
             if (response.ok) {
-              status.innerHTML = 'Thanks for your submission!'
+              // status.innerHTML = 'Thanks for your submission!'
               form.reset()
             } else {
               response.json().then((data) => {

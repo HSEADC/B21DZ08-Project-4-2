@@ -8,7 +8,7 @@ var TxtType = function TxtType(el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;
   this.loopNum = 0;
-  this.period = parseInt(period, 1) || 2000;
+  this.period = parseInt(period, 1) || 1400;
   this.txt = '';
   this.tick();
   this.isDeleting = false;
@@ -54,7 +54,7 @@ setInterval(function () {
   element.classList.remove('animationstep1');
   element.classList.add('animationstep2');
   $('.pagewithoutanimation').removeClass('hidden');
-}, 9000);
+}, 10000);
 
 window.onload = function () {
   var elements = document.getElementsByClassName('typewrite');
@@ -73,7 +73,14 @@ window.onload = function () {
   css.type = 'text/css';
   css.innerHTML = '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw text-aligh center}';
   document.body.appendChild(css);
-}; // ховеры емае
+}; // function success() {
+//   if ($('#myform').value === '') {
+//     $('.everything').disabled = true
+//   } else {
+//     $('.everything').disabled = false
+//   }
+// }
+// ховеры емае
 
 
 $('.part1').hover(function () {
