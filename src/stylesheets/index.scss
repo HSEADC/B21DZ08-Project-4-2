@@ -71,7 +71,7 @@ body {
 .platform,
 .about {
   width: 9vw;
-  transition: 0.5s;
+  // transition: 0.5s;
 }
 // .promo:hover,
 // .about:hover,
@@ -85,9 +85,10 @@ body {
 .about:hover .classforhover {
   text-shadow: 0px 1px 1vw #ff00d6;
 }
+
 .logo:hover,
 .but:hover {
-  transform: scale(0.9, 0.9);
+  transform: scale(0.97, 0.97);
 }
 .starsvg1 {
   width: 1.4vw;
@@ -146,6 +147,7 @@ a {
   text-decoration: none;
   line-height: 78.69%;
   overflow-wrap: break-word;
+  margin-right: 4vw;
 }
 .textblock {
   display: block;
@@ -293,4 +295,7 @@ input:focus {
 .eyes2 {
   margin-left: -3vw;
   margin-right: -3vw;
+}
+.logo .but {
+  transition: all 0.2s ease-in-out;
 }

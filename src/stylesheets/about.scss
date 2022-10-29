@@ -106,7 +106,7 @@ body {
 
 .logo:hover,
 .but:hover {
-  transform: scale(0.9, 0.9);
+  transform: scale(0.97, 0.97);
 }
 
 .starsvg1 {
@@ -580,4 +580,7 @@ body {
 .quest6 {
   right: 6vw;
   top: 38vh;
+}
+.logo .but {
+  transition: all 0.2s ease-in-out;
 }
