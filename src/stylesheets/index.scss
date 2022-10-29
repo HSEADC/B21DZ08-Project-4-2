@@ -172,8 +172,8 @@ img {
   width: 15vw;
   height: 15vw;
   margin-bottom: -10vw;
-  margin-left: -3vw;
-  margin-right: -3vw;
+  // margin-left: -3vw;
+  // margin-right: -3vw;
   top: -5vw;
 }
 .ball,
@@ -289,4 +289,8 @@ input:focus {
     padding-top: 0.5vw;
     border-radius: 2vw;
   }
+}
+.eyes2 {
+  margin-left: -3vw;
+  margin-right: -3vw;
 }
