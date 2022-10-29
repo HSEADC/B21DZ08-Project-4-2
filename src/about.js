@@ -4,7 +4,7 @@ var TxtType = function (el, toRotate, period) {
   this.toRotate = toRotate
   this.el = el
   this.loopNum = 0
-  this.period = parseInt(period, 1) || 1400
+  this.period = parseInt(period, 1) || 700
   this.txt = ''
   this.tick()
   this.isDeleting = false
@@ -43,11 +43,11 @@ TxtType.prototype.tick = function () {
 }
 setInterval(function () {
   console.log('работает')
-  clearTimeout(timeoutID)
+  // clearTimeout(timeoutID)
   element.classList.remove('animationstep1')
   element.classList.add('animationstep2')
   $('.pagewithoutanimation').removeClass('hidden')
-}, 10000)
+}, 5500)
 window.onload = function () {
   var elements = document.getElementsByClassName('typewrite')
   for (var i = 0; i < elements.length; i++) {
