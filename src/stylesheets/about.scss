@@ -166,10 +166,15 @@ body {
   justify-content: center;
   transition: 0.4s;
   z-index: 2;
+  font-style: italic;
+  font-size: 18vw;
+  width: 100vw;
+  // margin-right: 1vw;
+  color: #313131;
   // align-items: center;
   // align-items: flex-start;
 }
-.typewrite {
+.lowrite {
   z-index: -1;
 }
 
