@@ -366,3 +366,33 @@ input:focus {
   position: absolute;
   top: 86vh;
 }
+.A_bigbuttonbelow {
+  display: block;
+  margin: 0;
+  line-height: 6vh;
+  height: 11vh;
+  -webkit-appearance: none;
+  position: absolute;
+  text-align: center;
+  bottom: 2vh;
+  background: #f5f6ee;
+  opacity: 0.9;
+  border: none;
+  padding-top: 1vw;
+  box-shadow: inset 0px 15.7503px 32.9324px #ff8bec;
+  border-radius: 2vw;
+  width: 98vw;
+  cursor: pointer;
+  font-family: 'Steinbeck Demo';
+  font-style: italic;
+  font-size: 3vw;
+  transition: all 0.2s ease-in-out;
+}
+.A_bigbuttonbelow:hover {
+  background: #ff00d6;
+  color: #f5f6ee;
+  opacity: 0.5;
+}
+.M_headerformobile {
+  display: none;
+}
