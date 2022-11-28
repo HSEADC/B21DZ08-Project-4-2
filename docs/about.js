@@ -46,15 +46,14 @@ TxtType.prototype.tick = function () {
   timeoutID = setTimeout(function () {
     that.tick();
   }, delta);
-};
+}; // setInterval(function () {
+//   console.log('работает')
+//   // clearTimeout(timeoutID)
+//   element.classList.remove('animationstep1')
+//   element.classList.add('animationstep2')
+//   $('.pagewithoutanimation').removeClass('hidden')
+// }, 5500)
 
-setInterval(function () {
-  console.log('работает'); // clearTimeout(timeoutID)
-
-  element.classList.remove('animationstep1');
-  element.classList.add('animationstep2');
-  $('.pagewithoutanimation').removeClass('hidden');
-}, 5500);
 
 window.onload = function () {
   var elements = document.getElementsByClassName('typewrite');
