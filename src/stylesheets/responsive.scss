@@ -360,6 +360,7 @@
     gap: 5vh;
     .part4 {
       gap: 2vh;
+      align-items: center;
     }
     .part5 {
       align-items: center;
@@ -375,7 +376,15 @@
   }
   .block7 .part4,
   .block7 .part5 {
-    width: 43.527777vw;
+    width: 53.527777vw;
+  }
+  .block5 {
+    margin-top: 18vh;
+  }
+  .starsvg1 {
+    width: 2vw;
+    height: 2vw;
+    top: -0.3vh;
   }
 }
 
@@ -556,6 +565,7 @@
     gap: 5vh;
     .part4 {
       gap: 2vh;
+      align-items: center;
     }
     .part5 {
       align-items: center;
@@ -571,6 +581,11 @@
   }
   .block7 .part4,
   .block7 .part5 {
-    width: 43.527777vw;
+    width: 53.527777vw;
+  }
+  .starsvg1 {
+    width: 2vw;
+    height: 2vw;
+    top: -0.3vh;
   }
 }
