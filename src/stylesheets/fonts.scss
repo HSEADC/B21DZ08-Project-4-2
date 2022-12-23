@@ -43,3 +43,65 @@
   font-weight: 400;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Wremena';
+  src: url('fonts/Wremena.woff2') format('woff2'),
+    url('fonts/Wremena.woff') format('woff'),
+    url('fonts/Wremena.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wremena';
+  src: url('fonts/Wremena-Bold.woff2') format('woff2'),
+    url('fonts/Wremena-Bold.woff') format('woff'),
+    url('fonts/Wremena-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gramatika Demo';
+  src: url('fonts/GramatikaDemo-Regular.woff2') format('woff2'),
+    url('fonts/GramatikaDemo-Regular.woff') format('woff'),
+    url('fonts/GramatikaDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gramatika Demo';
+  src: url('fonts/GramatikaDemo-BoldSlanted.woff2') format('woff2'),
+    url('fonts/GramatikaDemo-BoldSlanted.woff') format('woff'),
+    url('fonts/GramatikaDemo-BoldSlanted.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Wremena';
+  src: url('fonts/Wremena-Light.woff2') format('woff2'),
+    url('fonts/Wremena-Light.woff') format('woff'),
+    url('fonts/Wremena-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gramatika Demo';
+  src: url('fonts/GramatikaDemo-Bold.woff2') format('woff2'),
+    url('fonts/GramatikaDemo-Bold.woff') format('woff'),
+    url('fonts/GramatikaDemo-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gramatika Demo';
+  src: url('fonts/GramatikaDemo-Slanted.woff2') format('woff2'),
+    url('fonts/GramatikaDemo-Slanted.woff') format('woff'),
+    url('fonts/GramatikaDemo-Slanted.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
