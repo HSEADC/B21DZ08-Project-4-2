@@ -1,0 +1,379 @@
+body {
+  background: #f8f6f0;
+  overflow: overlay;
+  overflow-x: hidden;
+  font-family: 'Gramatika Demo';
+  cursor: url('./images/cursor.svg'), auto;
+  h1 {
+    font-size: 550%;
+    text-align: center;
+    font-family: 'Gramatika Demo';
+  }
+  h2 {
+    font-size: 300%;
+    font-family: 'Gramatika Demo';
+    text-align: center;
+  }
+  p {
+    font-size: 120%;
+    margin-top: 1vh;
+    font-family: 'Gramatika Demo';
+    text-align: center;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #313131;
+  border-radius: 200px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8bec;
+  border-radius: 200px;
+}
+h1 {
+  // font-size: 550%;
+  text-align: center;
+  font-family: 'Gramatika Demo';
+}
+.prikolfont {
+  font-family: 'Wremena';
+  font-weight: 300;
+}
+.gootransparent {
+  // font-size: 3rem;
+  // line-height: 1.35;
+  position: relative;
+  display: inline;
+  box-decoration-break: clone;
+  background: var(--white);
+  padding: 0.5rem 0.7rem;
+  filter: url('#goo');
+  top: 15vh;
+  z-index: 0;
+}
+.button12 {
+  cursor: url('./images/pointer.svg'), auto;
+  transition: 0.5s;
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+.button12:hover {
+  color: var(--pink);
+}
+.headerlanding {
+  position: fixed;
+}
+.goo {
+  // font-size: 3rem;
+  // line-height: 1.35;
+  display: inline;
+  box-decoration-break: clone;
+  background: var(--white);
+  padding: 0.5rem 1rem;
+  filter: url('#goo');
+  font-size: 20%;
+  a {
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    // padding: 0.5rem 1rem;
+    filter: url('#goo');
+    font-size: 100%;
+  }
+}
+.back1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1384;
+  height: 2014;
+}
+.back2 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1384;
+  height: 2014;
+}
+.back3 {
+  position: absolute;
+  width: 100vw;
+  height: 200vh;
+  top: 220vh;
+
+  background: radial-gradient(
+      96.48% 41.68% at 50% 56%,
+      #fda8e5 0%,
+      rgba(185, 185, 185, 0) 100%
+    ),
+    #f5f6ee;
+}
+.back4 {
+  position: absolute;
+  left: 0;
+  bottom: 100vh;
+  width: 1384;
+  height: 2014;
+}
+.back5 {
+  position: absolute;
+  right: 0;
+  bottom: 100vh;
+  width: 1384;
+  height: 2014;
+}
+.headerflex {
+  display: flex;
+  top: 0;
+  position: absolute;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1vw;
+  width: 100vw;
+  height: 10vh;
+  line-height: 70%;
+  z-index: 1000;
+}
+.starsvg1 {
+  width: 1.4vw;
+  height: 1.4vw;
+  top: 0.5vh;
+  margin: 0;
+}
+.с2_landingpage {
+  display: flex;
+  position: relative;
+  top: 25vh;
+  left: 10vw;
+  width: 80vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  h2 {
+    font-size: 300%;
+    font-family: 'Gramatika Demo';
+    text-align: center;
+  }
+}
+.c3_landingpage {
+  display: flex;
+  position: relative;
+  top: 25vh;
+  width: 98vw;
+  left: 1vw;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+  gap: 2vw;
+  img {
+    width: auto;
+    height: 60vh;
+    margin-bottom: 0;
+    top: 0;
+  }
+}
+.c4_landingpage {
+  display: flex;
+  position: relative;
+  top: 30vh;
+  left: 15vw;
+  width: 70vw;
+  height: auto;
+  gap: 10vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  .c_c4 {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    height: auto;
+    gap: 8vw;
+    font-family: 'Gramatika Demo';
+    font-size: 150%;
+    .m_c4_cardlanding {
+      height: auto;
+      gap: 1vw;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      img {
+        width: auto;
+        height: 10vw;
+        margin-bottom: 0;
+        top: 0;
+      }
+    }
+  }
+  h2 {
+    font-size: 300%;
+    font-family: 'Gramatika Demo';
+    text-align: center;
+  }
+}
+.с5_landingpage {
+  display: flex;
+  position: relative;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  .gootransparent {
+    top: 0;
+  }
+}
+
+.c6_landingpage {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  top: 25vh;
+  left: 2vw;
+  width: 96vw;
+  height: 150vh;
+  gap: 4vh;
+  .prikolfont {
+    font-size: 122%;
+  }
+  img {
+    height: 70vh;
+    width: auto;
+    margin-bottom: 0;
+    top: 0;
+  }
+  .c_c6_landingpage {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    justify-content: space-between;
+  }
+  .m1_c6 {
+  }
+  .m2_c6 {
+    margin-left: -10vw;
+  }
+}
+
+.c7_landingpage {
+  display: flex;
+  position: relative;
+  top: 25vh;
+  left: 2vw;
+  width: 96vw;
+  height: 100vh;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .c1_c7,
+  .c3_c7 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+  }
+  .m1_c7,
+  .m2_c7 {
+    height: 50vh;
+    width: auto;
+    margin-bottom: 0;
+    top: 0;
+  }
+}
+.c8_landingpage {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+
+  top: 25vh;
+  border-radius: 20px 20px 0px 0px;
+  background: radial-gradient(
+      61.99% 61.99% at 50% 0%,
+      #292929 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    radial-gradient(
+      85.93% 85.93% at 50% 100%,
+      #292929 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    #ffa9e7;
+  p {
+    color: var(--white);
+    position: absolute;
+    bottom: 1vh;
+  }
+}
+.buttoncard {
+  cursor: url('./images/pointer.svg'), auto;
+  transition: 0.4s;
+}
+.buttoncard:hover {
+  transform: scale(0.96, 0.96);
+}
+.c1_articles {
+  position: relative;
+
+  height: 60vh;
+  .gootransparent {
+  }
+}
+
+.c4_articles {
+  display: flex;
+  width: 90vw;
+  left: 5vw;
+  position: relative;
+
+  flex-wrap: wrap;
+  height: 246vh;
+  gap: 2vw;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  img {
+    margin: 0;
+    top: 0;
+    height: auto;
+    width: 40vh;
+  }
+  h3 {
+  }
+  .m3_card {
+    // display: flex;
+    // flex-direction: column;
+    height: auto;
+    border-radius: 20px;
+    width: 40vh;
+
+    h3 {
+      font-size: 200%;
+      text-align: left;
+    }
+    p {
+      font-family: 'Wremena';
+      text-align: left;
+    }
+  }
+}

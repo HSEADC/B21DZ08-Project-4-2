@@ -11,6 +11,8 @@ module.exports = {
   entry: {
     index: './src/index.js',
     about: './src/about.js',
+    styleguide: './src/styleguide.js',
+    articles: './src/articles.js',
     page: './src/page.jsx'
   },
   output: {
@@ -104,7 +106,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/articles.html',
-      filename: './articles.html'
+      filename: './articles.html',
+      chunks: ['articles']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
@@ -145,6 +148,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/about.html',
       filename: './about.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/styleguide.html',
+      filename: './styleguide.html'
     }),
 
     // Partials

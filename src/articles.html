@@ -2,26 +2,306 @@
 <html lang="ru" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>гадания</title>
+    <title>статьи | расклад</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="(рас)клад — медиа о таро" />
+    <meta
+      name="description"
+      content="(рас)клад — это медиа о таро для зумерок, сочетающее в себе онлайн-гадания в различных форматах, актуальные статьи о культуре таро и справочник с трактовками карт."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="(рас)клад — медиа о таро" />
+    <meta
+      property="og:description"
+      content="(рас)клад — это медиа о таро для зумерок, сочетающее в себе онлайн-гадания в различных форматах, актуальные статьи о культуре таро и справочник с трактовками карт."
+    />
+
+    <meta
+      property="og:image"
+      content="https://rasklad.adc.ac/share/metatags.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="(рас)клад — медиа о таро" />
+    <meta
+      property="twitter:description"
+      content="(рас)клад — это медиа о таро для зумерок, сочетающее в себе онлайн-гадания в различных форматах, актуальные статьи о культуре таро и справочник с трактовками карт."
+    />
+    <meta
+      property="twitter:image"
+      content="https://rasklad.adc.ac/share/metatags.jpg"
+    />
+
     <analytics></analytics>
+
+    <link rel="shortcut icon" href="images/joker2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="javascript/solitaireVictory.js" charset="utf-8"></script>
   </head>
 
-  <body class="fortunetellings">
-    <div class="headeronplatform">
-      <a href="platform.html">главная</a>
-      <a href="cardoftheday.html">карта дня</a>
-      <a href="articles.html">почитать</a>
-      <a href="fortunetellings.html" style="color: #ff00d6;">погадать</a>
-      <a href="about.html">о нас</a>
-      <a href="./">промо</a>
+  <body class="articles">
+    <div class="backs">
+      <div class="back1">
+        <svg
+          width="1384"
+          height="2014"
+          viewBox="0 0 1384 2014"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1364 -8.74227e-07C1375.05 -3.91404e-07 1384 8.95431 1384 20L1384 1994C1384 2005.05 1375.05 2014 1364 2014L3.40356e-05 2014L0.00012207 -6.04966e-05L1364 -8.74227e-07Z"
+            fill="url(#paint0_radial_1002_6843)"
+          />
+          <defs>
+            <radialGradient
+              id="paint0_radial_1002_6843"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="translate(0.00012971 674.5) scale(1175.5 905.891)"
+            >
+              <stop stop-color="#292929" />
+              <stop
+                offset="0.987374"
+                stop-color="#FFA9E7"
+                stop-opacity="0.01"
+              />
+              <stop offset="1" stop-color="white" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="back2">
+        <svg
+          width="1384"
+          height="2014"
+          viewBox="0 0 1384 2014"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20 -8.74227e-07C8.95428 -3.91404e-07 3.91405e-07 8.95431 8.74228e-07 20L8.71605e-05 1994C8.76433e-05 2005.05 8.95439 2014 20.0001 2014L1384 2014L1384 -6.04966e-05L20 -8.74227e-07Z"
+            fill="url(#paint0_radial_1002_6845)"
+          />
+          <defs>
+            <radialGradient
+              id="paint0_radial_1002_6845"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="translate(1384 674.5) rotate(180) scale(1175.5 905.891)"
+            >
+              <stop stop-color="#292929" />
+              <stop offset="1" stop-color="#FFA9E7" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
     </div>
+    <header class="headerlanding" style="z-index: 1;">
+      <div class="headerflex">
+        <h1>
+          <div class="goo button12" onclick="window.location='index.html'">
+            рас)клад
+          </div>
+        </h1>
+        <h1>
+          <div class="goo">
+            <a
+              ><span
+                class="button12"
+                onclick="window.location='fortunetellings.html'"
+                >погадать</span
+              ></a
+            ><a><span>почитать</span></a
+            ><a><span class="button12">толкования карт</span> </a
+            ><a><span class="button12">карта дня</span></a>
+          </div>
+        </h1>
 
-    <div class="blockofchoice">
-      это страничка со статьями, пока почитать можно только это
-      <br />
-      <a href="articles/article.html"
-        >что делать, если постоянно выпадают жезлы?</a
-      >
+        <h1>
+          <div class="goo button12">
+            поиск
+          </div>
+        </h1>
+      </div>
+    </header>
+    <div class="c1_articles">
+      <h1>
+        <div class="gootransparent">
+          у нас флекс статьи)))<br />
+          <span class="prikolfont">обо всем и мы поможем</span> <br />
+          разобраться
+        </div>
+      </h1>
     </div>
+    <div class="c2_articles">
+      <div class="m2_articles">
+        <h2>
+          <div>
+            <span>все статьи</span><span class="button12">о картах</span
+            ><span class="button12">о колодах</span>
+            <span class="button12">о тарологах</span>
+          </div>
+        </h2>
+      </div>
+    </div>
+    <div class="c3_articles">
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card m3_twice buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card m3_twice buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card m3_twice buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+      <div class="m3_card buttoncard">
+        <div class="a_m3_card"></div>
+        <h3>что такое таро уэйта?</h3>
+        <p>
+          кто такой загадочный уэйт и почему все гадают именно на его колоде
+        </p>
+      </div>
+    </div>
+    <svg
+      style="visibility: hidden; position: absolute;"
+      width="0"
+      height="0"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+    >
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+            result="goo"
+          />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
   </body>
 </html>
