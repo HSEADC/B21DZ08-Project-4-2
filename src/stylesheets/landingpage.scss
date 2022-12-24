@@ -360,6 +360,14 @@ h1 {
   }
   h3 {
   }
+  .m2_c4 {
+    // display: flex;
+    // flex-direction: column;
+    height: auto;
+    border-radius: 20px;
+    width: 40vh;
+    text-align: left;
+  }
   .m3_card {
     // display: flex;
     // flex-direction: column;
@@ -374,6 +382,70 @@ h1 {
     p {
       font-family: 'Wremena';
       text-align: left;
+    }
+  }
+}
+
+.c3_articles {
+  display: flex;
+  width: 90vw;
+  left: 5vw;
+  position: relative;
+
+  flex-wrap: wrap;
+  height: 246vh;
+  gap: 2vw;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  img {
+    margin: 0;
+    top: 0;
+    height: auto;
+    width: 40vh;
+  }
+  .m3_card {
+    // display: flex;
+    // flex-direction: column;
+    height: auto;
+    border-radius: 20px;
+    width: 40vh;
+    padding: 4vh;
+    flex-grow: 1;
+    background: radial-gradient(
+          98.45% 57.5% at 52.94% -0.07%,
+          #ffafe9 0%,
+          rgba(255, 175, 233, 0) 79.69%
+        )
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+      rgba(245, 246, 238, 0.01);
+    box-shadow: 0px 4.04257px 6.68182px rgba(0, 0, 0, 0.25),
+      inset 0px 4.04257px 10.1064px #f8f6f0;
+    border-radius: 22px;
+    .a_m3_card {
+      height: 20vh;
+      margin-bottom: 2vh;
+      border-radius: 22px;
+      width: auto;
+      background: linear-gradient(
+        180deg,
+        #ffd2ed 0%,
+        rgba(255, 210, 237, 0) 100%
+      );
+      border-radius: 10px;
+      transform: matrix(1, 0, 0, -1, 0, 0);
+    }
+    h3 {
+      font-size: 200%;
+      text-align: center;
+    }
+    p {
+      font-family: 'Wremena';
+      text-align: center;
+    }
+    .m3_twice {
+      flex-grow: 2;
     }
   }
 }
