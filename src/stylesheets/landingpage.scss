@@ -49,8 +49,7 @@ h1 {
   font-weight: 300;
 }
 .gootransparent {
-  // font-size: 3rem;
-  // line-height: 1.35;
+  padding: auto;
   position: relative;
   display: inline;
   box-decoration-break: clone;
@@ -227,10 +226,10 @@ h1 {
 .с5_landingpage {
   display: flex;
   position: relative;
-  top: 25vh;
+  top: 30vh;
   left: 25vw;
   width: 50vw;
-  height: 100vh;
+  height: 85vh;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -244,7 +243,7 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   position: relative;
-  top: 25vh;
+  top: 14vh;
   left: 2vw;
   width: 96vw;
   height: 150vh;
@@ -264,6 +263,12 @@ h1 {
     margin-left: 10vw;
     margin-right: 10vw;
     justify-content: space-between;
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1vh;
+    }
   }
   .m1_c6 {
   }
@@ -275,7 +280,7 @@ h1 {
 .c7_landingpage {
   display: flex;
   position: relative;
-  top: 25vh;
+  top: 7vh;
   left: 2vw;
   width: 96vw;
   height: 100vh;
@@ -550,4 +555,11 @@ h1 {
   gap: 4.9vw;
   justify-content: center;
   align-items: center;
+}
+.helpingone {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
