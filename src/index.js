@@ -1,4 +1,5 @@
 import './index.css'
+
 var TxtType = function (el, toRotate, period) {
   this.toRotate = toRotate
   this.el = el
@@ -51,22 +52,22 @@ TxtType.prototype.tick = function () {
   // }, 1000)
 }
 
-window.onload = function () {
-  var elements = document.getElementsByClassName('typewrite')
-  for (var i = 0; i < elements.length; i++) {
-    var toRotate = elements[i].getAttribute('data-type')
-    var period = elements[i].getAttribute('data-period')
-    if (toRotate) {
-      new TxtType(elements[i], JSON.parse(toRotate), period)
-    }
-  }
-  // INJECT CSS
-  var css = document.createElement('style')
-  css.type = 'text/css'
-  css.innerHTML =
-    '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw}'
-  document.body.appendChild(css)
-}
+// window.onload = function () {
+//   var elements = document.getElementsByClassName('typewrite')
+//   for (var i = 0; i < elements.length; i++) {
+//     var toRotate = elements[i].getAttribute('data-type')
+//     var period = elements[i].getAttribute('data-period')
+//     if (toRotate) {
+//       new TxtType(elements[i], JSON.parse(toRotate), period)
+//     }
+//   }
+//   // INJECT CSS
+//   var css = document.createElement('style')
+//   css.type = 'text/css'
+//   css.innerHTML =
+//     '.typewrite > .wrap { border-right: 0.5vw solid #313131 height:2vw}'
+//   document.body.appendChild(css)
+// }
 
 $('.starsvg1').on('mouseout', function () {
   $(this).css('-webkit-animation-play-state', 'paused')
@@ -77,3 +78,4 @@ $('.starsvg1').on('mouseover', function () {
   $(this).css('-webkit-animation-play-state', 'running')
   $(this).css('animation-play-state', 'running')
 })
+
