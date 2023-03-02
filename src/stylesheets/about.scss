@@ -1,0 +1,591 @@
+body {
+  overflow-x: hidden;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background: linear-gradient(
+      180deg,
+      #ff8bec 0%,
+      rgba(255, 139, 236, 0) 12.5%,
+      rgba(255, 139, 236, 0) 100% fixed
+    ),
+    #f5f6ee;
+  font-family: 'Steinbeck Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f6ee;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #313131;
+  border-radius: 200px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8bec;
+  border-radius: 200px;
+}
+.pagewithoutanimation {
+  transition: 0.5s;
+}
+
+.hidden {
+  display: none;
+  transition: 0.5s;
+}
+.header {
+  top: 1vh;
+  position: fixed;
+  display: flex;
+  width: 66.25vw;
+  left: 16.875vw;
+  justify-content: space-between;
+  font-size: 1.3vw;
+  z-index: 5;
+}
+.menu,
+.logo,
+.but {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #313131;
+  text-align: center;
+  background-color: white;
+  border-radius: 2vw;
+  height: 3vw;
+  width: 15.55555vw;
+  // -webkit-transition: opacity 0.2s ease-in-out;
+  // -moz-transition: opacity 0.2s ease-in-out;
+  // -ms-transition: opacity 0.2s ease-in-out;
+  // -o-transition: opacity 0.2s ease-in-out;
+  // transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.promo,
+.about,
+.platform {
+  border: none;
+  border-radius: 2vw;
+  color: #313131;
+  height: 3vw;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Steinbeck Demo';
+  font-size: 1.4vw;
+  cursor: pointer;
+  // -webkit-transition: opacity 0.2s ease-in-out;
+  // -moz-transition: opacity 0.2s ease-in-out;
+  // -ms-transition: opacity 0.2s ease-in-out;
+  // -o-transition: opacity 0.2s ease-in-out;
+  // transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+.promo {
+  width: 5vw;
+}
+.platform,
+.about {
+  width: 9vw;
+}
+// .promo:hover,
+// .about:hover,
+// .platform:hover {
+//   opacity: 0.5;
+// }
+
+.logo:hover,
+.but:hover {
+  transform: scale(0.97, 0.97);
+}
+
+.starsvg1 {
+  width: 1.4vw;
+  height: 1.4vw;
+  top: 0.5vh;
+  margin: 0;
+}
+.rotate:hover {
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.menu {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vh;
+  display: flex;
+  justify-content: space-around;
+  width: 32.4305555vw;
+}
+.but {
+  color: #f5f6ee;
+  background-color: #313131;
+  padding-bottom: 1vh;
+  cursor: pointer;
+  font-family: 'Steinbeck Demo';
+}
+.logo {
+  background-image: url('images/logo.svg');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+.logoanimation {
+  box-sizing: border-box;
+  margin-top: 7vh;
+  display: flex;
+  height: 86vh;
+  justify-content: center;
+  transition: 0.4s;
+  z-index: 2;
+  font-style: italic;
+  font-size: 18vw;
+  width: 100vw;
+  // margin-right: 1vw;
+  color: #313131;
+  // align-items: center;
+  // align-items: flex-start;
+}
+.lowrite {
+  z-index: -1;
+}
+
+.animationstep1 {
+  padding-top: 20vh;
+}
+.animationstep2 {
+  padding-top: 0vh;
+}
+.wrap {
+  text-align: center;
+  font-style: italic;
+  font-size: 20vw;
+  margin-right: 4vw;
+}
+
+:root {
+  --level-one: translateZ(3rem);
+  --level-two: translateZ(6rem);
+  --level-three: translateZ(9rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+// body {
+//   height: 100vh;
+//   display: grid;
+//   place-items: center;
+//   font-family: 'Oswald', sans-serif;
+// }
+
+.card__content {
+  transition: transform 3s;
+  transform-style: preserve-3d;
+  height: 30vw;
+}
+
+.card:hover .card__content {
+  transform: rotateY(0.5turn);
+}
+
+.card__front,
+.card__back {
+  // position: relative;
+  z-index: 4;
+  position: absolute;
+  width: 21vw;
+  height: 30vw;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // padding: 5em 3em;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  // display: grid;
+  // align-content: center;
+}
+.card {
+  width: 21vw;
+  height: 30vw;
+}
+.cardbox {
+  // height: 100vh;
+  display: flex;
+  width: 100vw;
+  height: 64vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.card__front {
+  background-image: url('images/cardtransition1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 20px 53px rgba(245, 120, 225, 0.14));
+}
+
+.card__front::before {
+  content: '';
+  position: absolute;
+  --spacer: 1em;
+  top: var(--spacer);
+  bottom: var(--spacer);
+  left: var(--spacer);
+  right: var(--spacer);
+  transform: var(--level-one);
+}
+
+.card__back {
+  transform: rotateY(0.5turn);
+  background-image: url('images/cardtransition2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 0px 34px #e2e2db) drop-shadow(0px 0px 34px #e2e2db)
+    drop-shadow(0px 0px 34px #e2e2db);
+}
+.shadow {
+  background-image: url('images/shadow.svg');
+  width: 21vw;
+  height: 20vw;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 48vh;
+}
+
+.block2 {
+  position: relative;
+  display: flex;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  position: relative;
+  font-size: 3.5vw;
+  font-family: 'Steinbeck Demo';
+  width: 100vw;
+  height: 40.3333vh;
+}
+.block3 {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  position: relative;
+  font-family: 'Steinbeck Demo';
+  width: 100vw;
+  height: 74.66666vh;
+}
+.leftpart {
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: 1.5vw;
+  width: 21vw;
+  height: 57.66665999999999vh;
+}
+.rightpart {
+  width: 73vw;
+  display: flex;
+  flex-direction: row;
+  height: 66.66666vh;
+}
+.card1 {
+  background-image: url('images/card1.png');
+}
+.card2 {
+  background-image: url('images/card3.png');
+}
+.card3 {
+  background-image: url('images/card2.png');
+}
+.card1,
+.card2,
+.card3 {
+  transition: 0.5s;
+  height: 66.66666vh;
+  background-repeat: no-repeat;
+  width: 30vw;
+  background-size: contain;
+  margin: -3vw;
+}
+.card1:hover,
+.card3:hover {
+  -webkit-transform: rotate(10deg);
+  -moz-transform: rotate(10deg);
+  -o-transform: rotate(10deg);
+  -ms-transform: rotate(10deg);
+  transform: rotate(10deg);
+}
+
+.card2:hover {
+  -webkit-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  -o-transform: rotate(-10deg);
+  -ms-transform: rotate(-10deg);
+  transform: rotate(-10deg);
+}
+.block4 {
+  position: relative;
+  display: flex;
+  height: 38.8888vh;
+  flex-direction: row;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  position: relative;
+  font-family: 'Steinbeck Demo';
+  width: 100vw;
+  margin-bottom: 5vh;
+}
+.part2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  width: 37.527777vw;
+  height: 25.888800000000003vh;
+  justify-content: center;
+  align-items: center;
+}
+.part1,
+.part3 {
+  display: flex;
+  flex-direction: column;
+  font-size: 3.5vw;
+  font-style: italic;
+  height: 30.888800000000003vh;
+  width: 28.2361115vw;
+}
+
+.themes {
+  display: inline-flex;
+  font-size: 1.5vw;
+  padding: 1vw;
+  padding-top: 0.5vw;
+  text-align: center;
+  background-color: #edeee4;
+  border-radius: 2vw;
+}
+.arrowleft {
+  margin-top: 2vh;
+  background-image: url('images/arrow.svg');
+  width: 19vw;
+  height: 20vh;
+  right: 10vw;
+  align-self: flex-end;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.part3 {
+  text-align: right;
+}
+.arrowright {
+  background-image: url('images/arrow.svg');
+  transform: rotate(180deg);
+  width: 19vw;
+  height: 20vh;
+  right: 10vw;
+  align-self: flex-start;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.hovertext {
+  text-shadow: 0px 1px 2vw #ff00d6;
+}
+.hovertext2 {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.hovertext3 {
+  background-color: #fb58e0;
+  color: white;
+}
+.hovertext4 {
+  opacity: 20%;
+}
+// .part1:hover {
+//   .part1 {
+//     text-shadow: 0px 1px 2vw #ff00d6;
+//   }
+//   .part3,
+//   .arrowright,
+//   .theme1 {
+//     opacity: 20%;
+//   }
+//   .arrowleft {
+//     -webkit-filter: grayscale(100%);
+//     filter: grayscale(100%);
+//   }
+//   .theme2 {
+//     background-color: #fb58e0;
+//     color: white;
+//   }
+// }
+
+// .part1:hover {
+//   text-shadow: 0px 1px 2vw #ff00d6;
+// }
+//
+// .part1:hover .arrowleft {
+//   -webkit-filter: grayscale(100%);
+//   filter: grayscale(100%);
+// }
+//
+// .part1:hover .part3 {
+//   opacity: 20%;
+// }
+.block5 {
+  margin-top: 7vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 14.66666vw;
+}
+.block6 {
+  margin-top: 10vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  height: 5vw;
+}
+.hreftopromo {
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: 'Steinbeck Demo';
+  font-style: italic;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  padding-bottom: 1vw;
+  width: 94vw;
+  height: 7vw;
+  box-shadow: 0px 1px 5vw #ff00d6;
+  justify-content: space-around;
+  background: #313131;
+  border-radius: 2vw;
+  color: white;
+  font-size: 3.5vw;
+  transition: 0.5s;
+  img {
+    height: 4vw;
+    top: 0.5vw;
+    width: 4vw;
+  }
+}
+.hreftopromo:hover {
+  background-color: #ff00d6;
+}
+.block7 {
+  margin-top: 5vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  width: 100vw;
+  display: flex;
+  height: 20vw;
+  padding-bottom: 4vh;
+  .part4,
+  .part5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    font-size: 1.4vw;
+    font-style: normal;
+    width: 37.527777vw;
+    font-family: 'Steinbeck';
+  }
+  .part5 {
+    align-items: flex-end;
+  }
+  a {
+    transition: 0.5s;
+  }
+  a:hover {
+    text-shadow: 0px 1px 1vw #ff00d6;
+  }
+}
+.quest1,
+.quest2,
+.quest3,
+.quest4,
+.quest5,
+.quest6 {
+  position: absolute;
+  display: block;
+  width: 15vw;
+  height: 20vh;
+  font-family: 'Steinbeck Demo';
+  font-size: 1.5vw;
+}
+.quest1 {
+  left: 6vw;
+  top: 2vh;
+}
+.quest2 {
+  left: 15vw;
+  top: 19vh;
+}
+.quest3 {
+  left: 6vw;
+  top: 38vh;
+}
+.quest4 {
+  right: 6vw;
+  top: 2vh;
+}
+.quest5 {
+  right: 15vw;
+  top: 19vh;
+}
+.quest6 {
+  right: 6vw;
+  top: 38vh;
+}
+.logo .but {
+  transition: all 0.2s ease-in-out;
+}

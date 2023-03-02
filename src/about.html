@@ -91,6 +91,104 @@
         о проекте
       </div>
     </div>
-   <div style="font-size: 40pt ; top: 10vh; position: absolute;"> подружка, мы уже запустились, так что ливай с этой странички промо</div>
+    <div class="textblock">
+      <img src="images/eyes.png" alt="" class="eyes2" />
+      <h1 class="word1" style="font-size: 10vw;">узнать</h1>
+      <br />
+      <h1 class="word2" style="font-size: 10vw;">о картах</h1>
+      <img src="images/joker2.png" alt="" class="joker" />
+      <h1
+        class="word3"
+        style="font-size: 10vw; font-style: italic; color: #313131;"
+      >
+        таро
+      </h1>
+      <br />
+      <h1 class="word4" style="font-size: 10vw;">и</h1>
+      <h1 class="word5" style="font-size: 10vw; font-style: italic;">
+        погадать
+      </h1>
+      <img src="images/ball2.png" alt="" class="ball" />
+      <br />
+
+      <a style="cursor: default; margin-bottom: 2vh;" href="">на </a>
+      <a
+        style="cursor: default;"
+        href=""
+        class="typewrite"
+        data-period="2000"
+        data-type='[ " любимого", " отношения", " будущее", " олега", " деньги", " политику", " настю м", " карьеру", " карину р", " свободу" ]'
+      >
+        <span class="wrap"></span>
+      </a>
+      <!-- modify this form HTML and place wherever you want your form -->
+      <!-- <form id="my-form" action="https://formspree.io/f/mnqrzvnk" method="POST">
+          <input
+            id="myform"
+            placeholder="введи свой ник в телеграм"
+            type="text"
+            name="message"
+          />
+
+          <p id="my-form-status"></p>
+        </form> -->
+      <!-- <p>
+        переходи в&nbsp;наш телеграм и&nbsp;гадай с&nbsp;помощью бота! :)
+      </p> -->
+      <div
+        class="A_bigbuttonbelow"
+        onclick="window.location='https://t.me/tarogirl_bot';"
+      >
+        гадать!
+      </div>
+      <!-- <img id="my-form-button" class="everything" src="images/ok.png" alt="" /> -->
+    </div>
+
+    <!-- Place this script at the end of the body tag -->
+    <script>
+      var form = document.getElementById('my-form')
+
+      async function handleSubmit(event) {
+        event.preventDefault()
+        var status = document.getElementById('my-form-status')
+        var data = new FormData(event.target)
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            Accept: 'application/json'
+          }
+        })
+          .then((response) => {
+            if (response.ok) {
+              // status.innerHTML = 'Thanks for your submission!'
+              form.reset()
+            } else {
+              response.json().then((data) => {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.innerHTML = data['errors']
+                    .map((error) => error['message'])
+                    .join(', ')
+                } else {
+                  status.innerHTML =
+                    'Oops! There was a problem submitting your form'
+                }
+              })
+            }
+          })
+          .catch((error) => {
+            status.innerHTML = 'Oops! There was a problem submitting your form'
+          })
+      }
+      form.addEventListener('submit', handleSubmit)
+
+      $(document).on('ready', function () {
+        $(document).on('click', 'img.everything', function () {
+          console.log('frji')
+          $('.eyes2, .joker, .ball, .logo, .ok').solitaireVictory()
+        })
+      })
+    </script>
+    <script></script>
   </body>
 </html>
