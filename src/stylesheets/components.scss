@@ -16,6 +16,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        &:hover{
+            transition: all 1s ease-out;
+            transform: scale(0.85);
+        }
         img{
             width: 128.8px;
             height: 22px;
@@ -45,26 +49,30 @@
             color: var(--black);
             line-height: 58px;
         }
-        .W1_MenuElementTextBox{
+        .W_MenuElementTextBox{
             height: 58px;
+            &:hover .A_MenuElementText{
+                text-shadow: 0px 0px 12px var(--pink);
+                cursor: url('./images/pointer.svg'), auto;
+            }
+
+        }
+        .W1_MenuElementTextBox{
             width: 118px;
         }
         .W2_MenuElementTextBox{
-            height: 58px;
             width: 118px;
         }
         .W3_MenuElementTextBox{
-            height: 58px;
             width: 202px;
         }
         .W4_MenuElementTextBox{
-            height: 58px;
             width: 126px;
         }
 
 
     }
-    .A_Search{
+    .M_SearchBox{
         width: 136px;
         height: 58px;
         background: var(--white);
@@ -73,8 +81,8 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
-        gap: 13px;
+        justify-content: space-between;
+        padding: 0 15px;
 
         font-family: 'Gramatika Demo';
         font-style: normal;
@@ -82,13 +90,52 @@
         font-size: 24px;
         color: var(--black);
         line-height: 58px;
+
+        transition: all 1s ease-out;
         .Q_SearchIcon{
             background-image: url('images/Q_SearchIcon.svg');
-            width: 21px;
+            width: 22px;
             height: 24px;
         }
+        .A_Search{
+            height: 58px;
+            width: 80px;
+            border: none;
+            background: transparent;
+            font-family: 'Gramatika Demo';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            color: var(--black);
+            line-height: 58px;
+            cursor: url('./images/pointer.svg'), auto;
+            
+ 
+            &::placeholder{
+                font-family: 'Gramatika Demo';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 24px;
+                color: var(--black);
+                line-height: 58px;
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+        &:hover{
+            cursor: url('./images/pointer.svg'), auto;
+        }
+    }
+    .M_SearchBoxActive{
+        width: 352px;
+        transition: all 1s ease-out;
+    }
+    &:hover{
+        cursor: url('./images/pointer.svg'), auto;
     }
 }
+
 .A_paragraph2{
     font-family: 'Wremena';
     font-weight: normal;
@@ -226,10 +273,11 @@ body.cardoftheday{
     .A_paragraph{
         font-family: 'Wremena';
         position: relative;
-        font-weight: normal;
+        font-family: 'Wremena';
         font-style: normal;
-        font-size: 32px;
-        line-height: 90%;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 110%;
         text-align: center;
         color: var(--black);
         width: 895px;
@@ -243,7 +291,7 @@ body.cardoftheday{
         height: 87px;
         left: calc((100% - 352px)/2);
         background: var(--black);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--white);
         border-radius: 14px;
         margin: 70px 0;
 
@@ -255,6 +303,13 @@ body.cardoftheday{
         line-height: 87px;
         color: var(--white);
         text-shadow: 0px 0px 22px var(--white);
+        &:hover{
+            cursor: url('./images/pointer.svg'), auto;
+            transition: all 0.5s ease-out;
+            transform: scale(0.95);
+            box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+        }
 
     }
+   
 }

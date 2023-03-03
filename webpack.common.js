@@ -10,6 +10,7 @@ const path = require('path')
 module.exports = {
   entry: {
     index: './src/index.js',
+    menu: './src/menu.js',
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
@@ -137,16 +138,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/future.html',
       filename: './fortunetellings/future.html',
-      chunks: ['fortunetelling']
+      chunks: ['fortunetelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cardoftheday.html',
       filename: './cardoftheday.html',
-      chunks: ['fortunetelling']
+      chunks: ['fortunetelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
       filename: './fortunetellings.html'
+  
     }),
     new HtmlWebpackPlugin({
       template: './src/platform.html',
