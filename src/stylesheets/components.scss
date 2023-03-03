@@ -189,7 +189,18 @@
  color: var(--grey);
 }
 .M_card_articles{
+ position: relative;
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ align-items: center;
+ width: 428px;
+ height: 492px;
+ padding: 36px 21px;
  background-color: var(--white);
+ box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
+ border-radius: 22px;
+
  .A_card_articles_image{
     position: relative;
     width: 384px;
@@ -203,9 +214,11 @@
         height: 100%;
         background: linear-gradient(180deg, rgba(255, 210, 237, 0) 70.83%, #FF8BEC 100%);
     }
-    .A_heading3{
+  }
+  .A_heading3{
         position: relative;
         display: inline-block;
+        width: 304px;
         font-family: 'Gramatika Demo';
         font-weight: normal;
         font-style: normal;
@@ -214,14 +227,21 @@
         text-align: center;
         color: var(--black);
      }
-     .A_paragraph2{
+     .A_Paragraph2{
         position: relative;
         display: inline-block;
+        width: 304px;
+        font-family: 'Wremena';
+        font-weight: 300;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 110%;
+        text-align: center;
+        color: var(--black);
+
     }
-  }
  
 }
-
 body.cardoftheday{
     .A_paragraph{
         font-family: 'Wremena';
@@ -246,7 +266,6 @@ body.cardoftheday{
         box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
         border-radius: 14px;
         margin: 70px 0;
-
         font-family: 'Wremena';
         font-style: normal;
         font-weight: 300;
@@ -255,6 +274,5 @@ body.cardoftheday{
         line-height: 87px;
         color: var(--white);
         text-shadow: 0px 0px 22px var(--white);
-
     }
 }
