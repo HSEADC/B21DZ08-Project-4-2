@@ -170,14 +170,14 @@
     gap: 8px;
    }
  }
-.M_articles_categories{
+.M_ArticlesCategories{
  position: relative; 
  display: flex;
  flex-direction: row;
  justify-content: center;
  gap: 40px;
 }
-.A_articles_category{
+.A_ArticlesСategory{
  position: relative;
  display: inline-block;
  font-family: 'Gramatika Demo';
@@ -200,7 +200,6 @@
  background-color: var(--white);
  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
  border-radius: 22px;
-
  .A_card_articles_image{
     position: relative;
     width: 384px;
@@ -240,7 +239,42 @@
         color: var(--black);
 
     }
- 
+}
+.M_ArticlesCompilation{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    align-items: center;
+    width: 428px;
+    height: 492px;
+    padding-top: 57px;
+    .A_ArticleTopic{
+     position: relative;
+     display: inline-block;
+     width: 403px;
+     font-family: 'Wremena';
+     font-weight: 300;
+     font-style: normal;
+     font-size: 24px;
+     line-height: 110%;
+     text-align: center;
+     color: var(--black);
+     text-shadow: 0px 0px 12px var(--white);
+    }
+    .A_ArticleHeading{
+     position: relative;
+     display: inline-block;
+     width: 403px;
+     font-family: 'Wremena';
+     font-weight: 300;
+     font-style: normal;
+     font-size: 40px;
+     line-height: 100%;
+     text-align: center;
+     color: var(--black);
+     text-shadow: 0px 0px 12px var(--white);
+    }
 }
 body.cardoftheday{
     .A_paragraph{
