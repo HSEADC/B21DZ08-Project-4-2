@@ -1,3 +1,94 @@
+.O_Menu{
+    height: 58px;
+    position: fixed;
+    z-index: 100;
+    left: calc(50% - 950px/2);
+    top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    .A_Logo{
+        width: 170px;
+        height: 58px;
+        background: var(--white);
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 128.8px;
+            height: 22px;
+        }
+    }
+    .M_MenuElements{
+        width: 628px;
+        height: 58px;
+        background: var(--white);
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        .Q_MenuStar{
+            background-image: url('images/Q_MenuStar.svg');
+            height: 16px;
+            width: 16px;
+        }
+        .A_MenuElementText{
+            font-family: 'Gramatika Demo';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            color: var(--black);
+            line-height: 58px;
+        }
+        .W1_MenuElementTextBox{
+            height: 58px;
+            width: 118px;
+        }
+        .W2_MenuElementTextBox{
+            height: 58px;
+            width: 118px;
+        }
+        .W3_MenuElementTextBox{
+            height: 58px;
+            width: 202px;
+        }
+        .W4_MenuElementTextBox{
+            height: 58px;
+            width: 126px;
+        }
+
+
+    }
+    .A_Search{
+        width: 136px;
+        height: 58px;
+        background: var(--white);
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 13px;
+
+        font-family: 'Gramatika Demo';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        color: var(--black);
+        line-height: 58px;
+        .Q_SearchIcon{
+            background-image: url('images/Q_SearchIcon.svg');
+            width: 21px;
+            height: 24px;
+        }
+    }
+}
 .A_paragraph2{
     font-family: 'Wremena';
     font-weight: normal;
@@ -129,4 +220,41 @@
     }
   }
  
+}
+
+body.cardoftheday{
+    .A_paragraph{
+        font-family: 'Wremena';
+        position: relative;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 32px;
+        line-height: 90%;
+        text-align: center;
+        color: var(--black);
+        width: 895px;
+        left: calc((100% - 895px)/2);
+        margin-bottom: 20px;
+        top: -70px;
+    }
+    .A_AccentButton{
+        position: relative;
+        width: 352px;
+        height: 87px;
+        left: calc((100% - 352px)/2);
+        background: var(--black);
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
+        border-radius: 14px;
+        margin: 70px 0;
+
+        font-family: 'Wremena';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 64px;
+        text-align: center;
+        line-height: 87px;
+        color: var(--white);
+        text-shadow: 0px 0px 22px var(--white);
+
+    }
 }

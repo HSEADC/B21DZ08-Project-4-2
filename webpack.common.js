@@ -13,7 +13,9 @@ module.exports = {
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
+    fortunetelling: './src/fortunetelling.js',
     page: './src/page.jsx'
+    
   },
   output: {
     filename: '[name].js',
@@ -103,6 +105,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/articles/article.html',
       filename: './articles/article.html'
+      
     }),
     new HtmlWebpackPlugin({
       template: './src/articles.html',
@@ -123,19 +126,23 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/family.html',
-      filename: './fortunetellings/family.html'
+      filename: './fortunetellings/family.html',
+      chunks: ['fortunetelling']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/love.html',
-      filename: './fortunetellings/love.html'
+      filename: './fortunetellings/love.html',
+      chunks: ['fortunetelling']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/future.html',
-      filename: './fortunetellings/future.html'
+      filename: './fortunetellings/future.html',
+      chunks: ['fortunetelling']
     }),
     new HtmlWebpackPlugin({
       template: './src/cardoftheday.html',
-      filename: './cardoftheday.html'
+      filename: './cardoftheday.html',
+      chunks: ['fortunetelling']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
