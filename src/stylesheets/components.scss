@@ -310,3 +310,70 @@ body.cardoftheday{
         text-shadow: 0px 0px 22px var(--white);
     }
 }
+.M_TarotCard{
+    position: relative;
+    display: block;
+    margin: 50px auto;
+    text-align: center;
+    width: 428px;
+    height: 630px;
+    background: radial-gradient(98.49% 56.44% at 50% 0%, #FF8BEC 0%, rgba(255, 139, 236, 0) 100%), var(--white);
+    border-radius: 22px;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0px 6px 12px #F8F6F0;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    .test2{
+        // position: relative;
+        // display: block;
+        width: 100%;
+        height: 100%;        
+        filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    }
+    .W_TarotCard {
+        position: relative;
+        top: 30px;
+        font-size: 52px;
+        line-height: 110%;
+        display: inline;
+        box-decoration-break: clone;
+        background: var(--white);
+        padding: 7px;
+        filter: url('#goo'),;
+        box-shadow: none;
+    .A_TarotCardIcon{
+     position: relative;
+     display: inline-block;
+     margin: 0 auto;
+     top: 5px;
+     width: 75px;
+     height: 41px;
+     padding: 0px;
+     background-color: var(--white);
+    }
+    .A_TarotCardImage{
+     position: relative;
+     display: block;
+     margin: 0 auto;
+     width: 227px;
+     height: 227px;
+     padding: 10px;
+     border-radius: 10px;
+     background-color: var(--white);
+    }
+      .A_H2Antiqua{
+         font-family: 'Wremena';
+         font-weight: 300;
+         font-style: normal;
+         font-size: 52px;
+         line-height: 74%;
+         color: var(--black);
+        }
+     .A_H2Grotesk{
+         font-family: 'Gramatika Demo';
+         font-weight: normal;
+         font-style: normal;
+         font-size: 48px;
+         color: var(--black);
+       }
+    }       
+}   
