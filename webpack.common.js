@@ -92,7 +92,7 @@ module.exports = {
       scriptLoading: 'blocking',
       template: './src/index.html',
       filename: './index.html',
-      chunks: ['index']
+      chunks: ['index', 'menu']
     }),
 
     // Internal pages
@@ -101,7 +101,7 @@ module.exports = {
       scriptLoading: 'blocking',
       template: './src/pages/page.html',
       filename: './pages/page.html',
-      chunks: ['page']
+      chunks: ['page', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/articles/article.html',
@@ -111,7 +111,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/articles.html',
       filename: './articles.html',
-      chunks: ['articles']
+      chunks: ['articles', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
@@ -133,7 +133,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/love.html',
       filename: './fortunetellings/love.html',
-      chunks: ['fortunetelling']
+      chunks: ['fortunetelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/future.html',
