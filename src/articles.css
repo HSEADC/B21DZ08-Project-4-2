@@ -5,5 +5,9 @@
 @import 'stylesheets/articles.scss';
 @import 'stylesheets/index.scss';
 @import 'stylesheets/landingpage.scss';
-@import 'stylesheets/responsive.scss';
 @import 'stylesheets/components.scss';
+@import 'stylesheets/responsives/a_responsive.scss';
+@import 'stylesheets/responsives/m_responsive.scss';
+@import 'stylesheets/responsives/q_responsive.scss';
+@import 'stylesheets/responsives/o_responsive.scss';
+@import 'stylesheets/responsives/so_responsive.scss';

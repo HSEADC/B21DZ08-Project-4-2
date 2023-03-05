@@ -23,6 +23,7 @@
         img{
             width: 128.8px;
             height: 22px;
+            
         }
     }
     .M_MenuElements{
@@ -37,7 +38,6 @@
         align-items: center;
         justify-content: center;
         .Q_MenuStar{
-            background-image: url('images/Q_MenuStar.svg');
             height: 16px;
             width: 16px;
         }
@@ -96,6 +96,8 @@
             background-image: url('images/Q_SearchIcon.svg');
             width: 22px;
             height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
         }
         .A_Search{
             height: 58px;
@@ -130,6 +132,9 @@
     .M_SearchBoxActive{
         width: 352px;
         transition: all 1s ease-out;
+        .A_Search{
+            width: 280px;
+        }
     }
     &:hover{
         cursor: url('./images/pointer.svg'), auto;
@@ -152,7 +157,7 @@
     justify-content: center;
     width: auto;
     height: auto;
-    background: radial-gradient(56.73% 70.46% at 50% -9.51%, #FF8BEC 0%, rgba(255, 139, 236, 0) 100%);
+    background: radial-gradient(56.73% 70.46% at 50% -9.51%, var(--pink) 0%, rgba(255, 139, 236, 0) 100%);
     .W_header_text{
        position: relative;
        display: flex;
@@ -248,7 +253,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(255, 210, 237, 0) 70.83%, #FF8BEC 100%);
+        background: linear-gradient(180deg, rgba(255, 210, 237, 0) 70.83%, var(--pink) 100%);
     }
     .A_heading3{
         position: relative;
@@ -268,7 +273,32 @@
   }
  
 }
+.A_AccentButton{
+    position: relative;
+    width: 352px;
+    height: 87px;
+    left: calc((100% - 352px)/2);
+    background: var(--black);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--white);
+    border-radius: 14px;
+    margin: 70px 0;
 
+    font-family: 'Wremena';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 64px;
+    text-align: center;
+    line-height: 87px;
+    color: var(--white);
+    text-shadow: 0px 0px 22px var(--white);
+    &:hover{
+        cursor: url('./images/pointer.svg'), auto;
+        transition: all 0.5s ease-out;
+        transform: scale(0.95);
+        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+    }
+
+}
 body.cardoftheday{
     .A_paragraph{
         font-family: 'Wremena';
@@ -285,31 +315,68 @@ body.cardoftheday{
         margin-bottom: 20px;
         top: -70px;
     }
-    .A_AccentButton{
-        position: relative;
-        width: 352px;
-        height: 87px;
-        left: calc((100% - 352px)/2);
-        background: var(--black);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--white);
-        border-radius: 14px;
-        margin: 70px 0;
+   
+}
+.A_Link{
+    font-family: 'Wremena';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    color: var(--white);
+    text-shadow: 0px 0px 12.1275px var(--white);
+    text-decoration-line: underline;
 
-        font-family: 'Wremena';
-        font-style: normal;
-        font-weight: 300;
-        font-size: 64px;
-        text-align: center;
-        line-height: 87px;
-        color: var(--white);
-        text-shadow: 0px 0px 22px var(--white);
-        &:hover{
-            cursor: url('./images/pointer.svg'), auto;
-            transition: all 0.5s ease-out;
-            transform: scale(0.95);
-            box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+}
+.O_Footer{
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 15px);
+    background-color: var(--black);
+    height: 500px;
+    border-radius: 22px 22px 0 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 42px;
+    .Q_MenuStar{
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 40px;
+        width: 40px;
+    }
+    .C_SocialsFooter{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 80px;
+        }
+    
+    .C_AuthorsFooter{
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+        justify-content: center;
+        .W1_AuthorsFooter, .W2_AuthorsFooter{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 40px;
         }
 
     }
-   
+
+}
+
+
+
+.Q_MenuStar.Black{
+    background-image: url('images/Q_MenuStar.svg');
+    background-size: contain;
+}
+.Q_MenuStar.White{
+    background-image: url('images/Q_MenuStarWhite.svg');
+    background-size: contain;
 }

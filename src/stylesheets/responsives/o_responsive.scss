@@ -1,0 +1,280 @@
+@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+  .O_Menu{
+    height: 47px;
+    left: calc(50% - 826.5px/2);
+    top: 25px;
+    gap: 16px;
+    .A_Logo{
+        width: 147px;
+        height: 47px;
+        box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        img{
+          width: 111px;
+          height: 19px;
+        }
+      }
+        
+    
+    .M_MenuElements{
+        width: 536px;
+        height: 47px;
+        box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        .Q_MenuStar{
+            height: 13px;
+            width: 13px;
+        }
+        .A_MenuElementText{
+            font-size: 20px;
+            line-height: 47px;
+        }
+        .W_MenuElementTextBox{
+            height: 47px;
+            &:hover .A_MenuElementText{
+                text-shadow: 0px 0px 10px var(--pink);
+            }
+
+        }
+        .W1_MenuElementTextBox{
+            width: 101px;
+        }
+        .W2_MenuElementTextBox{
+            width: 101px;
+        }
+        .W3_MenuElementTextBox{
+            width: 171px;
+        }
+        .W4_MenuElementTextBox{
+            width: 108px;
+        }
+      }
+
+      .M_SearchBox{
+        width: 111.5px;
+        height: 47px;
+        box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        padding: 0 15px;
+        font-size: 20px;
+        line-height: 47px;
+
+        .Q_SearchIcon{
+            width: 18.5px;
+            height: 20px;
+        }
+        .A_Search{
+            height: 47px;
+            width: 58px;
+            font-size: 20px;
+            line-height: 47px;
+
+            &::placeholder{
+                font-size: 20px;
+                line-height: 47px;
+            }
+        }
+    }
+    .M_SearchBoxActive{
+      width: 253px;
+      .A_Search{
+        width: 200px;
+    }
+  }
+}
+}
+
+
+@media only screen and (min-width: 1280px) and (max-width: 1439px) {
+  /*только смена количества колонок*/
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  .O_Menu{
+    height: 43px;
+    left: calc(50% - 726.47px/2);
+    top: 25px;
+    gap: 14px;
+    .A_Logo{
+        width: 125.27px;
+        height: 43px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 11px;
+        img{
+          width: 93.47px;
+          height: 16px;
+      }
+
+        }
+
+
+    .M_MenuElements{
+        width: 475px;
+        height: 43px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 11px;
+        .Q_MenuStar{
+            height: 12px;
+            width: 12px;
+        }
+        .A_MenuElementText{
+            font-size: 18px;
+            line-height: 43px;
+        }
+        .W_MenuElementTextBox{
+            height: 43px;
+            &:hover .A_MenuElementText{
+                text-shadow: 0px 0px 8px var(--pink);
+            }
+
+        }
+        .W1_MenuElementTextBox{
+            width: 89px;
+        }
+        .W2_MenuElementTextBox{
+            width: 89px;
+        }
+        .W3_MenuElementTextBox{
+            width: 151px;
+        }
+        .W4_MenuElementTextBox{
+            width: 95px;
+        }
+      }
+
+      .M_SearchBox{
+        width: 98px;
+        height: 43px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 11px;
+        padding: 0 13px;
+        font-size: 18px;
+        line-height: 43px;
+
+        .Q_SearchIcon{
+            width: 14px;
+            height: 16px;
+        }
+        .A_Search{
+            height: 43px;
+            width: 46px;
+            font-size: 18px;
+            line-height: 43px;
+
+            &::placeholder{
+                font-size: 18px;
+                line-height: 43px;
+            }
+        }
+    }
+    .M_SearchBoxActive{
+      width: 231px;
+      .A_Search{
+        width: 190px;
+    }
+  }
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .O_Menu{
+    height: 34px;
+    left: calc(50% - 578.35px/2);
+    top: 25px;
+    gap: 12px;
+    .A_Logo{
+        width: 98.11px;
+        height: 34px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        img{
+          width: 70.11px;
+          height: 12px;
+      }
+
+        }
+
+
+    .M_MenuElements{
+        width: 374px;
+        height: 34px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        .Q_MenuStar{
+            height: 9px;
+            width: 9px;
+        }
+        .A_MenuElementText{
+            font-size: 14px;
+            line-height: 34px;
+        }
+        .W_MenuElementTextBox{
+            height: 34px;
+            &:hover .A_MenuElementText{
+                text-shadow: 0px 0px 7px var(--pink);
+            }
+
+        }
+        .W1_MenuElementTextBox{
+            width: 70px;
+        }
+        .W2_MenuElementTextBox{
+            width: 70px;
+        }
+        .W3_MenuElementTextBox{
+            width: 118px;
+        }
+        .W4_MenuElementTextBox{
+            width: 74px;
+        }
+      }
+
+      .M_SearchBox{
+        width: 82.25px;
+        height: 34px;
+        box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        padding: 0 10px;
+        font-size: 14px;
+        line-height: 34px;
+
+        .Q_SearchIcon{
+            width: 12.25px;
+            height: 14px;
+        }
+        .A_Search{
+            height: 34px;
+            width: 40px;
+            font-size: 14px;
+            line-height: 34px;
+
+            &::placeholder{
+                font-size: 14px;
+                line-height: 34px;
+            }
+        }
+    }
+    .M_SearchBoxActive{
+      width: 188px;
+      .A_Search{
+        width: 150px;
+    }
+  }
+}
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1023px) {
+  /*только смена количества колонок*/
+}
+
+@media only screen and (min-device-width: 415px) and (max-device-width: 768px) {
+  /* iPad */
+}
+
+@media only screen and (min-device-width: 361px) and (max-device-width: 414px) {
+  /* iPhone */
+}
+
+@media only screen and (max-device-width: 360px) {
+  /* Android */
+}

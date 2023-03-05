@@ -5,33 +5,17 @@ body {
   background-attachment: fixed;
   background: linear-gradient(
       180deg,
-      #ff8bec 0%,
+      var(--pink) 0%,
       rgba(255, 139, 236, 0) 12.5%,
       rgba(255, 139, 236, 0) 100% fixed
     ),
-    #f5f6ee;
+    var(--white);
   font-family: 'Steinbeck Demo';
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
-::-webkit-scrollbar {
-  width: 15px;
-}
 
-::-webkit-scrollbar-track {
-  background: #f5f6ee;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #313131;
-  border-radius: 200px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #ff8bec;
-  border-radius: 200px;
-}
 .pagewithoutanimation {
   transition: 0.5s;
 }
