@@ -16,7 +16,6 @@ module.exports = {
     articles: './src/articles.js',
     fortunetelling: './src/fortunetelling.js',
     page: './src/page.jsx'
-    
   },
   output: {
     filename: '[name].js',
@@ -106,7 +105,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/articles/article.html',
       filename: './articles/article.html'
-      
     }),
     new HtmlWebpackPlugin({
       template: './src/articles.html',
@@ -147,20 +145,32 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
-      filename: './fortunetellings.html'
-  
+      filename: './fortunetellings.html',
+      chunks: ['fortunetelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/platform.html',
-      filename: './platform.html'
+      filename: './platform.html',
+      chunks: ['menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/about.html',
-      filename: './about.html'
+      filename: './about.html',
+      chunks: ['menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/styleguide.html',
-      filename: './styleguide.html'
+      filename: './styleguide.html',
+      chunks: ['menu']
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/cards.html',
+      filename: './cards.html',
+      chunks: ['menu', 'articles']
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/fuck.html',
+      filename: './fuck.html'
     }),
 
     // Partials

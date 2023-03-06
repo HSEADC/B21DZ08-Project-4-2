@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+
+    <analytics></analytics>
+
+    <link rel="shortcut icon" href="images/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="application/javascript">
+      var img = document.getElementById('mousecard')
+      img.onload = function () {
+        var c = document.getElementById('canvas')
+        var ctx = c.getContext('2d')
+        canvas.width = this.naturalWidth
+        canvas.height = this.naturalHeight
+        ctx.drawImage(img, 20, 20, 50, 50)
+      }
+    </script>
+  </head>
+
+  <body>
+    <canvas id="canvas"
+      ><img id="mousecard" src="images/mousecard.png" alt="" />
+    </canvas>
+  </body>
+</html>
