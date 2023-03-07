@@ -1,4 +1,71 @@
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
+  .M_CardArticle {
+    gap: 12px;
+    width: 320px;
+    height: 365px;
+    padding: 22px 19px;
+    box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+    border-radius: 16px;
+    .A_CardArticleImage {
+      width: 287px;
+      height: 190px;
+      border-radius: 11px;
+    }
+    .A_Heading3 {
+      width: 240px;
+      font-size: 24px;
+    }
+    .A_Paragraph2 {
+      width: 240px;
+      font-size: 20px;
+    }
+  }
+  .M_ArticlesCompilation {
+    gap: 80px;
+    width: 320px;
+    height: 365px;
+    padding-top: 42px;
+    .A_ArticleTopic {
+      font-size: 18px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+    .A_ArticleHeading {
+      font-size: 30px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+  }
+  .M_ArticleCardBig {
+    margin: 50px auto;
+    width: 665px;
+    height: 680px;
+    border-radius: 22px;
+    box-shadow: 0px 5px 9px var(--blackshadow);
+    box-shadow: inset 0px 5px 12px #f8f6f0;
+    box-shadow: 0px 5px 9px var(--blackshadow);
+    .W_TarotCardShadow {
+      filter: drop-shadow(0px 5px 9px var(--blackshadow));
+    }
+    .W_TarotCardBigInside {
+      top: 30px;
+      font-size: 82px;
+      line-height: 105%;
+      padding: 5px;
+      .A_TarotCardTitleAntiqua {
+        font-size: 80px;
+        padding: 0 30px;
+      }
+      .A_TarotCardTitleGrotesk {
+        font-size: 78px;
+        padding: 0 30px;
+      }
+      .A_AccentButton {
+        font-size: 38px;
+        padding: 24px 18px;
+        border-radius: 14px;
+        top: -18px;
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 1280px) and (max-width: 1439px) {
@@ -6,9 +73,79 @@
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  .M_CardArticle {
+    gap: 9px;
+    width: 299px;
+    height: 340px;
+    padding: 21px 16px;
+    box-shadow: 0px 4px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+    border-radius: 14px;
+    .A_CardArticleImage {
+      width: 268px;
+      height: 180px;
+      border-radius: 10px;
+    }
+    .A_Heading3 {
+      width: 218px;
+      font-size: 22px;
+    }
+    .A_Paragraph2 {
+      width: 218px;
+      font-size: 18px;
+    }
+  }
+  .M_ArticlesCompilation {
+    gap: 70px;
+    width: 299px;
+    height: 340px;
+    padding-top: 40px;
+    .A_ArticleTopic {
+      font-size: 16px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+    .A_ArticleHeading {
+      font-size: 27px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .M_CardArticle {
+    gap: 7px;
+    width: 192px;
+    height: 220px;
+    padding: 21px 17px;
+    box-shadow: 0px 3px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+    border-radius: 10px;
+    .A_CardArticleImage {
+      width: 172px;
+      height: 115px;
+      border-radius: 8px;
+    }
+    .A_Heading3 {
+      width: 146px;
+      font-size: 14px;
+    }
+    .A_Paragraph2 {
+      width: 146px;
+      font-size: 10px;
+    }
+  }
+  .M_ArticlesCompilation {
+    gap: 45px;
+    width: 192px;
+    height: 217px;
+    padding-top: 25px;
+    .A_ArticleTopic {
+      font-size: 14px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+    .A_ArticleHeading {
+      font-size: 18px;
+      // text-shadow: 0px 0px 12px var(--white);
+    }
+  }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1023px) {
