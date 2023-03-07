@@ -36,3 +36,20 @@ body {
     }
   }
 }
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #313131;
+  border-radius: 200px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8bec;
+  border-radius: 200px;
+}

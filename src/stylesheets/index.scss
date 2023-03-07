@@ -14,12 +14,22 @@ body.index {
   font-display: swap;
 }
 
-#canvas{
+#canvas {
   position: absolute;
   z-index: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(85.93% 85.93% at 50% 100%, #292929 0%, rgba(255, 169, 231, 0) 100%), radial-gradient(52.85% 53.1% at 50% 0%, #343434 0%, rgba(255, 169, 231, 0) 100%), #FFA9E7;
-border-radius: 0px 0px 20px 20px;
+  background: radial-gradient(
+      85.93% 85.93% at 50% 100%,
+      #292929 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    radial-gradient(
+      52.85% 53.1% at 50% 0%,
+      #343434 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    #ffa9e7;
+  border-radius: 0px 0px 20px 20px;
 }

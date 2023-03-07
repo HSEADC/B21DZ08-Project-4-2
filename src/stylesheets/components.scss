@@ -1,120 +1,178 @@
-.O_Menu{
+.O_Menu {
+  height: 58px;
+  position: fixed;
+  z-index: 100;
+  left: calc(50% - 950px / 2);
+  top: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  .A_Logo {
+    width: 170px;
     height: 58px;
-    position: fixed;
-    z-index: 100;
-    left: calc(50% - 950px/2);
-    top: 30px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      transition: all 1s ease-out;
+      transform: scale(0.85);
+    }
+    img {
+      width: 128.8px;
+      height: 22px;
+    }
+  }
+  .M_MenuElements {
+    width: 628px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    .A_Logo{
-        width: 170px;
-        height: 58px;
-        background: var(--white);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-            width: 128.8px;
-            height: 22px;
-        }
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    .Q_MenuStar {
+      height: 16px;
+      width: 16px;
     }
-    .M_MenuElements{
-        width: 628px;
-        height: 58px;
-        background: var(--white);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-        border-radius: 14px;
-        display: flex;
-        flex-direction: row;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        .Q_MenuStar{
-            background-image: url('images/Q_MenuStar.svg');
-            height: 16px;
-            width: 16px;
-        }
-        .A_MenuElementText{
-            font-family: 'Gramatika Demo';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 24px;
-            color: var(--black);
-            line-height: 58px;
-        }
-        .W1_MenuElementTextBox{
-            height: 58px;
-            width: 118px;
-        }
-        .W2_MenuElementTextBox{
-            height: 58px;
-            width: 118px;
-        }
-        .W3_MenuElementTextBox{
-            height: 58px;
-            width: 202px;
-        }
-        .W4_MenuElementTextBox{
-            height: 58px;
-            width: 126px;
-        }
-
-
+    .A_MenuElementText {
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
     }
-    .A_Search{
-        width: 136px;
-        height: 58px;
-        background: var(--white);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-        border-radius: 14px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 13px;
+    .W_MenuElementTextBox {
+      height: 58px;
+      &:hover .A_MenuElementText {
+        text-shadow: 0px 0px 12px var(--pink);
+        cursor: url('./images/pointer.svg'), auto;
+      }
+    }
+    .W1_MenuElementTextBox {
+      width: 118px;
+    }
+    .W2_MenuElementTextBox {
+      width: 118px;
+    }
+    .W3_MenuElementTextBox {
+      width: 202px;
+    }
+    .W4_MenuElementTextBox {
+      width: 126px;
+    }
+  }
+  .M_SearchBox {
+    width: 136px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
 
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+
+    transition: all 1s ease-out;
+    .Q_SearchIcon {
+      background-image: url('images/Q_SearchIcon.svg');
+      width: 22px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .A_Search {
+      height: 58px;
+      width: 80px;
+      border: none;
+      background: transparent;
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+      cursor: url('./images/pointer.svg'), auto;
+
+      &::placeholder {
         font-family: 'Gramatika Demo';
         font-style: normal;
         font-weight: 400;
         font-size: 24px;
         color: var(--black);
         line-height: 58px;
-        .Q_SearchIcon{
-            background-image: url('images/Q_SearchIcon.svg');
-            width: 21px;
-            height: 24px;
-        }
+      }
+      &:focus {
+        outline: none;
+      }
     }
+    &:hover {
+      cursor: url('./images/pointer.svg'), auto;
+    }
+  }
+  .M_SearchBoxActive {
+    width: 352px;
+    transition: all 1s ease-out;
+    .A_Search {
+      width: 280px;
+    }
+  }
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+  }
 }
-.A_paragraph2{
-    font-family: 'Wremena';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 32px;
-    line-height: 90%;
-    text-align: center;
-    color: var(--black);
+.Q_MenuStar.Black {
+  background-image: url('images/Q_MenuStar.svg');
+  background-size: contain;
 }
-.S_header{
+.Q_MenuStar.White {
+  background-image: url('images/Q_MenuStarWhite.svg');
+  background-size: contain;
+}
+.A_paragraph2 {
+  font-family: 'Wremena';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 90%;
+  text-align: center;
+  color: var(--black);
+}
+.S_header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  background: radial-gradient(
+    56.73% 70.46% at 50% -9.51%,
+    var(--pink) 0%,
+    rgba(255, 139, 236, 0) 100%
+  );
+  .W_header_text {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: auto;
-    height: auto;
-    background: radial-gradient(56.73% 70.46% at 50% -9.51%, #FF8BEC 0%, rgba(255, 139, 236, 0) 100%);
-    .W_header_text{
-       position: relative;
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       gap: 40px;
-       padding: 130px 0;
-    }
-    .A_h2_grotesk{
+    gap: 30px;
+    padding: 150px 0;
+  }
+  .A_h2_grotesk {
     position: relative;
     display: inline-block;
     font-family: 'Gramatika Demo';
@@ -125,8 +183,8 @@
     text-align: center;
     text-shadow: 0px 0px 12px var(--white);
     color: var(--black);
-   }
-   .A_h2_antiqua{
+  }
+  .A_h2_antiqua {
     position: relative;
     display: inline-block;
     font-family: 'Wremena';
@@ -137,8 +195,8 @@
     text-align: center;
     text-shadow: 0px 0px 12px var(--white);
     color: var(--black);
-   }
-   .A_bread_crumbs{
+  }
+  .A_bread_crumbs {
     position: relative;
     display: inline-block;
     font-family: 'Wremena';
@@ -149,8 +207,8 @@
     text-align: center;
     text-shadow: 0px 0px 12px var(--white);
     color: var(--black);
-   }
-   .A_subtitle{
+  }
+  .A_subtitle {
     position: relative;
     display: inline-block;
     font-family: 'Gramatika Demo';
@@ -161,405 +219,554 @@
     text-align: center;
     text-shadow: 0px 0px 12px var(--white);
     color: var(--black);
-   }
-   .M_header_text{
-    position: relative; 
+  }
+  .M_header_text {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 8px;
-   }
- }
-.M_ArticlesCategories{
- position: relative; 
- display: flex;
- flex-direction: row;
- justify-content: center;
- gap: 40px;
+  }
 }
-.A_ArticlesСategory{
- position: relative;
- display: inline-block;
- font-family: 'Gramatika Demo';
- font-weight: 300;
- font-style: normal;
- font-size: 48px;
- line-height: 74%;
- text-shadow: 0px 0px 12px var(--white);
- color: var(--grey);
+.M_articles_categories {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
 }
-.M_card_articles{
- position: relative;
- display: flex;
- flex-direction: column;
- gap: 16px;
- align-items: center;
- width: 428px;
- height: 492px;
- padding: 36px 21px;
- background-color: var(--white);
- box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
- border-radius: 22px;
- .A_card_articles_image{
+.A_articles_category {
+  position: relative;
+  display: inline-block;
+  font-family: 'Gramatika Demo';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 74%;
+  text-shadow: 0px 0px 12px var(--white);
+  color: var(--grey);
+}
+.M_card_articles {
+  background-color: var(--white);
+  .A_card_articles_image {
     position: relative;
     width: 384px;
     height: 256px;
-    background-image: url('images/Q_card_article_image.png');   
+    background-image: url('images/Q_card_article_image.png');
     border-radius: 14px;
     overflow: hidden;
-    .Q_card_articles_image_gradient{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(255, 210, 237, 0) 70.83%, #FF8BEC 100%);
+    .Q_card_articles_image_gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 210, 237, 0) 70.83%,
+        var(--pink) 100%
+      );
+    }
+    .A_heading3 {
+      position: relative;
+      display: inline-block;
+      font-family: 'Gramatika Demo';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 32px;
+      line-height: 90%;
+      text-align: center;
+      color: var(--black);
+    }
+    .A_paragraph2 {
+      position: relative;
+      display: inline-block;
     }
   }
-  .A_heading3{
-        position: relative;
-        display: inline-block;
-        width: 304px;
-        font-family: 'Gramatika Demo';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 32px;
-        line-height: 90%;
-        text-align: center;
-        color: var(--black);
-     }
-     .A_Paragraph2{
-        position: relative;
-        display: inline-block;
-        width: 304px;
-        font-family: 'Wremena';
-        font-weight: 300;
-        font-style: normal;
-        font-size: 24px;
-        line-height: 110%;
-        text-align: center;
-        color: var(--black);
+}
+.A_AccentButtonTarotTellings {
+  position: relative;
+  width: 352px;
+  height: 87px;
+  left: calc((100% - 352px) / 2);
+  background: var(--black);
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--white);
+  border-radius: 14px;
 
-    }
+  font-family: 'Wremena';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 64px;
+  text-align: center;
+  line-height: 87px;
+  color: var(--white);
+  text-shadow: 0px 0px 22px var(--white);
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
 }
-.M_ArticleCardHuge{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    width: 896px;
-    height: 496px;
-    padding: 36px 21px;
-    background-color: var(--white);
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
-    border-radius: 22px;
-    .A_card_articles_image{
-       position: relative;
-       width: 755px;
-       height: 256px;
-       background-image: url('images/Q_card_article_image.png');  
-       background-size: cover; 
-       background-repeat: no-repeat;
-       border-radius: 14px;
-       overflow: hidden;
-       .Q_card_articles_image_gradient{
-           position: absolute;
-           width: 100%;
-           height: 100%;
-           background: linear-gradient(180deg, rgba(255, 210, 237, 0) 70.83%, #FF8BEC 100%);
-       }
-     }
-     .A_heading3{
-        position: relative;
-        display: inline-block;
-        width: 755px;
-        font-family: 'Gramatika Demo';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 32px;
-        line-height: 90%;
-        text-align: center;
-        color: var(--black);
-     }
-     .A_Paragraph2{
-        position: relative;
-        display: inline-block;
-        width: 755px;
-        font-family: 'Wremena';
-        font-weight: 300;
-        font-style: normal;
-        font-size: 24px;
-        line-height: 110%;
-        text-align: center;
-        color: var(--black);
+.A_paragraphHeader {
+  font-family: 'Wremena';
+  position: relative;
+  font-family: 'Wremena';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 110%;
+  text-align: center;
+  color: var(--black);
+  width: 895px;
+  left: calc((100% - 895px) / 2);
+  margin-bottom: 20px;
+  top: -70px;
+}
+.A_Link {
+  font-family: 'Wremena';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  color: var(--white);
+  text-shadow: 0px 0px 12.1275px var(--white);
+  text-decoration-line: underline;
+}
+.O_Footer {
+  position: relative;
+  margin-top: 20vh;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--black);
+  height: 500px;
+  border-radius: 22px 22px 0 0;
 
-    }
-    }
-.M_ArticlesCompilation{
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 60px;
+  .Q_MenuStar {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40px;
+    width: 40px;
+  }
+  .C_SocialsFooter {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 80px;
+  }
+
+  .C_AuthorsFooter {
+    display: flex;
+    gap: 24px;
     flex-direction: column;
-    gap: 100px;
-    align-items: center;
-    width: 428px;
-    height: 492px;
-    padding-top: 57px;
-    .A_ArticleTopic{
-     position: relative;
-     display: inline-block;
-     width: 403px;
-     font-family: 'Wremena';
-     font-weight: 300;
-     font-style: normal;
-     font-size: 24px;
-     line-height: 110%;
-     text-align: center;
-     color: var(--black);
-     text-shadow: 0px 0px 12px var(--white);
+    justify-content: center;
+    .W1_AuthorsFooter,
+    .W2_AuthorsFooter {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 40px;
     }
-    .A_ArticleHeading{
-     position: relative;
-     display: inline-block;
-     width: 403px;
-     font-family: 'Wremena';
-     font-weight: 300;
-     font-style: normal;
-     font-size: 40px;
-     line-height: 100%;
-     text-align: center;
-     color: var(--black);
-     text-shadow: 0px 0px 12px var(--white);
-    }
-    
+  }
 }
-body.cardoftheday{
-    .A_paragraph{
-        font-family: 'Wremena';
-        position: relative;
-        font-weight: normal;
-        font-style: normal;
-        font-size: 32px;
-        line-height: 90%;
-        text-align: center;
-        color: var(--black);
-        width: 895px;
-        left: calc((100% - 895px)/2);
-        margin-bottom: 20px;
-        top: -70px;
-    }
-    .A_AccentButton{
-        position: relative;
-        width: 352px;
-        height: 87px;
-        left: calc((100% - 352px)/2);
-        background: var(--black);
-        box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #F8F6F0;
-        border-radius: 14px;
-        margin: 70px 0;
-        font-family: 'Wremena';
-        font-style: normal;
-        font-weight: 300;
-        font-size: 64px;
-        text-align: center;
-        line-height: 87px;
-        color: var(--white);
-        text-shadow: 0px 0px 22px var(--white);
-    }
+.M_ArticlesCategories {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
 }
-.M_TarotCard{
-    position: relative;
-    display: block;
-    margin: 50px auto;
-    text-align: center;
-    width: 428px;
-    height: 630px;
-    background: radial-gradient(98.49% 56.44% at 50% 0%, #FF8BEC 0%, rgba(255, 139, 236, 0) 100%), var(--white);
-    border-radius: 22px;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0px 6px 12px #F8F6F0;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    .W_TarotCardShadow{
-        // position: relative;
-        // display: block;
-        width: 100%;
-        height: 100%;        
-        filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
-    }
-    .W_TarotCardInside {
-        position: relative;
-        top: 30px;
-        font-size: 52px;
-        line-height: 110%;
-        display: inline;
-        box-decoration-break: clone;
-        background: var(--white);
-        padding: 5px;
-        filter: url('#goo'),;
-        box-shadow: none;
-    .A_TarotCardIcon{
-     position: relative;
-     display: inline-block;
-     margin: 0 auto;
-     top: 5px;
-     width: 75px;
-     height: 41px;
-     background-color: var(--white);
-    }
-    .A_TarotCardImage{
-     position: relative;
-     display: block;
-     margin: 0 auto;
-     width: 227px;
-     height: 227px;
-     padding: 10px;
-     border-radius: 10px;
-     background-color: var(--white);
-    }
-      .A_TarotCardTitleAntiqua{
-         font-family: 'Wremena';
-         font-weight: 300;
-         font-style: normal;
-         font-size: 52px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 10px;
-        }
-     .A_TarotCardTitleGrotesk{
-         font-family: 'Gramatika Demo';
-         font-weight: normal;
-         font-style: normal;
-         font-size: 48px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 10px;
-       }
-    }       
+.A_ArticlesСategory {
+  position: relative;
+  display: inline-block;
+  font-family: 'Gramatika Demo';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 74%;
+  text-shadow: 0px 0px 12px var(--white);
+  color: var(--grey);
 }
-.M_TarotCardWide{
+.M_card_articles {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 428px;
+  height: 492px;
+  padding: 36px 21px;
+  background-color: var(--white);
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #f8f6f0;
+  border-radius: 22px;
+  .A_card_articles_image {
     position: relative;
-    display: block;
-    margin: 50px auto;
-    text-align: center;
-    width: 584px;
-    height: 400px;
-    background: radial-gradient(53.17% 78.68% at 50% 100%, rgba(255, 139, 236, 0.71) 0%, rgba(255, 139, 236, 0) 100%), #F8F6F0;    border-radius: 22px;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0px 6px 12px #F8F6F0;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    .W_TarotCardShadow{
-        width: 100%;
-        height: 100%;        
-        filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    width: 384px;
+    height: 256px;
+    background-image: url('images/Q_card_article_image.png');
+    border-radius: 14px;
+    overflow: hidden;
+    .Q_card_articles_image_gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 210, 237, 0) 70.83%,
+        #ff8bec 100%
+      );
     }
-    .W_TarotCardWideInside {
-        position: relative;
-        top: 30px;
-        font-size: 52px;
-        line-height: 110%;
-        display: inline;
-        box-decoration-break: clone;
-        background: var(--white);
-        padding: 5px;
-        filter: url('#goo'),;
-        box-shadow: none;
-    .A_TarotCardIcon{
-     position: relative;
-     display: inline-block;
-     margin: 0 auto;
-     top: 18px;
-     width: 98px;
-     height: 73px;
-     background-color: var(--white);
-     padding: 10px;
-     }
-     .A_TarotCardTitleAntiqua{
-         font-family: 'Wremena';
-         font-weight: 300;
-         font-style: normal;
-         font-size: 52px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 20px;
-        }
-     .A_TarotCardTitleGrotesk{
-         font-family: 'Gramatika Demo';
-         font-weight: normal;
-         font-style: normal;
-         font-size: 48px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 20px;
-       }
-    }
-}   
-.M_ArticleCardBig{
+  }
+  .A_heading3 {
     position: relative;
-    display: block;
-    margin: 50px auto;
+    display: inline-block;
+    width: 304px;
+    font-family: 'Gramatika Demo';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 90%;
     text-align: center;
-    width: 896px;
-    height: 916px;
-    border-radius: 22px;
-    background: radial-gradient(216.06% 132.81% at 50% -32.81%, #313131 0%, #AA6BA0 0.01%, #F687E4 0.02%, #F8F6F0 100%), #F5F6EE;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0px 6px 12px #F8F6F0;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
-    .W_TarotCardShadow{
-        width: 100%;
-        height: 100%;        
-        filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    color: var(--black);
+  }
+  .A_Paragraph2 {
+    position: relative;
+    display: inline-block;
+    width: 304px;
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 110%;
+    text-align: center;
+    color: var(--black);
+  }
+}
+.M_ArticleCardHuge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 896px;
+  height: 496px;
+  padding: 36px 21px;
+  background-color: var(--white);
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #f8f6f0;
+  border-radius: 22px;
+  .A_card_articles_image {
+    position: relative;
+    width: 755px;
+    height: 256px;
+    background-image: url('images/Q_card_article_image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 14px;
+    overflow: hidden;
+    .Q_card_articles_image_gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 210, 237, 0) 70.83%,
+        #ff8bec 100%
+      );
     }
-    .W_TarotCardWideInside {
-        position: relative;
-        top: 30px;
-        font-size: 82px;
-        line-height: 128%;
-        display: inline;
-        box-decoration-break: clone;
-        background: var(--white);
-        padding: 5px;
-        filter: url('#goo'),;
-        box-shadow: none;
-    .A_TarotCardIcon{
-     position: relative;
-     display: inline-block;
-     margin: 0 auto;
-     top: 18px;
-     width: 98px;
-     height: 73px;
-     background-color: var(--white);
-     padding: 10px;
-     }
-     .A_TarotCardTitleAntiqua{
-         font-family: 'Wremena';
-         font-weight: 300;
-         font-style: normal;
-         font-size: 100px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 30px;
-        }
-     .A_TarotCardTitleGrotesk{
-         font-family: 'Gramatika Demo';
-         font-weight: normal;
-         font-style: normal;
-         font-size: 96px;
-         line-height: 74%;
-         color: var(--black);
-         padding: 0 30px;
-       }
-     .A_AccentButton{
-        position: relative;
-        display: inline-block;
-        font-family: 'Wremena';
-        font-weight: 300;
-        font-style: normal;
-        font-size: 52px;
-        line-height: 74%;
-        color: var(--white);
-        background-color: var(--black);
-        padding: 27px 20px;
-        border-radius: 14px;
-        top: -13px;
-     }
+  }
+  .A_heading3 {
+    position: relative;
+    display: inline-block;
+    width: 755px;
+    font-family: 'Gramatika Demo';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 90%;
+    text-align: center;
+    color: var(--black);
+  }
+  .A_Paragraph2 {
+    position: relative;
+    display: inline-block;
+    width: 755px;
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 110%;
+    text-align: center;
+    color: var(--black);
+  }
+}
+.M_ArticlesCompilation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
+  width: 428px;
+  height: 492px;
+  padding-top: 57px;
+  .A_ArticleTopic {
+    position: relative;
+    display: inline-block;
+    width: 403px;
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 110%;
+    text-align: center;
+    color: var(--black);
+    text-shadow: 0px 0px 12px var(--white);
+  }
+  .A_ArticleHeading {
+    position: relative;
+    display: inline-block;
+    width: 403px;
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 100%;
+    text-align: center;
+    color: var(--black);
+    text-shadow: 0px 0px 12px var(--white);
+  }
+}
+body.cardoftheday {
+  .A_paragraph {
+    font-family: 'Wremena';
+    position: relative;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 90%;
+    text-align: center;
+    color: var(--black);
+    width: 895px;
+    left: calc((100% - 895px) / 2);
+    margin-bottom: 20px;
+    top: -70px;
+  }
+}
+.M_TarotCard {
+  position: relative;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+  width: 428px;
+  height: 630px;
+  background: radial-gradient(
+      98.49% 56.44% at 50% 0%,
+      #ff8bec 0%,
+      rgba(255, 139, 236, 0) 100%
+    ),
+    var(--white);
+  border-radius: 22px;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  .W_TarotCardShadow {
+    // position: relative;
+    // display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+  }
+  .W_TarotCardInside {
+    position: relative;
+    top: 30px;
+    font-size: 52px;
+    line-height: 110%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardIcon {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      top: 5px;
+      width: 75px;
+      height: 41px;
+      background-color: var(--white);
     }
+    .A_TarotCardImage {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+      width: 227px;
+      height: 227px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: var(--white);
+    }
+    .A_TarotCardTitleAntiqua {
+      font-family: 'Wremena';
+      font-weight: 300;
+      font-style: normal;
+      font-size: 52px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 10px;
+    }
+    .A_TarotCardTitleGrotesk {
+      font-family: 'Gramatika Demo';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 48px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 10px;
+    }
+  }
+}
+.M_TarotCardWide {
+  position: relative;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+  width: 584px;
+  height: 400px;
+  background: radial-gradient(
+      53.17% 78.68% at 50% 100%,
+      rgba(255, 139, 236, 0.71) 0%,
+      rgba(255, 139, 236, 0) 100%
+    ),
+    #f8f6f0;
+  border-radius: 22px;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  .W_TarotCardShadow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+  }
+  .W_TarotCardWideInside {
+    position: relative;
+    top: 30px;
+    font-size: 52px;
+    line-height: 110%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardIcon {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      top: 18px;
+      width: 98px;
+      height: 73px;
+      background-color: var(--white);
+      padding: 10px;
+    }
+    .A_TarotCardTitleAntiqua {
+      font-family: 'Wremena';
+      font-weight: 300;
+      font-style: normal;
+      font-size: 52px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 20px;
+    }
+    .A_TarotCardTitleGrotesk {
+      font-family: 'Gramatika Demo';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 48px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 20px;
+    }
+  }
+}
+.M_ArticleCardBig {
+  position: relative;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+  width: 896px;
+  height: 916px;
+  border-radius: 22px;
+  background: radial-gradient(
+      216.06% 132.81% at 50% -32.81%,
+      #313131 0%,
+      #aa6ba0 0.01%,
+      #f687e4 0.02%,
+      #f8f6f0 100%
+    ),
+    #f5f6ee;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  .W_TarotCardShadow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+  }
+  .W_TarotCardWideInside {
+    position: relative;
+    top: 30px;
+    font-size: 82px;
+    line-height: 128%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardIcon {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      top: 18px;
+      width: 98px;
+      height: 73px;
+      background-color: var(--white);
+      padding: 10px;
+    }
+    .A_TarotCardTitleAntiqua {
+      font-family: 'Wremena';
+      font-weight: 300;
+      font-style: normal;
+      font-size: 100px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 30px;
+    }
+    .A_TarotCardTitleGrotesk {
+      font-family: 'Gramatika Demo';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 96px;
+      line-height: 74%;
+      color: var(--black);
+      padding: 0 30px;
+    }
+    .A_AccentButton {
+      position: relative;
+      display: inline-block;
+      font-family: 'Wremena';
+      font-weight: 300;
+      font-style: normal;
+      font-size: 52px;
+      line-height: 74%;
+      color: var(--white);
+      background-color: var(--black);
+      padding: 27px 20px;
+      border-radius: 14px;
+      top: -13px;
+    }
+  }
 }
