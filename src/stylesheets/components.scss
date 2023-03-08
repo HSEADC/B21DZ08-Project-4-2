@@ -11,7 +11,7 @@
     width: 170px;
     height: 58px;
     background: var(--white);
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 6px 9px var(--blackshadow);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@
     width: 628px;
     height: 58px;
     background: var(--white);
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 6px 9px var(--blackshadow);
     border-radius: 14px;
     display: flex;
     flex-direction: row;
@@ -72,7 +72,7 @@
     width: 136px;
     height: 58px;
     background: var(--white);
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 6px 9px var(--blackshadow);
     border-radius: 14px;
     display: flex;
     flex-direction: row;
@@ -231,67 +231,13 @@
     gap: 8px;
   }
 }
-.M_articles_categories {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 40px;
-}
-.A_articles_category {
-  position: relative;
-  display: inline-block;
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 74%;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--grey);
-}
-.M_card_articles {
-  background-color: var(--white);
-  .A_card_articles_image {
-    position: relative;
-    width: 384px;
-    height: 256px;
-    background-image: url('images/Q_card_article_image.png');
-    border-radius: 14px;
-    overflow: hidden;
-    .Q_card_articles_image_gradient {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 210, 237, 0) 70.83%,
-        var(--pink) 100%
-      );
-    }
-    .A_heading3 {
-      position: relative;
-      display: inline-block;
-      font-family: 'Gramatika Demo';
-      font-weight: normal;
-      font-style: normal;
-      font-size: 32px;
-      line-height: 90%;
-      text-align: center;
-      color: var(--black);
-    }
-    .A_paragraph2 {
-      position: relative;
-      display: inline-block;
-    }
-  }
-}
 .A_AccentButtonTarotTellings {
   position: relative;
   width: 352px;
   height: 87px;
   left: calc((100% - 352px) / 2);
   background: var(--black);
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 14px;
 
   font-family: 'Wremena';
@@ -365,7 +311,6 @@
     justify-content: center;
     gap: 80px;
   }
-
   .C_AuthorsFooter {
     display: flex;
     gap: 24px;
@@ -398,7 +343,7 @@
   text-shadow: 0px 0px 12px var(--white);
   color: var(--grey);
 }
-.M_card_articles {
+.M_CardArticle {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -408,27 +353,29 @@
   height: 492px;
   padding: 36px 21px;
   background-color: var(--white);
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #f8f6f0;
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 22px;
-  .A_card_articles_image {
+  .A_CardArticleImage {
     position: relative;
     width: 384px;
     height: 256px;
     background-image: url('images/Q_card_article_image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 14px;
     overflow: hidden;
-    .Q_card_articles_image_gradient {
+    .Q_CardArticlesImageGradient {
       position: absolute;
       width: 100%;
       height: 100%;
       background: linear-gradient(
         180deg,
         rgba(255, 210, 237, 0) 70.83%,
-        #ff8bec 100%
+        var(--pink) 100%
       );
     }
   }
-  .A_heading3 {
+  .A_Heading3 {
     position: relative;
     display: inline-block;
     width: 304px;
@@ -463,7 +410,7 @@
   height: 496px;
   padding: 36px 21px;
   background-color: var(--white);
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px #f8f6f0;
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 22px;
   .A_card_articles_image {
     position: relative;
@@ -481,7 +428,7 @@
       background: linear-gradient(
         180deg,
         rgba(255, 210, 237, 0) 70.83%,
-        #ff8bec 100%
+        var(--pink) 100%
       );
     }
   }
@@ -522,7 +469,7 @@
   .A_ArticleTopic {
     position: relative;
     display: inline-block;
-    width: 403px;
+    width: 100%;
     font-family: 'Wremena';
     font-weight: 300;
     font-style: normal;
@@ -535,7 +482,7 @@
   .A_ArticleHeading {
     position: relative;
     display: inline-block;
-    width: 403px;
+    width: 100%;
     font-family: 'Wremena';
     font-weight: 300;
     font-style: normal;
@@ -543,6 +490,7 @@
     line-height: 100%;
     text-align: center;
     color: var(--black);
+    // text-decoration: underline;
     text-shadow: 0px 0px 12px var(--white);
   }
 }
@@ -571,20 +519,20 @@ body.cardoftheday {
   height: 630px;
   background: radial-gradient(
       98.49% 56.44% at 50% 0%,
-      #ff8bec 0%,
+      var(--pink) 0%,
       rgba(255, 139, 236, 0) 100%
     ),
     var(--white);
   border-radius: 22px;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   box-shadow: inset 0px 6px 12px #f8f6f0;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   .W_TarotCardShadow {
     // position: relative;
     // display: block;
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
   }
   .W_TarotCardInside {
     position: relative;
@@ -650,13 +598,13 @@ body.cardoftheday {
     ),
     #f8f6f0;
   border-radius: 22px;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   box-shadow: inset 0px 6px 12px #f8f6f0;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   .W_TarotCardShadow {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
   }
   .W_TarotCardWideInside {
     position: relative;
@@ -715,15 +663,15 @@ body.cardoftheday {
       #f8f6f0 100%
     ),
     #f5f6ee;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   box-shadow: inset 0px 6px 12px #f8f6f0;
-  box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6px 9px var(--blackshadow);
   .W_TarotCardShadow {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
   }
-  .W_TarotCardWideInside {
+  .W_TarotCardBigInside {
     position: relative;
     top: 30px;
     font-size: 82px;
@@ -734,16 +682,6 @@ body.cardoftheday {
     padding: 5px;
     filter: url('#goo');
     box-shadow: none;
-    .A_TarotCardIcon {
-      position: relative;
-      display: inline-block;
-      margin: 0 auto;
-      top: 18px;
-      width: 98px;
-      height: 73px;
-      background-color: var(--white);
-      padding: 10px;
-    }
     .A_TarotCardTitleAntiqua {
       font-family: 'Wremena';
       font-weight: 300;
