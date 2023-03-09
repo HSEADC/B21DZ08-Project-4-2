@@ -101,46 +101,6 @@
       }
     }
   }
-  .A_Link {
-    font-size: 20px;
-  }
-  .A_AccentButtonTarotTellings {
-    width: 253px;
-    height: 62px;
-    left: calc((100% - 253px) / 2);
-    border-radius: 9px;
-    font-size: 46px;
-    line-height: 62px;
-  }
-
-  .A_paragraphHeader {
-    font-size: 20px;
-    width: 665px;
-    left: calc((100% - 665px) / 2);
-    top: -70px;
-  }
-  .S_header {
-    .W_header_text {
-      gap: 25px;
-      padding: 120px 0;
-    }
-    .A_h2_grotesk {
-      font-size: 78px;
-    }
-    .A_h2_antiqua {
-      font-size: 80px;
-    }
-    .A_bread_crumbs {
-      font-size: 20px;
-      line-height: 110%;
-    }
-    .A_subtitle {
-      font-size: 44px;
-    }
-    .M_header_text {
-      gap: 8px;
-    }
-  }
 }
 
 @media only screen and (min-width: 1280px) and (max-width: 1439px) {
@@ -250,44 +210,6 @@
       }
     }
   }
-  .A_Link {
-    font-size: 18px;
-  }
-  .A_AccentButtonTarotTellings {
-    width: 231px;
-    height: 57px;
-    left: calc((100% - 231px) / 2);
-    border-radius: 9px;
-    font-size: 42px;
-    line-height: 57px;
-  }
-  .A_paragraphHeader {
-    font-size: 18px;
-    width: 513px;
-    left: calc((100% - 513px) / 2);
-    top: -70px;
-  }
-  .S_header {
-    .W_header_text {
-      gap: 25px;
-      padding: 110px 0;
-    }
-    .A_h2_grotesk {
-      font-size: 66px;
-    }
-    .A_h2_antiqua {
-      font-size: 66px;
-    }
-    .A_bread_crumbs {
-      font-size: 17px;
-    }
-    .A_subtitle {
-      font-size: 40px;
-    }
-    .M_header_text {
-      gap: 8px;
-    }
-  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -391,44 +313,6 @@
       .W2_AuthorsFooter {
         gap: 30px;
       }
-    }
-  }
-  .A_Link {
-    font-size: 14px;
-  }
-  .A_AccentButtonTarotTellings {
-    width: 188px;
-    height: 46px;
-    left: calc((100% - 188px) / 2);
-    border-radius: 8px;
-    font-size: 34px;
-    line-height: 46px;
-  }
-  .A_paragraphHeader {
-    font-size: 14px;
-    width: 406px;
-    left: calc((100% - 406px) / 2);
-    top: -70px;
-  }
-  .S_header {
-    .W_header_text {
-      gap: 20px;
-      padding: 100px 0;
-    }
-    .A_h2_grotesk {
-      font-size: 50px;
-    }
-    .A_h2_antiqua {
-      font-size: 50px;
-    }
-    .A_bread_crumbs {
-      font-size: 13px;
-    }
-    .A_subtitle {
-      font-size: 30px;
-    }
-    .M_header_text {
-      gap: 8px;
     }
   }
 }
