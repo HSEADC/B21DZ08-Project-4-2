@@ -330,17 +330,17 @@
   flex-direction: row;
   justify-content: center;
   gap: 40px;
-}
-.A_ArticlesСategory {
-  position: relative;
-  display: inline-block;
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 74%;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--grey);
+  .A_ArticlesСategory {
+    position: relative;
+    display: inline-block;
+    font-family: 'Gramatika Demo';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 48px;
+    line-height: 74%;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--grey);
+  }
 }
 .M_CardArticle {
   position: relative;
