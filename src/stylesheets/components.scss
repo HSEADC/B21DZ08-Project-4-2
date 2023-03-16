@@ -143,6 +143,30 @@
   background-image: url('images/Q_MenuStarWhite.svg');
   background-size: contain;
 }
+.O_Articles {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: radial-gradient(
+      117.87% 117.87% at 51.17% 0%,
+      #f8f6f0 13.54%,
+      #ff8bec 55.03%,
+      #313131 100%
+    ),
+    #313131;
+  border-radius: 22px 22px 0px 0px;
+  .W_AllArticleCards {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 40px;
+  }
+}
 .A_paragraph2 {
   font-family: 'Wremena';
   font-weight: 300;
@@ -329,18 +353,20 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 120px;
   gap: 40px;
-}
-.A_ArticlesСategory {
-  position: relative;
-  display: inline-block;
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 74%;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--grey);
+  .A_ArticlesСategory {
+    position: relative;
+    display: inline-block;
+    font-family: 'Gramatika Demo';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 48px;
+    line-height: 74%;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--grey);
+  }
 }
 .M_CardArticle {
   position: relative;
@@ -662,7 +688,6 @@ body.cardoftheday {
 .M_ArticleCardBig {
   position: relative;
   display: block;
-  margin: 50px auto;
   text-align: center;
   width: 896px;
   height: 916px;
