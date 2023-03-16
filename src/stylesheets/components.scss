@@ -283,7 +283,6 @@
     cursor: url('./images/pointer.svg'), auto;
   }
 }
-
 .O_Footer {
   position: relative;
   margin-top: 17vh;
@@ -550,7 +549,7 @@ body.cardoftheday {
       display: inline-block;
       margin: 0 auto;
       top: 5px;
-      width: 75px;
+      width: 55px;
       height: 41px;
       background-color: var(--white);
     }
@@ -637,6 +636,7 @@ body.cardoftheday {
       padding: 10px;
     }
     .A_TarotCardTitleAntiqua {
+      position: relative;
       font-family: 'Wremena';
       font-weight: 300;
       font-style: normal;
@@ -644,8 +644,10 @@ body.cardoftheday {
       line-height: 74%;
       color: var(--black);
       padding: 0 20px;
+      z-index: 2;
     }
     .A_TarotCardTitleGrotesk {
+      position: relative;
       font-family: 'Gramatika Demo';
       font-weight: normal;
       font-style: normal;
@@ -653,6 +655,7 @@ body.cardoftheday {
       line-height: 74%;
       color: var(--black);
       padding: 0 20px;
+      z-index: 1;
     }
   }
 }
@@ -720,7 +723,7 @@ body.cardoftheday {
       color: var(--white);
       background-color: var(--black);
       padding: 27px 20px;
-      border-radius: 14px;
+      border-radius: 9px;
       top: -13px;
     }
   }
