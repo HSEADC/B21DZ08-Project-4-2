@@ -101,6 +101,30 @@
       }
     }
   }
+  .W_ContentFortuneTelling {
+    gap: 140px;
+    .M_TarotCard {
+      margin: 0 -78px;
+      // тут будет зависеть от адаптива карты
+    }
+    .C_Contents {
+      gap: 90px;
+      .M_Content {
+        .A_subtitle {
+          width: 205px;
+          margin-right: 25px;
+        }
+        .A_paragraph2 {
+          width: 550px;
+        }
+        .Q_MenuStar {
+          height: 25px;
+          width: 25px;
+          padding-right: 10px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 1280px) and (max-width: 1439px) {
@@ -210,6 +234,30 @@
       }
     }
   }
+  .W_ContentFortuneTelling {
+    gap: 128px;
+    .M_TarotCard {
+      margin: 0 -78px;
+      // тут будет зависеть от адаптива карты
+    }
+    .C_Contents {
+      gap: 85px;
+      .M_Content {
+        .A_subtitle {
+          width: 192px;
+          margin-right: 22px;
+        }
+        .A_paragraph2 {
+          width: 513px;
+        }
+        .Q_MenuStar {
+          height: 22px;
+          width: 22px;
+          padding-right: 10px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -312,6 +360,30 @@
       .W1_AuthorsFooter,
       .W2_AuthorsFooter {
         gap: 30px;
+      }
+    }
+  }
+  .W_ContentFortuneTelling {
+    gap: 128px;
+    .M_TarotCard {
+      margin: 0 -78px;
+      // тут будет зависеть от адаптива карты
+    }
+    .C_Contents {
+      gap: 22px;
+      .M_Content {
+        .A_subtitle {
+          width: 83px;
+          margin-right: 22px;
+        }
+        .A_paragraph2 {
+          width: 299px;
+        }
+        .Q_MenuStar {
+          height: 22px;
+          width: 22px;
+          padding-right: 10px;
+        }
       }
     }
   }

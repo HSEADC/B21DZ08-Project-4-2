@@ -148,7 +148,7 @@
   font-weight: 300;
   font-style: normal;
   font-size: 24px;
-  line-height: 90%;
+  line-height: 110%;
   text-align: center;
   color: var(--black);
 }
@@ -267,7 +267,7 @@
   color: var(--black);
   width: 895px;
   left: calc((100% - 895px) / 2);
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   top: -70px;
 }
 .A_Link {
@@ -732,7 +732,7 @@ body.cardoftheday {
   font-style: normal;
   font-size: 48px;
   line-height: 74%;
-  text-align: center;
+  text-align: left;
   text-shadow: 0px 0px 12px var(--white);
   color: var(--black);
 }
@@ -757,11 +757,21 @@ body.cardoftheday {
       flex-direction: row;
       gap: 0;
       align-items: flex-start;
+      justify-content: center;
       .A_subtitle {
         width: 272px;
+        margin-right: 40px;
       }
       .A_paragraph2 {
         width: 740px;
+      }
+      .Q_MenuStar {
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 30px;
+        width: 30px;
+        padding-right: 10px;
+        display: inline-block;
       }
     }
   }
