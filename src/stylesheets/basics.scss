@@ -12,6 +12,7 @@ body {
   font-weight: 400;
   cursor: url('./images/cursor.svg'), auto;
   background-color: var(--white);
+  overflow: overlay;
 }
 
 .images {
@@ -42,7 +43,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--white);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {

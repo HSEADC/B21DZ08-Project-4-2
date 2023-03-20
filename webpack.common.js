@@ -169,10 +169,6 @@ module.exports = {
       filename: './cards.html',
       chunks: ['menu', 'articles']
     }),
-    new HtmlWebpackPlugin({
-      template: './src/fuck.html',
-      filename: './fuck.html'
-    }),
 
     // Partials
     new HtmlWebpackPartialsPlugin([

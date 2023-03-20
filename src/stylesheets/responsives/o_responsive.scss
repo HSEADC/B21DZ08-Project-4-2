@@ -125,10 +125,22 @@
       }
     }
   }
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 1355px;
+      gap: 25px;
+    }
+  }
 }
 
 @media only screen and (min-width: 1280px) and (max-width: 1439px) {
   /*только смена количества колонок*/
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 1010px;
+      gap: 25px;
+    }
+  }
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
@@ -258,6 +270,12 @@
       }
     }
   }
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 942px;
+      gap: 22px;
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -385,6 +403,12 @@
           padding-right: 10px;
         }
       }
+    }
+  }
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 620px;
+      gap: 22px;
     }
   }
 }

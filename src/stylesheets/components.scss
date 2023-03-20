@@ -148,6 +148,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 20vh;
   background: radial-gradient(
       117.87% 117.87% at 51.17% 0%,
       #f8f6f0 13.54%,
@@ -159,11 +160,11 @@
   .W_AllArticleCards {
     position: relative;
     display: flex;
-    width: fit-content;
+    width: 1832px;
     margin: 0 auto;
     flex-direction: row;
+    justify-content: space-between;
     flex-wrap: wrap;
-    justify-content: flex-start;
     gap: 40px;
   }
 }
@@ -310,6 +311,7 @@
 .O_Footer {
   position: relative;
   margin-top: 17vh;
+  top: -20vh;
   bottom: 0;
   width: 100%;
   background-color: var(--black);
