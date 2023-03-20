@@ -163,6 +163,15 @@
       font-size: 40px;
     }
   }
+  .M_Description {
+    gap: 36px;
+    width: 320px;
+    .A_subtitle,
+    .A_Paragraph,
+    .A_Link {
+      width: 320px;
+    }
+  }
 }
 
 @media only screen and (min-width: 1280px) and (max-width: 1439px) {
@@ -334,6 +343,15 @@
       font-size: 32px;
     }
   }
+  .M_Description {
+    gap: 34px;
+    width: 299px;
+    .A_subtitle,
+    .A_Paragraph,
+    .A_Link {
+      width: 299px;
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -499,6 +517,15 @@
     gap: 20px;
     .A_ArticlesСategory {
       font-size: 30px;
+    }
+  }
+  .M_Description {
+    gap: 34px;
+    width: 192px;
+    .A_subtitle,
+    .A_Paragraph,
+    .A_Link {
+      width: 192px;
     }
   }
 }

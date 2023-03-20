@@ -1,7 +1,4 @@
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
-  .A_Link {
-    font-size: 20px;
-  }
   .A_AccentButtonTarotTellings {
     width: 253px;
     height: 62px;
@@ -17,8 +14,13 @@
     left: calc((100% - 665px) / 2);
     top: -70px;
   }
-  .A_paragraph2 {
+  .A_Link,
+  .A_Paragraph,
+  .A_Paragraph2 {
     font-size: 20px;
+  }
+  .A_subtitle {
+    font-size: 44px;
   }
 }
 
@@ -44,15 +46,17 @@
     left: calc((100% - 513px) / 2);
     top: -70px;
   }
-  .A_paragraph2 {
+  .A_Link,
+  .A_Paragraph,
+  .A_Paragraph2 {
     font-size: 18px;
+  }
+  .A_subtitle {
+    font-size: 40px;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .A_Link {
-    font-size: 14px;
-  }
   .A_AccentButtonTarotTellings {
     width: 188px;
     height: 46px;
@@ -69,6 +73,14 @@
   }
   .A_paragraph2 {
     font-size: 14px;
+  }
+  .A_Link,
+  .A_Paragraph,
+  .A_Paragraph2 {
+    font-size: 14px;
+  }
+  .A_subtitle {
+    font-size: 30px;
   }
 }
 

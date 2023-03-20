@@ -177,8 +177,11 @@
   text-align: center;
   color: var(--black);
 }
-.A_paragraph2.Left {
+.Left {
   text-align: left;
+}
+.Center {
+  text-align: center;
 }
 .S_header {
   position: relative;
@@ -521,21 +524,14 @@
     text-shadow: 0px 0px 12px var(--white);
   }
 }
-body.cardoftheday {
-  .A_paragraph {
-    font-family: 'Wremena';
-    position: relative;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 32px;
-    line-height: 90%;
-    text-align: center;
-    color: var(--black);
-    width: 895px;
-    left: calc((100% - 895px) / 2);
-    margin-bottom: 20px;
-    top: -70px;
-  }
+.A_Paragraph {
+  font-family: 'Wremena';
+  position: relative;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 90%;
+  color: var(--black);
 }
 .M_TarotCard {
   position: relative;
@@ -808,4 +804,21 @@ body.cardoftheday {
 }
 .NotShowing {
   display: none;
+}
+.M_Description {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 428px;
+  .A_subtitle {
+    width: 313px;
+  }
+  .A_Paragraph {
+    width: 313px;
+  }
+  .A_Link {
+    color: var(--black);
+    width: 313px;
+  }
 }
