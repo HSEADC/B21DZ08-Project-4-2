@@ -10,6 +10,9 @@ body {
 body {
   font-family: 'PT Root UI', Helvetica, Arial, sans-serif;
   font-weight: 400;
+  cursor: url('./images/cursor.svg'), auto;
+  background-color: var(--white);
+  overflow: overlay;
 }
 
 .images {
@@ -34,4 +37,21 @@ body {
       background-image: url('images/image.svg');
     }
   }
+}
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #313131;
+  border-radius: 200px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8bec;
+  border-radius: 200px;
 }
