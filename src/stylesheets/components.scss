@@ -314,7 +314,7 @@
 .O_Footer {
   position: relative;
   margin-top: 17vh;
-  top: -20vh;
+  top: 0;
   bottom: 0;
   width: 100%;
   background-color: var(--black);
@@ -371,6 +371,13 @@
     line-height: 74%;
     text-shadow: 0px 0px 12px var(--white);
     color: var(--grey);
+    &:hover {
+      text-shadow: 0px 0px 12px var(--pink);
+      cursor: url('./images/pointer.svg'), auto;
+    }
+    .Underlined {
+      text-decoration: underline;
+    }
   }
 }
 .M_CardArticle {
@@ -385,6 +392,12 @@
   background-color: var(--white);
   box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
   .A_CardArticleImage {
     position: relative;
     width: 384px;
@@ -442,6 +455,12 @@
   background-color: var(--white);
   box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
   .A_card_articles_image {
     position: relative;
     width: 755px;
@@ -496,6 +515,13 @@
   width: 428px;
   height: 492px;
   padding-top: 57px;
+  border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
   .A_ArticleTopic {
     position: relative;
     display: inline-block;
@@ -697,6 +723,16 @@
   box-shadow: 0px 6px 9px var(--blackshadow);
   box-shadow: inset 0px 6px 12px #f8f6f0;
   box-shadow: 0px 6px 9px var(--blackshadow);
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  &:hover .A_AccentButton {
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+    cursor: url('./images/pointer.svg'), auto;
+  }
   .W_TarotCardShadow {
     width: 100%;
     height: 100%;
@@ -744,6 +780,11 @@
       padding: 27px 20px;
       border-radius: 9px;
       top: -13px;
+      &:hover {
+        cursor: url('./images/pointer.svg'), auto;
+        transition: all 0.5s ease-out;
+        transform: scale(0.95);
+      }
     }
   }
 }
@@ -817,4 +858,7 @@
     color: var(--black);
     width: 313px;
   }
+}
+.Underlined {
+  text-decoration: underline;
 }
