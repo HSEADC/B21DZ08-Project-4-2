@@ -101,13 +101,13 @@
     </div>
     <div class="O_Articles">
       <div class="M_ArticlesCategories">
-        <div class="A_ArticlesСategory">все статьи</div>
-        <div class="A_ArticlesСategory">все подборки</div>
-        <div class="A_ArticlesСategory">о картах</div>
-        <div class="A_ArticlesСategory">о колодах</div>
+        <div class="A_ArticlesСategory" data-type="AllArticles">все статьи</div>
+        <div class="A_ArticlesСategory" data-type="AllCollections">все подборки</div>
+        <div class="A_ArticlesСategory" data-type="Cards">о картах</div>
+        <div class="A_ArticlesСategory" data-type="Decks">о колодах</div>
       </div>
-      <div class="W_AllArticleCards">
-        <div class="M_ArticleCardBig">
+      <div class="W_AllArticleCards" id="W_AllArticleCards">
+        <div class="M_ArticleCardBig" data-category="deck">
           <div class="W_TarotCardShadow">
             <div class="W_TarotCardBigInside">
               <span class="A_TarotCardTitleGrotesk">что такое</span>
@@ -148,7 +148,7 @@
             </div>
           </div>
         </div>
-        <div class="M_CardArticle">
+        <div class="M_CardArticle" data-category="cards">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -159,40 +159,49 @@
             кратко про архетипы, коллективное бессознательное по&nbsp;Юнгу 
           </div>
         </div>
-        <div class="M_CardArticle">
+        <div class="M_CardArticle" data-category="deck">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
           <div class="A_Heading3">
-            что такое таро уэйта и&nbsp;с&nbsp;чем его едят?
+            твоя первая колода
           </div>
           <div class="A_Paragraph2">
-            кто такой загадочный уэйт и&nbsp;почему все гадают именно
-            на&nbsp;его колоде
+            как подобрать колоду и&nbsp;какие тут подводные камни
           </div>
         </div>
         <div class="M_ArticlesCompilation">
           <div class="A_ArticleTopic">сборник статей</div>
           <div class="A_ArticleHeading">
-            подсказки для студентов будущих настоящих
+            рубрика <br>вопрос-ответ
           </div>
         </div>
-        <div class="M_CardArticle">
+        <div class="M_CardArticle" data-category="cards" data-category="deck">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
           <div class="A_Heading3">
-            что такое таро уэйта и&nbsp;с&nbsp;чем его едят?
+            гадания на учебу колода уэйта
           </div>
           <div class="A_Paragraph2">
-            кто такой загадочный уэйт и&nbsp;почему все гадают именно
-            на&nbsp;его колоде
+            как правильно трактовать карты таро, когда гадаешь на оценки
           </div>
         </div>
         <div class="M_ArticlesCompilation">
           <div class="A_ArticleTopic">сборник статей</div>
           <div class="A_ArticleHeading">
-            подсказки для студентов будущих настоящих
+            все для начинающих тарологинь
+          </div>
+        </div>
+        <div class="M_CardArticle" data-category="cards">
+          <div class="A_CardArticleImage">
+            <div class="Q_CardArticlesImageGradient"></div>
+          </div>
+          <div class="A_Heading3">
+            семерка мечей
+          </div>
+          <div class="A_Paragraph2">
+            карта лжи или как опознать скам года по&nbsp;одной карте
           </div>
         </div>
         <div class="M_CardArticle">
@@ -200,49 +209,33 @@
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
           <div class="A_Heading3">
-            что такое таро уэйта и&nbsp;с&nbsp;чем его едят?
+            можно ли гадать самой себе?
           </div>
           <div class="A_Paragraph2">
-            кто такой загадочный уэйт и&nbsp;почему все гадают именно
-            на&nbsp;его колоде
+            какие ловушки может создать подсознание, когда ты гадаешь себе
           </div>
         </div>
-        <div class="M_CardArticle">
+        <div class="M_CardArticle" data-category="cards">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
           <div class="A_Heading3">
-            что такое таро уэйта и&nbsp;с&nbsp;чем его едят?
+            карты перевернутые
           </div>
           <div class="A_Paragraph2">
-            кто такой загадочный уэйт и&nbsp;почему все гадают именно
-            на&nbsp;его колоде
+            почему в&nbsp;рамках ассоциативной игры это не&nbsp;работает
           </div>
         </div>
-
-        
-        <div class="M_CardArticle">
-          <div class="A_CardArticleImage">
-            <div class="Q_CardArticlesImageGradient"></div>
-          </div>
-          <div class="A_Heading3">
-            что такое таро уэйта и&nbsp;с&nbsp;чем его едят?
-          </div>
-          <div class="A_Paragraph2">
-            кто такой загадочный уэйт и&nbsp;почему все гадают именно
-            на&nbsp;его колоде
-          </div>
-        </div>
-        <div class="M_ArticleCardBig">
+        <div class="M_ArticleCardBig" data-category="cards">
           <div class="W_TarotCardShadow">
             <div class="W_TarotCardBigInside">
-              <span class="A_TarotCardTitleGrotesk">что такое</span>
+              <span class="A_TarotCardTitleGrotesk">карты</span>
               <br />
-              <span class="A_TarotCardTitleAntiqua">таро уэйта</span>
+              <span class="A_TarotCardTitleAntiqua">нестабильного</span>
               <br />
-              <span class="A_TarotCardTitleGrotesk">и с чем его</span>
+              <span class="A_TarotCardTitleGrotesk">эмоционального</span>
               <br />
-              <span class="A_TarotCardTitleAntiqua">едят?</span>
+              <span class="A_TarotCardTitleAntiqua">состояния</span>
               <br />
               <br />
               <br />
