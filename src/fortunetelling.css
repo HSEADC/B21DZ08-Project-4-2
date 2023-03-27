@@ -5,7 +5,7 @@
 @import 'stylesheets/index.scss';
 @import 'stylesheets/landingpage.scss';
 @import 'stylesheets/components.scss';
-@import 'stylesheets/responsives/a_responsive.scss';
-@import 'stylesheets/responsives/m_responsive.scss';
-@import 'stylesheets/responsives/o_responsive.scss';
-@import 'stylesheets/responsives/so_responsive.scss';
+@import 'stylesheets/components/a_components.scss';
+@import 'stylesheets/components/m_components.scss';
+@import 'stylesheets/components/o_components.scss';
+@import 'stylesheets/components/so_components.scss';

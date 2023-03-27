@@ -1,35 +1,5 @@
 console.log('cardoftheday')
-
-function initCardOfTheDay() {
-  console.log('cardoftheday init')
-  const AccentBottom = document.querySelector('.A_AccentButtonTarotTellings')
-  const FortuneTelling = document.querySelector('.W_ContentFortuneTelling')
-  var Picture = document.querySelector('.A_TarotCardImage')
-  var Name1 = document.querySelector('.A_TarotCardTitleAntiqua')
-  var Name2 = document.querySelector('.A_TarotCardTitleGrotesk')
-  var Number = document.querySelector('.A_TarotCardNumber')
-  var Common = document.querySelector('.A_paragraph2.Common')
-  var Love = document.querySelector('.A_paragraph2.Love')
-  var Work = document.querySelector('.A_paragraph2.Work')
-  var Advise = document.querySelector('.A_paragraph2.Advise')
-  AccentBottom.addEventListener('click', () => {
-    let Random = Math.floor(Math.random() * 4)
-    Number.innerHTML = TextOfTelling[Random][0]
-    Name1.innerHTML = TextOfTelling[Random][1]
-    Name2.innerHTML = TextOfTelling[Random][2]
-    Common.innerHTML = TextOfTelling[Random][3]
-    Love.innerHTML = TextOfTelling[Random][4]
-    Work.innerHTML = TextOfTelling[Random][5]
-    Advise.innerHTML = TextOfTelling[Random][6]
-    AccentBottom.classList.toggle('NotShowing')
-    FortuneTelling.classList.toggle('NotShowing')
-  })
-}
-document.addEventListener('DOMContentLoaded', () => {
-  initCardOfTheDay()
-})
-
-var TextOfTelling = [
+let TextOfTelling = [
   [
     '0',
     'дурак',
@@ -85,3 +55,33 @@ var TextOfTelling = [
     'емае совет'
   ]
 ]
+
+function initCardOfTheDay() {
+  console.log('cardoftheday init')
+  const AccentBottom = document.querySelector('.A_AccentButtonTarotTellings')
+  const FortuneTelling = document.querySelector('.W_ContentFortuneTelling')
+  let Picture = document.querySelector('.A_TarotCardImage')
+  let Name1 = document.querySelector('.A_TarotCardTitleAntiqua')
+  let Name2 = document.querySelector('.A_TarotCardTitleGrotesk')
+  let Number = document.querySelector('.A_TarotCardNumber')
+  let Common = document.querySelector('.A_paragraph2.Common')
+  let Love = document.querySelector('.A_paragraph2.Love')
+  let Work = document.querySelector('.A_paragraph2.Work')
+  let Advise = document.querySelector('.A_paragraph2.Advise')
+  AccentBottom.addEventListener('click', () => {
+    let Random = Math.floor(Math.random() * 4)
+    Number.innerHTML = TextOfTelling[Random][0]
+    Name1.innerHTML = TextOfTelling[Random][1]
+    Name2.innerHTML = TextOfTelling[Random][2]
+    Common.innerHTML = TextOfTelling[Random][3]
+    Love.innerHTML = TextOfTelling[Random][4]
+    Work.innerHTML = TextOfTelling[Random][5]
+    Advise.innerHTML = TextOfTelling[Random][6]
+    AccentBottom.classList.toggle('NotShowing')
+    FortuneTelling.classList.toggle('NotShowing')
+  })
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initCardOfTheDay()
+})

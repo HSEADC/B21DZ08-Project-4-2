@@ -1,9 +1,5 @@
 console.log('ready')
 
-document.addEventListener('DOMContentLoaded', () => {
-  initSelect()
-})
-
 function initSelect() {
   const Search = document.querySelector('.A_Search')
   const SearchBox = document.querySelector('.M_SearchBox')
@@ -17,3 +13,7 @@ function initSelect() {
     SearchBox.classList.remove('M_SearchBoxActive')
   })
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSelect()
+})
