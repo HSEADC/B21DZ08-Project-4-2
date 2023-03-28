@@ -1,3 +1,348 @@
+.M_ArticlesCategories {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 120px;
+  gap: 40px;
+  .A_ArticlesСategory {
+    position: relative;
+    display: inline-block;
+  }
+}
+.M_CardArticle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 428px;
+  height: 492px;
+  padding: 36px 21px;
+  background-color: var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+  border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  .A_CardArticleImage {
+    position: relative;
+    width: 385px;
+    height: 256px;
+  }
+  .A_Heading3 {
+    position: relative;
+    display: inline-block;
+    width: 304px;
+  }
+  .A_Paragraph {
+    position: relative;
+    display: inline-block;
+    width: 304px;
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_ArticleCardHuge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 896px;
+  height: 496px;
+  padding: 36px 21px;
+  background-color: var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+  border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  .A_CardArticleImage {
+    position: relative;
+    width: 755px;
+    height: 256px;
+  }
+  .A_heading3 {
+    position: relative;
+    display: inline-block;
+    width: 755px;
+  }
+  .A_Paragraph {
+    position: relative;
+    display: inline-block;
+    width: 755px;
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_ArticlesCompilation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
+  width: 428px;
+  height: 492px;
+  padding-top: 57px;
+  border-radius: 22px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  .A_ArticleTopic {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  .A_ArticleHeading {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_TarotCard {
+  position: relative;
+  text-align: center;
+  width: 428px;
+  height: 630px;
+  background: radial-gradient(
+      98.49% 56.44% at 50% 0%,
+      var(--pink) 0%,
+      rgba(255, 139, 236, 0) 100%
+    ),
+    var(--white);
+  border-radius: 22px;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  .W_TarotCardShadow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
+  }
+  .W_TarotCardInside {
+    position: relative;
+    top: 30px;
+    font-size: 52px;
+    line-height: 110%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardIcon {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      top: 5px;
+      width: 55px;
+      height: 41px;
+    }
+    .A_TarotCardImage {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+    }
+    .A_TarotCardNumber {
+      position: relative;
+      font-size: 52px;
+    }
+    .A_TarotCardTitleAntiqua {
+      position: relative;
+      padding: 0 10px;
+      font-size: 52px;
+    }
+    .A_TarotCardTitleGrotesk {
+      position: relative;
+      padding: 0 10px;
+      font-size: 48px;
+    }
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_TarotCardWide {
+  position: relative;
+  text-align: center;
+  width: 584px;
+  height: 400px;
+  background: radial-gradient(
+      53.17% 78.68% at 50% 100%,
+      rgba(255, 139, 236, 0.71) 0%,
+      rgba(255, 139, 236, 0) 100%
+    ),
+    #f8f6f0;
+  border-radius: 22px;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  .W_TarotCardShadow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
+  }
+  .W_TarotCardWideInside {
+    position: relative;
+    top: 30px;
+    font-size: 52px;
+    line-height: 110%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardIcon {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      top: 18px;
+      padding: 10px;
+      width: 98px;
+      height: 73px;
+    }
+    .A_TarotCardTitleAntiqua {
+      position: relative;
+      padding: 0 10px;
+      font-size: 52px;
+    }
+    .A_TarotCardTitleGrotesk {
+      position: relative;
+      z-index: 1;
+      padding: 0 10px;
+      font-size: 48px;
+    }
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_ArticleCardBig {
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 896px;
+  height: 916px;
+  border-radius: 22px;
+  background: radial-gradient(
+      216.06% 132.81% at 50% -32.81%,
+      #313131 0%,
+      #aa6ba0 0.01%,
+      #f687e4 0.02%,
+      #f8f6f0 100%
+    ),
+    #f5f6ee;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  box-shadow: inset 0px 6px 12px #f8f6f0;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  &:hover .A_AccentButton {
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+    cursor: url('./images/pointer.svg'), auto;
+  }
+  .W_TarotCardShadow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 6px 9px var(--blackshadow));
+  }
+  .W_TarotCardBigInside {
+    position: relative;
+    top: 30px;
+    font-size: 82px;
+    line-height: 128%;
+    display: inline;
+    box-decoration-break: clone;
+    background: var(--white);
+    padding: 5px;
+    filter: url('#goo');
+    box-shadow: none;
+    .A_TarotCardTitleAntiqua {
+      position: relative;
+      font-size: 100px;
+      padding: 0 30px;
+    }
+    .A_TarotCardTitleGrotesk {
+      position: relative;
+      font-size: 96px;
+      padding: 0 30px;
+    }
+    .A_AccentButton {
+      position: relative;
+      display: inline-block;
+      top: -13px;
+    }
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+.M_Description {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 428px;
+  .A_subtitle {
+    width: 313px;
+  }
+  .A_Paragraph {
+    width: 313px;
+  }
+  .A_Link {
+    color: var(--black);
+    width: 313px;
+  }
+}
+.M_Header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  background: radial-gradient(
+    56.73% 70.46% at 50% -9.51%,
+    var(--pink) 0%,
+    rgba(255, 139, 236, 0) 100%
+  );
+  .W_HeaderText {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    padding: 150px 0;
+  }
+  .W_HeaderHeading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+}
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
   .M_CardArticle {
     gap: 12px;

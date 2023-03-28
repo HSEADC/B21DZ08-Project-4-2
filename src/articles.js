@@ -1,4 +1,4 @@
-// import './articles.css'
+import './articles.css'
 
 // console.log('cardfilter')
 
@@ -73,22 +73,3 @@
 // document.addEventListener('DOMContentLoaded', () => {
 //   initFilter()
 // })
-
-
-const zodiaks = getElementsByClassName('A_ZodiakButton класс кнопок')
-const zodiakstext = getElementsByClassName('класс дивов которые должны появиться')
-for (let i = 0; i < zodiaks.length; i++) {
-  const elementz = zodiaks[i];
-  elementz.addEventListeneraddEventListener('click', function () {
-    const text = elementz.dataset.name
-    zodiaks.classList.remove('.')
-    elementz.classList.add('.')
-    for (let b = 0; i < zodiakstext.length; i++) {
-      zodiakstext.classList.remove('.')
-      const element = zodiakstext[b];
-      if (element.dataset.name == text) {
-        this.classList.add('.')
-      }
-    }
-  }
-}

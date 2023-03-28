@@ -1,3 +1,206 @@
+.O_Menu {
+  height: 58px;
+  position: fixed;
+  z-index: 100;
+  left: calc(50% - 950px / 2);
+  top: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  .A_Logo {
+    width: 170px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      transition: all 1s ease-out;
+      transform: scale(0.85);
+    }
+    img {
+      width: 128.8px;
+      height: 22px;
+    }
+  }
+  .M_MenuElements {
+    width: 628px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    .Q_MenuStar {
+      height: 16px;
+      width: 16px;
+    }
+    .A_MenuElementText {
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+    }
+    .W_MenuElementTextBox {
+      height: 58px;
+      &:hover .A_MenuElementText {
+        text-shadow: 0px 0px 12px var(--pink);
+        cursor: url('./images/pointer.svg'), auto;
+      }
+    }
+    .W1_MenuElementTextBox {
+      width: 118px;
+    }
+    .W2_MenuElementTextBox {
+      width: 118px;
+    }
+    .W3_MenuElementTextBox {
+      width: 202px;
+    }
+    .W4_MenuElementTextBox {
+      width: 126px;
+    }
+  }
+  .M_SearchBox {
+    width: 136px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+
+    transition: all 1s ease-out;
+    .Q_SearchIcon {
+      background-image: url('images/Q_SearchIcon.svg');
+      width: 22px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .A_Search {
+      height: 58px;
+      width: 80px;
+      border: none;
+      background: transparent;
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+      cursor: url('./images/pointer.svg'), auto;
+
+      &::placeholder {
+        font-family: 'Gramatika Demo';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        color: var(--black);
+        line-height: 58px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    &:hover {
+      cursor: url('./images/pointer.svg'), auto;
+    }
+  }
+  .M_SearchBoxActive {
+    width: 352px;
+    transition: all 1s ease-out;
+    .A_Search {
+      width: 280px;
+    }
+  }
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+  }
+}
+.O_Footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-top: 17vh;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--black);
+  height: 500px;
+  border-radius: 22px 22px 0 0;
+  padding: 60px;
+  .Q_MenuStar {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40px;
+    width: 40px;
+  }
+  .C_SocialsFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 80px;
+  }
+  .C_AuthorsFooter {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    justify-content: center;
+    .W1_AuthorsFooter,
+    .W2_AuthorsFooter {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 40px;
+    }
+  }
+}
+.O_Articles {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 20vh;
+  background: radial-gradient(
+      117.87% 117.87% at 51.17% 0%,
+      #f8f6f0 13.54%,
+      #ff8bec 55.03%,
+      #313131 100%
+    ),
+    #313131;
+  border-radius: 22px 22px 0px 0px;
+  .W_AllArticleCards {
+    position: relative;
+    display: flex;
+    width: 1832px;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
