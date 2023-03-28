@@ -244,6 +244,60 @@
     display: none;
   }
 }
+.O_ContentFortuneTelling2 {
+  transition: all 1s ease-out;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  .W_CardsRow {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    // margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    .W_TarotCardWithDescribtion {
+      position: relative;
+      width: fit-content;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      .A_Paragraph {
+        position: relative;
+        width: 428px;
+      }
+    }
+  }
+  .A_Paragraph {
+    position: relative;
+    width: 896px;
+  }
+  .Q_MenuStar {
+    position: relative;
+    width: 40px;
+    height: 40px;
+  }
+  .W_TarotResultText {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  .A_AccentButtonTarotTellings {
+    position: relative;
+    left: 0px;
+  }
+  // &.NotShowing {
+  //   display: none;
+  // }
+}
 
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
   .O_Menu {
