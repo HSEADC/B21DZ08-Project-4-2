@@ -3,7 +3,7 @@ console.log('cardoftheday')
 function initCardOfTheDay() {
   console.log('cardoftheday init')
   const AccentBottom = document.querySelector('.A_AccentButtonTarotTellings')
-  const FortuneTelling = document.querySelector('.W_ContentFortuneTelling')
+  const FortuneTelling = document.querySelector('.O_ContentFortuneTelling')
   var Picture = document.querySelector('.A_TarotCardImage')
   var Name1 = document.querySelector('.A_TarotCardTitleAntiqua')
   var Name2 = document.querySelector('.A_TarotCardTitleGrotesk')

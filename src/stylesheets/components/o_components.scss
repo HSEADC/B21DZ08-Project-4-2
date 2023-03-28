@@ -201,6 +201,50 @@
     gap: 40px;
   }
 }
+.O_ContentFortuneTelling {
+  transition: all 1s ease-out;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 196px;
+  .M_TarotCard {
+    margin: 0 -78px;
+  }
+  .C_Contents {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 100px;
+    .M_Content {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      align-items: flex-start;
+      justify-content: center;
+      .A_Subtitle {
+        width: 272px;
+        margin-right: 40px;
+      }
+      .A_Paragraph {
+        width: 740px;
+      }
+      .Q_MenuStar {
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 30px;
+        width: 30px;
+        padding-right: 10px;
+        display: inline-block;
+      }
+    }
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
