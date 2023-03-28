@@ -343,6 +343,28 @@
     gap: 8px;
   }
 }
+.M_Content {
+  position: relative;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+  width: 1828px;
+  .A_Subtitle {
+    width: 320px;
+  }
+  .W_ParagraphAndImage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 1364px;
+    height: fit-content;
+    .A_Paragraph {
+      width: 896px;
+    }
+  }
+}
 @media only screen and (min-width: 1280px) and (max-width: 1919px) {
   .M_CardArticle {
     gap: 12px;
