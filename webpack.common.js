@@ -16,6 +16,7 @@ module.exports = {
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
     fortunetelling: './src/fortunetelling.js',
+    mouseeventcard: './src/cardonmouseevent.js',
     page: './src/page.jsx'
   },
   output: {
@@ -92,7 +93,7 @@ module.exports = {
       scriptLoading: 'blocking',
       template: './src/index.html',
       filename: './index.html',
-      chunks: ['index', 'menu']
+      chunks: ['index', 'menu', 'mouseeventcard']
     }),
 
     // Internal pages
