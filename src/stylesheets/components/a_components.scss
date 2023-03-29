@@ -419,7 +419,7 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 460px) and (max-width: 1023px) {
   .A_AccentButtonTarotTellings {
     width: 188px;
     height: 46px;
@@ -509,7 +509,6 @@
     font-size: 24px;
     padding: 10px 9px;
     border-radius: 4px;
-    top: -4px;
   }
   .A_paragraphHeader {
     font-size: 14px;
@@ -558,5 +557,9 @@
   }
   .A_BreadCrumbs {
     font-size: 14px;
+  }
+  .A_ArticleHeading {
+    font-size: 18px;
+    text-align: left;
   }
 }
