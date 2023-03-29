@@ -39,7 +39,6 @@
 
     <link rel="shortcut icon" href="images/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="javascript/solitaireVictory.js" charset="utf-8"></script>
   </head>
   <body class="articles">
     <div class="O_Menu">
@@ -95,15 +94,15 @@
     </div>
     <div class="O_Articles">
       <div class="M_ArticlesCategories">
-        <div class="A_ArticlesСategory" data-type="AllArticles">все статьи</div>
-        <div class="A_ArticlesСategory" data-type="AllCollections">
+        <div class="A_ArticlesСategory" data-type="article">все статьи</div>
+        <div class="A_ArticlesСategory" data-type="compilation">
           все подборки
         </div>
-        <div class="A_ArticlesСategory" data-type="Cards">о картах</div>
-        <div class="A_ArticlesСategory" data-type="Decks">о колодах</div>
+        <div class="A_ArticlesСategory" data-type="cardinfo">о картах</div>
+        <div class="A_ArticlesСategory" data-type="deckinfo">о колодах</div>
       </div>
       <div class="W_AllArticleCards" id="W_AllArticleCards">
-        <div class="M_ArticleCardBig" data-category="deck">
+        <div class="M_ArticleCardBig" data-category="deckinfo article">
           <div class="W_TarotCardShadow">
             <div class="W_TarotCardBigInside">
               <span class="A_TarotCardTitleGrotesk">что такое</span>
@@ -144,7 +143,7 @@
             </div>
           </div>
         </div>
-        <div class="M_CardArticle" data-category="cards">
+        <div class="M_CardArticle" data-category="cardinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -153,7 +152,7 @@
             кратко про архетипы, коллективное бессознательное по&nbsp;Юнгу
           </div>
         </div>
-        <div class="M_CardArticle" data-category="deck">
+        <div class="M_CardArticle" data-category="deckinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -162,11 +161,11 @@
             как подобрать колоду и&nbsp;какие тут подводные камни
           </div>
         </div>
-        <div class="M_ArticlesCompilation">
+        <div class="M_ArticlesCompilation" data-category="compilation">
           <div class="A_ArticleTopic">сборник статей</div>
           <div class="A_ArticleHeading">рубрика <br />вопрос-ответ</div>
         </div>
-        <div class="M_CardArticle" data-category="cards" data-category="deck">
+        <div class="M_CardArticle" data-category="cardinfo deckinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -175,11 +174,11 @@
             как правильно трактовать карты таро, когда гадаешь на оценки
           </div>
         </div>
-        <div class="M_ArticlesCompilation">
+        <div class="M_ArticlesCompilation" data-category="compilation">
           <div class="A_ArticleTopic">сборник статей</div>
           <div class="A_ArticleHeading">все для начинающих тарологинь</div>
         </div>
-        <div class="M_CardArticle" data-category="cards">
+        <div class="M_CardArticle" data-category="cardinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -188,7 +187,7 @@
             карта лжи или как опознать скам года по&nbsp;одной карте
           </div>
         </div>
-        <div class="M_CardArticle">
+        <div class="M_CardArticle" data-category="cardinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -197,7 +196,7 @@
             какие ловушки может создать подсознание, когда ты гадаешь себе
           </div>
         </div>
-        <div class="M_CardArticle" data-category="cards">
+        <div class="M_CardArticle" data-category="cardinfo article">
           <div class="A_CardArticleImage">
             <div class="Q_CardArticlesImageGradient"></div>
           </div>
@@ -206,7 +205,7 @@
             почему в&nbsp;рамках ассоциативной игры это не&nbsp;работает
           </div>
         </div>
-        <div class="M_ArticleCardBig" data-category="cards">
+        <div class="M_ArticleCardBig" data-category="cardinfo article">
           <div class="W_TarotCardShadow">
             <div class="W_TarotCardBigInside">
               <span class="A_TarotCardTitleGrotesk">карты</span>

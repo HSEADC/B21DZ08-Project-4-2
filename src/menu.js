@@ -1,17 +1,41 @@
 console.log('ready')
+const search = document.querySelector('.A_Search')
+const searchBox = document.querySelector('.M_SearchBox')
+const wrapperSearch = document.createElement('div')
+const itemSearch = document.createElement('div')
+const itemText = document.createElement('div')
 
 function initSelect() {
-  const Search = document.querySelector('.A_Search')
-  const SearchBox = document.querySelector('.M_SearchBox')
+  wrapperSearch.classList.add('W_SearchItems')
 
-  Search.addEventListener('focus', () => {
+  search.addEventListener('focus', () => {
     console.log('focus')
-    SearchBox.classList.add('M_SearchBoxActive')
+    searchBox.classList.add('M_SearchBoxActive')
+    searchBox.appendChild(wrapperSearch)
   })
-  Search.addEventListener('blur', () => {
+
+  search.addEventListener('blur', () => {
     console.log('focus')
-    SearchBox.classList.remove('M_SearchBoxActive')
+    searchBox.classList.remove('M_SearchBoxActive')
+    searchBox.removeChild(wrapperSearch)
+    searchBox.classList.remove('Modify')
   })
+
+  search.addEventListener('input', () => {
+    console.log('инпут лисенер')
+    searchBox.classList.add('Modify')
+    createElem('fregker', wrapperSearch)
+    console.log('gvhj')
+  })
+}
+
+function createElem(title, parentname) {
+  itemSearch.classList.add('M_SearchItem')
+  parentname.appendChild(itemSearch)
+  itemSearch.appendChild(itemText)
+  itemSearch.classList.add('A_Subtitle')
+  itemSearch.innerText = title
+  console.log('gvfrfhj')
 }
 
 document.addEventListener('DOMContentLoaded', () => {

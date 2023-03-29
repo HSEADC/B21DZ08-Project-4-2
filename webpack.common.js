@@ -106,8 +106,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/articles/article.html',
-      filename: './articles/article.html'
+      filename: './articles/article.html',
+      chunks: ['articles', 'menu']
     }),
+
     new HtmlWebpackPlugin({
       template: './src/articles.html',
       filename: './articles.html',
@@ -128,7 +130,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/family.html',
       filename: './fortunetellings/family.html',
-      chunks: ['fortunetelling']
+      chunks: ['fortunetelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/love.html',
@@ -168,6 +170,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards.html',
       filename: './cards.html',
+      chunks: ['menu', 'articles']
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/articlescompilations/lovecompilation.html',
+      filename: './articlescompilations/lovecompilation.html',
       chunks: ['menu', 'articles']
     }),
 

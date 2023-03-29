@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>NOX</title>
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // помощь
+        $('.touch30').click(function () {
+          $('.talking1').toggleClass('bubble1 cover')
+        })
+        $('.touch31').click(function () {
+          $('.talking2').toggleClass('bubble2 cover')
+        })
+        $('.touch32').click(function () {
+          $('.talking3').toggleClass('bubble3 cover')
+        })
+        $('.touch33').click(function () {
+          $('.talking4').toggleClass('bubble4 cover')
+          // $(".talking4").addClass("bubble4 cover");
+          // $(".bubble4 cover").removeClass("none");
+        })
+
+        // на главный экран из мини-игры
+        $('.touch21').click(function () {
+          $('.minigame1').addClass('none')
+          $('.crazy1').addClass('none')
+          $('.crazy4').addClass('none')
+          $('.container').removeClass('none')
+        })
+        $('.touch22').click(function () {
+          $('.minigame2').addClass('none')
+          $('.crazy2').addClass('none')
+          $('.crazy5').addClass('none')
+          $('.container').removeClass('none')
+        })
+        $('.touch23').click(function () {
+          $('.minigame3').addClass('none')
+          $('.crazy3').addClass('none')
+          $('.crazy6').addClass('none')
+          $('.container').removeClass('none')
+        })
+
+        // курсор в мини-игре 3
+        $(document).mousemove(function (e) {
+          $('#cursor').css({
+            left: e.pageX - 10,
+            top: e.pageY - 10
+          })
+        })
+
+        // мини-игра 3
+        let myArray = [
+          'cosmopolit pcosmopolit cover',
+          'oort poort cover',
+          'glazki pglazki cover',
+          'puzirek ppuzirek cover',
+          'piki ppiki cover'
+        ]
+        let randomItem = myArray[Math.floor(Math.random() * myArray.length)]
+        $('.prophecyhere').html(`<div class="${randomItem}"></div>`)
+
+        // появление продуктов на тарелке
+        $(function () {
+          $('.touch21').click(function () {
+            $('.allisonplate').clone().appendTo('.onplate')
+            $('.allisonplate').css('left', '-25vw')
+            $('.allisonplate').css('top', '-13.5vw')
+            $('.allisonplate').css('scale', '0.9')
+            $('.onplate').css('animation', 'fly 2.1s infinite ease-in-out')
+          })
+          // не работает перенос второй мини-игры на тарелочку!!!!!!!!!!!!!!!
+          // $(".onep1").click(function() {
+          // $(".onep").clone().appendTo(".onplate2");
+          // $('.onep').css('left','0vw');
+          // $('.onep').css('top','0vw');
+          // });
+          $('.touch23').click(function () {
+            $('.prophecyhere').clone().appendTo('.onplate3')
+            // МОЖНО ЛИ ЗАПИСАТЬ БОЛЕЕ ЕМКО??????????????????????::::::::::::::
+            $('.prophecyhere').css('left', '33vw')
+            $('.prophecyhere').css('top', '-18vw')
+            $('.prophecyhere').css('scale', '0.5')
+          })
+        })
+
+        // мини-игра 2 движение обрезается + самого кода очень много!!!!!!!!!!!!!!!
+        setInterval(function () {
+          var rand1 = Math.floor(Math.random() * 2480)
+          var rand11 = Math.floor(Math.random() * 2480)
+          var rand2 = Math.floor(Math.random() * 2479)
+          var rand22 = Math.floor(Math.random() * 2479)
+          var rand3 = Math.floor(Math.random() * 2478)
+          var rand33 = Math.floor(Math.random() * 2478)
+          var rand4 = Math.floor(Math.random() * 2477)
+          var rand44 = Math.floor(Math.random() * 2477)
+          var rand5 = Math.floor(Math.random() * 2476)
+          var rand55 = Math.floor(Math.random() * 2476)
+          var rand6 = Math.floor(Math.random() * 2475)
+          var rand66 = Math.floor(Math.random() * 2475)
+          var rand7 = Math.floor(Math.random() * 2474)
+          var rand77 = Math.floor(Math.random() * 2474)
+          var rand8 = Math.floor(Math.random() * 2473)
+          var rand88 = Math.floor(Math.random() * 2473)
+          var rand9 = Math.floor(Math.random() * 2472)
+          var rand99 = Math.floor(Math.random() * 2472)
+          var rand10 = Math.floor(Math.random() * 2471)
+          var rand1010 = Math.floor(Math.random() * 2471)
+          var rand11 = Math.floor(Math.random() * 2470)
+          var rand1111 = Math.floor(Math.random() * 2470)
+          var rand12 = Math.floor(Math.random() * 2469)
+          var rand1212 = Math.floor(Math.random() * 2469)
+          var box = document.getElementById('box')
+          var onep = document.getElementById('onep')
+          var oney = document.getElementById('oney')
+          var oneb = document.getElementById('oneb')
+          var oner = document.getElementById('oner')
+          var oneyyyyyyy = document.getElementById('oneyyyyyyy')
+          var tworrr = document.getElementById('tworrr')
+          var onebb = document.getElementById('onebb')
+          var twor = document.getElementById('twor')
+          var twoppp = document.getElementById('twoppp')
+          onep.style.left = rand1 + 'px'
+          onep.style.top = rand11 + 'px'
+          oney.style.left = rand2 + 'px'
+          oney.style.top = rand22 + 'px'
+          oneb.style.left = rand3 + 'px'
+          oneb.style.top = rand33 + 'px'
+          oner.style.left = rand4 + 'px'
+          oner.style.top = rand44 + 'px'
+          oneyyyyyyy.style.left = rand5 + 'px'
+          oneyyyyyyy.style.top = rand55 + 'px'
+          tworrr.style.left = rand6 + 'px'
+          tworrr.style.top = rand66 + 'px'
+          onebb.style.left = rand7 + 'px'
+          onebb.style.top = rand77 + 'px'
+          twoppp.style.left = rand8 + 'px'
+          twoppp.style.top = rand88 + 'px'
+          twor.style.left = rand9 + 'px'
+          twor.style.top = rand99 + 'px'
+        }, 900)
+
+        // анимация звезд в мини-игре 3
+        $(function () {
+          $('.star1, .star3, .star5, .star7').css(
+            'animation',
+            'target1 1.6s infinite'
+          )
+          $('.star2, .star4, .star6, .star8').css(
+            'animation',
+            'target2 1.6s infinite'
+          )
+        })
+
+        // mini-game 3
+        $('.moving').click(function () {
+          $('.moving').addClass('none')
+          $('.bubble4 cover').addClass('none')
+          $('.prophecyhere').removeClass('none')
+          $('.star1').removeClass('none')
+          $('.star2').removeClass('none')
+          $('.star3').removeClass('none')
+          $('.star4').removeClass('none')
+          $('.star5').removeClass('none')
+          $('.star6').removeClass('none')
+          $('.star7').removeClass('none')
+          $('.star8').removeClass('none')
+        })
+
+        // переход ко всем мини-играм
+        $('.windowgame1').click(function () {
+          $('.container').addClass('none')
+          $('.minigame1').removeClass('none')
+          $('.allisonplate').css('left', '0vw')
+          $('.allisonplate').css('top', '0vw')
+          $('.allisonplate').css('scale', '1')
+          $('.onplate').css('animation', 'fly 0s infinite ease-in-out')
+        })
+        $('.windowgame2').click(function () {
+          $('.container').addClass('none')
+          $('.minigame2').removeClass('none')
+        })
+        $('.windowgame3').click(function () {
+          $('.container').addClass('none')
+          $('.minigame3').removeClass('none')
+          $('.prophecyhere').css('left', '0vw')
+          $('.prophecyhere').css('top', '0vw')
+          $('.prophecyhere').css('scale', '1')
+          $('.prophecyhere').css('left', '0vw')
+          $('.prophecyhere').css('animation', 'fly 2.3s infinite ease-in-out')
+        })
+
+        // мини-игра 1 с перетаскиванием объектов ОБРЕЗАЕТСЯ!!!!!!!!!!! И КЛОНИТСЯ ПРИ ПЕРЕДВИЖЕНИИ!!!!!!!!!!
+        $(
+          '.o1, .o2, .o3, .o4, .o5, .o6, .o7, .o8, .o9, .o10, .o11, .o12, .o13, .o14, .o15, .o16, .o17, .o18, .o19, .o20, .o21, .o22, .o23'
+        ).draggable()
+        $('.allisonplate').droppable()
+
+        // музыка на клик НЕ РАБОТАЕТ!!!!!!!!!!!!!!!
+        function sound() {
+          var audio = new Audio()
+          audio.src = 'audio/click.mp3'
+          audio.autoplay = true
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div class="mustrotate">
+      <div class="moveback1port cover"></div>
+      <div class="moveback2port cover"></div>
+      <div class="request">
+        <div class="vector cover"></div>
+        <div class="uforotate cover"></div>
+      </div>
+    </div>
+    <div class="container" onclick="sound(true);">
+      <div class="screen"></div>
+      <div class="mainscreen">
+        <div class="moveback1 cover"></div>
+        <div class="moveback2 cover"></div>
+        <div class="moveback3 cover"></div>
+        <!-- <img class="PROVERKA" src="images/proverka1.png" alt=""> -->
+        <div class="plates">
+          <div class="smallplate cover fly3"></div>
+          <div class="midplate cover fly2"></div>
+          <div class="bigplate bigplatemove cover fly1"></div>
+        </div>
+        <div class="onplate"></div>
+        <div class="onplate2"></div>
+        <div class="onplate3"></div>
+        <div class="crazys">
+          <img class="crazy1" src="images/crazy1.svg" alt="" />
+          <img class="crazy2" src="images/crazy2.svg" alt="" />
+          <img class="crazy3" src="images/crazy3.svg" alt="" />
+          <img class="crazy4" src="images/crazy4.svg" alt="" />
+          <img class="crazy5" src="images/crazy5.svg" alt="" />
+          <img class="crazy6" src="images/crazy6.svg" alt="" />
+        </div>
+        <div class="windows">
+          <div class="windowgame1"></div>
+          <div class="windowgame2"></div>
+          <div class="windowgame3"></div>
+        </div>
+        <div class="ufo cover fly1"></div>
+        <div class="fork cover"></div>
+        <div class="knife cover"></div>
+        <div class="talking1 bubble1 cover fly1"></div>
+        <div class="onpanel1">
+          <div
+            class="touches touch20"
+            onclick="window.location.reload(true)"
+          ></div>
+          <div class="touches touch30"></div>
+        </div>
+      </div>
+    </div>
+    <!-- мини-игра 1 -->
+    <div class="minigame1reload none"></div>
+    <div class="minigame1 none">
+      <div class="moveback1 cover"></div>
+      <!-- <img class="PROVERKA" src="images/proverka2.png" alt=""> -->
+      <div class="bigplate bigplateminigame cover"></div>
+      <div class="allisonplate">
+        <div class="o1 cover"></div>
+        <div class="o2 cover"></div>
+        <div class="o3 cover"></div>
+        <div class="o4 cover"></div>
+        <div class="o9 cover"></div>
+        <div class="o10 cover"></div>
+        <div class="o11 cover"></div>
+        <div class="o12 cover"></div>
+        <div class="o13 cover"></div>
+        <div class="o14 cover"></div>
+        <div class="o5 cover"></div>
+        <div class="o6 cover"></div>
+        <div class="o7 cover"></div>
+        <div class="o8 cover"></div>
+        <div class="o16 cover"></div>
+        <div class="o17 cover"></div>
+        <div class="o18 cover"></div>
+        <div class="o19 cover"></div>
+        <div class="o20 cover"></div>
+        <div class="o21 cover"></div>
+        <div class="o22 cover"></div>
+        <div class="o23 cover"></div>
+      </div>
+      <div class="talking2 bubble2 cover"></div>
+      <div class="onpanel1">
+        <div class="touches touch21"></div>
+        <div class="touches touch31"></div>
+      </div>
+    </div>
+    <!-- мини-игра 2 -->
+    <div class="minigame2 none">
+      <div class="moveback1 cover"></div>
+      <!-- <img class="PROVERKA" src="images/proverka3.png" alt=""> -->
+      <div id="box">
+        <div id="onep" class="moveDot"></div>
+        <div id="oneb" class="moveDot"></div>
+        <div id="oney" class="moveDot"></div>
+        <div id="oner" class="moveDot"></div>
+        <div id="oneyyyyyyy" class="moveDot"></div>
+        <div id="tworrr" class="moveDot"></div>
+        <div id="onebb" class="moveDot"></div>
+        <div id="twop" class="moveDot"></div>
+        <div id="twoppp" class="moveDot"></div>
+      </div>
+      <div id="cursor">
+        <div class="targets">
+          <div class="target1 cover"></div>
+          <div class="target2 cover"></div>
+        </div>
+      </div>
+      <div class="talking3 bubble3 cover"></div>
+      <div class="onpanel1">
+        <div class="touches touch22"></div>
+        <div class="touches touch32"></div>
+      </div>
+    </div>
+    <!-- мини-игра 3 -->
+    <div class="minigame3 none">
+      <div class="moveback1 cover"></div>
+      <div class="moveback2 cover"></div>
+      <div class="stars">
+        <div class="star1 cover none"></div>
+        <div class="star2 cover none"></div>
+        <div class="star3 cover none"></div>
+        <div class="star4 cover none"></div>
+        <div class="star5 cover none"></div>
+        <div class="star6 cover none"></div>
+        <div class="star7 cover none"></div>
+        <div class="star8 cover none"></div>
+      </div>
+      <!-- <img class="PROVERKA" src="images/proverka4.png" alt=""> -->
+      <div class="prophecyhere none">
+        <div class="moveback1 cover"></div>
+        <div class="moveback2 cover"></div>
+        <div class="cosmopolit pcosmopolit cover"></div>
+        <div class="oort poort cover"></div>
+        <div class="glazki pglazki cover"></div>
+        <div class="puzirek ppuzirek cover"></div>
+        <div class="piki ppiki cover"></div>
+        <div class="onpanel1">
+          <div class="touches touch23"></div>
+          <div class="touches touch33"></div>
+        </div>
+      </div>
+      <div class="moving">
+        <div class="prophecy">
+          <div class="cosmopolit cover"></div>
+          <div class="oort cover"></div>
+          <div class="glazki cover"></div>
+          <div class="puzirek cover"></div>
+          <div class="piki cover"></div>
+        </div>
+        <div class="prophecy2">
+          <div class="cosmopolit cover"></div>
+          <div class="oort cover"></div>
+          <div class="glazki cover"></div>
+          <div class="puzirek cover"></div>
+          <div class="piki cover"></div>
+        </div>
+      </div>
+      <div class="talking4 bubble4 cover"></div>
+      <div class="onpanel1">
+        <div class="touches touch23"></div>
+        <div class="touches touch33"></div>
+      </div>
+    </div>
+    <script src="js/fon.js"></script>
+  </body>
+</html>
