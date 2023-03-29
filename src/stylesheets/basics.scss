@@ -47,12 +47,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #313131;
+  background: var(--black);
   border-radius: 200px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff8bec;
+  background: var(--pink);
   border-radius: 200px;
 }
 a {

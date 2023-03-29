@@ -2,40 +2,83 @@ console.log('ready')
 const search = document.querySelector('.A_Search')
 const searchBox = document.querySelector('.M_SearchBox')
 const wrapperSearch = document.createElement('div')
-const itemSearch = document.createElement('div')
-const itemText = document.createElement('div')
+
+const cards = [
+  {
+    title: 'карта дня',
+    imgname: "url('images/image.jpg')",
+    ahref: '/cardoftheday.html'
+  },
+  {
+    title: 'любовное настроение',
+    imgname: "url('images/image.jpg')",
+    ahref: '/articlescompilations/lovecompilation.html'
+  },
+  {
+    title: 'таро уэйта',
+    imgname: "url('images/image.jpg')",
+    ahref: '/articles/article.html'
+  }
+]
 
 function initSelect() {
   wrapperSearch.classList.add('W_SearchItems')
 
   search.addEventListener('focus', () => {
-    console.log('focus')
     searchBox.classList.add('M_SearchBoxActive')
     searchBox.appendChild(wrapperSearch)
+    console.log(wrapperSearch.children)
   })
 
-  search.addEventListener('blur', () => {
-    console.log('focus')
-    searchBox.classList.remove('M_SearchBoxActive')
-    searchBox.removeChild(wrapperSearch)
-    searchBox.classList.remove('Modify')
+  document.body.addEventListener('click', (e) => {
+    if (
+      !e.target.classList.contains('M_SearchItem') &&
+      !e.target.classList.contains('M_SearchBox') &&
+      !e.target.classList.contains('M_SearchBoxActive') &&
+      !e.target.classList.contains('A_Search')
+    ) {
+      console.log('focus')
+      searchBox.classList.remove('M_SearchBoxActive')
+      searchBox.removeChild(wrapperSearch)
+      searchBox.classList.remove('Modify')
+      wrapperSearch.innerHTML = ''
+    }
   })
 
   search.addEventListener('input', () => {
-    console.log('инпут лисенер')
-    searchBox.classList.add('Modify')
-    createElem('fregker', wrapperSearch)
-    console.log('gvhj')
+    wrapperSearch.innerHTML = ''
+    if (search.value != '') {
+      filterCards(search.value)
+      searchBox.classList.add('Modify')
+    }
   })
 }
 
-function createElem(title, parentname) {
-  itemSearch.classList.add('M_SearchItem')
-  parentname.appendChild(itemSearch)
-  itemSearch.appendChild(itemText)
-  itemSearch.classList.add('A_Subtitle')
-  itemSearch.innerText = title
-  console.log('gvfrfhj')
+function filterCards(inputtext) {
+  const cardsForRender = []
+  cards.forEach((o) => {
+    const nameofcard = o.title
+    if (nameofcard.includes(inputtext.toLowerCase())) {
+      cardsForRender.push(o)
+    }
+  })
+
+  cardsForRender.forEach((o) => {
+    createElem(o.title, wrapperSearch, o.ahref)
+  })
+}
+
+function createElem(title, parentname, ahref) {
+  const itemSearch = document.createElement('a')
+  const itemText = document.createElement('div')
+  const dreamcore = parentname.appendChild(itemSearch)
+
+  dreamcore.classList.add('M_SearchItem')
+  itemText.classList.add('A_Heading3')
+  dreamcore.appendChild(itemText)
+  itemText.innerText = title
+  dreamcore.setAttribute('href', ahref)
+  console.log(dreamcore)
 }
 
 document.addEventListener('DOMContentLoaded', () => {

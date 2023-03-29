@@ -89,7 +89,6 @@
 
     transition: all 1s ease-out;
     &.Modify {
-      background-color: red;
       height: fit-content;
       flex-wrap: wrap;
       padding-bottom: 20px;
@@ -97,26 +96,30 @@
     .W_SearchItems {
       display: flex;
       flex-direction: column;
-      background-color: #ff8bec;
       height: fit-content;
-      height: 300px;
+      max-height: 60vh;
       width: 100%;
-      .M_SearchItem {
-        height: 100px;
-        color: #313131;
-        width: 100px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
 
-        display: flex;
-        flex-direction: row;
-        padding: 10px;
-        gap: 10px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        .A_PictureSearch {
-          height: 80px;
-          width: 80px;
-          background-color: url('images/image.jpg');
-          background-size: cover;
+      .M_SearchItem {
+        height: fit-content;
+        background: radial-gradient(
+            122.74% 181.63% at 50% -131.63%,
+            rgba(255, 139, 236, 0.71) 0%,
+            rgba(255, 139, 236, 0) 100%
+          ),
+          #f8f6f0;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1), inset 0px 6px 12px #f8f6f0;
+        border-radius: 14px;
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 10px;
+        .A_Heading3 {
+          text-align: left;
+          width: auto;
         }
       }
     }
