@@ -467,7 +467,7 @@
           width: 205px;
           margin-right: 25px;
         }
-        .A_paragraph2 {
+        .A_paragraph {
           width: 550px;
         }
         .Q_MenuStar {
@@ -612,7 +612,7 @@
           width: 192px;
           margin-right: 22px;
         }
-        .A_paragraph2 {
+        .A_paragraph {
           width: 513px;
         }
         .Q_MenuStar {
@@ -747,7 +747,7 @@
           width: 83px;
           margin-right: 22px;
         }
-        .A_paragraph2 {
+        .A_paragraph {
           width: 299px;
         }
         .Q_MenuStar {
@@ -770,14 +770,10 @@
   /*только смена количества колонок*/
 }
 
-@media only screen and (min-device-width: 415px) and (max-device-width: 768px) {
-  /* iPad */
+@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
+  /* iPad тут тоже колонки? */
 }
 
-@media only screen and (min-device-width: 361px) and (max-device-width: 414px) {
-  /* iPhone */
-}
-
-@media only screen and (max-device-width: 360px) {
-  /* Android */
+@media only screen and (max-device-width: 460px) {
+  /* Phone */
 }
