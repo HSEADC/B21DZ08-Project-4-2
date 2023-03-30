@@ -344,9 +344,10 @@
 }
 .M_Content {
   position: relative;
-  margin: 40px auto;
+  left: calc(50% - 1828px / 2);
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   gap: 150px;
   width: 1828px;
   .A_Subtitle {
@@ -480,7 +481,7 @@
     padding: 22px 19px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 16px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 610px;
       height: 190px;
     }
@@ -510,6 +511,20 @@
     }
     .W_HeaderHeading {
       gap: 8px;
+    }
+  }
+  .M_Content {
+    gap: 150px;
+    width: 1125px;
+    .A_Subtitle {
+      width: 195px;
+    }
+    .W_ParagraphAndImage {
+      gap: 25px;
+      width: 780px;
+      .A_Paragraph {
+        width: 665px;
+      }
     }
   }
 }
@@ -633,7 +648,7 @@
     padding: 20px 16px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 14px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 580px;
       height: 180px;
     }
@@ -786,7 +801,7 @@
     padding: 14px;
     box-shadow: 0px 4px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 10px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 270px;
       height: 110px;
     }
