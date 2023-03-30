@@ -240,11 +240,14 @@
 .O_ContentFortuneTelling {
   transition: all 1s ease-out;
   display: flex;
+  left: calc(50% - 1832px / 2);
   position: relative;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   gap: 196px;
+  width: 1832px;
+  margin-bottom: 40vh;
   .M_TarotCard {
     margin: 0 -78px;
   }
@@ -253,7 +256,9 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 100px;
+    width: 1208px;
     .M_Content {
+      width: 1208px;
       display: flex;
       flex-direction: row;
       gap: 0;
@@ -398,6 +403,9 @@
 
   width: 1832px;
   padding-bottom: 100px;
+  &.NotShowing {
+    display: none;
+  }
 
   .C_TarotCards {
     display: flex;
@@ -503,6 +511,32 @@
       }
     }
   }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 1355px / 2);
+    gap: 196px;
+    width: 1355px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 896px;
+      .M_Content {
+        width: 896px;
+        .A_Subtitle {
+          width: 204px;
+          margin-right: 25px;
+        }
+        .A_Paragraph {
+          width: 740px;
+        }
+      }
+    }
+  }
   .O_Footer {
     height: 376px;
     border-radius: 22px 22px 0 0;
@@ -590,6 +624,32 @@
       width: 665px;
     }
   }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 1015px / 2);
+    gap: 196px;
+    width: 1015px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 665px;
+      .M_Content {
+        width: 665px;
+        .A_Subtitle {
+          width: 204px;
+          margin-right: 25px;
+        }
+        .A_Paragraph {
+          width: 433px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
@@ -608,7 +668,32 @@
         height: 16px;
       }
     }
-
+    .O_ContentFortuneTelling {
+      left: calc(50% - 1355px / 2);
+      gap: 196px;
+      width: 1355px;
+      gap: 0;
+      justify-content: space-between;
+      .M_TarotCard {
+        margin: 0 -12px;
+        gap: 0;
+      }
+      .C_Contents {
+        align-items: flex-start;
+        gap: 100px;
+        width: 896px;
+        .M_Content {
+          width: 896px;
+          .A_Subtitle {
+            width: 204px;
+            margin-right: 25px;
+          }
+          .A_Paragraph {
+            width: 740px;
+          }
+        }
+      }
+    }
     .M_MenuElements {
       width: 475px;
       height: 43px;
@@ -671,6 +756,32 @@
       width: 231px;
       .A_Search {
         width: 190px;
+      }
+    }
+  }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 941px / 2);
+    gap: 196px;
+    width: 941px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 619px;
+      .M_Content {
+        width: 665px;
+        .A_Subtitle {
+          width: 191px;
+          margin-right: 22px;
+        }
+        .A_Paragraph {
+          width: 403px;
+        }
       }
     }
   }
@@ -822,6 +933,32 @@
       }
     }
   }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 619px / 2);
+    gap: 196px;
+    width: 619px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 406px;
+      .M_Content {
+        width: 406px;
+        .A_Subtitle {
+          width: 191px;
+          margin-right: 22px;
+        }
+        .A_Paragraph {
+          width: 260px;
+        }
+      }
+    }
+  }
   .O_Footer {
     height: 208px;
     border-radius: 22px 22px 0 0;
@@ -898,7 +1035,127 @@
 
 @media only screen and (max-device-width: 460px) {
   .O_Menu {
-    display: none;
+    background: linear-gradient(
+      180deg,
+      #ff8bec 18.05%,
+      #ffcef7 64.16%,
+      rgba(255, 255, 255, 0) 99.69%
+    );
+    flex-direction: column;
+    align-items: center;
+    top: 0px;
+    left: 0vw;
+    gap: 10px;
+    width: 100vw;
+    height: fit-content;
+    .A_Logo {
+      width: 90vw;
+      height: 60px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .M_MenuElements {
+      flex-direction: column;
+      height: fit-content;
+      width: 90vw;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_MenuStar {
+        display: none;
+      }
+      .A_MenuElementText {
+        font-size: 14px;
+        line-height: 34px;
+      }
+      .W_MenuElementTextBox,
+      .W1_MenuElementTextBox,
+      .W2_MenuElementTextBox,
+      .W3_MenuElementTextBox,
+      .W4_MenuElementTextBox {
+        height: fit-content;
+      }
+    }
+
+    .M_SearchBox {
+      width: 82.25px;
+      height: 34px;
+      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 34px;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_SearchIcon {
+        width: 12.25px;
+        height: 14px;
+      }
+      .A_Search {
+        height: 34px;
+        width: 40px;
+        font-size: 14px;
+        line-height: 34px;
+
+        &::placeholder {
+          font-size: 14px;
+          line-height: 34px;
+        }
+      }
+    }
+    .M_SearchBoxActive {
+      width: 188px;
+      .A_Search {
+        width: 150px;
+      }
+    }
+  }
+  .O_ContentFortuneTelling {
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+
+    gap: 0;
+    justify-content: flex-start;
+    margin-bottom: 50vw;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      height: fit-content;
+      width: 100vw;
+      .M_Content {
+        flex-direction: column;
+        width: 100vw;
+        height: fit-content;
+        gap: 10px;
+        .A_Subtitle {
+          display: flex;
+          flex-direction: column;
+          width: 100vw;
+          align-items: center;
+          margin-right: 0;
+          height: fit-content;
+          gap: 10px;
+        }
+        .A_Paragraph {
+          width: 100vw;
+          align-items: center;
+          text-align: center;
+          height: fit-content;
+          padding: 0 50px;
+        }
+      }
+    }
   }
   .O_Articles {
     border-radius: 8px;
@@ -920,6 +1177,7 @@
     }
     .C_SocialsFooter {
       gap: 30px;
+      white-space: nowrap;
     }
 
     .C_AuthorsFooter {

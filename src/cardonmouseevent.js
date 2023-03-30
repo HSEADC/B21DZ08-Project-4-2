@@ -14,7 +14,7 @@ function draw() {
 
   canvas.width = vw
   canvas.height = vh
-  var img = document.getElementById('mousecard')
+  const img = document.getElementById('mousecard')
   canvas.addEventListener('mousemove', function (e) {
     console.log(`${e.offsetY}`)
     console.log(`${e.offsetX}`)

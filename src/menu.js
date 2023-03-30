@@ -2,6 +2,10 @@ console.log('ready')
 const search = document.querySelector('.A_Search')
 const searchBox = document.querySelector('.M_SearchBox')
 const wrapperSearch = document.createElement('div')
+const logoMenu = document.querySelector('.A_Logo')
+const centerMenu = document.querySelector('.M_MenuElements')
+const vw = window.innerWidth
+console.log(vw)
 
 const cards = [
   {
@@ -81,6 +85,19 @@ function createElem(title, parentname, ahref) {
   console.log(dreamcore)
 }
 
+function adaptiveMenu() {
+  logoMenu.removeAttribute('onclick')
+  centerMenu.classList.toggle('NotShowing')
+  searchBox.classList.toggle('NotShowing')
+  logoMenu.addEventListener('click', () => {
+    centerMenu.classList.toggle('NotShowing')
+    searchBox.classList.toggle('NotShowing')
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSelect()
+  if (vw <= 460) {
+    adaptiveMenu()
+  }
 })
