@@ -68,7 +68,8 @@
   }
   .A_CardArticleImage {
     position: relative;
-    width: 755px;
+    // width: 755px;
+    width: calc(100% - 40px);
     height: 256px;
   }
   .A_heading3 {
@@ -349,6 +350,7 @@
   flex-direction: row;
   gap: 150px;
   width: 1828px;
+  padding: 0 100px;
   .A_Subtitle {
     width: 320px;
   }
