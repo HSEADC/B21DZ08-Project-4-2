@@ -3,86 +3,61 @@
 var __webpack_exports__ = {};
 
 console.log('cardfilter');
-document.addEventListener('DOMContentLoaded', function () {
-  initFilter();
-});
 
 function initFilter() {
+  var filtername = document.getElementsByClassName('A_ArticlesСategory');
   var allarticlescards = document.getElementById('W_AllArticleCards');
   var allchildren = allarticlescards.children;
-  console.log(allchildren);
-  var Category = document.getElementsByClassName('A_ArticlesСategory');
-  var Compilation = document.getElementsByClassName('M_ArticlesCompilation');
-  var CardSmall = document.getElementsByClassName('M_CardArticle');
-  var CardBig = document.getElementsByClassName('M_ArticleCardBig');
-  var datacards = document.querySelector('[data-type="Cards"]');
-  console.log(datacards);
-  var datadecks = document.querySelector('[data-type="Decks"]');
-  console.log(Category);
+  console.log(filtername, allchildren);
 
-  for (var i = 0; i < Category.length; i++) {
-    Category[i].addEventListener('click', function () {
-      console.log(this.innerHTML);
-      console.log('click');
+  var _loop = function _loop(i) {
+    var currentfilter = filtername[i];
+    currentfilter.addEventListener('click', function () {
+      console.log('clickclock');
 
-      if (this.innerHTML == 'все статьи') {
-        console.log('all');
-
-        for (var b = 0; b < Compilation.length; b++) {
-          Compilation[b].classList.add('NotShowing');
-        }
-
-        for (var b = 0; b < CardSmall.length; b++) {
-          CardSmall[b].classList.remove('NotShowing');
-        }
-
-        for (var b = 0; b < CardBig.length; b++) {
-          CardBig[b].classList.remove('NotShowing');
-        }
+      for (var c = 0; c < filtername.length; c++) {
+        var element = filtername[c];
+        element.classList.remove('Underlined');
       }
 
-      if (this.innerHTML == 'все подборки') {
-        console.log('подборки');
+      console.log(currentfilter.dataset.type);
+      currentfilter.classList.add('Underlined');
+      var datafilter = currentfilter.dataset.type;
 
-        for (var b = 0; b < Compilation.length; b++) {
-          Compilation[b].classList.remove('NotShowing');
-        }
+      for (var b = 0; b < allchildren.length; b++) {
+        var _element = allchildren[b];
 
-        for (var b = 0; b < CardSmall.length; b++) {
-          CardSmall[b].classList.add('NotShowing');
-        }
+        _element.classList.add('NotShowing');
 
-        for (var b = 0; b < CardBig.length; b++) {
-          CardBig[b].classList.add('NotShowing');
-        }
-      }
+        var dataofelem = _element.dataset.category;
 
-      if (this.innerHTML == 'о картах') {
-        console.log('карты');
-
-        for (var b = 0; b < allchildren.length; b++) {
-          allchildren[b].classList.add('NotShowing');
-        }
-
-        for (var b = 0; b < datacards.length; b++) {
-          datacards[b].classList.remove('NotShowing');
+        if (dataofelem.includes(datafilter)) {
+          _element.classList.remove('NotShowing');
         }
       }
-
-      for (var i = 0; i < Category.length; i++) {
-        Category[i].classList.remove('Underlined');
-      }
-
-      this.classList.add('Underlined');
     });
-  } //   [...document.getElementsByClassName('A_ArticlesCategory')].forEach((i) => {
-  //     i.addEventListener('click', function () {
-  //       console.log('click')
-  //       console.log(Category.innerHTML)
-  //       i.classList.add('.Underlined')
-  //     })
-  //   })
+  };
 
+  for (var i = 0; i < filtername.length; i++) {
+    _loop(i);
+  }
 }
+
+function clickInit() {
+  var allarticlescards = document.getElementById('W_AllArticleCards');
+  var allchildren = allarticlescards.children;
+
+  for (var i = 0; i < allchildren.length; i++) {
+    var element = allchildren[i];
+    element.addEventListener('click', function () {
+      window.location.replace('/articles/article.html');
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  initFilter();
+  clickInit();
+});
 /******/ })()
 ;

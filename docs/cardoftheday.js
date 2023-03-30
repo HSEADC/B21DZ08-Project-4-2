@@ -5,15 +5,15 @@ console.log('cardoftheday');
 function initCardOfTheDay() {
   console.log('cardoftheday init');
   var AccentBottom = document.querySelector('.A_AccentButtonTarotTellings');
-  var FortuneTelling = document.querySelector('.W_ContentFortuneTelling');
+  var FortuneTelling = document.querySelector('.O_ContentFortuneTelling');
   var Picture = document.querySelector('.A_TarotCardImage');
   var Name1 = document.querySelector('.A_TarotCardTitleAntiqua');
   var Name2 = document.querySelector('.A_TarotCardTitleGrotesk');
   var Number = document.querySelector('.A_TarotCardNumber');
-  var Common = document.querySelector('.A_paragraph2.Common');
-  var Love = document.querySelector('.A_paragraph2.Love');
-  var Work = document.querySelector('.A_paragraph2.Work');
-  var Advise = document.querySelector('.A_paragraph2.Advise');
+  var Common = document.querySelector('.A_Paragraph.Common');
+  var Love = document.querySelector('.A_Paragraph.Love');
+  var Work = document.querySelector('.A_Paragraph.Work');
+  var Advise = document.querySelector('.A_Paragraph.Advise');
   AccentBottom.addEventListener('click', function () {
     var Random = Math.floor(Math.random() * 4);
     Number.innerHTML = TextOfTelling[Random][0];
