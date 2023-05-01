@@ -17,6 +17,7 @@ module.exports = {
     articles: './src/articles.js',
     fortunetelling: './src/fortunetelling.js',
     mouseeventcard: './src/cardonmouseevent.js',
+    contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx'
   },
   output: {
@@ -107,7 +108,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/articles/article.html',
       filename: './articles/article.html',
-      chunks: ['articles', 'menu']
+      chunks: ['articles', 'menu', 'contentrandomizer']
     }),
 
     new HtmlWebpackPlugin({
@@ -145,12 +146,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cardoftheday.html',
       filename: './cardoftheday.html',
-      chunks: ['fortunetelling', 'menu', 'cardoftheday']
+      chunks: ['fortunetelling', 'menu', 'contentrandomizer', 'cardoftheday']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
       filename: './fortunetellings.html',
-      chunks: ['fortunetelling', 'menu']
+      chunks: ['fortunetelling', 'menu', 'contentrandomizer']
     }),
     new HtmlWebpackPlugin({
       template: './src/platform.html',
