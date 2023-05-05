@@ -187,6 +187,14 @@ module.exports = {
         template_filename: '*',
         priority: 'replace'
       }
+    ]),
+    new HtmlWebpackPartialsPlugin([
+      {
+        path: path.join(__dirname, './src/partials/menu.html'),
+        location: 'menu',
+        template_filename: '*',
+        priority: 'replace'
+      }
     ])
   ],
   optimization: {

@@ -119,8 +119,8 @@
 .M_TarotCard {
   position: relative;
   text-align: center;
-  width: 428px;
-  height: 630px;
+  width: 272px;
+  height: 400px;
   background: radial-gradient(
       98.49% 56.44% at 50% 0%,
       var(--pink) 0%,
@@ -138,9 +138,9 @@
   }
   .W_TarotCardInside {
     position: relative;
-    top: 30px;
-    font-size: 52px;
-    line-height: 110%;
+    top: 25px;
+    font-size: 30px;
+    line-height: 120%;
     display: inline;
     box-decoration-break: clone;
     background: var(--white);
@@ -163,15 +163,11 @@
     .A_TarotCardNumber {
       position: relative;
     }
-    .A_TarotCardTitleAntiqua {
-      position: relative;
-      padding: 0 10px;
-      font-size: 52px;
+    .A_HighlightH4Antiqua {
+      padding: 0 5px;
     }
-    .A_TarotCardTitleGrotesk {
-      position: relative;
-      padding: 0 10px;
-      font-size: 48px;
+    .A_HighlightH4Grotesk {
+      padding: 0 5px;
     }
   }
   &.NotShowing {
@@ -367,7 +363,7 @@
     }
   }
 }
-@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .M_CardArticle {
     gap: 12px;
     width: 320px;
@@ -545,11 +541,7 @@
   }
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1439px) {
-  /*только смена количества колонок*/
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
   .M_CardArticle {
     gap: 9px;
     width: 299px;
@@ -699,7 +691,11 @@
   }
 }
 
-@media only screen and (min-width: 460px) and (max-width: 1023px) {
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
   .M_CardArticle {
     gap: 7px;
     width: 192px;
@@ -855,15 +851,11 @@
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
+@media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 
-@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
-  /* iPad тут тоже колонки? */
-}
-
-@media only screen and (max-device-width: 460px) {
+@media only screen and (max-device-width: 499px) {
   /* Phone */
   .M_Header {
     background: none;

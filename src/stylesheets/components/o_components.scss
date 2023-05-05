@@ -124,7 +124,7 @@
       }
     }
     .Q_SearchIcon {
-      background-image: url('images/Q_SearchIcon.svg');
+      background-image: url('./images/Q_SearchIcon.svg');
       width: 22px;
       height: 24px;
       background-size: contain;
@@ -170,6 +170,7 @@
     cursor: url('./images/pointer.svg'), auto;
   }
 }
+
 .O_Footer {
   position: relative;
   display: flex;
@@ -430,7 +431,7 @@
   padding-bottom: 17vh;
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
     left: calc(50% - 826.5px / 2);
@@ -607,56 +608,7 @@
   }
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1439px) {
-  /*только смена количества колонок*/
-  .O_Articles {
-    .W_AllArticleCards {
-      width: 1010px;
-      gap: 25px;
-    }
-  }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 1010px / 2);
-    gap: 25px;
-
-    width: 1010px;
-    padding-bottom: 60px;
-
-    .C_TarotCards {
-      gap: 25px;
-
-      width: 665px;
-    }
-  }
-  .O_ContentFortuneTelling {
-    left: calc(50% - 1015px / 2);
-    gap: 196px;
-    width: 1015px;
-    gap: 0;
-    justify-content: space-between;
-    .M_TarotCard {
-      margin: 0 -12px;
-      gap: 0;
-    }
-    .C_Contents {
-      align-items: flex-start;
-      gap: 100px;
-      width: 665px;
-      .M_Content {
-        width: 665px;
-        .A_Subtitle {
-          width: 204px;
-          margin-right: 25px;
-        }
-        .A_Paragraph {
-          width: 433px;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
   .O_Menu {
     height: 43px;
     left: calc(50% - 726.47px / 2);
@@ -854,8 +806,56 @@
     }
   }
 }
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 1010px;
+      gap: 25px;
+    }
+  }
+  .O_BlockOfTarotCards {
+    left: calc(50% - 1010px / 2);
+    gap: 25px;
 
-@media only screen and (min-width: 460px) and (max-width: 1023px) {
+    width: 1010px;
+    padding-bottom: 60px;
+
+    .C_TarotCards {
+      gap: 25px;
+
+      width: 665px;
+    }
+  }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 1015px / 2);
+    gap: 196px;
+    width: 1015px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 665px;
+      .M_Content {
+        width: 665px;
+        .A_Subtitle {
+          width: 204px;
+          margin-right: 25px;
+        }
+        .A_Paragraph {
+          width: 433px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
   .O_Menu {
     height: 34px;
     left: calc(50% - 578.35px / 2);
@@ -1029,15 +1029,11 @@
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
+@media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 
-@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
-  /* iPad тут тоже колонки? */
-}
-
-@media only screen and (max-device-width: 460px) {
+@media only screen and (max-device-width: 499px) {
   .O_Menu {
     background: linear-gradient(
       180deg,

@@ -3,7 +3,7 @@ import './articles.css'
 console.log('cardfilter')
 
 function initFilter() {
-  const filtername = document.getElementsByClassName('A_ArticlesСategory')
+  const filtername = document.getElementsByClassName('A_Heading3')
   const allarticlescards = document.getElementById('W_AllArticleCards')
   const allchildren = allarticlescards.children
   console.log(filtername, allchildren)
