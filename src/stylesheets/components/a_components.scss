@@ -66,6 +66,16 @@
     text-decoration: underline;
   }
 }
+.A_TarotCardIcon {
+  position: relative;
+  font-family: 'Noto Emoji';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+}
 .A_Heading4 {
   font-family: 'Wremena';
   font-weight: 300;
@@ -223,15 +233,6 @@
   padding: 10px;
   border-radius: 10px;
   background-color: var(--white);
-}
-.A_TarotCardNumber {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 52px;
-  line-height: 74%;
-  color: var(--black);
-  padding: 0 10px;
 }
 .A_TarotCardTitleAntiqua {
   font-family: 'Wremena';
