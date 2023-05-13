@@ -19,7 +19,8 @@ module.exports = {
     mouseeventcard: './src/cardonmouseevent.js',
     contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx',
-    cards: './src/cards.jsx'
+    cards: './src/cards.jsx',
+    airtable: './src/airtable.js'
   },
   output: {
     filename: '[name].js',

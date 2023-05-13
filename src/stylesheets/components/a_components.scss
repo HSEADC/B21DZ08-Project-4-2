@@ -22,30 +22,6 @@
   text-shadow: 0px 0px 12px var(--white);
   color: var(--black);
 }
-.A_HighlightH4Antiqua {
-  position: relative;
-  display: inline-block;
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 32px;
-  line-height: 74%;
-  text-align: center;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
-}
-.A_HighlightH4Grotesk {
-  position: relative;
-  display: inline-block;
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 30px;
-  line-height: 74%;
-  text-align: center;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
-}
 .A_Heading3 {
   position: relative;
   font-family: 'Gramatika Demo';
@@ -65,16 +41,6 @@
   &.Underlined {
     text-decoration: underline;
   }
-}
-.A_TarotCardIcon {
-  position: relative;
-  font-family: 'Noto Emoji';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 32px;
-  line-height: 74%;
-  text-align: center;
-  color: var(--black);
 }
 .A_Heading4 {
   font-family: 'Wremena';
@@ -233,20 +199,6 @@
   padding: 10px;
   border-radius: 10px;
   background-color: var(--white);
-}
-.A_TarotCardTitleAntiqua {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  line-height: 74%;
-  color: var(--black);
-}
-.A_TarotCardTitleGrotesk {
-  font-family: 'Gramatika Demo';
-  font-weight: normal;
-  font-style: normal;
-  line-height: 74%;
-  color: var(--black);
 }
 .A_ImageWithGradient {
   position: relative;

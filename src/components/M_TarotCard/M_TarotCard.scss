@@ -22,21 +22,19 @@
     padding: 5px;
     filter: url('#goo');
     box-shadow: none;
-    .A_TarotCardImage {
-      position: relative;
-      display: block;
-      margin: 0 auto;
-      width: 160px;
-      height: 160px;
-    }
     .A_HighlightHeading4 {
       padding: 0 5px;
     }
   }
   &.black {
     background: radial-gradient(
+        120% 56.44% at 50% 0%,
+        rgba(49, 49, 49, 0.75) 0%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
         98.49% 56.44% at 50% 0%,
-        #313131 0%,
+        #ff8bec 0%,
         rgba(255, 139, 236, 0) 100%
       ),
       var(--white);
