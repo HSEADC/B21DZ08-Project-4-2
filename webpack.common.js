@@ -15,12 +15,13 @@ module.exports = {
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
+    search: './src/search.js',
     fortunetelling: './src/fortunetelling.js',
     mouseeventcard: './src/cardonmouseevent.js',
     contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx',
     cards: './src/cards.jsx',
-    airtable: './src/airtable.js'
+    airtable: './src/airtableData.js'
   },
   output: {
     filename: '[name].js',
@@ -118,6 +119,12 @@ module.exports = {
       filename: './articles.html',
       chunks: ['articles', 'menu']
     }),
+    new HtmlWebpackPlugin({
+      template: './src/search.html',
+      filename: './search.html',
+      chunks: ['search', 'menu']
+    }),
+
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html'

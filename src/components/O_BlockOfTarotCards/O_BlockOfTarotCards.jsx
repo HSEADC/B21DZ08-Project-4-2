@@ -6,9 +6,9 @@ import M_TarotCard from '../M_TarotCard/M_TarotCard.jsx'
 export default class O_BlockOfTarotCards extends React.Component {
     render() {
 
-        const { tarotCardsMajorArcana } = this.props
+        const { data } = this.props
     
-        const tarotCollection = tarotCardsMajorArcana.map((tarotCard, i) => {
+        const tarotCollection = data.map((tarotCard, i) => {
           return (
             <M_TarotCard 
             color={tarotCard.color} 

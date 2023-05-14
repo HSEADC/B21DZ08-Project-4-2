@@ -1,3 +1,59 @@
+.S_Content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 900px;
+  margin: 100px auto;
+}
+
+.O_ContentItem {
+  width: 280px;
+
+  .C_ContentItemTags {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.A_ContentItemTag {
+  padding: 4px;
+  background-color: grey;
+  color: white;
+}
+
+.A_ContentItemCover {
+  width: 100%;
+}
+
+.A_ContentItemTitle {
+  margin: 20px 0 10px;
+  font-weight: bold;
+}
+
+// .A_SearchInput {
+//   width: 891px;
+//   height: 58px;
+//   background: var(--white);
+//   box-shadow: 0px 6px 9px var(--blackshadow);
+//   border-radius: 14px;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 0 15px;
+//   font-family: 'Gramatika Demo';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 24px;
+//   color: var(--black);
+//   line-height: 58px;
+//   transition: all 1s ease-out;
+// }
 .A_H2Grotesk {
   position: relative;
   display: inline-block;

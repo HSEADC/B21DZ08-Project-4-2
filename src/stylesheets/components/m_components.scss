@@ -34,7 +34,7 @@
     width: 385px;
     height: 256px;
   }
-  .A_Heading3 {
+  .A_Heading5 {
     position: relative;
     display: inline-block;
     width: 304px;
@@ -116,64 +116,6 @@
     display: none;
   }
 }
-// .M_TarotCard {
-//   position: relative;
-//   text-align: center;
-//   width: 272px;
-//   height: 400px;
-//   background: radial-gradient(
-//       98.49% 56.44% at 50% 0%,
-//       var(--pink) 0%,
-//       rgba(255, 139, 236, 0) 100%
-//     ),
-//     var(--white);
-//   border-radius: 22px;
-//   box-shadow: 0px 6px 9px var(--blackshadow);
-//   box-shadow: inset 0px 6px 12px #f8f6f0;
-//   box-shadow: 0px 6px 9px var(--blackshadow);
-//   .W_TarotCardShadow {
-//     width: 100%;
-//     height: 100%;
-//     filter: drop-shadow(0px 6px 9px var(--blackshadow));
-//   }
-//   .W_TarotCardInside {
-//     position: relative;
-//     top: 25px;
-//     font-size: 30px;
-//     line-height: 120%;
-//     display: inline;
-//     box-decoration-break: clone;
-//     background: var(--white);
-//     padding: 5px;
-//     filter: url('#goo');
-//     box-shadow: none;
-//     .A_TarotCardIcon {
-//       position: relative;
-//       display: inline-block;
-//       margin: 0 auto;
-//       top: 5px;
-//       width: 55px;
-//       height: 41px;
-//     }
-//     .A_TarotCardImage {
-//       position: relative;
-//       display: block;
-//       margin: 0 auto;
-//     }
-//     .A_TarotCardNumber {
-//       position: relative;
-//     }
-//     .A_HighlightH4Antiqua {
-//       padding: 0 5px;
-//     }
-//     .A_HighlightH4Grotesk {
-//       padding: 0 5px;
-//     }
-//   }
-//   &.NotShowing {
-//     display: none;
-//   }
-// }
 .M_TarotCardWide {
   position: relative;
   text-align: center;

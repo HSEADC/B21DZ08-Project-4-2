@@ -1,12 +1,12 @@
 import './articles.css'
 
-console.log('cardfilter')
+// console.log('cardfilter')
 
 function initFilter() {
   const filtername = document.getElementsByClassName('A_Heading3')
   const allarticlescards = document.getElementById('W_AllArticleCards')
   const allchildren = allarticlescards.children
-  console.log(filtername, allchildren)
+  // console.log(filtername, allchildren)
   for (let i = 0; i < filtername.length; i++) {
     const currentfilter = filtername[i]
     currentfilter.addEventListener('click', function () {
