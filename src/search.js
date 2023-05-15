@@ -1,5 +1,5 @@
 import './search.css'
-import { getSearchData, getTarotCards } from './airtableData.js'
+import { getSearchData } from './airtableData.js'
 
 let content
 
@@ -57,34 +57,45 @@ function renderCardsByIds(container, ids) {
 }
 
 function rerenderSearchedContent(requestText) {
-  const contentItemsContainer = document.querySelector(
+  const contentItemsContainer1 = document.querySelector(
     '.W_SearchedArticleCards'
   )
-  contentItemsContainer.innerHTML = ''
+  contentItemsContainer1.innerHTML = ''
+  const contentItemsContainer2 = document.querySelector('.O_SearchedTarotCards')
+  contentItemsContainer2.innerHTML = ''
 
-  let contentItemIds = []
+  let articleIds = []
+  let tarotCardIds = []
 
   content.forEach((contentItem) => {
     const nbspRegex = /[\u202F\u00A0]/gm
     const punctuationRegex = /[.,\/#!$%\^&\*;:{}=\-_`~()]/gm
     let { title, description } = contentItem
-
     title = title.replaceAll(nbspRegex, ' ')
     title = title.replaceAll(punctuationRegex, '')
     description = description.replaceAll(nbspRegex, ' ')
     description = description.replaceAll(punctuationRegex, '')
 
-    if (requestText.length >= 3) {
+    if (contentItem.id.startsWith('article') && requestText.length >= 3) {
       if (title.includes(requestText) || description.includes(requestText)) {
-        contentItemIds.push(contentItem.id)
+        articleIds.push(contentItem.id)
+        console.log(contentItem.id)
       }
-    } else {
-      contentItemIds.push(contentItem.id)
+    } else if (
+      contentItem.id.startsWith('tarotCard') &&
+      requestText.length >= 3
+    ) {
+      if (title.includes(requestText) || description.includes(requestText)) {
+        tarotCardIds.push(contentItem.id)
+        console.log(contentItem.id)
+      }
     }
   })
-
-  if (contentItemIds.length > 0) {
-    renderCardsByIds(contentItemsContainer, contentItemIds)
+  // renderCardsByIds(contentItemsContainer1, tarotCardIds)
+  // renderCardsByIds(contentItemsContainer2, articleIds)
+  if (tarotCardIds.length > 0 || articleIds.length > 0) {
+    renderCardsByIds(contentItemsContainer1, articleIds)
+    renderCardsByIds(contentItemsContainer2, tarotCardIds)
   } else {
     renderNothingFound()
   }
@@ -144,8 +155,4 @@ document.addEventListener('DOMContentLoaded', () => {
     content = data
     initSearch()
   })
-  //   getTarotCards().then((data) => {
-  //     content = data
-  //     initSearch()
-  //   })
 })

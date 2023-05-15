@@ -1,9 +1,9 @@
-const search = document.querySelector('.A_Search')
-const searchBox = document.querySelector('.M_SearchBox')
-const wrapperSearch = document.createElement('div')
-const logoMenu = document.querySelector('.A_Logo')
-const centerMenu = document.querySelector('.M_MenuElements')
-const vw = window.innerWidth
+// const search = document.querySelector('.A_Search')
+// const searchBox = document.querySelector('.M_SearchBox')
+// const wrapperSearch = document.createElement('div')
+// const logoMenu = document.querySelector('.A_Logo')
+// const centerMenu = document.querySelector('.M_MenuElements')
+// const vw = window.innerWidth
 
 // const cards = [
 //   {

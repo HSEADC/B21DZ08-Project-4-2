@@ -19,7 +19,7 @@ function getTarotCards() {
   return new Promise((resolve, reject) => {
     let images = [tarotCardImage1, tarotCardImage2, tarotCardImage3]
     const tarotCardsMajorArcana = []
-    base('Cards')
+    base('TarotCards')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
@@ -30,7 +30,8 @@ function getTarotCards() {
             line1: record.fields['line1'],
             line2: record.fields['line2'],
             none: eval(record.fields['none']),
-            image: eval(record.fields['image'])
+            image: eval(record.fields['image']),
+            id: record.fields['id']
           })
         })
 
@@ -39,27 +40,77 @@ function getTarotCards() {
   })
 }
 
-//карты таро для генерации карточек
-
 function getSearchData() {
   return new Promise((resolve, reject) => {
-    const searchData = []
-    base('SearchData')
+    let images = [tarotCardImage1, tarotCardImage2, tarotCardImage3]
+    const tarotCardsMajorArcana = []
+    base('Articles')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          searchData.push({
+          tarotCardsMajorArcana.push({
             title: record.fields['Заголовок'],
             description: record.fields['Описание'],
             id: record.fields['id']
           })
         })
-
-        resolve(searchData)
+        resolve(tarotCardsMajorArcana)
       })
   })
 }
+
+//все базы для поиска
+
+// async function getSearchData(lines) {
+//   return new Promise((resolve, reject) => {
+//     const searchData = []
+
+//     base('Articles')
+//       .select({ maxRecords: 100 })
+//       .firstPage()
+//       .then((result) => {
+//         result.forEach((record) => {
+//           searchData.push({
+//             title: record.fields['Заголовок'],
+//             description: record.fields['Описание'],
+//             id: record.fields['id']
+//           })
+//         })
+//         resolve(searchData)
+//       })
+
+//     base('FortuneTellings')
+//       .select({ maxRecords: 100 })
+//       .firstPage()
+//       .then((result) => {
+//         result.forEach((record) => {
+//           searchData.push({
+//             title: record.fields['line1'],
+//             description: record.fields['line2'],
+//             id: record.fields['id']
+//           })
+//         })
+//         resolve(searchData)
+//       })
+
+//     base('TarotCards')
+//       .select({ maxRecords: 100 })
+//       .firstPage()
+//       .then((result) => {
+//         result.forEach((record) => {
+//           searchData.push({
+//             title: record.fields['line1'],
+//             description: record.fields['line2'],
+//             id: record.fields['id']
+//           })
+//         })
+//         resolve(searchData)
+//       })
+
+//     console.log(searchData)
+//   })
+// }
 
 export { getTarotCards }
 export { getSearchData }
