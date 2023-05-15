@@ -158,6 +158,22 @@
     transform: scale(0.95);
   }
 }
+.A_ArticleButton {
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 52px;
+  line-height: 74%;
+  color: var(--white);
+  background-color: var(--black);
+  padding: 27px 20px;
+  border-radius: 9px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+  }
+}
 .A_paragraphHeader {
   font-family: 'Wremena';
   position: relative;
@@ -198,16 +214,6 @@
       var(--pink) 100%
     );
   }
-}
-.A_ArticleTopic {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 110%;
-  text-align: center;
-  color: var(--black);
-  text-shadow: 0px 0px 12px var(--white);
 }
 .A_TarotCardIcon {
   background-color: var(--white);
@@ -286,11 +292,10 @@
     font-size: 46px;
     line-height: 62px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 38px;
-    padding: 24px 18px;
+    padding: 20px 18px;
     border-radius: 9px;
-    top: -10px;
   }
   .A_paragraphHeader {
     font-size: 20px;
@@ -301,22 +306,11 @@
   .A_CardArticleImage {
     border-radius: 11px;
   }
-  .A_ArticleTopic {
-    font-size: 18px;
-    // text-shadow: 0px 0px 12px var(--white);
-  }
   .A_TarotCardImage {
     width: 170px;
     height: 170px;
     padding: 7px;
     border-radius: 0px;
-  }
-  .A_TarotCardNumber {
-    font-size: 36px;
-    padding: 0 10px;
-  }
-  .A_BreadCrumbs {
-    font-size: 20px;
   }
   .A_ImageWithGradient {
     width: 780px;
@@ -349,11 +343,10 @@
     font-size: 42px;
     line-height: 57px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 36px;
-    padding: 20px 14px;
+    padding: 18px 14px;
     border-radius: 6px;
-    top: -10px;
   }
   .A_paragraphHeader {
     font-size: 18px;
@@ -370,22 +363,11 @@
   .A_CardArticleImage {
     border-radius: 10px;
   }
-  .A_ArticleTopic {
-    font-size: 16px;
-    // text-shadow: 0px 0px 12px var(--white);
-  }
   .A_TarotCardImage {
     width: 158px;
     height: 158px;
     padding: 7px;
     border-radius: 0px;
-  }
-  .A_TarotCardNumber {
-    font-size: 38px;
-    padding: 0 7px;
-  }
-  .A_BreadCrumbs {
-    font-size: 17px;
   }
 }
 
@@ -395,10 +377,10 @@
 
 @media only screen and (min-width: 500px) and (max-width: 959px) {
   .A_Heading2Grotesk {
-    font-size: 50px;
+    font-size: 46px;
   }
   .A_Heading2Antiqua {
-    font-size: 50px;
+    font-size: 48px;
   }
   .A_Heading3 {
     font-size: 30px;
@@ -424,11 +406,10 @@
     line-height: 46px;
     margin-bottom: 60vh;
   }
-  .A_AccentButton {
-    font-size: 24px;
-    padding: 10px 9px;
+  .A_ArticleButton {
+    font-size: 32px;
+    padding: 7px 9px;
     border-radius: 4px;
-    top: -4px;
   }
   .A_paragraphHeader {
     font-size: 14px;
@@ -438,10 +419,6 @@
   }
   .A_CardArticleImage {
     border-radius: 8px;
-  }
-  .A_ArticleTopic {
-    font-size: 14px;
-    // text-shadow: 0px 0px 12px var(--white);
   }
   .A_TarotCardImage {
     width: 100px;
@@ -464,10 +441,10 @@
 
 @media only screen and (max-device-width: 499px) {
   .A_Heading2Grotesk {
-    font-size: 30px;
+    font-size: 36px;
   }
   .A_Heading2Antiqua {
-    font-size: 30px;
+    font-size: 36px;
   }
   .A_Heading3 {
     font-size: 20px;
@@ -494,24 +471,19 @@
     font-size: 34px;
     line-height: 46px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 24px;
-    padding: 10px 9px;
+    padding: 8px 9px;
     border-radius: 4px;
   }
   .A_paragraphHeader {
     font-size: 14px;
     width: 50vw;
     left: 25vw;
-
     top: -70px;
   }
   .A_CardArticleImage {
     border-radius: 8px;
-  }
-  .A_ArticleTopic {
-    font-size: 14px;
-    text-align: left;
   }
   .A_TarotCardImage {
     width: 88px;

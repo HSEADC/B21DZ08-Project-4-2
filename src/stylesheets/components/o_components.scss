@@ -288,7 +288,6 @@
     margin-top: 0px;
   }
 }
-
 .O_Footer {
   position: relative;
   display: flex;
@@ -354,6 +353,17 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 40px;
+  }
+  .W_ArticlesCategoriesContainer {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
   }
 }
 .O_ContentFortuneTelling {
@@ -881,7 +891,7 @@
   }
   .O_Articles {
     .W_AllArticleCards {
-      width: 942px;
+      width: 1202px;
       gap: 22px;
     }
   }
@@ -903,7 +913,7 @@
   /*только смена количества колонок*/
   .O_Articles {
     .W_AllArticleCards {
-      width: 1010px;
+      width: 899px;
       gap: 25px;
     }
   }
@@ -1103,7 +1113,7 @@
   }
   .O_Articles {
     .W_AllArticleCards {
-      width: 620px;
+      width: 692px;
       gap: 22px;
     }
   }
@@ -1121,9 +1131,102 @@
     }
   }
 }
-
+@media only screen and (min-width: 500px) and (max-width: 642px) {
+  .O_Articles {
+    .W_ArticlesCategoriesContainer {
+      width: 460px;
+      margin: 0 auto;
+      justify-content: left;
+    }
+  }
+}
 @media only screen and (min-width: 500px) and (max-width: 767px) {
-  /*только смена количества колонок*/
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 455px;
+      gap: 22px;
+    }
+  }
+  .O_Menu {
+    background: linear-gradient(
+      180deg,
+      #ff8bec 18.05%,
+      #ffcef7 64.16%,
+      rgba(255, 255, 255, 0) 99.69%
+    );
+    flex-direction: column;
+    align-items: center;
+    top: 0px;
+    left: 0vw;
+    gap: 10px;
+    width: 100vw;
+    height: fit-content;
+    .A_Logo {
+      width: 90vw;
+      height: 60px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .M_MenuElements {
+      flex-direction: column;
+      height: fit-content;
+      width: 90vw;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_MenuStar {
+        display: none;
+      }
+      .A_MenuElementText {
+        font-size: 14px;
+        line-height: 34px;
+      }
+      .W_MenuElementTextBox,
+      .W1_MenuElementTextBox,
+      .W2_MenuElementTextBox,
+      .W3_MenuElementTextBox,
+      .W4_MenuElementTextBox {
+        height: fit-content;
+      }
+    }
+
+    .M_SearchBox {
+      width: 82.25px;
+      height: 34px;
+      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 34px;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_SearchIcon {
+        width: 12.25px;
+        height: 14px;
+      }
+      .A_Search {
+        height: 34px;
+        width: 40px;
+        font-size: 14px;
+        line-height: 34px;
+
+        &::placeholder {
+          font-size: 14px;
+          line-height: 34px;
+        }
+      }
+    }
+    .M_SearchBoxActive {
+      width: 188px;
+      .A_Search {
+        width: 150px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-device-width: 499px) {
@@ -1257,6 +1360,11 @@
       align-items: center;
       width: 338px;
       gap: 22px;
+    }
+    .W_ArticlesCategoriesContainer {
+      width: 328px;
+      margin: 0 auto;
+      justify-content: left;
     }
   }
   .O_Footer {
