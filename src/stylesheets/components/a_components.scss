@@ -1,3 +1,120 @@
+// .A_SearchInput {
+//   width: 891px;
+//   height: 58px;
+//   background: var(--white);
+//   box-shadow: 0px 6px 9px var(--blackshadow);
+//   border-radius: 14px;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 0 15px;
+//   font-family: 'Gramatika Demo';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 24px;
+//   color: var(--black);
+//   line-height: 58px;
+//   transition: all 1s ease-out;
+// }
+.A_Heading2Grotesk {
+  position: relative;
+  display: inline-block;
+  font-family: 'Gramatika Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 96px;
+  line-height: 74%;
+  text-align: center;
+  text-shadow: 0px 0px 12px var(--white);
+  color: var(--black);
+}
+.A_Heading2Antiqua {
+  position: relative;
+  display: inline-block;
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 100px;
+  line-height: 74%;
+  text-align: center;
+  text-shadow: 0px 0px 12px var(--white);
+  color: var(--black);
+}
+.A_Heading3 {
+  position: relative;
+  font-family: 'Gramatika Demo';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 74%;
+  text-align: left;
+  text-shadow: 0px 0px 12px var(--white);
+  color: var(--black);
+  &.Left {
+    text-align: left;
+  }
+  &.Center {
+    text-align: center;
+  }
+  &.Underlined {
+    text-decoration: underline;
+  }
+}
+.A_Heading4 {
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 100%;
+  text-align: center;
+  text-decoration: underline;
+  color: var(--black);
+  text-shadow: 0px 0px 12px var(--white);
+}
+.A_Heading5 {
+  font-family: 'Gramatika Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 90%;
+  text-align: center;
+  color: var(--black);
+  &.Left {
+    text-align: left;
+  }
+  &.Center {
+    text-align: center;
+  }
+}
+.A_Paragraph {
+  font-family: 'Wremena';
+  position: relative;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 90%;
+  color: var(--black);
+  &.Left {
+    text-align: left;
+  }
+  &.Center {
+    text-align: center;
+  }
+}
+.A_Link {
+  font-family: 'Wremena';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  color: var(--white);
+  text-shadow: 0px 0px 12.1275px var(--white);
+  text-decoration-line: underline;
+  &:hover {
+    text-shadow: 0px 0px 12.1275px var(--pink);
+    cursor: url('./images/pointer.svg'), auto;
+  }
+}
 .A_AccentButtonTarotTellings {
   position: relative;
   width: 352px;
@@ -41,6 +158,22 @@
     transform: scale(0.95);
   }
 }
+.A_ArticleButton {
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 52px;
+  line-height: 74%;
+  color: var(--white);
+  background-color: var(--black);
+  padding: 27px 20px;
+  border-radius: 9px;
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+  }
+}
 .A_paragraphHeader {
   font-family: 'Wremena';
   position: relative;
@@ -56,80 +189,10 @@
   margin-bottom: 50px;
   top: -70px;
 }
-.A_Heading3 {
-  font-family: 'Gramatika Demo';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 32px;
-  line-height: 90%;
-  text-align: center;
-  color: var(--black);
-  &.Left {
-    text-align: left;
-  }
-  &.Center {
-    text-align: center;
-  }
-}
-.A_Link {
-  font-family: 'Wremena';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  color: var(--white);
-  text-shadow: 0px 0px 12.1275px var(--white);
-  text-decoration-line: underline;
-  &:hover {
-    text-shadow: 0px 0px 12.1275px var(--pink);
-    cursor: url('./images/pointer.svg'), auto;
-  }
-}
-.A_Paragraph {
-  font-family: 'Wremena';
-  position: relative;
-  font-weight: 300;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 90%;
-  color: var(--black);
-  &.Left {
-    text-align: left;
-  }
-  &.Center {
-    text-align: center;
-  }
-}
-.A_Subtitle {
-  position: relative;
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 74%;
-  text-align: left;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
-  &.Left {
-    text-align: left;
-  }
-  &.Center {
-    text-align: center;
-  }
-}
-.A_ArticlesСategory {
-  font-family: 'Gramatika Demo';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 74%;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--grey);
+.Category {
   &:hover {
     text-shadow: 0px 0px 12px var(--pink);
     cursor: url('./images/pointer.svg'), auto;
-  }
-  &.Underlined {
-    text-decoration: underline;
   }
   &.NotShowing {
     display: none;
@@ -152,94 +215,15 @@
     );
   }
 }
-.A_ArticleTopic {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 110%;
-  text-align: center;
-  color: var(--black);
-  text-shadow: 0px 0px 12px var(--white);
-}
-.A_ArticleHeading {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 40px;
-  line-height: 100%;
-  text-align: center;
-  color: var(--black);
-  text-shadow: 0px 0px 12px var(--white);
-}
 .A_TarotCardIcon {
   background-color: var(--white);
 }
 .A_TarotCardImage {
-  width: 227px;
-  height: 227px;
+  width: 160px;
+  height: 160px;
   padding: 10px;
   border-radius: 10px;
   background-color: var(--white);
-}
-.A_TarotCardNumber {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 52px;
-  line-height: 74%;
-  color: var(--black);
-  padding: 0 10px;
-}
-.A_TarotCardTitleAntiqua {
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  line-height: 74%;
-  color: var(--black);
-}
-.A_TarotCardTitleGrotesk {
-  font-family: 'Gramatika Demo';
-  font-weight: normal;
-  font-style: normal;
-  line-height: 74%;
-  color: var(--black);
-}
-.A_H2Grotesk {
-  position: relative;
-  display: inline-block;
-  font-family: 'Gramatika Demo';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 96px;
-  line-height: 74%;
-  text-align: center;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
-}
-.A_H2Antiqua {
-  position: relative;
-  display: inline-block;
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 100px;
-  line-height: 74%;
-  text-align: center;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
-}
-.A_BreadCrumbs {
-  position: relative;
-  display: inline-block;
-  font-family: 'Wremena';
-  font-weight: 300;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 110%;
-  text-align: center;
-  text-shadow: 0px 0px 12px var(--white);
-  color: var(--black);
 }
 .A_ImageWithGradient {
   position: relative;
@@ -278,7 +262,28 @@
   background-image: url('images/Q_MenuStarWhite.svg');
   background-size: contain;
 }
-@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_Heading2Grotesk {
+    font-size: 78px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 80px;
+  }
+  .A_Heading3 {
+    font-size: 44px;
+  }
+  .A_Heading4 {
+    font-size: 30px;
+  }
+  .A_Heading5 {
+    font-size: 24px;
+  }
+  .A_Paragraph {
+    font-size: 20px;
+  }
+  .A_Link {
+    font-size: 20px;
+  }
   .A_AccentButtonTarotTellings {
     width: 253px;
     height: 62px;
@@ -287,11 +292,10 @@
     font-size: 46px;
     line-height: 62px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 38px;
-    padding: 24px 18px;
+    padding: 20px 18px;
     border-radius: 9px;
-    top: -10px;
   }
   .A_paragraphHeader {
     font-size: 20px;
@@ -299,32 +303,8 @@
     left: calc((100% - 665px) / 2);
     top: -70px;
   }
-  .A_Heading3 {
-    width: 240px;
-    font-size: 24px;
-  }
-  .A_Link {
-    font-size: 20px;
-  }
-  .A_Paragraph {
-    font-size: 20px;
-  }
-  .A_Subtitle {
-    font-size: 44px;
-  }
-  .A_ArticlesСategory {
-    font-size: 40px;
-  }
   .A_CardArticleImage {
     border-radius: 11px;
-  }
-  .A_ArticleTopic {
-    font-size: 18px;
-    // text-shadow: 0px 0px 12px var(--white);
-  }
-  .A_ArticleHeading {
-    font-size: 30px;
-    // text-shadow: 0px 0px 12px var(--white);
   }
   .A_TarotCardImage {
     width: 170px;
@@ -332,26 +312,29 @@
     padding: 7px;
     border-radius: 0px;
   }
-  .A_TarotCardNumber {
-    font-size: 36px;
-    padding: 0 10px;
-  }
-  .A_H2Grotesk {
-    font-size: 78px;
-  }
-  .A_H2Antiqua {
-    font-size: 80px;
-  }
-  .A_BreadCrumbs {
-    font-size: 20px;
+  .A_ImageWithGradient {
+    width: 780px;
+    height: 360px;
+    border-radius: 12px;
   }
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1439px) {
-  /*только смена количества колонок*/
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_Heading2Grotesk {
+    font-size: 66px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 66px;
+  }
+  .A_Heading3 {
+    font-size: 40px;
+  }
+  .A_Heading4 {
+    font-size: 27px;
+  }
+  .A_Heading5 {
+    font-size: 22px;
+  }
   .A_AccentButtonTarotTellings {
     width: 231px;
     height: 57px;
@@ -360,11 +343,10 @@
     font-size: 42px;
     line-height: 57px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 36px;
-    padding: 20px 14px;
+    padding: 18px 14px;
     border-radius: 6px;
-    top: -10px;
   }
   .A_paragraphHeader {
     font-size: 18px;
@@ -372,32 +354,14 @@
     left: calc((100% - 513px) / 2);
     top: -70px;
   }
-  .A_Heading3 {
-    width: 218px;
-    font-size: 22px;
-  }
   .A_Link {
     font-size: 18px;
   }
   .A_Paragraph {
     font-size: 18px;
   }
-  .A_Subtitle {
-    font-size: 40px;
-  }
-  .A_ArticlesСategory {
-    font-size: 32px;
-  }
   .A_CardArticleImage {
     border-radius: 10px;
-  }
-  .A_ArticleTopic {
-    font-size: 16px;
-    // text-shadow: 0px 0px 12px var(--white);
-  }
-  .A_ArticleHeading {
-    font-size: 27px;
-    // text-shadow: 0px 0px 12px var(--white);
   }
   .A_TarotCardImage {
     width: 158px;
@@ -405,22 +369,34 @@
     padding: 7px;
     border-radius: 0px;
   }
-  .A_TarotCardNumber {
-    font-size: 38px;
-    padding: 0 7px;
-  }
-  .A_H2Grotesk {
-    font-size: 66px;
-  }
-  .A_H2Antiqua {
-    font-size: 66px;
-  }
-  .A_BreadCrumbs {
-    font-size: 17px;
-  }
 }
 
-@media only screen and (min-width: 460px) and (max-width: 1023px) {
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_Heading2Grotesk {
+    font-size: 46px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 48px;
+  }
+  .A_Heading3 {
+    font-size: 30px;
+  }
+  .A_Heading4 {
+    font-size: 18px;
+  }
+  .A_Heading5 {
+    font-size: 18px;
+  }
+  .A_Paragraph {
+    font-size: 14px;
+  }
+  .A_Link {
+    font-size: 14px;
+  }
   .A_AccentButtonTarotTellings {
     width: 188px;
     height: 46px;
@@ -430,11 +406,10 @@
     line-height: 46px;
     margin-bottom: 60vh;
   }
-  .A_AccentButton {
-    font-size: 24px;
-    padding: 10px 9px;
+  .A_ArticleButton {
+    font-size: 32px;
+    padding: 7px 9px;
     border-radius: 4px;
-    top: -4px;
   }
   .A_paragraphHeader {
     font-size: 14px;
@@ -442,32 +417,8 @@
     left: calc((100% - 406px) / 2);
     top: -70px;
   }
-  .A_Heading3 {
-    width: 146px;
-    font-size: 14px;
-  }
-  .A_Link {
-    font-size: 14px;
-  }
-  .A_Paragraph {
-    font-size: 14px;
-  }
-  .A_Subtitle {
-    font-size: 30px;
-  }
-  .A_ArticlesСategory {
-    font-size: 30px;
-  }
   .A_CardArticleImage {
     border-radius: 8px;
-  }
-  .A_ArticleTopic {
-    font-size: 14px;
-    // text-shadow: 0px 0px 12px var(--white);
-  }
-  .A_ArticleHeading {
-    font-size: 18px;
-    // text-shadow: 0px 0px 12px var(--white);
   }
   .A_TarotCardImage {
     width: 100px;
@@ -479,26 +430,38 @@
     font-size: 23px;
     padding: 0 5px;
   }
-  .A_H2Grotesk {
-    font-size: 50px;
-  }
-  .A_H2Antiqua {
-    font-size: 50px;
-  }
   .A_BreadCrumbs {
     font-size: 14px;
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
+@media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 
-@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
-  /* iPad тут тоже колонки? */
-}
-
-@media only screen and (max-device-width: 460px) {
+@media only screen and (max-device-width: 499px) {
+  .A_Heading2Grotesk {
+    font-size: 36px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 36px;
+  }
+  .A_Heading3 {
+    font-size: 20px;
+  }
+  .A_Heading4 {
+    font-size: 18px;
+    text-align: left;
+  }
+  .A_Heading5 {
+    font-size: 22px;
+  }
+  .A_Paragraph {
+    font-size: 14px;
+  }
+  .A_Link {
+    font-size: 14px;
+  }
   .A_AccentButtonTarotTellings {
     margin-bottom: 60vh;
     width: 188px;
@@ -508,40 +471,19 @@
     font-size: 34px;
     line-height: 46px;
   }
-  .A_AccentButton {
+  .A_ArticleButton {
     font-size: 24px;
-    padding: 10px 9px;
+    padding: 8px 9px;
     border-radius: 4px;
   }
   .A_paragraphHeader {
     font-size: 14px;
     width: 50vw;
     left: 25vw;
-
     top: -70px;
-  }
-  .A_Heading3 {
-    width: 146px;
-    font-size: 14px;
-  }
-  .A_Link {
-    font-size: 14px;
-  }
-  .A_Paragraph {
-    font-size: 14px;
-  }
-  .A_Subtitle {
-    font-size: 20px;
-  }
-  .A_ArticlesСategory {
-    font-size: 24px;
   }
   .A_CardArticleImage {
     border-radius: 8px;
-  }
-  .A_ArticleTopic {
-    font-size: 14px;
-    text-align: left;
   }
   .A_TarotCardImage {
     width: 88px;
@@ -553,17 +495,7 @@
     font-size: 20px;
     padding: 0 5px;
   }
-  .A_H2Grotesk {
-    font-size: 30px;
-  }
-  .A_H2Antiqua {
-    font-size: 30px;
-  }
   .A_BreadCrumbs {
     font-size: 14px;
-  }
-  .A_ArticleHeading {
-    font-size: 18px;
-    text-align: left;
   }
 }

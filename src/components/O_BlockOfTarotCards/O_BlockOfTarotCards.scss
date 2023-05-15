@@ -1,0 +1,23 @@
+.O_BlockOfTarotCards {
+  position: relative;
+  left: calc(50% - 1832px / 2);
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 1832px;
+  padding-bottom: 100px;
+  &.NotShowing {
+    display: none;
+  }
+
+  .C_TarotCards {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 40px;
+    width: 1364px;
+    height: auto;
+  }
+}

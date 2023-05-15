@@ -15,10 +15,13 @@ module.exports = {
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
+    search: './src/search.js',
     fortunetelling: './src/fortunetelling.js',
     mouseeventcard: './src/cardonmouseevent.js',
     contentrandomizer: './src/contentrandomizer.js',
-    page: './src/page.jsx'
+    page: './src/page.jsx',
+    cards: './src/cards.jsx',
+    airtable: './src/airtableData.js'
   },
   output: {
     filename: '[name].js',
@@ -117,6 +120,12 @@ module.exports = {
       chunks: ['articles', 'menu']
     }),
     new HtmlWebpackPlugin({
+      template: './src/search.html',
+      filename: './search.html',
+      chunks: ['search', 'menu']
+    }),
+
+    new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html'
     }),
@@ -171,7 +180,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards.html',
       filename: './cards.html',
-      chunks: ['menu', 'articles']
+      chunks: ['menu', 'articles', 'cards']
     }),
     new HtmlWebpackPlugin({
       template: './src/articlescompilations/lovecompilation.html',
@@ -184,6 +193,14 @@ module.exports = {
       {
         path: path.join(__dirname, './src/partials/analytics.html'),
         location: 'analytics',
+        template_filename: '*',
+        priority: 'replace'
+      }
+    ]),
+    new HtmlWebpackPartialsPlugin([
+      {
+        path: path.join(__dirname, './src/partials/menu.html'),
+        location: 'menu',
         template_filename: '*',
         priority: 'replace'
       }

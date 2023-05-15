@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 60px;
-  margin-bottom: 120px;
+  margin-top: 45px;
+  margin-bottom: 75px;
   gap: 40px;
+  width: fit-content;
   .A_ArticlesСategory {
     position: relative;
     display: inline-block;
@@ -18,8 +19,7 @@
   gap: 16px;
   align-items: center;
   width: 428px;
-  height: 492px;
-  padding: 36px 21px;
+  height: 480px;
   background-color: var(--white);
   box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
   border-radius: 22px;
@@ -31,18 +31,19 @@
   }
   .A_CardArticleImage {
     position: relative;
-    width: 385px;
-    height: 256px;
+    width: 395px;
+    height: 260px;
+    margin-top: 18px;
   }
-  .A_Heading3 {
+  .A_Heading5 {
     position: relative;
     display: inline-block;
-    width: 304px;
+    width: 300px;
   }
   .A_Paragraph {
     position: relative;
     display: inline-block;
-    width: 304px;
+    width: 350px;
   }
   &.NotShowing {
     display: none;
@@ -93,8 +94,8 @@
   gap: 100px;
   align-items: center;
   width: 428px;
-  height: 492px;
-  padding-top: 57px;
+  height: 480px;
+  padding-top: 60px;
   border-radius: 22px;
   &:hover {
     cursor: url('./images/pointer.svg'), auto;
@@ -102,77 +103,13 @@
     transform: scale(0.95);
     box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
   }
-  .A_ArticleTopic {
-    position: relative;
-    display: inline-block;
+  .A_Paragraph {
     width: 100%;
+    text-align: center;
   }
-  .A_ArticleHeading {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
-  &.NotShowing {
-    display: none;
-  }
-}
-.M_TarotCard {
-  position: relative;
-  text-align: center;
-  width: 428px;
-  height: 630px;
-  background: radial-gradient(
-      98.49% 56.44% at 50% 0%,
-      var(--pink) 0%,
-      rgba(255, 139, 236, 0) 100%
-    ),
-    var(--white);
-  border-radius: 22px;
-  box-shadow: 0px 6px 9px var(--blackshadow);
-  box-shadow: inset 0px 6px 12px #f8f6f0;
-  box-shadow: 0px 6px 9px var(--blackshadow);
-  .W_TarotCardShadow {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0px 6px 9px var(--blackshadow));
-  }
-  .W_TarotCardInside {
-    position: relative;
-    top: 30px;
-    font-size: 52px;
-    line-height: 110%;
-    display: inline;
-    box-decoration-break: clone;
-    background: var(--white);
-    padding: 5px;
-    filter: url('#goo');
-    box-shadow: none;
-    .A_TarotCardIcon {
-      position: relative;
-      display: inline-block;
-      margin: 0 auto;
-      top: 5px;
-      width: 55px;
-      height: 41px;
-    }
-    .A_TarotCardImage {
-      position: relative;
-      display: block;
-      margin: 0 auto;
-    }
-    .A_TarotCardNumber {
-      position: relative;
-    }
-    .A_TarotCardTitleAntiqua {
-      position: relative;
-      padding: 0 10px;
-      font-size: 52px;
-    }
-    .A_TarotCardTitleGrotesk {
-      position: relative;
-      padding: 0 10px;
-      font-size: 48px;
-    }
+  .A_Heading4 {
+    width: 385px;
+    text-align: center;
   }
   &.NotShowing {
     display: none;
@@ -249,7 +186,6 @@
       #f8f6f0 100%
     ),
     #f5f6ee;
-  box-shadow: 0px 6px 9px var(--blackshadow);
   box-shadow: inset 0px 6px 12px #f8f6f0;
   box-shadow: 0px 6px 9px var(--blackshadow);
   &:hover {
@@ -269,7 +205,7 @@
   }
   .W_TarotCardBigInside {
     position: relative;
-    top: 30px;
+    top: 75px;
     font-size: 82px;
     line-height: 128%;
     display: inline;
@@ -288,7 +224,7 @@
       font-size: 96px;
       padding: 0 30px;
     }
-    .A_AccentButton {
+    .A_ArticleButton {
       position: relative;
       display: inline-block;
       top: -13px;
@@ -345,9 +281,10 @@
 }
 .M_Content {
   position: relative;
-  margin: 40px auto;
+  left: calc(50% - 1828px / 2);
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   gap: 150px;
   width: 1828px;
   padding: 0 100px;
@@ -366,42 +303,49 @@
     }
   }
 }
-@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_ArticlesCategories {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    gap: 36px;
+  }
   .M_CardArticle {
     gap: 12px;
     width: 320px;
-    height: 365px;
-    padding: 22px 19px;
+    height: 370px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 16px;
     .A_CardArticleImage {
-      width: 287px;
+      width: 290px;
       height: 190px;
+      margin-top: 15px;
+    }
+    .A_Heading5 {
+      width: 290px;
     }
     .A_Paragraph {
-      width: 240px;
-      font-size: 20px;
+      width: 290px;
     }
   }
   .M_ArticlesCompilation {
     gap: 80px;
     width: 320px;
-    height: 365px;
-    padding-top: 42px;
+    height: 370px;
+    padding-top: 40px;
+    .A_Heading4 {
+      width: 290px;
+    }
   }
   .M_ArticleCardBig {
     width: 665px;
     height: 680px;
     border-radius: 16px;
-    box-shadow: 0px 5px 9px var(--blackshadow);
-    box-shadow: inset 0px 5px 12px #f8f6f0;
-    box-shadow: 0px 5px 9px var(--blackshadow);
     .W_TarotCardShadow {
       filter: drop-shadow(0px 5px 9px var(--blackshadow));
     }
     .W_TarotCardBigInside {
-      top: 30px;
-      font-size: 63px;
+      top: 50px;
+      font-size: 60px;
       line-height: 133%;
       padding: 5px;
       .A_TarotCardTitleAntiqua {
@@ -411,6 +355,9 @@
       .A_TarotCardTitleGrotesk {
         font-size: 78px;
         padding: 0 30px;
+      }
+      .A_ArticleButton {
+        top: -10px;
       }
     }
   }
@@ -496,7 +443,7 @@
     padding: 22px 19px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 16px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 610px;
       height: 190px;
     }
@@ -528,48 +475,66 @@
       gap: 8px;
     }
   }
+  .M_Content {
+    gap: 150px;
+    width: 1125px;
+    .A_Subtitle {
+      width: 195px;
+    }
+    .W_ParagraphAndImage {
+      gap: 25px;
+      width: 780px;
+      .A_Paragraph {
+        width: 665px;
+      }
+    }
+  }
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1439px) {
-  /*только смена количества колонок*/
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_ArticlesCategories {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    gap: 32px;
+  }
   .M_CardArticle {
-    gap: 9px;
-    width: 299px;
-    height: 340px;
-    padding: 21px 16px;
+    gap: 7px;
+    width: 284px;
+    height: 320px;
     box-shadow: 0px 4px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 14px;
     .A_CardArticleImage {
-      width: 268px;
-      height: 180px;
+      width: 256px;
+      height: 168px;
+      margin-top: 14px;
+    }
+    .A_Heading5 {
+      width: 256px;
     }
     .A_Paragraph {
-      width: 218px;
+      width: 256px;
     }
   }
   .M_ArticlesCompilation {
     gap: 70px;
-    width: 299px;
-    height: 340px;
+    width: 284px;
+    height: 320px;
     padding-top: 40px;
+    .A_Heading4 {
+      width: 260px;
+    }
   }
   .M_ArticleCardBig {
-    width: 620px;
-    height: 633px;
+    width: 590px;
+    height: 605px;
     border-radius: 14px;
-    box-shadow: 0px 4px 9px var(--blackshadow);
-    box-shadow: inset 0px 4px 12px #f8f6f0;
-    box-shadow: 0px 4px 9px var(--blackshadow);
     .W_TarotCardShadow {
       filter: drop-shadow(0px 4px 9px var(--blackshadow));
     }
     .W_TarotCardBigInside {
-      top: 30px;
-      font-size: 61px;
-      line-height: 133%;
+      top: 55px;
+      font-size: 58px;
+      line-height: 117%;
       padding: 5px;
       .A_TarotCardTitleAntiqua {
         font-size: 80px;
@@ -578,6 +543,9 @@
       .A_TarotCardTitleGrotesk {
         font-size: 78px;
         padding: 0 30px;
+      }
+      .A_ArticleButton {
+        top: -10px;
       }
     }
   }
@@ -649,7 +617,7 @@
     padding: 20px 16px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 14px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 580px;
       height: 180px;
     }
@@ -684,34 +652,45 @@
   }
 }
 
-@media only screen and (min-width: 460px) and (max-width: 1023px) {
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_ArticlesCategories {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 30px;
+  }
   .M_CardArticle {
     gap: 7px;
-    width: 192px;
-    height: 220px;
-    padding: 21px 17px;
+    width: 215px;
+    height: 250px;
     box-shadow: 0px 3px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 10px;
-    .A_Heading3 {
-      width: 146px;
-    }
     .A_CardArticleImage {
-      width: 172px;
-      height: 115px;
+      width: 198px;
+      height: 131px;
+      margin-top: 8px;
+    }
+    .A_Heading5 {
+      width: 198px;
     }
     .A_Paragraph {
-      width: 146px;
+      width: 198px;
     }
   }
   .M_ArticlesCompilation {
     gap: 45px;
-    width: 192px;
-    height: 217px;
+    width: 215px;
+    height: 250px;
     padding-top: 25px;
+    .A_Heading4 {
+      width: 190px;
+    }
   }
   .M_ArticleCardBig {
-    width: 406px;
-    height: 415px;
+    width: 455px;
+    height: 465px;
     border-radius: 14px;
     box-shadow: 0px 4px 9px var(--blackshadow);
     box-shadow: inset 0px 3px 12px #f8f6f0;
@@ -720,7 +699,7 @@
       filter: drop-shadow(0px 4px 9px var(--blackshadow));
     }
     .W_TarotCardBigInside {
-      top: 30px;
+      top: 35px;
       font-size: 32px;
       line-height: 152%;
       padding: 5px;
@@ -731,6 +710,9 @@
       .A_TarotCardTitleGrotesk {
         font-size: 50px;
         padding: 0 10px;
+      }
+      .A_ArticleButton {
+        top: -2px;
       }
     }
   }
@@ -802,7 +784,7 @@
     padding: 14px;
     box-shadow: 0px 4px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 10px;
-    .A_CardArticlesImage {
+    .A_CardArticleImage {
       width: 270px;
       height: 110px;
     }
@@ -840,15 +822,21 @@
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
+@media only screen and (min-width: 500px) and (max-width: 642px) {
+  /*скролл на категориях!)*/
+  .M_ArticlesCategories {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 30px;
+    // margin-left: 200px;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 
-@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
-  /* iPad тут тоже колонки? */
-}
-
-@media only screen and (max-device-width: 460px) {
+@media only screen and (max-device-width: 499px) {
   /* Phone */
   .M_Header {
     background: none;
@@ -862,27 +850,25 @@
   }
   .M_CardArticle {
     gap: 12px;
-    width: 338px;
-    height: 365px;
-    padding: 22px 19px;
+    width: 328px;
+    height: 335px;
     box-shadow: 0px 5px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
     border-radius: 16px;
     .A_CardArticleImage {
       width: 300px;
-      height: 190px;
+      height: 195px;
+      margin-top: 15px;
     }
     .A_Paragraph {
-      width: 280px;
-      font-size: 20px;
+      width: 230px;
     }
     .A_Heading3 {
-      width: 280px;
-      font-size: 24px;
+      width: 250px;
     }
   }
   .M_ArticleCardBig {
-    width: 338px;
-    height: 415px;
+    width: 328px;
+    height: 354px;
     border-radius: 14px;
     box-shadow: none;
     background: none;
@@ -891,8 +877,8 @@
     }
     .W_TarotCardBigInside {
       top: 30px;
-      font-size: 32px;
-      line-height: 152%;
+      font-size: 25px;
+      line-height: 150%;
       padding: 5px;
       .A_TarotCardTitleAntiqua {
         font-size: 44px;
@@ -902,8 +888,8 @@
         font-size: 44px;
         padding: 0 7px;
       }
-      .A_AccentButton {
-        top: -4px;
+      .A_ArticleButton {
+        top: -1px;
       }
     }
   }
@@ -915,23 +901,19 @@
     padding-bottom: 10px;
     border-bottom: solid 1px black;
     border-radius: 0px;
+    justify-content: left;
+    .A_Heading4 {
+      text-align: left;
+      width: 100%;
+    }
+    .A_Paragraph {
+      text-align: left;
+    }
   }
   .M_ArticlesCategories {
-    justify-content: flex-start;
     margin-top: 30px;
-    margin-bottom: 45px;
-    margin-left: 16px;
-    padding: 20px;
+    margin-bottom: 30px;
     gap: 30px;
-    overflow-x: auto;
-    &::-webkit-scrollbar-thumb {
-      background: transparent;
-    }
-    .A_ArticlesСategory {
-      position: relative;
-      display: inline-block;
-      white-space: nowrap;
-    }
   }
   .M_TarotCard {
     width: 165px;

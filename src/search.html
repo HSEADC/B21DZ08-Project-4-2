@@ -2,7 +2,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>толкования карт | расклад</title>
+    <title>гадания | расклад</title>
     <!-- Primary Meta Tags -->
     <meta name="title" content="(рас)клад — медиа о таро" />
     <meta
@@ -37,20 +37,21 @@
 
     <analytics></analytics>
 
-    <link rel="shortcut icon" href="../images/icon.png" />
+    <link rel="shortcut icon" href="images/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="javascript/solitaireVictory.js" charset="utf-8"></script>
   </head>
-  <body>
+  <body class="S_SearchPage">
     <div class="O_Menu">
       <div class="A_Logo" onclick="location='index.html'">
-        <img src="../images/A_Logo.svg" alt="" />
+        <img src="images/A_Logo.svg" alt="" />
       </div>
       <div class="M_MenuElements">
         <a
           class="W1_MenuElementTextBox W_MenuElementTextBox"
           href="fortunetellings.html"
         >
-          <div class="A_MenuElementText">погадать</div>
+          <div class="A_MenuElementText" style="font-weight: 700">погадать</div>
         </a>
         <div class="Q_MenuStar Black"></div>
         <a
@@ -61,9 +62,7 @@
         </a>
         <div class="Q_MenuStar Black"></div>
         <a class="W3_MenuElementTextBox W_MenuElementTextBox" href="cards.html">
-          <div class="A_MenuElementText" style="font-weight: 700">
-            толкования карт
-          </div>
+          <div class="A_MenuElementText">толкования карт</div>
         </a>
         <div class="Q_MenuStar Black"></div>
         <a
@@ -86,12 +85,74 @@
     </div>
     <div class="M_Header">
       <div class="W_HeaderText">
-        <div class="A_Paragraph Center">старшие арканы</div>
+        <div class="A_Paragraph Center">поиск</div>
         <div class="W_HeaderHeading">
-          <div class="A_H2Grotesk">дурак</div>
+          <div class="A_Heading2Grotesk">результаты</div>
+          <div class="A_Heading2Antiqua">поиска</div>
         </div>
       </div>
     </div>
-    <div class="M_TarotCard"></div>
+    <div class="O_Search">
+      <input class="A_SearchInput" type="text" placeholder="поиск" />
+      <div class="Q_SearchIcon disabled"></div>
+    </div>
+    <div class="C_SearchOutput">
+      <div class="A_NothingFound A_Heading5"></div>
+      <section class="W_SearchedContent">
+        <div class="O_SearchedArticles">
+          <div class="A_Heading3">статьи и коллекции</div>
+          <div class="W_SearchedArticleCards"></div>
+        </div>
+        <div class="O_SearchedFortuneTellings">
+          <div class="A_Heading3">расклады</div>
+          <div class="W_SearchedArticleCards"></div>
+        </div>
+        <div class="O_SearchedTarotCards">
+          <div class="A_Heading3">карты таро</div>
+          <div class="W_SearchedArticleCards"></div>
+        </div>
+      </section>
+    </div>
+    <div class="O_Footer">
+      <div class="C_SocialsFooter">
+        <a href="http://www.tiktok.com/@tarotmediaproject" class="A_Link"
+          >тикток</a
+        >
+        <a href="https://portfolio.hse.ru/Project/161588" class="A_Link"
+          >проект</a
+        >
+        <a href="https://instagram.com/ras.kladmedia=" class="A_Link"
+          >инстаграм</a
+        >
+        <a href="https://t.me/tarogirl_bot " class="A_Link">тг-бот</a>
+      </div>
+      <div class="Q_MenuStar White"></div>
+      <div class="C_AuthorsFooter">
+        <a href="https://adc.ac/" class="A_Link">hse adc</a>
+        <div class="W1_AuthorsFooter">
+          <a
+            href="https://design.hse.ru/team/4249#:~:text=%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%2C%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8,%D0%B2%20%D0%A8%D0%BA%D0%BE%D0%BB%D0%B5%20%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B0%20%D0%9D%D0%98%D0%A3%20%D0%92%D0%A8%D0%AD."
+            class="A_Link"
+            >захар день</a
+          >
+          <a href="https://design.hse.ru/team/19249" class="A_Link"
+            >соня каем</a
+          >
+        </div>
+        <div class="W2_AuthorsFooter">
+          <a href="https://portfolio.hse.ru/Student/17656" class="A_Link"
+            >настя малевич</a
+          >
+          <a
+            href="https://readymag.com/hseadc/carinaramazanova/ "
+            class="A_Link"
+            >карина рамазанова</a
+          >
+          <a href="https://portfolio.hse.ru/Student/17646" class="A_Link"
+            >маша ванурина</a
+          >
+        </div>
+      </div>
+    </div>
   </body>
 </html>

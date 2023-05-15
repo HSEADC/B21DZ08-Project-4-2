@@ -124,7 +124,7 @@
       }
     }
     .Q_SearchIcon {
-      background-image: url('images/Q_SearchIcon.svg');
+      background-image: url('./images/Q_SearchIcon.svg');
       width: 22px;
       height: 24px;
       background-size: contain;
@@ -168,6 +168,124 @@
   }
   &:hover {
     cursor: url('./images/pointer.svg'), auto;
+  }
+}
+.S_SearchPage {
+  .O_Search {
+    position: relative;
+    width: 891px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+    transition: all 1s ease-out;
+    margin: 0 auto;
+  }
+  .Q_SearchIcon {
+    background-image: url('./images/Q_SearchIcon.svg');
+    width: 22px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &.disabled {
+      color: var(--black), 30%;
+    }
+  }
+  .A_SearchInput {
+    height: 58px;
+    width: 830px;
+    border: none;
+    background: transparent;
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+    cursor: url('./images/pointer.svg'), auto;
+
+    &::placeholder {
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+  }
+  .C_SearchOutput {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    .W_SearchedContent {
+      position: relative;
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+      .O_SearchedArticles,
+      .O_SearchedFortuneTellings,
+      .O_SearchedTarotCards {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: radial-gradient(
+            117.87% 117.87% at 51.17% 0%,
+            #f8f6f0 13.54%,
+            #ff8bec 100%
+          ),
+          #313131;
+        border-radius: 22px 22px 0px 0px;
+        margin-bottom: -22px;
+        .W_SearchedArticleCards {
+          position: relative;
+          width: fit-content;
+          height: fit-content;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 40px;
+          margin: 40px auto;
+          .M_CardArticle {
+            margin-top: 40px auto;
+          }
+        }
+        .A_Heading3 {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+  .O_Footer {
+    top: 0px;
+    margin-top: 0px;
   }
 }
 .O_Footer {
@@ -235,6 +353,17 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 40px;
+  }
+  .W_ArticlesCategoriesContainer {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
   }
 }
 .O_ContentFortuneTelling {
@@ -395,31 +524,6 @@
     height: fit-content;
   }
 }
-.O_BlockOfTarotCards {
-  position: relative;
-  left: calc(50% - 1832px / 2);
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-
-  width: 1832px;
-  padding-bottom: 100px;
-  &.NotShowing {
-    display: none;
-  }
-
-  .C_TarotCards {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 40px;
-
-    width: 1364px;
-    height: auto;
-  }
-}
 .O_ArticleCompilations {
   position: relative;
   display: flex;
@@ -430,7 +534,7 @@
   padding-bottom: 17vh;
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
     left: calc(50% - 826.5px / 2);
@@ -602,58 +706,12 @@
       width: 1010px;
     }
   }
-}
-
-@media only screen and (min-width: 1280px) and (max-width: 1439px) {
-  /*только смена количества колонок*/
-  .O_Articles {
-    .W_AllArticleCards {
-      width: 1010px;
-      gap: 25px;
-    }
-  }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 1010px / 2);
-    gap: 25px;
-
-    width: 1010px;
-    padding-bottom: 60px;
-
-    .C_TarotCards {
-      gap: 25px;
-
-      width: 665px;
-    }
-  }
-  .O_ContentFortuneTelling {
-    left: calc(50% - 1015px / 2);
-    gap: 196px;
-    width: 1015px;
-    gap: 0;
-    justify-content: space-between;
-    .M_TarotCard {
-      margin: 0 -12px;
-      gap: 0;
-    }
-    .C_Contents {
-      align-items: flex-start;
-      gap: 100px;
-      width: 665px;
-      .M_Content {
-        width: 665px;
-        .A_Subtitle {
-          width: 204px;
-          margin-right: 25px;
-        }
-        .A_Paragraph {
-          width: 433px;
-        }
-      }
-    }
+  .O_ReadMore {
+    padding-top: 40px;
   }
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
   .O_Menu {
     height: 43px;
     left: calc(50% - 726.47px / 2);
@@ -833,7 +891,7 @@
   }
   .O_Articles {
     .W_AllArticleCards {
-      width: 942px;
+      width: 1202px;
       gap: 22px;
     }
   }
@@ -851,8 +909,56 @@
     }
   }
 }
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 899px;
+      gap: 25px;
+    }
+  }
+  .O_BlockOfTarotCards {
+    left: calc(50% - 1010px / 2);
+    gap: 25px;
 
-@media only screen and (min-width: 460px) and (max-width: 1023px) {
+    width: 1010px;
+    padding-bottom: 60px;
+
+    .C_TarotCards {
+      gap: 25px;
+
+      width: 665px;
+    }
+  }
+  .O_ContentFortuneTelling {
+    left: calc(50% - 1015px / 2);
+    gap: 196px;
+    width: 1015px;
+    gap: 0;
+    justify-content: space-between;
+    .M_TarotCard {
+      margin: 0 -12px;
+      gap: 0;
+    }
+    .C_Contents {
+      align-items: flex-start;
+      gap: 100px;
+      width: 665px;
+      .M_Content {
+        width: 665px;
+        .A_Subtitle {
+          width: 204px;
+          margin-right: 25px;
+        }
+        .A_Paragraph {
+          width: 433px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
   .O_Menu {
     height: 34px;
     left: calc(50% - 578.35px / 2);
@@ -1007,7 +1113,7 @@
   }
   .O_Articles {
     .W_AllArticleCards {
-      width: 620px;
+      width: 692px;
       gap: 22px;
     }
   }
@@ -1025,16 +1131,105 @@
     }
   }
 }
+@media only screen and (min-width: 500px) and (max-width: 642px) {
+  .O_Articles {
+    .W_ArticlesCategoriesContainer {
+      width: 460px;
+      margin: 0 auto;
+      justify-content: left;
+    }
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  .O_Articles {
+    .W_AllArticleCards {
+      width: 455px;
+      gap: 22px;
+    }
+  }
+  .O_Menu {
+    background: linear-gradient(
+      180deg,
+      #ff8bec 18.05%,
+      #ffcef7 64.16%,
+      rgba(255, 255, 255, 0) 99.69%
+    );
+    flex-direction: column;
+    align-items: center;
+    top: 0px;
+    left: 0vw;
+    gap: 10px;
+    width: 100vw;
+    height: fit-content;
+    .A_Logo {
+      width: 90vw;
+      height: 60px;
+      background: transparent;
+      box-shadow: none;
+    }
 
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
-  /*только смена количества колонок*/
+    .M_MenuElements {
+      flex-direction: column;
+      height: fit-content;
+      width: 90vw;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_MenuStar {
+        display: none;
+      }
+      .A_MenuElementText {
+        font-size: 14px;
+        line-height: 34px;
+      }
+      .W_MenuElementTextBox,
+      .W1_MenuElementTextBox,
+      .W2_MenuElementTextBox,
+      .W3_MenuElementTextBox,
+      .W4_MenuElementTextBox {
+        height: fit-content;
+      }
+    }
+
+    .M_SearchBox {
+      width: 82.25px;
+      height: 34px;
+      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 34px;
+      &.NotShowing {
+        display: none;
+      }
+
+      .Q_SearchIcon {
+        width: 12.25px;
+        height: 14px;
+      }
+      .A_Search {
+        height: 34px;
+        width: 40px;
+        font-size: 14px;
+        line-height: 34px;
+
+        &::placeholder {
+          font-size: 14px;
+          line-height: 34px;
+        }
+      }
+    }
+    .M_SearchBoxActive {
+      width: 188px;
+      .A_Search {
+        width: 150px;
+      }
+    }
+  }
 }
 
-@media only screen and (min-device-width: 461px) and (max-device-width: 768px) {
-  /* iPad тут тоже колонки? */
-}
-
-@media only screen and (max-device-width: 460px) {
+@media only screen and (max-device-width: 499px) {
   .O_Menu {
     background: linear-gradient(
       180deg,
@@ -1165,6 +1360,11 @@
       align-items: center;
       width: 338px;
       gap: 22px;
+    }
+    .W_ArticlesCategoriesContainer {
+      width: 328px;
+      margin: 0 auto;
+      justify-content: left;
     }
   }
   .O_Footer {
