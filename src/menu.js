@@ -101,3 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
     adaptiveMenu()
   }
 })
+
+$(document).ready(function () {
+  $(function () {
+    $('.draggable').draggable()
+  })
+
+  $('.umbrella').click(function () {
+    $(this).addClass('umbrella1-01')
+    $(this).removeClass('umbrella')
+  })
+
+  $(function () {
+    $('.sciccors').draggable()
+    $('.tshirt').droppable({
+      drop: function (event, ui) {
+        $(this).addClass('.tshirt1-01')
+      }
+    })
+  })
+})
