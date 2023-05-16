@@ -7,7 +7,7 @@ import M_SearchBox from './components/M_SearchBox/M_SearchBox.jsx'
   let searchBox
 
   document.addEventListener('DOMContentLoaded', () => {
-      const root = createRoot(document.querySelector('.O_Menu'))
+      const root = createRoot(document.querySelector('.W_SearchBoxContainer'))
   root.render(
     <div>
     <M_SearchBox />
