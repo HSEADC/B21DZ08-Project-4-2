@@ -1,14 +1,12 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
-
-console.log('cardfilter');
+ // console.log('cardfilter')
 
 function initFilter() {
-  var filtername = document.getElementsByClassName('A_ArticlesСategory');
+  var filtername = document.getElementsByClassName('A_Heading3');
   var allarticlescards = document.getElementById('W_AllArticleCards');
-  var allchildren = allarticlescards.children;
-  console.log(filtername, allchildren);
+  var allchildren = allarticlescards.children; // console.log(filtername, allchildren)
 
   var _loop = function _loop(i) {
     var currentfilter = filtername[i];
