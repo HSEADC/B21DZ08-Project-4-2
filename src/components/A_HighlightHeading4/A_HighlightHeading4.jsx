@@ -13,9 +13,6 @@ export default class A_HighlightHeading4 extends React.Component {
             None: none
 
         })
-        // if (tarotCollection.line1 == undefined){(
-        //   texttype = 'None'
-        //   )}
       return (
         <div className={classes} texttype={texttype}>
             {text}

@@ -17,45 +17,64 @@ const base = Airtable.base('appcttjzPgvmm4Gdx')
 
 function getTarotCards() {
   return new Promise((resolve, reject) => {
-    let images = [tarotCardImage1, tarotCardImage2, tarotCardImage3]
-    const tarotCardsMajorArcana = []
+    const tarotCards = []
     base('TarotCards')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          tarotCardsMajorArcana.push({
-            color: record.fields['color'],
-            emoji: record.fields['emoji'],
+          let none = false
+          if (record.fields['line1'] == undefined) {
+            none = true
+          }
+          let texttype = 'Emoji'
+          let icon = record.fields['icon']
+          if (
+            icon.includes('I') ||
+            icon.includes('V') ||
+            icon.includes('X') ||
+            icon.includes('L') ||
+            icon.includes('C')
+          ) {
+            texttype = 'Antiqua'
+          }
+          console.log(texttype)
+          let color = 'pink'
+          if (record.fields['arcana'] == 'major') {
+            color = 'black'
+          }
+          tarotCards.push({
+            color,
+            emoji: record.fields['icon'],
             line1: record.fields['line1'],
             line2: record.fields['line2'],
-            none: eval(record.fields['none']),
-            image: eval(record.fields['image']),
-            id: record.fields['id']
+            none,
+            image: record.fields['image'][0]['url'],
+            id: record.fields['id'],
+            texttype
           })
         })
 
-        resolve(tarotCardsMajorArcana)
+        resolve(tarotCards)
       })
   })
 }
 
 function getSearchData() {
   return new Promise((resolve, reject) => {
-    let images = [tarotCardImage1, tarotCardImage2, tarotCardImage3]
-    const tarotCardsMajorArcana = []
+    const tarotCards = []
     base('Articles')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          tarotCardsMajorArcana.push({
+          tarotCards.push({
             title: record.fields['Заголовок'],
             description: record.fields['Описание'],
             id: record.fields['id']
           })
         })
-        resolve(tarotCardsMajorArcana)
+        resolve(tarotCards)
       })
   })
 }

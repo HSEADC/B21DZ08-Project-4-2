@@ -16,7 +16,8 @@ export default class O_BlockOfTarotCards extends React.Component {
             line1={tarotCard.line1} 
             line2={tarotCard.line2}
             none={tarotCard.none} 
-            image={tarotCard.image} 
+            image={tarotCard.image}
+            texttype={tarotCard.texttype} 
             key={i} />
           )
         })
