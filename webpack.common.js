@@ -22,7 +22,8 @@ module.exports = {
     page: './src/page.jsx',
     cards: './src/cards.jsx',
     searchbox: './src/search.jsx',
-    airtable: './src/airtableData.js'
+    airtable: './src/airtableData.js',
+    fool: './src/cards/fool.jsx'
   },
   output: {
     filename: '[name].js',
@@ -129,6 +130,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html'
+      // chunks: ['fool']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',

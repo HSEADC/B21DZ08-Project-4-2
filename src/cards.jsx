@@ -3,7 +3,7 @@ import Airtable from 'airtable'
 import './airtableData.js'
 import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'
-import { getSearchData, getTarotCards } from './airtableData.js'
+import { getTarotCards } from './airtableData.js'
 
   let tarotCardsMajorArcana
 

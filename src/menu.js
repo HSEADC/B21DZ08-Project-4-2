@@ -110,14 +110,14 @@
 //     $(this).removeClass('umbrella')
 //   })
 
-//   search.addEventListener('input', () => {
-//     wrapperSearch.innerHTML = ''
-//     if (search.value != '') {
-//       filterCards(search.value)
-//       searchBox.classList.add('Modify')
-//     }
-//   })
-// }
+  search.addEventListener('input', () => {
+    wrapperSearch.innerHTML = ''
+    if (search.value != '') {
+      filterCards(search.value)
+      searchBox.classList.add('Modify')
+    }
+  })
+}
 
 // // function filterCards(inputtext) {
 // //   const cardsForRender = []
@@ -146,15 +146,15 @@
 // //   console.log(dreamcore)
 // // }
 
-// function adaptiveMenu() {
-//   logoMenu.removeAttribute('onclick')
-//   centerMenu.classList.toggle('NotShowing')
-//   searchBox.classList.toggle('NotShowing')
-//   logoMenu.addEventListener('click', () => {
-//     centerMenu.classList.toggle('NotShowing')
-//     searchBox.classList.toggle('NotShowing')
-//   })
-// }
+function adaptiveMenu() {
+  logoMenu.removeAttribute('onclick')
+  centerMenu.classList.toggle('NotShowing')
+  searchBox.classList.toggle('NotShowing')
+  logoMenu.addEventListener('click', () => {
+    centerMenu.classList.toggle('NotShowing')
+    searchBox.classList.toggle('NotShowing')
+  })
+}
 
 // // document.addEventListener('DOMContentLoaded', () => {
 // //   initSelect()
