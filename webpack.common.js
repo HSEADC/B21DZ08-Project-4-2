@@ -21,7 +21,8 @@ module.exports = {
     contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx',
     cards: './src/cards.jsx',
-    airtable: './src/airtableData.js'
+    airtable: './src/airtableData.js',
+    fool: './src/cards/fool.jsx'
   },
   output: {
     filename: '[name].js',
@@ -128,6 +129,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html'
+      // chunks: ['fool']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',
