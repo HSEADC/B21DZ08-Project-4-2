@@ -495,7 +495,7 @@
   }
 }
 .O_ReadMore {
-  margin-top: 160px;
+  margin-top: 80px;
   position: relative;
   height: auto;
   width: 100%;
@@ -505,7 +505,7 @@
   justify-content: flex-start;
   padding-top: 60px;
   gap: 40px;
-  padding-bottom: 17vh;
+  padding-bottom: 10vh;
   background-color: var(--pink);
   border-radius: 22px 22px 0 0;
   .W_HeaderHeading {
@@ -520,8 +520,6 @@
     display: flex;
     flex-direction: row;
     gap: 40px;
-    width: fit-content;
-    height: fit-content;
   }
 }
 .O_ArticleCompilations {
@@ -533,7 +531,16 @@
   align-items: center;
   padding-bottom: 17vh;
 }
-
+.O_AllArticleContent {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-end;
+  margin: 0 auto;
+}
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
@@ -709,8 +716,10 @@
   .O_ReadMore {
     padding-top: 40px;
   }
+  .O_AllArticleContent {
+    gap: 25px;
+  }
 }
-
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
   .O_Menu {
     height: 43px;
@@ -908,6 +917,9 @@
       width: 620px;
     }
   }
+  .O_AllArticleContent {
+    gap: 22px;
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
@@ -957,8 +969,7 @@
     }
   }
 }
-
-@media only screen and (min-width: 768px) and (max-width: 959px) {
+@media only screen and (min-width: 500px) and (max-width: 959px) {
   .O_Menu {
     height: 34px;
     left: calc(50% - 578.35px / 2);
@@ -1130,6 +1141,9 @@
       width: 406px;
     }
   }
+  .O_AllArticleContent {
+    gap: 30px;
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 642px) {
   .O_Articles {
@@ -1228,7 +1242,6 @@
     }
   }
 }
-
 @media only screen and (max-device-width: 499px) {
   .O_Menu {
     background: linear-gradient(
@@ -1389,5 +1402,19 @@
         gap: 30px;
       }
     }
+  }
+  .O_ReadMore {
+    .W_ArticlesRow {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+  .O_AllArticleContent {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    margin: 0 auto;
   }
 }

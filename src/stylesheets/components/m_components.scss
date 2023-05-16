@@ -281,24 +281,24 @@
 }
 .M_Content {
   position: relative;
-  left: calc(50% - 1828px / 2);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 150px;
-  width: 1828px;
-  padding: 0 100px;
-  .A_Subtitle {
-    width: 320px;
+  gap: 40px;
+  width: 1364px;
+  margin-right: 312px;
+  margin-left: 156px;
+  .A_Heading3 {
+    position: relative;
+    width: 428px;
   }
-  .W_ParagraphAndImage {
+  .W_Paragraphs {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 40px;
-    width: 1364px;
-    height: fit-content;
     .A_Paragraph {
+      position: relative;
       width: 896px;
     }
   }
@@ -476,21 +476,21 @@
     }
   }
   .M_Content {
-    gap: 150px;
-    width: 1125px;
-    .A_Subtitle {
-      width: 195px;
+    gap: 25px;
+    width: 1010px;
+    margin-right: 235px;
+    margin-left: 110px;
+    .A_Heading3 {
+      width: 320px;
     }
-    .W_ParagraphAndImage {
+    .W_Paragraphs {
       gap: 25px;
-      width: 780px;
       .A_Paragraph {
         width: 665px;
       }
     }
   }
 }
-
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
   .M_ArticlesCategories {
     margin-top: 50px;
@@ -650,10 +650,23 @@
       gap: 8px;
     }
   }
+  .M_Content {
+    gap: 22px;
+    width: 896px;
+    margin-right: 0px;
+    margin-left: 0px;
+    .A_Heading3 {
+      width: 284px;
+    }
+    .W_Paragraphs {
+      gap: 22px;
+      .A_Paragraph {
+        width: 590px;
+      }
+    }
+  }
 }
-
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
-  /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
   .M_ArticlesCategories {
@@ -820,8 +833,22 @@
       gap: 8px;
     }
   }
+  .M_Content {
+    gap: 25px;
+    width: 695px;
+    margin-right: 0px;
+    margin-left: 0px;
+    .A_Heading3 {
+      width: 215px;
+    }
+    .W_Paragraphs {
+      gap: 20px;
+      .A_Paragraph {
+        width: 455px;
+      }
+    }
+  }
 }
-
 @media only screen and (min-width: 500px) and (max-width: 642px) {
   /*скролл на категориях!)*/
   .M_ArticlesCategories {
@@ -831,11 +858,25 @@
     // margin-left: 200px;
   }
 }
-
 @media only screen and (min-width: 500px) and (max-width: 767px) {
-  /*только смена количества колонок*/
+  .M_Content {
+    flex-direction: column;
+    gap: 25px;
+    width: 458px;
+    margin-right: 0px;
+    margin-left: 0px;
+    .A_Heading3 {
+      width: 458px;
+      text-align: center;
+    }
+    .W_Paragraphs {
+      gap: 20px;
+      .A_Paragraph {
+        width: 458px;
+      }
+    }
+  }
 }
-
 @media only screen and (max-device-width: 499px) {
   /* Phone */
   .M_Header {
@@ -970,6 +1011,23 @@
       .A_TarotCardTitleGrotesk {
         font-size: 23px;
         padding: 0 6px;
+      }
+    }
+  }
+  .M_Content {
+    flex-direction: column;
+    gap: 25px;
+    width: 328px;
+    margin-right: 0px;
+    margin-left: 0px;
+    .A_Heading3 {
+      width: 328px;
+      text-align: center;
+    }
+    .W_Paragraphs {
+      gap: 20px;
+      .A_Paragraph {
+        width: 328px;
       }
     }
   }
