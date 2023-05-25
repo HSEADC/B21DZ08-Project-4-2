@@ -1,0 +1,31 @@
+.O_TarotCardInfo {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+  .W_Section1 {
+    width: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 196px;
+    .W_BasicInfo {
+      position: relative;
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+  .W_AdditionalInfo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .A_Heading3 {
+      width: 428px;
+    }
+  }
+}

@@ -12,36 +12,36 @@ export default class M_TarotCard extends React.Component {
         M_TarotCard: true,
         [`${color}`]: true,
     })
-    return (
-        <a href="">
-            <div className={classes}>
-                <div className="W_TarotCardShadow">
-                    <div className="W_TarotCardInside">
-                      <A_HighlightHeading4 
-                      texttype={texttype}
-                      text={emoji}
-                      />
-                      <br />
-                      <br />
-                      <A_TarotCardImage
-                        image={image}
-                      />
-                      <br />
-                      <A_HighlightHeading4 
-                      none={none}
-                      texttype="Antiqua" 
-                      text={line1}
-                      />
-                      <br />
-                      <A_HighlightHeading4 
-                      texttype="Grotesk" 
-                      text={line2}
-                      />
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-    )
-  }
+
+      return (
+          <a href="">
+              <div className={classes}>
+                  <div className="W_TarotCardShadow">
+                      <div className="W_TarotCardInside">
+                        <A_HighlightHeading4 
+                        texttype={texttype}
+                        text={emoji}
+                        />
+                        <br />
+                        <br />
+                        <A_TarotCardImage
+                          image={image}
+                        />
+                        <br />
+                        <A_HighlightHeading4 
+                        none={none}
+                        texttype="Antiqua" 
+                        text={line1}
+                        />
+                        <br />
+                        <A_HighlightHeading4 
+                        texttype="Grotesk" 
+                        text={line2}
+                        />
+                      </div>
+                  </div>
+              </div>
+          </a>
+      )
+    }
 }

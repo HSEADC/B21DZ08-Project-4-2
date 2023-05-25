@@ -1,0 +1,43 @@
+.A_Text {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  .A_Heading3 {
+    position: relative;
+    font-family: 'Gramatika Demo';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 48px;
+    line-height: 74%;
+    text-align: left;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--black);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    &.Left {
+      text-align: left;
+    }
+    &.Center {
+      text-align: center;
+    }
+    &.Underlined {
+      text-decoration: underline;
+    }
+  }
+  .A_Paragraph {
+    font-family: 'Wremena';
+    position: relative;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 90%;
+    color: var(--black);
+    &.Left {
+      text-align: left;
+    }
+    &.Center {
+      text-align: center;
+    }
+  }
+}
