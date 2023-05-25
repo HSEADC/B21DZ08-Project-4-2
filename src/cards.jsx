@@ -1,5 +1,4 @@
 import React from 'react'
-import Airtable from 'airtable'
 import './airtableData.js'
 import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'

@@ -38,7 +38,6 @@ function getTarotCards() {
           ) {
             texttype = 'Antiqua'
           }
-          console.log(texttype)
           let color = 'pink'
           if (record.fields['arcana'] == 'major') {
             color = 'black'
@@ -51,7 +50,18 @@ function getTarotCards() {
             none,
             image: record.fields['image'][0]['url'],
             id: record.fields['id'],
-            texttype
+            texttype,
+            name: record.fields['name'],
+            basics: record.fields['basics'],
+            love: record.fields['love'],
+            work: record.fields['work'],
+            advice: record.fields['advice'],
+            basicMeaning: record.fields['basicMeaning'],
+            loveTelling: record.fields['loveTelling'],
+            answer: record.fields['answer'],
+            cardOfTheDay: record.fields['cardOfTheDay'],
+            adviceLong: record.fields['adviceLong'],
+            history: record.fields['history']
           })
         })
 

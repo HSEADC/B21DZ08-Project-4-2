@@ -1,0 +1,37 @@
+.M_CardReading {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  width: fit-content;
+  .W_StarHeading {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .A_Heading3 {
+    position: relative;
+    width: 272px;
+  }
+  .W_Paragraphs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .A_Paragraph {
+      position: relative;
+      width: 896px;
+    }
+  }
+  .Q_StarIcon {
+    background-image: url('./../../images/Q_MenuStar.svg');
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    &.none {
+      display: none;
+    }
+  }
+}
