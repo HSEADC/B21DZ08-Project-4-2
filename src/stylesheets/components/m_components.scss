@@ -238,18 +238,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 25px;
   width: 428px;
-  .A_subtitle {
-    width: 313px;
-  }
-  .A_Paragraph {
-    width: 313px;
-  }
-  .A_Link {
-    color: var(--black);
-    width: 313px;
-  }
 }
 .M_Header {
   position: relative;
@@ -458,13 +448,8 @@
     gap: 36px;
   }
   .M_Description {
-    gap: 36px;
+    gap: 20px;
     width: 320px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 320px;
-    }
   }
   .M_Header {
     .W_HeaderText {
@@ -634,12 +619,7 @@
   }
   .M_Description {
     gap: 34px;
-    width: 299px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 299px;
-    }
+    width: 284px;
   }
   .M_Header {
     .W_HeaderText {
@@ -816,13 +796,8 @@
     }
   }
   .M_Description {
-    gap: 34px;
-    width: 192px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 192px;
-    }
+    gap: 15px;
+    width: 335px;
   }
   .M_Header {
     .W_HeaderText {
@@ -1030,5 +1005,9 @@
         width: 328px;
       }
     }
+  }
+  .M_Description {
+    gap: 15px;
+    width: 328px;
   }
 }

@@ -38,16 +38,21 @@ function getTarotCards() {
           ) {
             texttype = 'Antiqua'
           }
+
           let color = 'pink'
           if (record.fields['arcana'] == 'major') {
             color = 'black'
           }
+
+          let link = 'cards/' + record.fields['htmlPage'] + '.html'
           tarotCards.push({
             color,
+            arcana: record.fields['arcana'],
             emoji: record.fields['icon'],
             line1: record.fields['line1'],
             line2: record.fields['line2'],
             none,
+            link,
             image: record.fields['image'][0]['url'],
             id: record.fields['id'],
             texttype,

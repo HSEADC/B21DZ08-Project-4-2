@@ -4,16 +4,18 @@ import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'
 import { getTarotCards } from './airtableData.js'
 
-  let tarotCardsMajorArcana
+  let tarotCards
 
   document.addEventListener('DOMContentLoaded', () => {
     getTarotCards().then((data) => {
-      tarotCardsMajorArcana = data
-      const root = createRoot(document.querySelector('.Testtt'))
+      tarotCards = data
+      const root = createRoot(document.querySelector('.Major'))
       const requiredCards = []
-      for (let i = 1; i < 3; i++) {
-        requiredCards.push(tarotCardsMajorArcana[i]);
-      }
+      tarotCards.forEach((card) => {
+        if (card.arcana === 'major') {
+          requiredCards.push(card)
+        }
+      })
   root.render(
     <div>
     <O_BlockOfTarotCards data={requiredCards} />
@@ -23,12 +25,65 @@ import { getTarotCards } from './airtableData.js'
 
   document.addEventListener('DOMContentLoaded', () => {
     getTarotCards().then((data) => {
-      tarotCardsMajorArcana = data
-      const root = createRoot(document.querySelector('.Testtt2'))
+      tarotCards = data
+      const root = createRoot(document.querySelector('.Swords'))
       const requiredCards = []
-      for (let i = 0; i < 4; i++) {
-        requiredCards.push(tarotCardsMajorArcana[i]);
-      }
+      tarotCards.forEach((card) => {
+        if (card.arcana === 'swords') {
+          requiredCards.push(card)
+        }
+      })
+  root.render(
+    <div>
+    <O_BlockOfTarotCards data={requiredCards} />
+    </div>)
+    })  
+  })
+
+  document.addEventListener('DOMContentLoaded', () => {
+    getTarotCards().then((data) => {
+      tarotCards = data
+      const root = createRoot(document.querySelector('.Cups'))
+      const requiredCards = []
+      tarotCards.forEach((card) => {
+        if (card.arcana === 'cups') {
+          requiredCards.push(card)
+        }
+      })
+  root.render(
+    <div>
+    <O_BlockOfTarotCards data={requiredCards} />
+    </div>)
+    })  
+  })
+
+  document.addEventListener('DOMContentLoaded', () => {
+    getTarotCards().then((data) => {
+      tarotCards = data
+      const root = createRoot(document.querySelector('.Wands'))
+      const requiredCards = []
+      tarotCards.forEach((card) => {
+        if (card.arcana === 'wands') {
+          requiredCards.push(card)
+        }
+      })
+  root.render(
+    <div>
+    <O_BlockOfTarotCards data={requiredCards} />
+    </div>)
+    })  
+  })
+
+  document.addEventListener('DOMContentLoaded', () => {
+    getTarotCards().then((data) => {
+      tarotCards = data
+      const root = createRoot(document.querySelector('.Pentacles'))
+      const requiredCards = []
+      tarotCards.forEach((card) => {
+        if (card.arcana === 'pentacles') {
+          requiredCards.push(card)
+        }
+      })
   root.render(
     <div>
     <O_BlockOfTarotCards data={requiredCards} />

@@ -51,3 +51,73 @@
     display: none;
   }
 }
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_TarotCard {
+    width: 205px;
+    height: 298px;
+    border-radius: 16px;
+    .W_TarotCardInside {
+      top: 17px;
+      font-size: 16px;
+      line-height: 185%;
+      padding: 5px;
+      .A_HighlightHeading4 {
+        padding: 0 4px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_TarotCard {
+    width: 182px;
+    height: 265px;
+    border-radius: 14px;
+    .W_TarotCardInside {
+      top: 17px;
+      font-size: 14px;
+      line-height: 185%;
+      padding: 5px;
+      .A_HighlightHeading4 {
+        padding: 0 4px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_TarotCard {
+    width: 215px;
+    height: 316px;
+    border-radius: 14px;
+    .W_TarotCardInside {
+      top: 19px;
+      font-size: 17px;
+      line-height: 180%;
+      padding: 5px;
+      .A_HighlightHeading4 {
+        padding: 0 5px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+  .M_TarotCard {
+    width: 160px;
+    height: 235px;
+    border-radius: 12px;
+    .W_TarotCardInside {
+      top: 15px;
+      font-size: 14px;
+      line-height: 160%;
+      padding: 4px;
+      .A_HighlightHeading4 {
+        padding: 0 3px;
+      }
+    }
+  }
+}

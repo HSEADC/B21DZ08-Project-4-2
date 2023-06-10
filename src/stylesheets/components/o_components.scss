@@ -541,6 +541,25 @@
   align-items: flex-end;
   margin: 0 auto;
 }
+.love {
+  .Q_MenuStar {
+    margin: 120px auto;
+  }
+  .A_AccentButtonTarotTellings {
+    margin-top: 100px;
+  }
+}
+.W_BlockOfTarotCards {
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  gap: 196px;
+  width: 1832px;
+  padding-bottom: 60px;
+  .W_TarotCards {
+    width: fit-content;
+  }
+}
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_Menu {
     height: 47px;
@@ -700,18 +719,10 @@
       gap: 25px;
     }
   }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 1355px / 2);
-    gap: 25px;
-
+  .W_BlockOfTarotCards {
+    gap: 140px;
     width: 1355px;
-    padding-bottom: 60px;
-
-    .C_TarotCards {
-      gap: 25px;
-
-      width: 1010px;
-    }
+    padding-bottom: 40px;
   }
   .O_ReadMore {
     padding-top: 40px;
@@ -904,18 +915,10 @@
       gap: 22px;
     }
   }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 940px / 2);
-    gap: 20px;
-
-    width: 940px;
-    padding-bottom: 50px;
-
-    .C_TarotCards {
-      gap: 20px;
-
-      width: 620px;
-    }
+  .W_BlockOfTarotCards {
+    gap: 124px;
+    width: 1202px;
+    padding-bottom: 40px;
   }
   .O_AllArticleContent {
     gap: 22px;
@@ -929,18 +932,10 @@
       gap: 25px;
     }
   }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 1010px / 2);
-    gap: 25px;
-
-    width: 1010px;
-    padding-bottom: 60px;
-
-    .C_TarotCards {
-      gap: 25px;
-
-      width: 665px;
-    }
+  .W_BlockOfTarotCards {
+    gap: 22px;
+    width: fit-content;
+    padding-bottom: 40px;
   }
   .O_ContentFortuneTelling {
     left: calc(50% - 1015px / 2);
@@ -1128,18 +1123,11 @@
       gap: 22px;
     }
   }
-  .O_BlockOfTarotCards {
-    left: calc(50% - 620px / 2);
-    gap: 22px;
-
-    width: 620px;
-    padding-bottom: 50px;
-
-    .C_TarotCards {
-      gap: 22px;
-
-      width: 406px;
-    }
+  .W_BlockOfTarotCards {
+    flex-direction: column;
+    gap: 25px;
+    width: fit-content;
+    padding-bottom: 20px;
   }
   .O_AllArticleContent {
     gap: 30px;
@@ -1152,6 +1140,12 @@
       margin: 0 auto;
       justify-content: left;
     }
+  }
+  .W_BlockOfTarotCards {
+    flex-direction: column;
+    gap: 25px;
+    width: 455px;
+    padding-bottom: 20px;
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
@@ -1368,6 +1362,7 @@
   }
   .O_Articles {
     border-radius: 8px;
+    padding-bottom: 10vh;
     .W_AllArticleCards {
       flex-direction: column;
       align-items: center;
@@ -1416,5 +1411,11 @@
     gap: 40px;
     align-items: center;
     margin: 0 auto;
+  }
+  .W_BlockOfTarotCards {
+    flex-direction: column;
+    gap: 15px;
+    width: 328px;
+    padding-bottom: 60px;
   }
 }

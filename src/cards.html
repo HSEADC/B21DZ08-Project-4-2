@@ -47,13 +47,13 @@
         <img src="images/A_Logo.svg" alt="" />
       </div>
       <div class="M_MenuElements">
-        <!-- <a
+        <a
           class="W1_MenuElementTextBox W_MenuElementTextBox"
           href="fortunetellings.html"
         >
           <div class="A_MenuElementText">погадать</div>
         </a>
-        <div class="Q_MenuStar Black"></div> -->
+        <div class="Q_MenuStar Black"></div>
         <a
           class="W2_MenuElementTextBox W_MenuElementTextBox"
           href="articles.html"
@@ -98,39 +98,70 @@
         </div>
       </div>
       <div id="W_AllArticleCards">
-        <div class="O_BlockOfTarotCards" data-category="major">
+        <div class="W_BlockOfTarotCards" data-category="major">
           <div class="M_Description">
             <div class="A_Heading3">старшие арканы</div>
-            <div class="A_Paragraph Left">22 козырные карты</div>
+            <div class="A_Paragraph Left">
+              Мечи в картах Таро символизируют ум, мышление, рациональность
+              и коммуникацию. Они отражают нашу способность анализировать
+              и оценивать ситуации, принимать решения и выражать свои мысли
+              и идеи. Карты мечей также могут указывать на конфликты, вызовы
+              и испытания, которые мы можем встретить.
+            </div>
           </div>
-          <div class="C_TarotCards">
-            <div class="Testtt"></div>
-            <div class="Testtt2"></div>
-          </div>
+          <div class="W_TarotCards Major"></div>
         </div>
-        <div class="O_BlockOfTarotCards" data-category="swords">
+        <div class="W_BlockOfTarotCards" data-category="swords">
           <div class="M_Description">
             <div class="A_Heading3">мечи</div>
+            <div class="A_Paragraph Left">
+              Мечи в картах Таро символизируют ум, мышление, рациональность
+              и коммуникацию. Они отражают нашу способность анализировать
+              и оценивать ситуации, принимать решения и выражать свои мысли
+              и идеи. Карты мечей также могут указывать на конфликты, вызовы
+              и испытания, которые мы можем встретить.
+            </div>
           </div>
-          <div class="C_TarotCards"></div>
+          <div class="W_TarotCards Swords"></div>
         </div>
-        <div class="O_BlockOfTarotCards" data-category="cups">
+        <div class="W_BlockOfTarotCards" data-category="cups">
           <div class="M_Description">
             <div class="A_Heading3">кубки</div>
+            <div class="A_Paragraph Left">
+              Мечи в картах Таро символизируют ум, мышление, рациональность
+              и коммуникацию. Они отражают нашу способность анализировать
+              и оценивать ситуации, принимать решения и выражать свои мысли
+              и идеи. Карты мечей также могут указывать на конфликты, вызовы
+              и испытания, которые мы можем встретить.
+            </div>
           </div>
-          <div class="C_TarotCards"></div>
+          <div class="W_TarotCards Cups"></div>
         </div>
-        <div class="O_BlockOfTarotCards" data-category="wands">
+        <div class="W_BlockOfTarotCards" data-category="wands">
           <div class="M_Description">
             <div class="A_Heading3">жезлы</div>
+            <div class="A_Paragraph Left">
+              Мечи в картах Таро символизируют ум, мышление, рациональность
+              и коммуникацию. Они отражают нашу способность анализировать
+              и оценивать ситуации, принимать решения и выражать свои мысли
+              и идеи. Карты мечей также могут указывать на конфликты, вызовы
+              и испытания, которые мы можем встретить.
+            </div>
           </div>
-          <div class="C_TarotCards"></div>
+          <div class="W_TarotCards Wands"></div>
         </div>
-        <div class="O_BlockOfTarotCards" data-category="pentacles">
+        <div class="W_BlockOfTarotCards" data-category="pentacles">
           <div class="M_Description">
             <div class="A_Heading3">пентакли</div>
+            <div class="A_Paragraph Left">
+              Мечи в картах Таро символизируют ум, мышление, рациональность
+              и коммуникацию. Они отражают нашу способность анализировать
+              и оценивать ситуации, принимать решения и выражать свои мысли
+              и идеи. Карты мечей также могут указывать на конфликты, вызовы
+              и испытания, которые мы можем встретить.
+            </div>
           </div>
-          <div class="C_TarotCards"></div>
+          <div class="W_TarotCards Pentacles"></div>
         </div>
       </div>
     </div>
@@ -175,5 +206,25 @@
         </div>
       </div>
     </div>
+    <svg
+      style="visibility: hidden; position: absolute"
+      width="0"
+      height="0"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+    >
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+            result="goo"
+          />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
   </body>
 </html>
