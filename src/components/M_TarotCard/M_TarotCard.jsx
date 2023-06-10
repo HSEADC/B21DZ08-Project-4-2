@@ -6,7 +6,7 @@ import classnames from 'classnames'
 
 export default class M_TarotCard extends React.Component {
   render() {
-    const { color, emoji, line1, line2, image, none, texttype } = this.props
+    const { color, emoji, line1, line2, image, none, texttype,link } = this.props
 
     const classes = classnames ({
         M_TarotCard: true,
@@ -14,7 +14,7 @@ export default class M_TarotCard extends React.Component {
     })
 
       return (
-          <a href="">
+          <a href={link}>
               <div className={classes}>
                   <div className="W_TarotCardShadow">
                       <div className="W_TarotCardInside">

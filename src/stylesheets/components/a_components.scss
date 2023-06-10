@@ -238,13 +238,19 @@
     z-index: 1;
   }
 }
-.Q_MenuStar.Black {
-  background-image: url('images/Q_MenuStar.svg');
-  background-size: contain;
-}
-.Q_MenuStar.White {
-  background-image: url('images/Q_MenuStarWhite.svg');
-  background-size: contain;
+.Q_MenuStar {
+  &.Black {
+    background-image: url('images/Q_MenuStar.svg');
+    background-size: contain;
+  }
+  &.White {
+    background-image: url('images/Q_MenuStarWhite.svg');
+    background-size: contain;
+  }
+  &.Big {
+    width: 40px;
+    height: 40px;
+  }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .A_Heading2Grotesk {

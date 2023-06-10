@@ -1,23 +1,50 @@
 .O_BlockOfTarotCards {
   position: relative;
-  left: calc(50% - 1832px / 2);
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 40px;
-  width: 1832px;
-  padding-bottom: 100px;
+  width: 1208px;
   &.NotShowing {
     display: none;
   }
-
-  .C_TarotCards {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 40px;
-    width: 1364px;
-    height: auto;
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .O_BlockOfTarotCards {
+    gap: 25px;
+    width: 895px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .O_BlockOfTarotCards {
+    gap: 22px;
+    width: 794px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+  .O_BlockOfTarotCards {
+    gap: 22px;
+    width: 590px;
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .O_BlockOfTarotCards {
+    gap: 25px;
+    width: 695px;
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+  .O_BlockOfTarotCards {
+    gap: 25px;
+    width: 455px;
+  }
+}
+@media only screen and (max-device-width: 499px) {
+  .O_BlockOfTarotCards {
+    gap: 8px;
+    width: 328px;
   }
 }

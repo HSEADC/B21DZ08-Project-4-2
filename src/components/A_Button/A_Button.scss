@@ -1,0 +1,41 @@
+.A_Button {
+  position: relative;
+  width: fit-content;
+  padding: 0 20px 0 20px;
+  height: 87px;
+  background: var(--black);
+  box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
+  border-radius: 14px;
+  font-family: 'Wremena';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 64px;
+  text-align: center;
+  line-height: 87px;
+  color: var(--white);
+  margin: 100px auto 41vh;
+  text-shadow: 0px 0px 22px var(--white);
+  &:hover {
+    cursor: url('./../../images/pointer.svg'), auto;
+    transition: all 0.5s ease-out;
+    transform: scale(0.95);
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25), inset 0px 4px 10px var(--pink);
+  }
+  &.NotShowing {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+}

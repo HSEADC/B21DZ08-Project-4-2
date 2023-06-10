@@ -1,32 +1,17 @@
-.O_TarotCardInfo {
+.M_FortuneTellingReading {
   position: relative;
   width: fit-content;
   margin: 0 auto;
   display: flex;
+  gap: 40px;
   flex-direction: column;
-  gap: 200px;
-  .W_Section1 {
-    width: fit-content;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 196px;
-    .W_BasicInfo {
-      position: relative;
-      width: fit-content;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
+  align-items: center;
+  .A_Heading3 {
+    text-align: center;
   }
-  .W_AdditionalInfo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    .A_Heading3 {
-      width: 428px;
-    }
+  .A_Paragraph {
+    width: 896px;
+    text-align: center;
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
