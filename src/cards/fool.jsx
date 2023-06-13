@@ -1,5 +1,5 @@
 import React from 'react'
-import './fool.css'
+import './../fool.css'
 import { getTarotCards } from './../airtableData.js'
 import { createRoot } from 'react-dom/client'
 import O_TarotCardInfo from '../components/O_TarotCardInfo/O_TarotCardInfo.jsx'
