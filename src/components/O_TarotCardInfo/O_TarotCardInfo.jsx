@@ -55,7 +55,6 @@ export default class O_TarotCardInfo extends React.Component {
               </div>
             </div>
             <div className='W_Section2'>
-                <div class='W_AdditionalInfo'>
                 <M_TarotCardReading
                 starShowing={false}
                 heading='общее значение'
@@ -80,7 +79,6 @@ export default class O_TarotCardInfo extends React.Component {
                 starShowing={false} 
                 heading='история карты'
                 paragraph={history}/>
-                </div>
             </div>
           </div>
       )

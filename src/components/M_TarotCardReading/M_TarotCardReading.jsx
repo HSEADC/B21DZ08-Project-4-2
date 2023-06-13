@@ -13,13 +13,11 @@ export default class M_CardReading extends React.Component {
   })
       return (
         <div className='M_CardReading'>
-          <div class='W_StarHeading'>
+          <div className='W_StarHeading'>
             <div className={iconClasses} starShowing={starShowing}></div>
             <A_Text texttype='A_Heading3' text={heading}/>
           </div>
-          <div className='W_Paragraphs'>
             <A_Text texttype='A_Paragraph' text={paragraph}/>
-          </div>
         </div>
       )
     }
