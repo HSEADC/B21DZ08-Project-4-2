@@ -9,6 +9,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 8px;
     width: 272px;
   }
@@ -17,8 +18,7 @@
   }
   .A_Paragraph {
     position: relative;
-    // width: 896px;
-    width: 500px;
+    width: 426px;
   }
   .Q_StarIcon {
     background-image: url('./../../images/Q_MenuStar.svg');
@@ -38,7 +38,7 @@
       width: 216px;
     }
     .A_Paragraph {
-      width: 661px;
+      width: 320px;
     }
     .Q_StarIcon {
       width: 32px;
@@ -54,7 +54,7 @@
       width: 195px;
     }
     .A_Paragraph {
-      width: 488px;
+      width: 284px;
     }
     .Q_StarIcon {
       width: 28px;

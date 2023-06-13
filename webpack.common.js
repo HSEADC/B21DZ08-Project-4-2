@@ -132,8 +132,8 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
-      filename: './cards/fool.html'
-      // chunks: ['fool']
+      filename: './cards/fool.html',
+      chunks: ['fool']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',

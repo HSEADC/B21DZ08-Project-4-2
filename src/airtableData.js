@@ -46,6 +46,7 @@ function getTarotCards() {
 
           let link = 'cards/' + record.fields['htmlPage'] + '.html'
           tarotCards.push({
+            name: record.fields['htmlPage'],
             color,
             arcana: record.fields['arcana'],
             emoji: record.fields['icon'],
