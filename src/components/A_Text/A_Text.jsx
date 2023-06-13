@@ -17,7 +17,7 @@ export default class A_Text extends React.Component {
 
       return (
         <div className='A_Text'>
-          <div className={textClasses} type={texttype}>{text}</div>
+          <div className={textClasses} type={texttype} dangerouslySetInnerHTML={{ __html: text }}></div>
         </div>
       )
     }
