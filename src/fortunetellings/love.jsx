@@ -22,18 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const secondCard = data[3]
       const thirdCard = data[1]
 
-        requiredCards.push(firstCard, secondCard, thirdCard);
-      console.log(requiredCards);
-  root.render(
-    <div>
-    <O_ThreeCards data={requiredCards} />
-    </div>)
-    })  
+      requiredCards.push(firstCard, secondCard, thirdCard);
+      root.render(
+        <div>
+        <O_ThreeCards data={requiredCards} />
+        </div>)
+      })  
 }) 
-document.addEventListener('DOMContentLoaded', () => {
-    const root = createRoot(document.querySelector('.W_Button'))
-  root.render(
-    <div>
-    <A_Button/>
-    </div>)
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//     const root = createRoot(document.querySelector('.W_Button'))
+//   root.render(
+//     <div>
+//     <A_Button/>
+//     </div>)
+// })

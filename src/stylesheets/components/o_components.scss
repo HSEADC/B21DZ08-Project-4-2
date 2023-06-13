@@ -468,32 +468,6 @@
   //   display: none;
   // }
 }
-.O_MoreFortuneTellings {
-  position: relative;
-  height: 980px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  background-color: var(--pink);
-  .W_HeaderHeading {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-  }
-  .W_CardsRow {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    width: fit-content;
-    height: fit-content;
-  }
-}
 .O_ReadMore {
   margin-top: 80px;
   position: relative;

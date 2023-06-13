@@ -10,20 +10,15 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
+    width: 272px;
   }
   .A_Heading3 {
     position: relative;
-    width: 272px;
   }
-  .W_Paragraphs {
+  .A_Paragraph {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    .A_Paragraph {
-      position: relative;
-      width: 896px;
-    }
+    // width: 896px;
+    width: 500px;
   }
   .Q_StarIcon {
     background-image: url('./../../images/Q_MenuStar.svg');
@@ -36,16 +31,74 @@
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_CardReading {
+    gap: 25px;
+    .W_StarHeading {
+      gap: 6px;
+      width: 216px;
+    }
+    .A_Paragraph {
+      width: 661px;
+    }
+    .Q_StarIcon {
+      width: 32px;
+      height: 32px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_CardReading {
+    gap: 22px;
+    .W_StarHeading {
+      gap: 5px;
+      width: 195px;
+    }
+    .A_Paragraph {
+      width: 488px;
+    }
+    .Q_StarIcon {
+      width: 28px;
+      height: 28px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_CardReading {
+    flex-direction: column;
+    gap: 15px;
+    .W_StarHeading {
+      gap: 3px;
+      width: 455px;
+    }
+    .A_Paragraph {
+      width: 455px;
+    }
+    .Q_StarIcon {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 @media only screen and (max-device-width: 499px) {
+  .M_CardReading {
+    flex-direction: column;
+    gap: 10px;
+    .W_StarHeading {
+      gap: 2px;
+      width: 328px;
+    }
+    .A_Paragraph {
+      width: 328px;
+    }
+    .Q_StarIcon {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
