@@ -6,48 +6,52 @@ import O_TarotCardInfo from '../components/O_TarotCardInfo/O_TarotCardInfo.jsx'
 import O_MoreFortuneTellings from '../components/O_MoreFortuneTellings/O_MoreFortuneTellings.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  // getTarotCards().then((data) => {
-  //   let tarotCard = data[5]
-  //   const root = createRoot(document.querySelector('.CardContainer'))
-  // root.render(
-  //   <div>
-  //   <O_TarotCardInfo 
-  //     tarotCard={tarotCard}
-  //     name={tarotCard.name} 
-  //     basics={tarotCard.basics} 
-  //     love={tarotCard.love}
-  //     work={tarotCard.work}
-  //     advice={tarotCard.advice} 
-  //     basicMeaning={tarotCard.basicMeaning} 
-  //     loveTelling={tarotCard.loveTelling}
-  //     answer={tarotCard.answer}
-  //     history={tarotCard.history}
-  //     cardOfTheDay={tarotCard.cardOfTheDay}
-  //     adviceLong={tarotCard.adviceLong}/>
-  //   </div>)
-  // })
+const name = 'fool'
+let tarotCardIndex 
 
   getTarotCards().then((data) => {
-    let tarotCards = data
-    let requiredCards = []
-
-    const firstCard = tarotCards[2]
-    const secondCard = tarotCards[3]
-    const thirdCard = tarotCards[1]
-
-    requiredCards.push(firstCard, secondCard, thirdCard);
-
-    //я напишу тут функцию чтобы он генерил соседние карты!!
-    // tarotCards.forEach((tarotCard) => {
-      
-    // })
-
-    const root = createRoot(document.querySelector('.W_MoreTarotCards'))
-  root.render(
-    <div>
-    <O_MoreFortuneTellings data={requiredCards}/>
-    </div>
-    )
+    let allTarotCards = data
+    let requiredCard
+    // let recommendations
+    
+    allTarotCards.forEach((tarotCard) => {
+      if (tarotCard.name == name){
+        requiredCard = tarotCard
+        tarotCardIndex = allTarotCards.indexOf(tarotCard)
+      }
+    })
+    const root = createRoot(document.querySelector('.CardContainer'))
+    root.render(
+      <O_TarotCardInfo 
+        tarotCard={requiredCard}
+        name={requiredCard.name} 
+        basics={requiredCard.basics} 
+        love={requiredCard.love}
+        work={requiredCard.work}
+        advice={requiredCard.advice} 
+        basicMeaning={requiredCard.basicMeaning} 
+        loveTelling={requiredCard.loveTelling}
+        answer={requiredCard.answer}
+        history={requiredCard.history}
+        cardOfTheDay={requiredCard.cardOfTheDay}
+        adviceLong={requiredCard.adviceLong}/>
+      )
   })
+
+  // getTarotCards().then((data) => {
+  //   let allTarotCards = data
+  //   let requiredCards = []
+
+  //   const firstCard = allTarotCards[0]
+  //   const secondCard = allTarotCards[1]
+  //   const thirdCard = allTarotCards[2]
+  //   requiredCards.push(firstCard, secondCard, thirdCard);
+
+  //   const root = createRoot(document.querySelector('.W_MoreTarotCards'))
+  // root.render(
+  //   <div>
+  //   <O_MoreFortuneTellings data={requiredCards}/>
+  //   </div>
+  //   )
+  // })
 })

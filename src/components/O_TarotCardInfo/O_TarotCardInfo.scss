@@ -4,7 +4,8 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 200px;
+  gap: 100px;
+  margin-bottom: 200px;
   .W_Section1 {
     width: fit-content;
     position: relative;
@@ -29,13 +30,14 @@
       width: 428px;
     }
     .A_Paragraph {
-      width: 896px;
+      width: 738px;
     }
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_TarotCardInfo {
-    gap: 120px;
+    gap: 100px;
+    margin-bottom: 200px;
     .W_Section1 {
       gap: 140px;
       .W_BasicInfo {
@@ -47,22 +49,29 @@
       .W_StarHeading {
         width: 320px;
       }
+      .A_Paragraph {
+        width: 550px;
+      }
     }
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
   .O_TarotCardInfo {
-    gap: 200px;
+    gap: 100px;
+    margin-bottom: 200px;
     .W_Section1 {
-      gap: 196px;
+      gap: 124px;
       .W_BasicInfo {
-        gap: 40px;
+        gap: 22px;
       }
     }
     .W_Section2 {
-      gap: 40px;
+      gap: 22px;
       .W_StarHeading {
         width: 284px;
+      }
+      .A_Paragraph {
+        width: 485px;
       }
     }
   }
@@ -73,6 +82,7 @@
 @media only screen and (min-width: 500px) and (max-width: 959px) {
   .O_TarotCardInfo {
     gap: 200px;
+    margin-bottom: 200px;
     .W_Section1 {
       gap: 196px;
       .W_BasicInfo {
@@ -93,6 +103,7 @@
 @media only screen and (max-device-width: 499px) {
   .O_TarotCardInfo {
     gap: 200px;
+    margin-bottom: 200px;
     .W_Section1 {
       gap: 196px;
       .W_BasicInfo {

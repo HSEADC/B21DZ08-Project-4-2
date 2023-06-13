@@ -31,52 +31,52 @@ export default class O_TarotCardInfo extends React.Component {
                 image={tarotCard.image}
                 texttype={tarotCard.texttype} 
               />
-              <div class="W_BasicInfo">
+              <div className="W_BasicInfo">
                 <M_TarotCardReading
-                starShowing={true}
+                starshowing={true}
                 heading='название'
                 paragraph={name}/>
                 <M_TarotCardReading
-                starShowing={true}
+                starshowing={true}
                 heading='общее'
                 paragraph={basics}/>
                 <M_TarotCardReading
-                starShowing={true}
+                starshowing={true}
                 heading='любовь'
                 paragraph={love}/>
                 <M_TarotCardReading
-                starShowing={true}
+                starshowing={true}
                 heading='работа'
                 paragraph={work}/>
                 <M_TarotCardReading 
-                starShowing={true}
+                starshowing={true}
                 heading='совет'
                 paragraph={advice}/>
               </div>
             </div>
             <div className='W_Section2'>
                 <M_TarotCardReading
-                starShowing={false}
+                starshowing={false}
                 heading='общее значение'
                 paragraph={basicMeaning}/>
                 <M_TarotCardReading
-                starShowing={false}
+                starshowing={false}
                 heading='любовный расклад'
                 paragraph={loveTelling}/>
                 <M_TarotCardReading
-                starShowing={false}
+                starshowing={false}
                 heading='ответ на вопрос'
                 paragraph={answer}/>
                 <M_TarotCardReading
-                starShowing={false}
+                starshowing={false}
                 heading='карта дня'
                 paragraph={cardOfTheDay}/>
                 <M_TarotCardReading
-                starShowing={false}
+                starshowing={false}
                 heading='совет'
                 paragraph={adviceLong}/>
                 <M_TarotCardReading
-                starShowing={false} 
+                starshowing={false} 
                 heading='история карты'
                 paragraph={history}/>
             </div>
