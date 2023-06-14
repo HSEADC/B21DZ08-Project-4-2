@@ -1,0 +1,49 @@
+.M_SearchBar {
+  width: 136px;
+  height: 58px;
+  background: var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  transition: all 1s ease-out;
+  &.Modify {
+    height: fit-content;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+  }
+  &:hover {
+    cursor: url('./../../images/pointer.svg'), auto;
+  }
+  &.Active {
+    width: 352px;
+    transition: all 1s ease-out;
+    .A_Input {
+      width: 280px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+}

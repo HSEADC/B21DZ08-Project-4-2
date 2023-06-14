@@ -2,7 +2,9 @@ import React from 'react'
 import './airtableData.js'
 import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'
-import { getTarotCards } from './airtableData.js'
+import O_MenuBar from './components/O_MenuBar/O_Menubar.jsx'
+import { getFortuneTellings, getTarotCards } from './airtableData.js'
+import { getSearchRequest } from './search.js'
 
   let tarotCards
 
@@ -75,11 +77,11 @@ import { getTarotCards } from './airtableData.js'
   })
 
   document.addEventListener('DOMContentLoaded', () => {
-    getTarotCards().then((data) => {
-      tarotCards = data
+    getFortuneTellings().then((data) => {
+      fortune = data
       const root = createRoot(document.querySelector('.Pentacles'))
       const requiredCards = []
-      tarotCards.forEach((card) => {
+      fortune.forEach((card) => {
         if (card.arcana === 'pentacles') {
           requiredCards.push(card)
         }
@@ -89,4 +91,9 @@ import { getTarotCards } from './airtableData.js'
     <O_BlockOfTarotCards data={requiredCards} />
     </div>)
     })  
+  }) 
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = createRoot(document.querySelector('.W_Menu'))
+    root.render(<O_MenuBar searchInputValue={getSearchRequest()} />)
   })

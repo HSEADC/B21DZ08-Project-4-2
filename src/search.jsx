@@ -2,7 +2,7 @@ import React from 'react'
 import Airtable from 'airtable'
 import './airtableData.js'
 import { createRoot } from 'react-dom/client'
-import M_SearchBox from './components/M_SearchBox/M_SearchBox.jsx'
+import M_SearchBar from './components/M_SearchBar/M_SearchBar.jsx'
 
   let searchBox
 
@@ -10,6 +10,6 @@ import M_SearchBox from './components/M_SearchBox/M_SearchBox.jsx'
       const root = createRoot(document.querySelector('.W_SearchBoxContainer'))
   root.render(
     <div>
-    <M_SearchBox />
+    <M_SearchBar />
     </div>) 
   })

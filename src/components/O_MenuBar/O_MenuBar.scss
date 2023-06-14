@@ -1,0 +1,123 @@
+.O_MenuBar {
+  height: 58px;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  .M_MenuElements {
+    width: 628px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    .Q_MenuStar {
+      height: 16px;
+      width: 16px;
+    }
+    .W_MenuElement1 {
+      width: 118px;
+    }
+    .W_MenuElement2 {
+      width: 118px;
+    }
+    .W_MenuElement3 {
+      width: 202px;
+    }
+    .W_MenuElement4 {
+      width: 126px;
+    }
+  }
+  .M_SearchBox {
+    width: 136px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+
+    transition: all 1s ease-out;
+    &.Modify {
+      height: fit-content;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+    }
+    .Q_SearchIcon {
+      background-image: url('./../../images/Q_SearchIcon.svg');
+      width: 22px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .A_Search {
+      height: 58px;
+      width: 80px;
+      border: none;
+      background: transparent;
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+      cursor: url('./../../images/pointer.svg'), auto;
+
+      &::placeholder {
+        font-family: 'Gramatika Demo';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        color: var(--black);
+        line-height: 58px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    &:hover {
+      cursor: url('./../../images/pointer.svg'), auto;
+    }
+  }
+  .M_SearchBoxActive {
+    width: 352px;
+    transition: all 1s ease-out;
+    .A_Search {
+      width: 280px;
+    }
+  }
+  &:hover {
+    cursor: url('./../../images/pointer.svg'), auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+}
