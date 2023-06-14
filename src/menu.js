@@ -83,15 +83,15 @@
 //   console.log(dreamcore)
 // }
 
-function adaptiveMenu() {
-  logoMenu.removeAttribute('onclick')
-  centerMenu.classList.toggle('NotShowing')
-  searchBox.classList.toggle('NotShowing')
-  logoMenu.addEventListener('click', () => {
-    centerMenu.classList.toggle('NotShowing')
-    searchBox.classList.toggle('NotShowing')
-  })
-}
+// function adaptiveMenu() {
+//   logoMenu.removeAttribute('onclick')
+//   centerMenu.classList.toggle('NotShowing')
+//   searchBox.classList.toggle('NotShowing')
+//   logoMenu.addEventListener('click', () => {
+//     centerMenu.classList.toggle('NotShowing')
+//     searchBox.classList.toggle('NotShowing')
+//   })
+// }
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   initSelect()
@@ -156,9 +156,9 @@ function adaptiveMenu() {
 //   })
 // }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initSelect()
-  if (vw <= 460) {
-    adaptiveMenu()
-  }
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//   initSelect()
+//   if (vw <= 460) {
+//     adaptiveMenu()
+//   }
+// })

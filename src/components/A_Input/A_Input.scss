@@ -1,39 +1,40 @@
-.A_TarotCardImage {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-  padding: 10px;
-  width: 160px;
-  height: 160px;
-}
-@media only screen and (min-width: 1440px) and (max-width: 1919px) {
-  .A_TarotCardImage {
-    width: 116px;
-    height: 116px;
+.A_Input {
+  height: 58px;
+  width: 80px;
+  border: none;
+  background: transparent;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  cursor: url('./../../images/pointer.svg'), auto;
+
+  &::placeholder {
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
   }
+  &:focus {
+    outline: none;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
-  .A_TarotCardImage {
-    width: 104px;
-    height: 104px;
-  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
-  .A_TarotCardImage {
-    width: 121px;
-    height: 121px;
-  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 @media only screen and (max-device-width: 499px) {
-  .A_TarotCardImage {
-    width: 90px;
-    height: 90px;
-  }
 }

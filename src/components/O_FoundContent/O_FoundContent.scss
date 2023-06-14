@@ -1,39 +1,14 @@
-.A_TarotCardImage {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-  padding: 10px;
-  width: 160px;
-  height: 160px;
-}
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
-  .A_TarotCardImage {
-    width: 116px;
-    height: 116px;
-  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
-  .A_TarotCardImage {
-    width: 104px;
-    height: 104px;
-  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
-  .A_TarotCardImage {
-    width: 121px;
-    height: 121px;
-  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 @media only screen and (max-device-width: 499px) {
-  .A_TarotCardImage {
-    width: 90px;
-    height: 90px;
-  }
 }

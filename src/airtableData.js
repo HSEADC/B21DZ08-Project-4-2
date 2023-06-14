@@ -76,76 +76,115 @@ function getTarotCards() {
   })
 }
 
-function getSearchData() {
+function getFortuneTellings() {
   return new Promise((resolve, reject) => {
-    const tarotCards = []
-    base('Articles')
+    const fortuneTellings = []
+    base('fortuneTellings')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          tarotCards.push({
-            title: record.fields['Заголовок'],
-            description: record.fields['Описание'],
+          let none = false
+          if (record.fields['line1'] == undefined) {
+            none = true
+          }
+
+          let link = 'cards/' + record.fields['htmlPage'] + '.html'
+
+          fortuneTellings.push({
+            texttype: 'Emoji',
+            color: 'black',
+            emoji: record.fields['icon'],
+            line1: record.fields['line1'],
+            line2: record.fields['line2'],
+            link: record.fields['htmlPage'],
+            // image: record.fields['image'][0]['url'],
             id: record.fields['id']
           })
         })
-        resolve(tarotCards)
+        resolve(fortuneTellings)
       })
   })
 }
-
-//все базы для поиска
-
-// async function getSearchData(lines) {
+// function getSearchData() {
 //   return new Promise((resolve, reject) => {
-//     const searchData = []
-
+//     const tarotCards = []
 //     base('Articles')
 //       .select({ maxRecords: 100 })
 //       .firstPage()
 //       .then((result) => {
 //         result.forEach((record) => {
-//           searchData.push({
+//           tarotCards.push({
 //             title: record.fields['Заголовок'],
 //             description: record.fields['Описание'],
 //             id: record.fields['id']
 //           })
 //         })
-//         resolve(searchData)
+//         resolve(tarotCards)
 //       })
-
-//     base('FortuneTellings')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           searchData.push({
-//             title: record.fields['line1'],
-//             description: record.fields['line2'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(searchData)
-//       })
-
-//     base('TarotCards')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           searchData.push({
-//             title: record.fields['line1'],
-//             description: record.fields['line2'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(searchData)
-//       })
-
-//     console.log(searchData)
 //   })
 // }
 
+//все базы для поиска
+
+async function getSearchData(lines) {
+  let counter = 0
+  return new Promise((resolve, reject) => {
+    const searchData = []
+
+    base('Articles')
+      .select({ maxRecords: 100 })
+      .firstPage()
+      .then((result) => {
+        result.forEach((record) => {
+          searchData.push({
+            title: record.fields['Заголовок'],
+            description: record.fields['Описание'],
+            id: record.fields['id']
+          })
+        })
+        counter += 1
+        if (counter == 3) {
+          resolve(searchData)
+        }
+      })
+
+    base('FortuneTellings')
+      .select({ maxRecords: 100 })
+      .firstPage()
+      .then((result) => {
+        result.forEach((record) => {
+          searchData.push({
+            title: record.fields['line1'],
+            description: record.fields['line2'],
+            id: record.fields['id']
+          })
+        })
+        counter += 1
+        if (counter == 3) {
+          resolve(searchData)
+        }
+      })
+
+    base('TarotCards')
+      .select({ maxRecords: 100 })
+      .firstPage()
+      .then((result) => {
+        result.forEach((record) => {
+          searchData.push({
+            title: record.fields['line1'],
+            description: record.fields['line2'],
+            id: record.fields['id']
+          })
+        })
+        counter += 1
+        if (counter == 3) {
+          resolve(searchData)
+        }
+      })
+  })
+}
+
 export { getTarotCards }
 export { getSearchData }
+export { getFortuneTellings }

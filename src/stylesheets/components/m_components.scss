@@ -351,43 +351,43 @@
       }
     }
   }
-  .M_TarotCard {
-    width: 320px;
-    height: 470px;
-    border-radius: 16px;
-    box-shadow: 0px 5px 9px var(--blackshadow);
-    box-shadow: inset 0px 5px 12px #f8f6f0;
-    box-shadow: 0px 5px 9px var(--blackshadow);
-    &:hover {
-      cursor: url('./images/pointer.svg'), auto;
-      transition: all 0.5s ease-out;
-      transform: scale(0.95);
-      box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25),
-        inset 0px 4px 10px var(--pink);
-    }
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 5px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 20px;
-      font-size: 36px;
-      line-height: 133%;
-      padding: 5px;
-      .A_TarotCardIcon {
-        top: 4px;
-        width: 41px;
-        height: 30px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 38px;
-        padding: 0 10px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 36px;
-        padding: 0 10px;
-      }
-    }
-  }
+  // .M_TarotCard {
+  //   width: 320px;
+  //   height: 470px;
+  //   border-radius: 16px;
+  //   box-shadow: 0px 5px 9px var(--blackshadow);
+  //   box-shadow: inset 0px 5px 12px #f8f6f0;
+  //   box-shadow: 0px 5px 9px var(--blackshadow);
+  //   &:hover {
+  //     cursor: url('./images/pointer.svg'), auto;
+  //     transition: all 0.5s ease-out;
+  //     transform: scale(0.95);
+  //     box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25),
+  //       inset 0px 4px 10px var(--pink);
+  //   }
+  //   .W_TarotCardShadow {
+  //     filter: drop-shadow(0px 5px 9px var(--blackshadow));
+  //   }
+  //   .W_TarotCardInside {
+  //     top: 20px;
+  //     font-size: 36px;
+  //     line-height: 133%;
+  //     padding: 5px;
+  //     .A_TarotCardIcon {
+  //       top: 4px;
+  //       width: 41px;
+  //       height: 30px;
+  //     }
+  //     .A_TarotCardTitleAntiqua {
+  //       font-size: 38px;
+  //       padding: 0 10px;
+  //     }
+  //     .A_TarotCardTitleGrotesk {
+  //       font-size: 36px;
+  //       padding: 0 10px;
+  //     }
+  //   }
+  // }
   .M_TarotCardWide {
     width: 435px;
     height: 298px;
@@ -534,36 +534,36 @@
       }
     }
   }
-  .M_TarotCard {
-    width: 299px;
-    height: 439px;
-    border-radius: 14px;
-    box-shadow: 0px 4px 9px var(--blackshadow);
-    box-shadow: inset 0px 4px 12px #f8f6f0;
-    box-shadow: 0px 4px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 4px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 18px;
-      font-size: 36px;
-      line-height: 125%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 4px;
-        width: 39px;
-        height: 29px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 36px;
-        padding: 0 7px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 33px;
-        padding: 0 7px;
-      }
-    }
-  }
+  // .M_TarotCard {
+  //   width: 299px;
+  //   height: 439px;
+  //   border-radius: 14px;
+  //   box-shadow: 0px 4px 9px var(--blackshadow);
+  //   box-shadow: inset 0px 4px 12px #f8f6f0;
+  //   box-shadow: 0px 4px 9px var(--blackshadow);
+  //   .W_TarotCardShadow {
+  //     filter: drop-shadow(0px 4px 9px var(--blackshadow));
+  //   }
+  //   .W_TarotCardInside {
+  //     top: 18px;
+  //     font-size: 36px;
+  //     line-height: 125%;
+  //     padding: 4px;
+  //     .A_TarotCardIcon {
+  //       top: 4px;
+  //       width: 39px;
+  //       height: 29px;
+  //     }
+  //     .A_TarotCardTitleAntiqua {
+  //       font-size: 36px;
+  //       padding: 0 7px;
+  //     }
+  //     .A_TarotCardTitleGrotesk {
+  //       font-size: 33px;
+  //       padding: 0 7px;
+  //     }
+  //   }
+  // }
   .M_TarotCardWide {
     width: 406px;
     height: 278px;
@@ -709,36 +709,36 @@
       }
     }
   }
-  .M_TarotCard {
-    width: 192px;
-    height: 282px;
-    border-radius: 12px;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    box-shadow: inset 0px 3px 12px #f8f6f0;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 3px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 13px;
-      font-size: 20px;
-      line-height: 148%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 2px;
-        width: 30px;
-        height: 18px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 23px;
-        padding: 0 5px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 21px;
-        padding: 0 5px;
-      }
-    }
-  }
+  // .M_TarotCard {
+  //   width: 192px;
+  //   height: 282px;
+  //   border-radius: 12px;
+  //   box-shadow: 0px 3px 9px var(--blackshadow);
+  //   box-shadow: inset 0px 3px 12px #f8f6f0;
+  //   box-shadow: 0px 3px 9px var(--blackshadow);
+  //   .W_TarotCardShadow {
+  //     filter: drop-shadow(0px 3px 9px var(--blackshadow));
+  //   }
+  //   .W_TarotCardInside {
+  //     top: 13px;
+  //     font-size: 20px;
+  //     line-height: 148%;
+  //     padding: 4px;
+  //     .A_TarotCardIcon {
+  //       top: 2px;
+  //       width: 30px;
+  //       height: 18px;
+  //     }
+  //     .A_TarotCardTitleAntiqua {
+  //       font-size: 23px;
+  //       padding: 0 5px;
+  //     }
+  //     .A_TarotCardTitleGrotesk {
+  //       font-size: 21px;
+  //       padding: 0 5px;
+  //     }
+  //   }
+  // }
   .M_TarotCardWide {
     width: 406px;
     height: 278px;
@@ -931,36 +931,36 @@
     margin-bottom: 30px;
     gap: 30px;
   }
-  .M_TarotCard {
-    width: 165px;
-    height: 243px;
-    border-radius: 8px;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    box-shadow: inset 0px 3px 12px #f8f6f0;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 3px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 13px;
-      font-size: 25px;
-      line-height: 99%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 2px;
-        width: 30px;
-        height: 18px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 23px;
-        padding: 0 5px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 21px;
-        padding: 0 5px;
-      }
-    }
-  }
+  // .M_TarotCard {
+  //   width: 165px;
+  //   height: 243px;
+  //   border-radius: 8px;
+  //   box-shadow: 0px 3px 9px var(--blackshadow);
+  //   box-shadow: inset 0px 3px 12px #f8f6f0;
+  //   box-shadow: 0px 3px 9px var(--blackshadow);
+  //   .W_TarotCardShadow {
+  //     filter: drop-shadow(0px 3px 9px var(--blackshadow));
+  //   }
+  //   .W_TarotCardInside {
+  //     top: 13px;
+  //     font-size: 25px;
+  //     line-height: 99%;
+  //     padding: 4px;
+  //     .A_TarotCardIcon {
+  //       top: 2px;
+  //       width: 30px;
+  //       height: 18px;
+  //     }
+  //     .A_TarotCardTitleAntiqua {
+  //       font-size: 23px;
+  //       padding: 0 5px;
+  //     }
+  //     .A_TarotCardTitleGrotesk {
+  //       font-size: 21px;
+  //       padding: 0 5px;
+  //     }
+  //   }
+  // }
   .M_TarotCardWide {
     width: 338px;
     height: 232px;
