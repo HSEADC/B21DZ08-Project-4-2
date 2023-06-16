@@ -22,10 +22,11 @@ module.exports = {
     page: './src/page.jsx',
     cards: './src/cards.jsx',
     airtable: './src/airtableData.js',
-    fool: './src/cards/fool.jsx',
+    cardTelling: './src/cards/cardTelling.jsx',
     future: './src/fortunetellings/future.jsx',
     family: './src/fortunetellings/family.jsx',
-    love: './src/fortunetellings/love.jsx'
+    love: './src/fortunetellings/love.jsx',
+    fortuneTellings: './src/fortuneTellings.jsx'
   },
   output: {
     filename: '[name].js',
@@ -132,17 +133,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html',
-      chunks: ['fool', 'menu']
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',
       filename: './cards/moon.html',
-      chunks: ['fool', 'menu']
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/sun.html',
       filename: './cards/sun.html',
-      chunks: ['fool', 'menu']
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/family.html',
@@ -167,7 +168,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
       filename: './fortunetellings.html',
-      chunks: ['fortunetelling', 'menu', 'contentrandomizer']
+      chunks: ['fortunetelling', 'menu', 'contentrandomizer', 'fortuneTellings']
     }),
     new HtmlWebpackPlugin({
       template: './src/platform.html',

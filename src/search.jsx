@@ -1,5 +1,4 @@
 import React from 'react'
-import Airtable from 'airtable'
 import './airtableData.js'
 import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'
@@ -10,7 +9,6 @@ import { getSearchData } from './airtableData.js'
 let content
 
 function getSearchRequest() {
-  console.log('uuu');
   const url = new URL(window.location.href)
   const searchParams = new URLSearchParams(url.search)
 
@@ -131,7 +129,6 @@ function initSearch() {
 
     if (content) {
       rerenderSearchedContent(requestText)
-      console.log('1');
     }
   } else {
     A_SearchInput.value = ''
@@ -164,21 +161,12 @@ function initSearch() {
     }
   })
 }
-
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('???');
   getSearchData().then((data) => {
     content = data
     initSearch()
   })
-})
+}, { once: true })
 
 export { getSearchRequest }
-
-
-  // document.addEventListener('DOMContentLoaded', () => {
-  // const root = createRoot(document.querySelector('.W_SearchBoxContainer'))
-  // root.render(
-  //   <div>
-  //   <M_SearchBar />
-  //   </div>) 
-  // })
