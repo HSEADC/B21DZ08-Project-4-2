@@ -127,7 +127,7 @@ function getFortuneTellings() {
 
 //все базы для поиска
 
-async function getSearchData(lines) {
+async function getSearchData() {
   let counter = 0
   return new Promise((resolve, reject) => {
     const searchData = []
@@ -144,11 +144,10 @@ async function getSearchData(lines) {
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 2) {
           resolve(searchData)
         }
       })
-
     base('FortuneTellings')
       .select({ maxRecords: 100 })
       .firstPage()
@@ -161,7 +160,7 @@ async function getSearchData(lines) {
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 2) {
           resolve(searchData)
         }
       })
@@ -171,14 +170,54 @@ async function getSearchData(lines) {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
+          // let title = record.fields['line1']
+          // if (title === undefined) {
+          //   title = ' '
+          // }
+          // searchData.push({
+          //   title,
+          //   description: record.fields['line2'],
+          //   id: record.fields['id']
+          let none = false
+          let line1 = record.fields['line1']
+          if (line1 == undefined) {
+            none = true
+            line1 = ' '
+          }
+          let texttype = 'Emoji'
+          let icon = record.fields['icon']
+          if (
+            icon.includes('I') ||
+            icon.includes('V') ||
+            icon.includes('X') ||
+            icon.includes('L') ||
+            icon.includes('C')
+          ) {
+            texttype = 'Antiqua'
+          }
+
+          let color = 'pink'
+          if (record.fields['arcana'] == 'major') {
+            color = 'black'
+          }
+
+          let link = 'cards/' + record.fields['htmlPage'] + '.html'
           searchData.push({
-            title: record.fields['line1'],
-            description: record.fields['line2'],
-            id: record.fields['id']
+            color,
+            arcana: record.fields['arcana'],
+            emoji: icon,
+            line1: line1,
+            line2: record.fields['line2'],
+            none,
+            link,
+            image: record.fields['image'][0]['url'],
+            id: record.fields['id'],
+            texttype,
+            name: record.fields['name']
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 2) {
           resolve(searchData)
         }
       })

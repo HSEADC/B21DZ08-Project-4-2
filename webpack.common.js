@@ -11,17 +11,16 @@ module.exports = {
   entry: {
     cardoftheday: './src/cardoftheday.js',
     index: './src/index.js',
-    menu: './src/menu.js',
+    menu: './src/menubar.jsx',
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
-    search: './src/search.js',
+    search: './src/search.jsx',
     fortunetelling: './src/fortunetelling.js',
     mouseeventcard: './src/cardonmouseevent.js',
     contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx',
     cards: './src/cards.jsx',
-    searchbox: './src/search.jsx',
     airtable: './src/airtableData.js',
     fool: './src/cards/fool.jsx',
     future: './src/fortunetellings/future.jsx',
@@ -133,15 +132,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
       filename: './cards/fool.html',
-      chunks: ['fool']
+      chunks: ['fool', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',
-      filename: './cards/moon.html'
+      filename: './cards/moon.html',
+      chunks: ['fool', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/sun.html',
-      filename: './cards/sun.html'
+      filename: './cards/sun.html',
+      chunks: ['fool', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/family.html',

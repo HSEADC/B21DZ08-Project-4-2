@@ -8,35 +8,68 @@
 }
 .W_MenuElementTextBox {
   height: 58px;
-  &:hover .A_MenuElementText {
+  &:hover .A_MenuElement {
     text-shadow: 0px 0px 12px var(--pink);
     cursor: url('./../../images/pointer.svg'), auto;
   }
 }
-.W_MenuElement1 {
-  width: 118px;
-}
-.W_MenuElement2 {
-  width: 118px;
-}
-.W_MenuElement3 {
-  width: 202px;
-}
-.W_MenuElement4 {
-  width: 126px;
-}
 
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_MenuElement {
+    font-size: 20px;
+    line-height: 47px;
+  }
+  .W_MenuElementTextBox {
+    height: 47px;
+    &:hover .A_MenuElement {
+      text-shadow: 0px 0px 10px var(--pink);
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_MenuElement {
+    font-size: 18px;
+    line-height: 43px;
+  }
+  .W_MenuElementTextBox {
+    height: 43px;
+    &:hover .A_MenuElement {
+      text-shadow: 0px 0px 8px var(--pink);
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_MenuElement {
+    font-size: 14px;
+    line-height: 34px;
+  }
+  .W_MenuElementTextBox {
+    height: fit-content;
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
+  .A_MenuElement {
+    font-size: 14px;
+    line-height: 34px;
+  }
+  .W_MenuElementTextBox,
+  .W_MenuElement1,
+  .W_MenuElement2,
+  .W_MenuElement3,
+  .W_MenuElement4 {
+    height: fit-content;
+  }
 }
 @media only screen and (max-device-width: 499px) {
+  .A_MenuElement {
+    font-size: 14px;
+    line-height: 34px;
+  }
+  .W_MenuElementTextBox {
+    height: fit-content;
+  }
 }
