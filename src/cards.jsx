@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import O_BlockOfTarotCards from './components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx'
 import O_MenuBar from './components/O_MenuBar/O_Menubar.jsx'
 import { getFortuneTellings, getTarotCards } from './airtableData.js'
-import { getSearchRequest } from './search.js'
+import { getSearchRequest } from './search.jsx'
 
   let tarotCards
 
@@ -77,11 +77,11 @@ import { getSearchRequest } from './search.js'
   })
 
   document.addEventListener('DOMContentLoaded', () => {
-    getFortuneTellings().then((data) => {
-      fortune = data
+    getTarotCards().then((data) => {
+      tarotCards = data
       const root = createRoot(document.querySelector('.Pentacles'))
       const requiredCards = []
-      fortune.forEach((card) => {
+      tarotCards.forEach((card) => {
         if (card.arcana === 'pentacles') {
           requiredCards.push(card)
         }

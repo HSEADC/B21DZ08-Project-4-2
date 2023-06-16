@@ -81,16 +81,26 @@ export default class O_MenuBar extends React.Component {
         url + adressPart + 'search.html?request=' + searchInputValue
     }
   }
+  // handleLogoClick = () => {
+  //   if(elementsBurger) {
+  //     setClass(false);
+  // } else {
+  //     setClass(true);
+  // }
+  // }
 
   render() {
-    const { searchInputValue, current } = this.state
+    const { searchInputValue, current, searchBurger, elementsBurger } = this.state
     const url = this.getPathFromUrl(window.location.href)
-
+    const wrapperClasses = classnames({
+      'M_MenuElements': true,
+      'showing': elementsBurger
+    })
     return (
       <div className="O_MenuBar">
         {/* <A_MenuLogo url={menu[0].url}/> */}
         <A_MenuLogo url={url + adressPart}/>
-        <div className="M_MenuElements">
+        <div className={wrapperClasses}>
           <A_MenuElement text={menu[1].text} url={menu[1].url} current={current} logo={false} wrapper='W_MenuElement1'/>
           <div className="Q_MenuStar Black"></div>
           <A_MenuElement text={menu[2].text} url={menu[2].url} current={current} logo={false} wrapper='W_MenuElement2'/>
@@ -101,6 +111,7 @@ export default class O_MenuBar extends React.Component {
         </div>
 
         <M_SearchBar
+          showing={searchBurger}
           searchInputValue={searchInputValue}
           handleSearchInput={this.handleSearchInput}
           handleSearchSubmit={this.handleSearchSubmit}

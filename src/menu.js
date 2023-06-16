@@ -93,12 +93,15 @@
 //   })
 // }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   initSelect()
-//   if (vw <= 460) {
-//     adaptiveMenu()
-//   }
+// function adaptiveMenu() {
+// logoMenu.removeAttribute('onclick')
+// centerMenu.classList.toggle('NotShowing')
+// searchBox.classList.toggle('NotShowing')
+// logoMenu.addEventListener('click', () => {
+//   centerMenu.classList.toggle('NotShowing')
+//   searchBox.classList.toggle('NotShowing')
 // })
+// }
 
 // search.addEventListener('focus', () => {
 //   searchBox.classList.add('M_SearchBoxActive')
@@ -144,16 +147,6 @@
 //   itemText.innerText = title
 //   dreamcore.setAttribute('href', ahref)
 //   console.log(dreamcore)
-// }
-
-// function adaptiveMenu() {
-//   logoMenu.removeAttribute('onclick')
-//   centerMenu.classList.toggle('NotShowing')
-//   searchBox.classList.toggle('NotShowing')
-//   logoMenu.addEventListener('click', () => {
-//     centerMenu.classList.toggle('NotShowing')
-//     searchBox.classList.toggle('NotShowing')
-//   })
 // }
 
 // document.addEventListener('DOMContentLoaded', () => {

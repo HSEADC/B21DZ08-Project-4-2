@@ -7,24 +7,22 @@ import O_MoreFortuneTellings from '../components/O_MoreFortuneTellings/O_MoreFor
 
 document.addEventListener('DOMContentLoaded', () => {
 const name = 'fool'
-let tarotCardIndex 
 
   getTarotCards().then((data) => {
     let allTarotCards = data
     let requiredCard
-    // let recommendations
     
     allTarotCards.forEach((tarotCard) => {
-      if (tarotCard.name == name){
+      if (tarotCard.htmlname == name){
         requiredCard = tarotCard
-        tarotCardIndex = allTarotCards.indexOf(tarotCard)
+        console.log(requiredCard);
       }
     })
     const root = createRoot(document.querySelector('.CardContainer'))
     root.render(
       <O_TarotCardInfo 
         tarotCard={requiredCard}
-        name={requiredCard.name} 
+        name={requiredCard.name}
         basics={requiredCard.basics} 
         love={requiredCard.love}
         work={requiredCard.work}

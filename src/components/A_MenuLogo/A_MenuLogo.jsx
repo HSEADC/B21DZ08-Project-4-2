@@ -6,7 +6,7 @@ import logo from "../../images/A_Logo.svg"
 export default class A_MenuLogo extends React.Component {
     render() {
 
-        const { text, url } = this.props
+        const { url } = this.props
     
         return (
           <a className='A_MenuLogo' href={url}>
