@@ -34,16 +34,73 @@
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_SearchBar {
+    width: 111.5px;
+    height: 47px;
+    box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 0 15px;
+    font-size: 20px;
+    line-height: 47px;
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_SearchBar {
+    width: 98px;
+    height: 43px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 11px;
+    padding: 0 13px;
+    font-size: 18px;
+    line-height: 43px;
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+    &.NotShowing {
+      display: none;
+    }
+  }
+  // .M_SearchBoxActive {
+  //   width: 188px;
+  //   .A_Input {
+  //     width: 150px;
+  //   }
+  // }
 }
 @media only screen and (max-device-width: 499px) {
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+    &.NotShowing {
+      display: none;
+    }
+  }
 }

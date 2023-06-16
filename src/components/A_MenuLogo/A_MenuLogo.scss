@@ -18,16 +18,58 @@
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_MenuLogo {
+    width: 147px;
+    height: 47px;
+    box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    img {
+      width: 111px;
+      height: 19px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_MenuLogo {
+    width: 125.27px;
+    height: 43px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 11px;
+    img {
+      width: 93.47px;
+      height: 16px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_MenuLogo {
+    width: 98.11px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    img {
+      width: 70.11px;
+      height: 12px;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
+  .A_MenuLogo {
+    width: 90vw;
+    height: 60px;
+    background: transparent;
+    box-shadow: none;
+  }
 }
 @media only screen and (max-device-width: 499px) {
+  .A_MenuLogo {
+    width: 90vw;
+    height: 60px;
+    background: transparent;
+    box-shadow: none;
+  }
 }

@@ -25,16 +25,69 @@
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_Input {
+    height: 47px;
+    width: 58px;
+    font-size: 20px;
+    line-height: 47px;
+    &::placeholder {
+      font-size: 20px;
+      line-height: 47px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_Input {
+    height: 43px;
+    width: 46px;
+    font-size: 18px;
+    line-height: 43px;
+
+    &::placeholder {
+      font-size: 18px;
+      line-height: 43px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_Input {
+    height: 34px;
+    width: 40px;
+    font-size: 14px;
+    line-height: 34px;
+
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
+  .A_Input {
+    height: 34px;
+    width: 40px;
+    font-size: 14px;
+    line-height: 34px;
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
+  }
 }
 @media only screen and (max-device-width: 499px) {
+  .A_Input {
+    height: 34px;
+    width: 40px;
+    font-size: 14px;
+    line-height: 34px;
+
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
+  }
 }

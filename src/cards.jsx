@@ -92,8 +92,3 @@ import { getSearchRequest } from './search.js'
     </div>)
     })  
   }) 
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const root = createRoot(document.querySelector('.W_Menu'))
-    root.render(<O_MenuBar searchInputValue={getSearchRequest()} />)
-  })
