@@ -42,6 +42,12 @@
     padding: 0 15px;
     font-size: 20px;
     line-height: 47px;
+    &.Active {
+      width: 253px;
+      .A_Input {
+        width: 200px;
+      }
+    }
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
@@ -53,6 +59,12 @@
     padding: 0 13px;
     font-size: 18px;
     line-height: 43px;
+    &.Active {
+      width: 231px;
+      .A_Input {
+        width: 190px;
+      }
+    }
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
@@ -67,6 +79,12 @@
     padding: 0 10px;
     font-size: 14px;
     line-height: 34px;
+    &.Active {
+      width: 188px;
+      .A_Input {
+        width: 150px;
+      }
+    }
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
@@ -82,13 +100,13 @@
     &.NotShowing {
       display: none;
     }
+    &.Active {
+      width: 60vw;
+      .A_Input {
+        width: 50vw;
+      }
+    }
   }
-  // .M_SearchBoxActive {
-  //   width: 188px;
-  //   .A_Input {
-  //     width: 150px;
-  //   }
-  // }
 }
 @media only screen and (max-device-width: 499px) {
   .M_SearchBar {
@@ -101,6 +119,12 @@
     line-height: 34px;
     &.NotShowing {
       display: none;
+    }
+    &.Active {
+      width: 60vw;
+      .A_Input {
+        width: 50vw;
+      }
     }
   }
 }

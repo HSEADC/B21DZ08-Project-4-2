@@ -699,36 +699,6 @@
       }
     }
   }
-  // .M_TarotCard {
-  //   width: 192px;
-  //   height: 282px;
-  //   border-radius: 12px;
-  //   box-shadow: 0px 3px 9px var(--blackshadow);
-  //   box-shadow: inset 0px 3px 12px #f8f6f0;
-  //   box-shadow: 0px 3px 9px var(--blackshadow);
-  //   .W_TarotCardShadow {
-  //     filter: drop-shadow(0px 3px 9px var(--blackshadow));
-  //   }
-  //   .W_TarotCardInside {
-  //     top: 13px;
-  //     font-size: 20px;
-  //     line-height: 148%;
-  //     padding: 4px;
-  //     .A_TarotCardIcon {
-  //       top: 2px;
-  //       width: 30px;
-  //       height: 18px;
-  //     }
-  //     .A_TarotCardTitleAntiqua {
-  //       font-size: 23px;
-  //       padding: 0 5px;
-  //     }
-  //     .A_TarotCardTitleGrotesk {
-  //       font-size: 21px;
-  //       padding: 0 5px;
-  //     }
-  //   }
-  // }
   .M_TarotCardWide {
     width: 406px;
     height: 278px;
@@ -841,6 +811,18 @@
       }
     }
   }
+  .M_Search {
+    width: 480px;
+    height: 43px;
+    border-radius: 11px;
+    padding: 0 10px;
+    font-size: 18px;
+    line-height: 43px;
+  }
+  .M_NothingFound {
+    margin: 50px auto 100px;
+    gap: 16px;
+  }
 }
 @media only screen and (max-device-width: 499px) {
   /* Phone */
@@ -921,36 +903,6 @@
     margin-bottom: 30px;
     gap: 30px;
   }
-  // .M_TarotCard {
-  //   width: 165px;
-  //   height: 243px;
-  //   border-radius: 8px;
-  //   box-shadow: 0px 3px 9px var(--blackshadow);
-  //   box-shadow: inset 0px 3px 12px #f8f6f0;
-  //   box-shadow: 0px 3px 9px var(--blackshadow);
-  //   .W_TarotCardShadow {
-  //     filter: drop-shadow(0px 3px 9px var(--blackshadow));
-  //   }
-  //   .W_TarotCardInside {
-  //     top: 13px;
-  //     font-size: 25px;
-  //     line-height: 99%;
-  //     padding: 4px;
-  //     .A_TarotCardIcon {
-  //       top: 2px;
-  //       width: 30px;
-  //       height: 18px;
-  //     }
-  //     .A_TarotCardTitleAntiqua {
-  //       font-size: 23px;
-  //       padding: 0 5px;
-  //     }
-  //     .A_TarotCardTitleGrotesk {
-  //       font-size: 21px;
-  //       padding: 0 5px;
-  //     }
-  //   }
-  // }
   .M_TarotCardWide {
     width: 338px;
     height: 232px;

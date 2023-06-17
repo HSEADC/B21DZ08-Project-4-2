@@ -103,17 +103,6 @@
 // })
 // }
 
-// search.addEventListener('focus', () => {
-//   searchBox.classList.add('M_SearchBoxActive')
-//   searchBox.appendChild(wrapperSearch)
-//   console.log(wrapperSearch.children)
-// })
-
-// $('.umbrella').click(function () {
-//   $(this).addClass('umbrella1-01')
-//   $(this).removeClass('umbrella')
-// })
-
 // search.addEventListener('input', () => {
 //   wrapperSearch.innerHTML = ''
 //   if (search.value != '') {
