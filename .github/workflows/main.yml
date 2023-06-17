@@ -20,10 +20,6 @@ jobs:
       run: |
         git config user.name "okonnaya"
         git config user.email "rin.ramazanova@yandex.com"
-        git checkout main
-        git add .
-        git commit -am "main commit"
-        git push origin main
         git checkout gh-pages
         git merge main
 
