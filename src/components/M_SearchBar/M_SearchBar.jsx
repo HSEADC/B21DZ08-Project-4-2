@@ -16,13 +16,20 @@ export default class M_SearchBar extends React.Component {
       searchInputValue,
       handleSearchInput,
       handleSearchSubmit,
-      onChange
+      onFocus,
+      onBlur
     } = this.props
 
+    const classes = classnames({
+      'M_SearchBar': true,
+      'Active': this.props.isFocused
+    });
+
     return (
-        <div className='M_SearchBar'>
+        <div className={classes}>
           <A_Input 
-            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
             value={searchInputValue}
             placeholder="поиск"
             handleInput={handleSearchInput}

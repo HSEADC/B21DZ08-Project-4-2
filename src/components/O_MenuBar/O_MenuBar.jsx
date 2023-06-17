@@ -42,7 +42,8 @@ export default class O_MenuBar extends React.Component {
     this.state = {
       isSearchButtonDisabled: true,
       teasers: [],
-      searchInputValue
+      searchInputValue,
+      isFocused: false
     }
   }
 
@@ -83,15 +84,21 @@ export default class O_MenuBar extends React.Component {
     }
   }
 
+  // ExtendedSearchBar = () => {
+  //   searchBox.classList.add('M_SearchBarActive')
+  // }
+
+  handleFocus = () => {
+    this.setState({ isFocused: true });
+  };
+
+  handleBlur = () => {
+    this.setState({ isFocused: false });
+  };
+
   render() {
     const { searchInputValue, current } = this.state
     const url = this.getPathFromUrl(window.location.href)
-    // const location = useLocation();
-
-  // useEffect(() => {
-  //     setInputValue('');
-  // });
-
     return (
       <div className="O_MenuBar">
         {/* <A_MenuLogo url={menu[0].url}/> */}
@@ -106,6 +113,9 @@ export default class O_MenuBar extends React.Component {
           <A_MenuElement text={menu[4].text} url={menu[4].url} current={current} logo={false} wrapper='W_MenuElement4'/>
         </div>
         <M_SearchBar
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          isFocused={this.state.isFocused}
           handleSearchInput={this.handleSearchInput}
           handleSearchSubmit={this.handleSearchSubmit}
         />

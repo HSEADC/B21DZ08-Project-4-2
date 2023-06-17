@@ -446,6 +446,16 @@
     height: 370px;
     border-radius: 12px;
   }
+  .A_SearchInput {
+    height: 43px;
+    width: 400px;
+    font-size: 18px;
+    line-height: 43px;
+    &::placeholder {
+      font-size: 18px;
+      line-height: 43px;
+    }
+  }
 }
 
 @media only screen and (min-width: 500px) and (max-width: 767px) {
@@ -504,12 +514,6 @@
   .A_CardArticleImage {
     border-radius: 8px;
   }
-  // .A_TarotCardImage {
-  //   width: 88px;
-  //   height: 88px;
-  //   padding: 5px;
-  //   border-radius: 0px;
-  // }
   .A_ImageWithGradient {
     width: 328px;
     height: 180px;
