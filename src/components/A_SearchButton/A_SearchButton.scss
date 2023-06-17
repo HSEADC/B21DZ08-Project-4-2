@@ -1,0 +1,42 @@
+.A_SearchButton {
+  background-image: url('./../../images/Q_SearchIcon.svg');
+  width: 22px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_SearchButton {
+    width: 18.5px;
+    height: 20px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_SearchButton {
+    width: 14px;
+    height: 16px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_SearchButton {
+    width: 12.25px;
+    height: 14px;
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+  .A_SearchButton {
+    width: 12.25px;
+    height: 14px;
+  }
+}
+@media only screen and (max-device-width: 499px) {
+  .A_SearchButton {
+    width: 12.25px;
+    height: 14px;
+  }
+}

@@ -11,6 +11,7 @@ export default class O_BlockOfTarotCards extends React.Component {
         const tarotCollection = data.map((tarotCard, i) => {
           return (
             <M_TarotCard 
+            link={tarotCard.link}
             color={tarotCard.color} 
             emoji={tarotCard.emoji} 
             line1={tarotCard.line1} 
@@ -24,10 +25,7 @@ export default class O_BlockOfTarotCards extends React.Component {
 
       return (
         <div className="O_BlockOfTarotCards">
-          {/* <div className="M_Description"></div> */}
-          <div className="C_TarotCards">
             {tarotCollection}
-          </div>
         </div>
       )
     }

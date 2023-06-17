@@ -11,19 +11,22 @@ module.exports = {
   entry: {
     cardoftheday: './src/cardoftheday.js',
     index: './src/index.js',
-    menu: './src/menu.js',
+    menu: './src/menubar.jsx',
     about: './src/about.js',
     styleguide: './src/styleguide.js',
     articles: './src/articles.js',
-    search: './src/search.js',
+    search: './src/search.jsx',
     fortunetelling: './src/fortunetelling.js',
     mouseeventcard: './src/cardonmouseevent.js',
     contentrandomizer: './src/contentrandomizer.js',
     page: './src/page.jsx',
     cards: './src/cards.jsx',
-    searchbox: './src/search.jsx',
     airtable: './src/airtableData.js',
-    fool: './src/cards/fool.jsx'
+    cardTelling: './src/cards/cardTelling.jsx',
+    future: './src/fortunetellings/future.jsx',
+    family: './src/fortunetellings/family.jsx',
+    love: './src/fortunetellings/love.jsx',
+    fortuneTellings: './src/fortuneTellings.jsx'
   },
   output: {
     filename: '[name].js',
@@ -129,31 +132,33 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: './src/cards/fool.html',
-      filename: './cards/fool.html'
-      // chunks: ['fool']
+      filename: './cards/fool.html',
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/moon.html',
-      filename: './cards/moon.html'
+      filename: './cards/moon.html',
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/cards/sun.html',
-      filename: './cards/sun.html'
+      filename: './cards/sun.html',
+      chunks: ['cardTelling', 'menu']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/family.html',
       filename: './fortunetellings/family.html',
-      chunks: ['fortunetelling', 'menu']
+      chunks: ['fortunetelling', 'menu', 'family']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/love.html',
       filename: './fortunetellings/love.html',
-      chunks: ['fortunetelling', 'menu']
+      chunks: ['fortunetelling', 'menu', 'love']
     }),
     new HtmlWebpackPlugin({
       template: './src/fortunetellings/future.html',
       filename: './fortunetellings/future.html',
-      chunks: ['fortunetelling', 'menu']
+      chunks: ['fortunetelling', 'menu', 'future']
     }),
     new HtmlWebpackPlugin({
       template: './src/cardoftheday.html',
@@ -163,7 +168,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/fortunetellings.html',
       filename: './fortunetellings.html',
-      chunks: ['fortunetelling', 'menu', 'contentrandomizer']
+      chunks: ['fortunetelling', 'menu', 'contentrandomizer', 'fortuneTellings']
     }),
     new HtmlWebpackPlugin({
       template: './src/platform.html',
@@ -183,7 +188,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards.html',
       filename: './cards.html',
-      chunks: ['menu', 'articles', 'cards', 'searchbox']
+      chunks: ['menu', 'articles', 'cards']
     }),
     new HtmlWebpackPlugin({
       template: './src/articlescompilations/lovecompilation.html',
@@ -204,6 +209,14 @@ module.exports = {
       {
         path: path.join(__dirname, './src/partials/menu.html'),
         location: 'menu',
+        template_filename: '*',
+        priority: 'replace'
+      }
+    ]),
+    new HtmlWebpackPartialsPlugin([
+      {
+        path: path.join(__dirname, './src/partials/footer.html'),
+        location: 'footer',
         template_filename: '*',
         priority: 'replace'
       }

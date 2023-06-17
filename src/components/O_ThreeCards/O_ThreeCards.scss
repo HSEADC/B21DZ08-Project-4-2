@@ -1,0 +1,23 @@
+.O_ThreeCards {
+  position: relative;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+}

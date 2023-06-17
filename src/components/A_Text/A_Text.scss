@@ -1,0 +1,149 @@
+.A_Text {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  .A_Heading3 {
+    position: relative;
+    font-family: 'Gramatika Demo';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 48px;
+    line-height: 74%;
+    text-align: left;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--black);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    &.Left {
+      text-align: left;
+    }
+    &.Center {
+      text-align: center;
+    }
+    &.Underlined {
+      text-decoration: underline;
+    }
+  }
+  .A_Paragraph {
+    font-family: 'Wremena';
+    position: relative;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 105%;
+    color: var(--black);
+    &.Left {
+      text-align: left;
+    }
+    &.Center {
+      text-align: center;
+    }
+  }
+  .A_Heading2Grotesk {
+    position: relative;
+    display: inline-block;
+    font-family: 'Gramatika Demo';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 96px;
+    line-height: 74%;
+    text-align: center;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--black);
+  }
+  .A_Heading2Antiqua {
+    position: relative;
+    display: inline-block;
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 100px;
+    line-height: 74%;
+    text-align: center;
+    text-shadow: 0px 0px 12px var(--white);
+    color: var(--black);
+  }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_Text {
+    gap: 8px;
+    .A_Heading3 {
+      font-size: 44px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+    .A_Paragraph {
+      font-size: 20px;
+    }
+  }
+  .A_Heading2Grotesk {
+    font-size: 78px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 80px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_Text {
+    gap: 8px;
+    .A_Heading3 {
+      font-size: 40px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+    .A_Paragraph {
+      font-size: 18px;
+    }
+  }
+  .A_Heading2Grotesk {
+    font-size: 66px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 66px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_Text {
+    gap: 8px;
+    .A_Heading3 {
+      font-size: 30px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+    .A_Paragraph {
+      font-size: 16px;
+    }
+  }
+  .A_Heading2Grotesk {
+    font-size: 46px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 48px;
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+  .A_Text {
+    gap: 8px;
+    .A_Heading3 {
+      font-size: 20px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+    .A_Paragraph {
+      font-size: 16px;
+    }
+  }
+  .A_Heading2Grotesk {
+    font-size: 36px;
+  }
+  .A_Heading2Antiqua {
+    font-size: 36px;
+  }
+}

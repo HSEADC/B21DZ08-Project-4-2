@@ -238,18 +238,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 25px;
   width: 428px;
-  .A_subtitle {
-    width: 313px;
-  }
-  .A_Paragraph {
-    width: 313px;
-  }
-  .A_Link {
-    color: var(--black);
-    width: 313px;
-  }
 }
 .M_Header {
   position: relative;
@@ -301,6 +291,39 @@
       position: relative;
       width: 896px;
     }
+  }
+}
+.M_Search {
+  position: relative;
+  width: 891px;
+  height: 58px;
+  background: var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  transition: all 1s ease-out;
+  margin: 0 auto;
+}
+.M_NothingFound {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 80px auto 160px;
+  gap: 20px;
+  img {
+    position: relative;
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
@@ -358,43 +381,6 @@
       }
       .A_ArticleButton {
         top: -10px;
-      }
-    }
-  }
-  .M_TarotCard {
-    width: 320px;
-    height: 470px;
-    border-radius: 16px;
-    box-shadow: 0px 5px 9px var(--blackshadow);
-    box-shadow: inset 0px 5px 12px #f8f6f0;
-    box-shadow: 0px 5px 9px var(--blackshadow);
-    &:hover {
-      cursor: url('./images/pointer.svg'), auto;
-      transition: all 0.5s ease-out;
-      transform: scale(0.95);
-      box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25),
-        inset 0px 4px 10px var(--pink);
-    }
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 5px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 20px;
-      font-size: 36px;
-      line-height: 133%;
-      padding: 5px;
-      .A_TarotCardIcon {
-        top: 4px;
-        width: 41px;
-        height: 30px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 38px;
-        padding: 0 10px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 36px;
-        padding: 0 10px;
       }
     }
   }
@@ -458,13 +444,8 @@
     gap: 36px;
   }
   .M_Description {
-    gap: 36px;
+    gap: 20px;
     width: 320px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 320px;
-    }
   }
   .M_Header {
     .W_HeaderText {
@@ -489,6 +470,18 @@
         width: 665px;
       }
     }
+  }
+  .M_Search {
+    width: 665px;
+    height: 47px;
+    border-radius: 12px;
+    padding: 0 13px;
+    font-size: 20px;
+    line-height: 47px;
+  }
+  .M_NothingFound {
+    margin: 60px auto 120px;
+    gap: 18px;
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
@@ -549,36 +542,6 @@
       }
     }
   }
-  .M_TarotCard {
-    width: 299px;
-    height: 439px;
-    border-radius: 14px;
-    box-shadow: 0px 4px 9px var(--blackshadow);
-    box-shadow: inset 0px 4px 12px #f8f6f0;
-    box-shadow: 0px 4px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 4px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 18px;
-      font-size: 36px;
-      line-height: 125%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 4px;
-        width: 39px;
-        height: 29px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 36px;
-        padding: 0 7px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 33px;
-        padding: 0 7px;
-      }
-    }
-  }
   .M_TarotCardWide {
     width: 406px;
     height: 278px;
@@ -634,12 +597,7 @@
   }
   .M_Description {
     gap: 34px;
-    width: 299px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 299px;
-    }
+    width: 284px;
   }
   .M_Header {
     .W_HeaderText {
@@ -664,6 +622,18 @@
         width: 590px;
       }
     }
+  }
+  .M_Search {
+    width: 590px;
+    height: 43px;
+    border-radius: 11px;
+    padding: 0 10px;
+    font-size: 18px;
+    line-height: 43px;
+  }
+  .M_NothingFound {
+    margin: 50px auto 100px;
+    gap: 16px;
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
@@ -729,36 +699,6 @@
       }
     }
   }
-  .M_TarotCard {
-    width: 192px;
-    height: 282px;
-    border-radius: 12px;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    box-shadow: inset 0px 3px 12px #f8f6f0;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 3px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 13px;
-      font-size: 20px;
-      line-height: 148%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 2px;
-        width: 30px;
-        height: 18px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 23px;
-        padding: 0 5px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 21px;
-        padding: 0 5px;
-      }
-    }
-  }
   .M_TarotCardWide {
     width: 406px;
     height: 278px;
@@ -816,13 +756,8 @@
     }
   }
   .M_Description {
-    gap: 34px;
-    width: 192px;
-    .A_subtitle,
-    .A_Paragraph,
-    .A_Link {
-      width: 192px;
-    }
+    gap: 15px;
+    width: 335px;
   }
   .M_Header {
     .W_HeaderText {
@@ -875,6 +810,18 @@
         width: 458px;
       }
     }
+  }
+  .M_Search {
+    width: 480px;
+    height: 43px;
+    border-radius: 11px;
+    padding: 0 10px;
+    font-size: 18px;
+    line-height: 43px;
+  }
+  .M_NothingFound {
+    margin: 50px auto 100px;
+    gap: 16px;
   }
 }
 @media only screen and (max-device-width: 499px) {
@@ -956,36 +903,6 @@
     margin-bottom: 30px;
     gap: 30px;
   }
-  .M_TarotCard {
-    width: 165px;
-    height: 243px;
-    border-radius: 8px;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    box-shadow: inset 0px 3px 12px #f8f6f0;
-    box-shadow: 0px 3px 9px var(--blackshadow);
-    .W_TarotCardShadow {
-      filter: drop-shadow(0px 3px 9px var(--blackshadow));
-    }
-    .W_TarotCardInside {
-      top: 13px;
-      font-size: 25px;
-      line-height: 99%;
-      padding: 4px;
-      .A_TarotCardIcon {
-        top: 2px;
-        width: 30px;
-        height: 18px;
-      }
-      .A_TarotCardTitleAntiqua {
-        font-size: 23px;
-        padding: 0 5px;
-      }
-      .A_TarotCardTitleGrotesk {
-        font-size: 21px;
-        padding: 0 5px;
-      }
-    }
-  }
   .M_TarotCardWide {
     width: 338px;
     height: 232px;
@@ -1030,5 +947,9 @@
         width: 328px;
       }
     }
+  }
+  .M_Description {
+    gap: 15px;
+    width: 328px;
   }
 }

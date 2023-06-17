@@ -16,11 +16,70 @@
     font-size: 30px;
   }
   &.Emoji {
+    top: 5px;
     font-family: 'Noto Emoji';
     font-weight: normal;
     font-size: 32px;
   }
   &.None {
     display: none;
+  }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_HighlightHeading4 {
+    &.Antiqua {
+      font-size: 24px;
+    }
+    &.Grotesk {
+      font-size: 22px;
+    }
+    &.Emoji {
+      font-size: 24px;
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_HighlightHeading4 {
+    &.Antiqua {
+      font-size: 22px;
+    }
+    &.Grotesk {
+      font-size: 20px;
+    }
+    &.Emoji {
+      font-size: 22px;
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_HighlightHeading4 {
+    &.Antiqua {
+      font-size: 26px;
+    }
+    &.Grotesk {
+      font-size: 25px;
+    }
+    &.Emoji {
+      font-size: 26px;
+    }
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+  .A_HighlightHeading4 {
+    &.Antiqua {
+      font-size: 20px;
+    }
+    &.Grotesk {
+      font-size: 18px;
+    }
+    &.Emoji {
+      font-size: 20px;
+    }
   }
 }
