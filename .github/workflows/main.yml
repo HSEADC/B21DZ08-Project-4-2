@@ -14,14 +14,18 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: main
-        fetch-depth: 0
+        fetch-depth: 0  # Fetches all history for all branches and tags
 
     - name: Merge to gh-pages branch
       run: |
         git config user.name "okonnaya"
         git config user.email "rin.ramazanova@yandex.com"
+        git checkout main
+        git add .
+        git commit -am "main commit"
+        git push origin main
         git checkout gh-pages
-        git merge main --no-edit
+        git merge main
 
     - name: Use Node.js 14
       uses: actions/setup-node@v2
@@ -36,6 +40,7 @@ jobs:
 
     - name: Push changes
       run: |
-        git add .
+        git add docs
         git commit -am "Merge main and build"
-        git push origin gh-pages
+        git push
+
