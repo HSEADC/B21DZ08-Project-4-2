@@ -22,6 +22,7 @@ jobs:
         git config user.email "rin.ramazanova@yandex.com"
         git checkout gh-pages
         git merge main
+        git push
 
     - name: Use Node.js 14
       uses: actions/setup-node@v2
