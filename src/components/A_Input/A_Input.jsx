@@ -7,6 +7,9 @@ export default class A_Input extends React.Component {
     constructor(props) {
         super(props)
         this.input = React.createRef()
+        this.state = {
+          isFocused: false
+        };
       }
     
       handleInput = () => {
@@ -17,13 +20,16 @@ export default class A_Input extends React.Component {
 
     render() {
 
-        const { value, placeholder, handleSubmit } = this.props
+        const { value, placeholder, handleSubmit, onChange, onFocus, onBlur } = this.props
 
         return (
          <input
+          onFocus={onFocus}
+          onBlur={onBlur}
           className="A_Input"
           ref={this.input}
           value={value}
+          onChange={onChange}
           placeholder={placeholder}
           onInput={this.handleInput}
           onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}

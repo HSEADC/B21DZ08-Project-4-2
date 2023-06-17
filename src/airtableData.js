@@ -46,7 +46,7 @@ function getTarotCards() {
 
           let link = 'cards/' + record.fields['htmlPage'] + '.html'
           tarotCards.push({
-            name: record.fields['htmlPage'],
+            htmlname: record.fields['htmlPage'],
             color,
             arcana: record.fields['arcana'],
             emoji: record.fields['icon'],
@@ -84,50 +84,27 @@ function getFortuneTellings() {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          let none = false
-          if (record.fields['line1'] == undefined) {
-            none = true
-          }
-
           let link = 'cards/' + record.fields['htmlPage'] + '.html'
-
           fortuneTellings.push({
-            texttype: 'Emoji',
             color: 'black',
-            emoji: record.fields['icon'],
             line1: record.fields['line1'],
             line2: record.fields['line2'],
-            link: record.fields['htmlPage'],
-            // image: record.fields['image'][0]['url'],
-            id: record.fields['id']
+            image: record.fields['image'][0]['url'],
+            link,
+            id: record.fields['id'],
+            emoji: record.fields['icon'],
+            none: false,
+            texttype: 'Emoji'
           })
         })
         resolve(fortuneTellings)
       })
   })
 }
-// function getSearchData() {
-//   return new Promise((resolve, reject) => {
-//     const tarotCards = []
-//     base('Articles')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           tarotCards.push({
-//             title: record.fields['Заголовок'],
-//             description: record.fields['Описание'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(tarotCards)
-//       })
-//   })
-// }
 
 //все базы для поиска
 
-async function getSearchData(lines) {
+async function getSearchData() {
   let counter = 0
   return new Promise((resolve, reject) => {
     const searchData = []
@@ -137,31 +114,42 @@ async function getSearchData(lines) {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
+          let link = 'articles/' + record.fields['htmlPage'] + '.html'
           searchData.push({
             title: record.fields['Заголовок'],
             description: record.fields['Описание'],
-            id: record.fields['id']
+            id: record.fields['id'],
+            link,
+            image: record.fields['image'][0]['url'],
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })
-
     base('FortuneTellings')
       .select({ maxRecords: 100 })
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
+          let link = 'cards/' + record.fields['htmlPage'] + '.html'
           searchData.push({
-            title: record.fields['line1'],
-            description: record.fields['line2'],
-            id: record.fields['id']
+            color: 'black',
+            line1: record.fields['line1'],
+            line2: record.fields['line2'],
+            image: record.fields['image'][0]['url'],
+            link: link,
+            id: record.fields['id'],
+            emoji: record.fields['icon'],
+            none: false,
+            texttype: 'Emoji',
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })
@@ -171,14 +159,55 @@ async function getSearchData(lines) {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
+          // let title = record.fields['line1']
+          // if (title === undefined) {
+          //   title = ' '
+          // }
+          // searchData.push({
+          //   title,
+          //   description: record.fields['line2'],
+          //   id: record.fields['id']
+          let none = false
+          let line1 = record.fields['line1']
+          if (line1 == undefined) {
+            none = true
+            line1 = ' '
+          }
+          let texttype = 'Emoji'
+          let icon = record.fields['icon']
+          if (
+            icon.includes('I') ||
+            icon.includes('V') ||
+            icon.includes('X') ||
+            icon.includes('L') ||
+            icon.includes('C')
+          ) {
+            texttype = 'Antiqua'
+          }
+
+          let color = 'pink'
+          if (record.fields['arcana'] == 'major') {
+            color = 'black'
+          }
+
+          let link = 'cards/' + record.fields['htmlPage'] + '.html'
           searchData.push({
-            title: record.fields['line1'],
-            description: record.fields['line2'],
-            id: record.fields['id']
+            color,
+            arcana: record.fields['arcana'],
+            emoji: icon,
+            line1: line1,
+            line2: record.fields['line2'],
+            none,
+            link,
+            image: record.fields['image'][0]['url'],
+            id: record.fields['id'],
+            texttype,
+            name: record.fields['name'],
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter == 3) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })

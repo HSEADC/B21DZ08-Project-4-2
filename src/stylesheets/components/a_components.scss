@@ -1,16 +1,3 @@
-.W_Menu {
-  position: fixed;
-  z-index: 2;
-  top: 30px;
-  // width: 100%;
-  // height: 58px;
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0 auto;
-}
 .CardContainer {
   width: fit-content;
   margin: 0 auto;
@@ -214,13 +201,6 @@
     );
   }
 }
-// .A_TarotCardImage {
-//   width: 160px;
-//   height: 160px;
-//   padding: 10px;
-//   border-radius: 10px;
-//   background-color: var(--white);
-// }
 .A_ImageWithGradient {
   position: relative;
   width: 1208px;
@@ -248,6 +228,31 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+  }
+}
+.A_SearchInput {
+  height: 58px;
+  width: 830px;
+  border: none;
+  background: transparent;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  cursor: url('./images/pointer.svg'), auto;
+
+  &::placeholder {
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+  }
+  &:focus {
+    outline: none;
   }
 }
 .Q_MenuStar {
@@ -308,16 +313,21 @@
   .A_CardArticleImage {
     border-radius: 11px;
   }
-  // .A_TarotCardImage {
-  //   width: 170px;
-  //   height: 170px;
-  //   padding: 7px;
-  //   border-radius: 0px;
-  // }
   .A_ImageWithGradient {
     width: 895px;
     height: 470px;
     border-radius: 12px;
+  }
+  .A_SearchInput {
+    height: 47px;
+    width: 580px;
+    font-size: 20px;
+    line-height: 47px;
+    &::placeholder {
+      font-size: 20px;
+      color: var(--black);
+      line-height: 47px;
+    }
   }
 }
 
@@ -365,16 +375,20 @@
   .A_CardArticleImage {
     border-radius: 10px;
   }
-  // .A_TarotCardImage {
-  //   width: 158px;
-  //   height: 158px;
-  //   padding: 7px;
-  //   border-radius: 0px;
-  // }
   .A_ImageWithGradient {
     width: 794px;
     height: 420px;
     border-radius: 12px;
+  }
+  .A_SearchInput {
+    height: 43px;
+    width: 520px;
+    font-size: 18px;
+    line-height: 43px;
+    &::placeholder {
+      font-size: 18px;
+      line-height: 43px;
+    }
   }
 }
 
@@ -427,20 +441,20 @@
   .A_CardArticleImage {
     border-radius: 8px;
   }
-  // .A_TarotCardImage {
-  //   width: 100px;
-  //   height: 100px;
-  //   padding: 5px;
-  //   border-radius: 0px;
-  // }
-  // .A_TarotCardNumber {
-  //   font-size: 23px;
-  //   padding: 0 5px;
-  // }
   .A_ImageWithGradient {
     width: 695px;
     height: 370px;
     border-radius: 12px;
+  }
+  .A_SearchInput {
+    height: 43px;
+    width: 400px;
+    font-size: 18px;
+    line-height: 43px;
+    &::placeholder {
+      font-size: 18px;
+      line-height: 43px;
+    }
   }
 }
 
@@ -500,12 +514,6 @@
   .A_CardArticleImage {
     border-radius: 8px;
   }
-  // .A_TarotCardImage {
-  //   width: 88px;
-  //   height: 88px;
-  //   padding: 5px;
-  //   border-radius: 0px;
-  // }
   .A_ImageWithGradient {
     width: 328px;
     height: 180px;

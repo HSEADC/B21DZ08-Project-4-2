@@ -75,10 +75,10 @@ export default class O_TarotCardInfo extends React.Component {
                 starshowing={false}
                 heading='совет'
                 paragraph={adviceLong}/>
-                <M_TarotCardReading
+                {/* <M_TarotCardReading
                 starshowing={false} 
                 heading='история карты'
-                paragraph={history}/>
+                paragraph={history}/> */}
             </div>
           </div>
       )
