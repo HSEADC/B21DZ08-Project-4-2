@@ -27,12 +27,15 @@ function getPathFromUrl(url) {
 }
 
 function createArticleCard(contentItemData) {
+    const contentItemLink = document.createElement('a')
+    contentItemLink.href = contentItemData.link
+
     const contentItem = document.createElement('div')
     contentItem.classList.add('M_CardArticle')
   
     const contentItemImage = document.createElement('img')
     contentItemImage.classList.add('A_CardArticleImage')
-    // contentItemCover.src = contentItemData.image
+    contentItemImage.src = contentItemData.image
   
     const contentItemTitle = document.createElement('div')
     contentItemTitle.classList.add('A_Heading5')
@@ -45,18 +48,25 @@ function createArticleCard(contentItemData) {
     contentItem.appendChild(contentItemImage)
     contentItem.appendChild(contentItemTitle)
     contentItem.appendChild(contentItemDescription)
+    contentItemLink.appendChild(contentItem)
 
-    return contentItem
+    return contentItemLink
 }
 
 function createTarotCards(tarotCardData){
-  const root = createRoot(document.querySelector('.O_SearchedTarotCards'))
+  const root = createRoot(document.querySelector('.C_FoundTarotCards'))
     root.render(<O_BlockOfTarotCards data={tarotCardData} />) 
+}
+
+function createFortuneTellings(fortuneTellings){
+  const root = createRoot(document.querySelector('.C_FoundFortuneTellings'))
+    root.render(<O_BlockOfTarotCards data={fortuneTellings} />) 
 }
 
 function renderCardsByIds(container, ids) {
   ids = [...new Set(ids)]
   let tarotCards = []
+  let fortuneTellings = []
   ids.forEach((id) => {
     content.forEach((item) => {
       if (item.id === id && id.startsWith('article')) {
@@ -65,33 +75,43 @@ function renderCardsByIds(container, ids) {
       else if (item.id === id && id.startsWith('tarotCard')) {
         tarotCards.push(item)
       }
+      else if (item.id === id && id.startsWith('fortuneTelling')) {
+        fortuneTellings.push(item)
+      }
     })
   })
   createTarotCards(tarotCards)
+  createFortuneTellings(fortuneTellings)
 }
 
 function rerenderSearchedContent(requestText) {
   const contentItemsContainer1 = document.querySelector(
-    '.W_SearchedArticleCards'
+    '.C_FoundArticleCards'
   )
   contentItemsContainer1.innerHTML = ''
 
   let Ids = []
-  // let articleIds = []
-  // let tarotCardIds = []
+
+  let articleFound = false;
+  let tarotCardFound = false;
+  let fortuneTellingFound = false;
 
   content.forEach((contentItem) => {
     const nbspRegex = /[\u202F\u00A0]/gm
     const punctuationRegex = /[.,\/#!$%\^&\*;:{}=\-_`~()]/gm
-    let { title, description, line1, line2 } = contentItem
+    let { title, description, line1, line2, name, similarWords } = contentItem
+
+    similarWords = similarWords.replaceAll(nbspRegex, ' ')
+    similarWords = similarWords.replaceAll(punctuationRegex, '')
 
     if (contentItem.id.startsWith('article') && requestText.length >= 3) {
-      title = title.replaceAll(nbspRegex, ' ')
-      title = title.replaceAll(punctuationRegex, '')
-      description = description.replaceAll(nbspRegex, ' ')
-      description = description.replaceAll(punctuationRegex, '')
-      if (title.includes(requestText) || description.includes(requestText)) {
+      if (title.includes(requestText) || description.includes(requestText) || similarWords.includes(requestText)) {
+        title = title.replaceAll(nbspRegex, ' ')
+        title = title.replaceAll(punctuationRegex, '')
+        description = description.replaceAll(nbspRegex, ' ')
+        description = description.replaceAll(punctuationRegex, '')
         Ids.push(contentItem.id)
+        articleFound = true
       }
     } else if (
       contentItem.id.startsWith('tarotCard') &&
@@ -100,26 +120,60 @@ function rerenderSearchedContent(requestText) {
         line1 = line1.replaceAll(punctuationRegex, '')
         line2 = line2.replaceAll(nbspRegex, ' ')
         line2 = line2.replaceAll(punctuationRegex, '')
-      if (line1.includes(requestText) || line2.includes(requestText)) {
+        name = name.replaceAll(nbspRegex, ' ')
+        name = name.replaceAll(punctuationRegex, '')
+      if (line1.includes(requestText) || line2.includes(requestText) || name.includes(requestText) || similarWords.includes(requestText)) {
         Ids.push(contentItem.id)
+        tarotCardFound = true
+      }
+    } else if (
+        contentItem.id.startsWith('fortuneTelling') &&
+        requestText.length >= 3){
+          line1 = line1.replaceAll(nbspRegex, ' ')
+          line1 = line1.replaceAll(punctuationRegex, '')
+          line2 = line2.replaceAll(nbspRegex, ' ')
+          line2 = line2.replaceAll(punctuationRegex, '')
+        if (line1.includes(requestText) || line2.includes(requestText) || similarWords.includes(requestText)) {
+          Ids.push(contentItem.id)
+          fortuneTellingFound = true
+        }
+        }
+    })
+    if (articleFound) {
+      const articlesSection = document.querySelector('.W_FoundArticlesSection')
+      if (articlesSection) {
+        articlesSection.style.display = 'flex';
       }
     }
-  })
+  
+    if (tarotCardFound) {
+      const tarotCardsSection = document.querySelector('.W_FoundTarotCardsSection')
+      if (tarotCardsSection) {
+        tarotCardsSection.style.display = 'flex';
+      }
+    }
+
+    if (fortuneTellingFound) {
+      const fortuneTellingsSection = document.querySelector('.W_FoundFortuneTellingsSection')
+      if (fortuneTellingsSection) {
+        fortuneTellingsSection.style.display = 'flex';
+      }
+    }
+
   if (Ids.length > 0) {
     renderCardsByIds(contentItemsContainer1, Ids)
-    renderCardsByIds(Ids)
   } else {
     renderNothingFound()
   }
 
   function renderNothingFound() {
-    const contentItemsContainer = document.querySelector('.A_NothingFound')
-    contentItemsContainer.innerHTML = 'мы ничего не нашли :('
+    const NothingFound = document.querySelector('.M_NothingFound')
+    NothingFound.style.display = 'flex';
   }
 }
 
 function initSearch() {
-  const O_Search = document.querySelector('.O_Search')
+  const O_Search = document.querySelector('.M_Search')
   const A_SearchInput = O_Search.querySelector('.A_SearchInput')
   const Q_SearchIcon = O_Search.querySelector('.Q_SearchIcon')
   let requestText = getSearchRequest()
@@ -161,12 +215,12 @@ function initSearch() {
     }
   })
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('???');
   getSearchData().then((data) => {
     content = data
     initSearch()
   })
-}, { once: true })
+})
 
-export { getSearchRequest }
+// export { getSearchRequest }

@@ -188,7 +188,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/cards.html',
       filename: './cards.html',
-      chunks: ['menu', 'articles', 'cards', 'searchbox']
+      chunks: ['menu', 'articles', 'cards']
     }),
     new HtmlWebpackPlugin({
       template: './src/articlescompilations/lovecompilation.html',
