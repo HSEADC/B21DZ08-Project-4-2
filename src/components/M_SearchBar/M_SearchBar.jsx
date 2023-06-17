@@ -16,17 +16,13 @@ export default class M_SearchBar extends React.Component {
       searchInputValue,
       handleSearchInput,
       handleSearchSubmit,
-      showing
+      onChange
     } = this.props
 
-    const classes = classnames({
-      'M_SearchBar': true,
-      'showing': showing
-    })
-
     return (
-        <div className={classes}>
+        <div className='M_SearchBar'>
           <A_Input 
+            onChange={onChange}
             value={searchInputValue}
             placeholder="поиск"
             handleInput={handleSearchInput}

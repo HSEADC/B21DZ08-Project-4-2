@@ -101,24 +101,6 @@ function getFortuneTellings() {
       })
   })
 }
-// function getSearchData() {
-//   return new Promise((resolve, reject) => {
-//     const tarotCards = []
-//     base('Articles')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           tarotCards.push({
-//             title: record.fields['Заголовок'],
-//             description: record.fields['Описание'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(tarotCards)
-//       })
-//   })
-// }
 
 //все базы для поиска
 
@@ -132,14 +114,18 @@ async function getSearchData() {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
+          let link = 'articles/' + record.fields['htmlPage'] + '.html'
           searchData.push({
             title: record.fields['Заголовок'],
             description: record.fields['Описание'],
-            id: record.fields['id']
+            id: record.fields['id'],
+            link,
+            image: record.fields['image'][0]['url'],
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter === 2) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })
@@ -158,11 +144,12 @@ async function getSearchData() {
             id: record.fields['id'],
             emoji: record.fields['icon'],
             none: false,
-            texttype: 'Emoji'
+            texttype: 'Emoji',
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter === 2) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })
@@ -215,11 +202,12 @@ async function getSearchData() {
             image: record.fields['image'][0]['url'],
             id: record.fields['id'],
             texttype,
-            name: record.fields['name']
+            name: record.fields['name'],
+            similarWords: record.fields['для поиска']
           })
         })
         counter += 1
-        if (counter === 2) {
+        if (counter === 3) {
           resolve(searchData)
         }
       })

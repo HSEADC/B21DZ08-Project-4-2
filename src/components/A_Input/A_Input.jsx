@@ -17,13 +17,14 @@ export default class A_Input extends React.Component {
 
     render() {
 
-        const { value, placeholder, handleSubmit } = this.props
+        const { value, placeholder, handleSubmit, onChange } = this.props
 
         return (
          <input
           className="A_Input"
           ref={this.input}
           value={value}
+          onChange={onChange}
           placeholder={placeholder}
           onInput={this.handleInput}
           onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}

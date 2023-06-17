@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './O_MenuBar.scss'
 import classnames from 'classnames'
 
@@ -45,13 +46,13 @@ export default class O_MenuBar extends React.Component {
     }
   }
 
-  componentDidMount() {
-    getSearchData().then((data) => {
-      this.setState({
-        teasers: data
-      })
-    })
-  }
+  // componentDidMount() {
+  //   getSearchData().then((data) => {
+  //     this.setState({
+  //       teasers: data
+  //     })
+  //   })
+  // }
 
   // вынести функцию в утилиты
   getPathFromUrl = (url) => {
@@ -81,26 +82,21 @@ export default class O_MenuBar extends React.Component {
         url + adressPart + 'search.html?request=' + searchInputValue
     }
   }
-  // handleLogoClick = () => {
-  //   if(elementsBurger) {
-  //     setClass(false);
-  // } else {
-  //     setClass(true);
-  // }
-  // }
 
   render() {
-    const { searchInputValue, current, searchBurger, elementsBurger } = this.state
+    const { searchInputValue, current } = this.state
     const url = this.getPathFromUrl(window.location.href)
-    const wrapperClasses = classnames({
-      'M_MenuElements': true,
-      'showing': elementsBurger
-    })
+    // const location = useLocation();
+
+  // useEffect(() => {
+  //     setInputValue('');
+  // });
+
     return (
       <div className="O_MenuBar">
         {/* <A_MenuLogo url={menu[0].url}/> */}
         <A_MenuLogo url={url + adressPart}/>
-        <div className={wrapperClasses}>
+        <div className='M_MenuElements'>
           <A_MenuElement text={menu[1].text} url={menu[1].url} current={current} logo={false} wrapper='W_MenuElement1'/>
           <div className="Q_MenuStar Black"></div>
           <A_MenuElement text={menu[2].text} url={menu[2].url} current={current} logo={false} wrapper='W_MenuElement2'/>
@@ -109,10 +105,7 @@ export default class O_MenuBar extends React.Component {
           <div className="Q_MenuStar Black"></div>
           <A_MenuElement text={menu[4].text} url={menu[4].url} current={current} logo={false} wrapper='W_MenuElement4'/>
         </div>
-
         <M_SearchBar
-          showing={searchBurger}
-          searchInputValue={searchInputValue}
           handleSearchInput={this.handleSearchInput}
           handleSearchSubmit={this.handleSearchSubmit}
         />
