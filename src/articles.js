@@ -26,17 +26,17 @@ function initFilter() {
   }
 }
 
-function clickInit() {
-  const allarticlescards = document.getElementById('W_AllArticleCards')
-  const allchildren = allarticlescards.children
-  for (let i = 0; i < allchildren.length; i++) {
-    const element = allchildren[i]
-    element.addEventListener('click', () => {
-      window.location.replace('/articles/article.html')
-    })
-  }
-}
+// function clickInit() {
+//   const allarticlescards = document.getElementById('W_AllArticleCards')
+//   const allchildren = allarticlescards.children
+//   for (let i = 0; i < allchildren.length; i++) {
+//     const element = allchildren[i]
+//     element.addEventListener('click', () => {
+//       window.location.replace('/articles/article.html')
+//     })
+//   }
+// }
 document.addEventListener('DOMContentLoaded', () => {
   initFilter()
-  clickInit()
+  // clickInit()
 })

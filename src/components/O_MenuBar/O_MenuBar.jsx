@@ -8,6 +8,8 @@ import M_SearchBar from '../M_SearchBar/M_SearchBar.jsx';
 import { getSearchData } from '../../airtableData.js';
 import A_MenuLogo from '../A_MenuLogo/A_MenuLogo.jsx';
 
+import A_MenuMobileToggle from '../A_MenuMobileToggle/A_MenuMobileToggle.jsx';
+
 const adressPart = ':8080/'
 // const addressPart = '.adc.ac/'
 const menu = [
@@ -102,6 +104,7 @@ export default class O_MenuBar extends React.Component {
     return (
       <div className="O_MenuBar">
         {/* <A_MenuLogo url={menu[0].url}/> */}
+        <A_MenuMobileToggle/>
         <A_MenuLogo url={url + adressPart}/>
         <div className='M_MenuElements'>
           <A_MenuElement text={menu[1].text} url={menu[1].url} current={current} logo={false} wrapper='W_MenuElement1'/>
