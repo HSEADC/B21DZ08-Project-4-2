@@ -591,11 +591,15 @@
     }
   }
   .O_ContentFortuneTelling {
-    left: calc(50% - 1355px / 2);
+    // left: calc(50vw - 1355px / 2);
+    margin: 0 auto;
     gap: 196px;
-    width: 1355px;
-    gap: 0;
-    justify-content: space-between;
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    // gap: 0;
+    // justify-content: space-between;
     .M_TarotCard {
       margin: 0 -12px;
       gap: 0;
@@ -801,11 +805,12 @@
     }
   }
   .O_ContentFortuneTelling {
-    left: calc(50% - 1355px / 2);
+    margin: 0 auto;
     gap: 196px;
-    width: 1355px;
-    gap: 0;
-    justify-content: space-between;
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
     .M_TarotCard {
       margin: 0 -12px;
       gap: 0;
@@ -827,11 +832,12 @@
     }
   }
   .O_ContentFortuneTelling {
-    left: calc(50% - 941px / 2);
+    margin: 0 auto;
     gap: 196px;
-    width: 941px;
-    gap: 0;
-    justify-content: space-between;
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
     .M_TarotCard {
       margin: 0 -12px;
       gap: 0;
@@ -967,11 +973,12 @@
     padding-bottom: 40px;
   }
   .O_ContentFortuneTelling {
-    left: calc(50% - 1015px / 2);
+    margin: 0 auto;
     gap: 196px;
-    width: 1015px;
-    gap: 0;
-    justify-content: space-between;
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
     .M_TarotCard {
       margin: 0 -12px;
       gap: 0;
@@ -1107,11 +1114,12 @@
     }
   }
   .O_ContentFortuneTelling {
-    left: calc(50% - 619px / 2);
+    margin: 0 auto;
     gap: 196px;
-    width: 619px;
-    gap: 0;
-    justify-content: space-between;
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
     .M_TarotCard {
       margin: 0 -12px;
       gap: 0;

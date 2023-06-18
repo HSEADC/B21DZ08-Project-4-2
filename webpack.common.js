@@ -9,7 +9,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    cardoftheday: './src/cardoftheday.js',
+    cardoftheday: './src/cardoftheday.jsx',
     index: './src/index.js',
     menu: './src/menubar.jsx',
     about: './src/about.js',
