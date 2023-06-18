@@ -292,12 +292,13 @@
   width: 100%;
   padding-bottom: 20vh;
   background: radial-gradient(
-      117.87% 117.87% at 51.17% 0%,
-      #f8f6f0 13.54%,
-      #ff8bec 55.03%,
-      #313131 100%
+      106.8% 106.8% at 51.17% 0%,
+      #f8f6f0 0%,
+      rgba(255, 255, 255, 0) 63.54%,
+      #f8f6f0 100%,
+      #ff8bec 100%
     ),
-    #313131;
+    #f3b2e9;
   border-radius: 22px 22px 0px 0px;
   .NotShowing {
     display: none;
@@ -480,7 +481,7 @@
 }
 .love {
   .Q_MenuStar {
-    margin: 120px auto;
+    margin: 60px auto;
   }
   .A_AccentButtonTarotTellings {
     margin-top: 100px;

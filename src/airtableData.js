@@ -84,7 +84,7 @@ function getFortuneTellings() {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          let link = 'cards/' + record.fields['htmlPage'] + '.html'
+          let link = 'fortunetellings/' + record.fields['htmlPage'] + '.html'
           fortuneTellings.push({
             color: 'black',
             line1: record.fields['line1'],
@@ -134,7 +134,7 @@ async function getSearchData() {
       .firstPage()
       .then((result) => {
         result.forEach((record) => {
-          let link = 'cards/' + record.fields['htmlPage'] + '.html'
+          let link = 'fortunerellings/' + record.fields['htmlPage'] + '.html'
           searchData.push({
             color: 'black',
             line1: record.fields['line1'],

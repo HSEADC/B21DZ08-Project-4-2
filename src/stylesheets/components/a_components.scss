@@ -471,7 +471,8 @@
 @media only screen and (max-device-width: 499px) {
   .A_Heading2Grotesk {
     font-size: 36px;
-    width: 80vw;
+    width: fit-content;
+    max-width: 80vw;
     margin: 0 auto;
   }
   .A_Heading2Antiqua {

@@ -15,9 +15,37 @@
   /*только смена количества колонок*/
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .O_ThreeCards {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    .Q_MenuStar {
+      display: none;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
 }
 @media only screen and (max-device-width: 499px) {
+  .O_ThreeCards {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    .Q_MenuStar {
+      display: none;
+    }
+  }
 }
