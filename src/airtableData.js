@@ -101,6 +101,28 @@ function getFortuneTellings() {
       })
   })
 }
+function getArticles() {
+  return new Promise((resolve, reject) => {
+    const Articles = []
+    base('Articles')
+      .select({ maxRecords: 100 })
+      .firstPage()
+      .then((result) => {
+        result.forEach((record) => {
+          let link = 'articles/' + record.fields['htmlPage'] + '.html'
+          Articles.push({
+            title: record.fields['Заголовок'],
+            description: record.fields['Описание'],
+            id: record.fields['id'],
+            link,
+            image: record.fields['image'][0]['url']
+          })
+        })
+
+        resolve(Articles)
+      })
+  })
+}
 
 //все базы для поиска
 
@@ -216,4 +238,5 @@ async function getSearchData() {
 
 export { getTarotCards }
 export { getSearchData }
+export { getArticles }
 export { getFortuneTellings }

@@ -2,6 +2,9 @@
   width: fit-content;
   margin: 0 auto;
 }
+.A_HeadingIndex {
+  top: 0;
+}
 .A_Heading2Grotesk {
   position: relative;
   display: inline-block;
@@ -13,9 +16,13 @@
   text-align: center;
   text-shadow: 0px 0px 12px var(--white);
   color: var(--black);
+  max-width: 60vw;
+  margin: 0 auto;
 }
 .A_Heading2Antiqua {
   position: relative;
+  margin: 0 auto;
+  max-width: 60vw;
   display: inline-block;
   font-family: 'Wremena';
   font-weight: 300;
@@ -199,6 +206,11 @@
       rgba(255, 210, 237, 0) 70.83%,
       var(--pink) 100%
     );
+  }
+}
+#canvas {
+  &.A_CanvasIndex {
+    background: transparent;
   }
 }
 .A_ImageWithGradient {

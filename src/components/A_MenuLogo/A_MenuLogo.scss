@@ -59,17 +59,17 @@
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
   .A_MenuLogo {
-    width: 90vw;
+    // width: 90vw;
     height: 60px;
     background: transparent;
     box-shadow: none;
-    img {
-      width: 100px;
-      height: 20px;
-    }
+    // img {
+    //   width: 100px;
+    //   height: 20px;
+    // }
   }
 }
-@media only screen and (max-device-width: 499px) {
+@media only screen and (max-device-width: 767px) {
   .A_MenuLogo {
     width: fit-content;
     height: 60px;

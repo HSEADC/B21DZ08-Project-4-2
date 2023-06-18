@@ -563,3 +563,8 @@ h1 {
   align-items: center;
   justify-content: center;
 }
+@media only screen and (max-device-width: 499px) {
+  body.index h1 {
+    font-size: 350%;
+  }
+}

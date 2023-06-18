@@ -10,7 +10,7 @@ const path = require('path')
 module.exports = {
   entry: {
     cardoftheday: './src/cardoftheday.jsx',
-    index: './src/index.js',
+    index: './src/index.jsx',
     menu: './src/menubar.jsx',
     about: './src/about.js',
     styleguide: './src/styleguide.js',
@@ -178,7 +178,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/about.html',
       filename: './about.html',
-      chunks: ['menu']
+      chunks: ['index', 'menu', 'mouseeventcard']
     }),
     new HtmlWebpackPlugin({
       template: './src/styleguide.html',

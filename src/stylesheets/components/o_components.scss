@@ -296,9 +296,10 @@
       #f8f6f0 0%,
       rgba(255, 255, 255, 0) 63.54%,
       #f8f6f0 100%,
-      #ff8bec 100%
+      #f8f6f0 100%
     ),
-    #f3b2e9;
+    linear-gradient(0deg, rgba(243, 178, 233, 0.5), rgba(243, 178, 233, 0.5)),
+    #f8f6f0;
   border-radius: 22px 22px 0px 0px;
   .NotShowing {
     display: none;
@@ -491,9 +492,11 @@
   position: relative;
   display: flex;
   margin: 0 auto;
-  gap: 196px;
+  gap: 40px;
   width: 1832px;
   padding-bottom: 60px;
+  flex-direction: row;
+  justify-content: space-between;
   .W_TarotCards {
     width: fit-content;
   }
@@ -508,6 +511,7 @@
   flex-direction: row;
   align-items: center;
   margin: 0 auto;
+  z-index: 101;
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
   .O_Menu {
