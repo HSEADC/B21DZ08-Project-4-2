@@ -299,6 +299,9 @@
     ),
     #313131;
   border-radius: 22px 22px 0px 0px;
+  .NotShowing {
+    display: none;
+  }
   .W_AllArticleCards {
     position: relative;
     display: flex;
