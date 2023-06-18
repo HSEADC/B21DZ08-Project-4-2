@@ -71,8 +71,10 @@
 }
 @media only screen and (max-device-width: 499px) {
   .A_MenuLogo {
-    width: 90vw;
+    width: fit-content;
     height: 60px;
+    position: absolute;
+    top: 0;
     background: transparent;
     box-shadow: none;
   }

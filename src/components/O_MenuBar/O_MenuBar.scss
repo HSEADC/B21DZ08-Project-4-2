@@ -175,22 +175,31 @@
   .O_MenuBar {
     background: linear-gradient(
       180deg,
-      #ff8bec 18.05%,
-      #ffcef7 64.16%,
+      #ffaef2 18.05%,
+      #ffdffa 64.16%,
       rgba(255, 255, 255, 0) 99.69%
     );
     flex-direction: column;
     align-items: center;
     left: 0vw;
     gap: 10px;
+    height: 100px;
     width: 100vw;
-    height: fit-content;
+    // height: fit-content;
+    transition: all 1s ease-out;
     .M_MenuElements {
       flex-direction: column;
       height: fit-content;
       width: 90vw;
+      top: -80vw;
+      position: relative;
+      transition: all 1s ease-out;
+
       &.NotShowing {
         display: none;
+      }
+      &.Shows {
+        top: 65px;
       }
       .Q_MenuStar {
         display: none;
