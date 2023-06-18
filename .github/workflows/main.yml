@@ -21,7 +21,8 @@ jobs:
         git config user.name "okonnaya"
         git config user.email "rin.ramazanova@yandex.com"
         git checkout gh-pages
-        git merge main --no-edit
+        git merge main
+        git push
 
     - name: Use Node.js 14
       uses: actions/setup-node@v2
@@ -36,7 +37,7 @@ jobs:
 
     - name: Push changes
       run: |
-        git add .
+        git add docs
         git commit -am "Merge main and build"
         git push
 
