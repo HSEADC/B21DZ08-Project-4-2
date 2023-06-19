@@ -2,7 +2,6 @@ body.index {
   background: #f8f6f0;
   overflow: overlay;
   overflow-x: hidden;
-  font-family: 'Gramatika Demo';
   cursor: url('./images/cursor.svg'), auto;
   h1 {
     font-size: 550%;
@@ -11,12 +10,6 @@ body.index {
   }
   h2 {
     font-size: 300%;
-    font-family: 'Gramatika Demo';
-    text-align: center;
-  }
-  p {
-    font-size: 120%;
-    margin-top: 1vh;
     font-family: 'Gramatika Demo';
     text-align: center;
   }
@@ -270,8 +263,7 @@ h1 {
       gap: 1vh;
     }
   }
-  .m1_c6 {
-  }
+
   .m2_c6 {
     margin-left: -10vw;
   }
@@ -340,8 +332,6 @@ h1 {
   position: relative;
 
   height: 60vh;
-  .gootransparent {
-  }
 }
 
 .c4_articles {
@@ -362,8 +352,6 @@ h1 {
     top: 0;
     height: auto;
     width: 40vh;
-  }
-  h3 {
   }
   .m2_c4 {
     // display: flex;

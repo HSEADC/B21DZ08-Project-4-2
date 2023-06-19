@@ -171,17 +171,6 @@
   }
 }
 .S_SearchPage {
-  .Q_SearchIcon {
-    background-image: url('./images/Q_SearchIcon.svg');
-    width: 22px;
-    height: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    &.disabled {
-      color: var(--black), 30%;
-    }
-  }
   &:hover {
     cursor: url('./images/pointer.svg'), auto;
   }
@@ -240,6 +229,10 @@
         }
       }
     }
+  }
+  .O_Footer {
+    margin-top: 0;
+    top: 0;
   }
 }
 .O_Footer {
@@ -488,6 +481,12 @@
     margin-top: 100px;
   }
 }
+// .cardoftheday {
+//   .O_Footer {
+//     margin-top: 0;
+//     top: 0;
+//   }
+// }
 .W_BlockOfTarotCards {
   position: relative;
   display: flex;
@@ -697,10 +696,6 @@
     top: 30px;
   }
   .S_SearchPage {
-    .Q_SearchIcon {
-      width: 20px;
-      height: 22px;
-    }
     .C_SearchOutput {
       margin-top: 30px;
       .W_AllFoundContent {
@@ -711,7 +706,7 @@
           .C_FoundArticleCards {
             width: 1355px;
             gap: 25px;
-            margin: 30px auto 90px;
+            margin: 30px auto 60px;
             .M_CardArticle {
               margin-top: 30px auto;
             }
@@ -1215,28 +1210,24 @@
     top: 30px;
   }
   .S_SearchPage {
-    .Q_SearchIcon {
-      width: 20px;
-      height: 22px;
-    }
     .C_SearchOutput {
-      margin-top: 30px;
+      margin-top: 100px;
       .W_AllFoundContent {
-        margin-top: 60px;
+        margin-top: 25px;
         .W_FoundArticlesSection,
         .W_FoundFortuneTellingsSection,
         .W_FoundTarotCardsSection {
           .C_FoundArticleCards {
-            width: 1202px;
-            gap: 22px;
-            margin: 20px auto 40px;
+            width: 695px;
+            gap: 25px;
+            margin: 25px auto 75px;
             .M_CardArticle {
-              margin-top: 30px auto 120px;
+              margin-top: 0px auto 0px;
             }
           }
           .C_FoundTarotCards,
           .C_FoundFortuneTellings {
-            margin: 20px auto 40px;
+            margin: 25px auto 75px;
           }
           .A_Heading3 {
             margin-top: 30px;
@@ -1244,9 +1235,14 @@
         }
       }
     }
+    .O_Footer {
+      margin-top: 0;
+      top: 0;
+    }
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 642px) {
+  /*скролл на категориях!)*/
   .O_Articles,
   .O_FortuneTellings {
     .W_ArticlesCategoriesContainer {
@@ -1365,6 +1361,37 @@
   }
   .W_Menu {
     top: 0px;
+  }
+  .S_SearchPage {
+    .C_SearchOutput {
+      margin-top: 100px;
+      .W_AllFoundContent {
+        margin-top: 25px;
+        .W_FoundArticlesSection,
+        .W_FoundFortuneTellingsSection,
+        .W_FoundTarotCardsSection {
+          .C_FoundArticleCards {
+            width: 455px;
+            gap: 25px;
+            margin: 25px auto 75px;
+            .M_CardArticle {
+              margin-top: 0px auto 0px;
+            }
+          }
+          .C_FoundTarotCards,
+          .C_FoundFortuneTellings {
+            margin: 25px auto 75px;
+          }
+          .A_Heading3 {
+            margin-top: 30px;
+          }
+        }
+      }
+    }
+    .O_Footer {
+      margin-top: 0;
+      top: 0;
+    }
   }
 }
 @media only screen and (max-device-width: 499px) {
@@ -1557,5 +1584,32 @@
   }
   .W_Menu {
     top: 0px;
+  }
+  .S_SearchPage {
+    .C_SearchOutput {
+      margin-top: 80px;
+      .W_AllFoundContent {
+        margin-top: 25px;
+        .W_FoundArticlesSection,
+        .W_FoundFortuneTellingsSection,
+        .W_FoundTarotCardsSection {
+          .C_FoundArticleCards {
+            width: 328px;
+            gap: 8px;
+            margin: 20px auto 50px;
+            .M_CardArticle {
+              margin-top: 0px auto 0px;
+            }
+          }
+          .C_FoundTarotCards,
+          .C_FoundFortuneTellings {
+            margin: 20px auto 50px;
+          }
+          .A_Heading3 {
+            margin-top: 0px;
+          }
+        }
+      }
+    }
   }
 }

@@ -39,11 +39,11 @@ function createArticleCard(contentItemData) {
   
     const contentItemTitle = document.createElement('div')
     contentItemTitle.classList.add('A_Heading5')
-    contentItemTitle.innerText = contentItemData.title
-  
+    contentItemTitle.innerHTML = contentItemData.title
+
     const contentItemDescription = document.createElement('div')
     contentItemDescription.classList.add('A_Paragraph', 'Center')
-    contentItemDescription.innerText = contentItemData.description
+    contentItemDescription.innerHTML = contentItemData.description
   
     contentItem.appendChild(contentItemImage)
     contentItem.appendChild(contentItemTitle)

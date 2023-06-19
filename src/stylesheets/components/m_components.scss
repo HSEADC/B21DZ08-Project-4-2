@@ -313,6 +313,16 @@
   line-height: 58px;
   transition: all 1s ease-out;
   margin: 0 auto;
+  .Q_SearchIcon {
+    background-image: url('./images/Q_SearchIcon.svg');
+    width: 24px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    &.disabled {
+      color: var(--black), 30%;
+    }
+  }
 }
 .M_NothingFound {
   position: relative;
@@ -630,6 +640,10 @@
     padding: 0 10px;
     font-size: 18px;
     line-height: 43px;
+    .Q_SearchIcon {
+      width: 22px;
+      height: 20px;
+    }
   }
   .M_NothingFound {
     margin: 50px auto 100px;
@@ -783,6 +797,22 @@
       }
     }
   }
+  .M_Search {
+    width: 590px;
+    height: 34px;
+    border-radius: 10px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 34px;
+    .Q_SearchIcon {
+      width: 14px;
+      height: 12.25px;
+    }
+  }
+  .M_NothingFound {
+    margin: 25px auto 75px;
+    gap: 14px;
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 642px) {
   /*скролл на категориях!)*/
@@ -812,16 +842,20 @@
     }
   }
   .M_Search {
-    width: 480px;
-    height: 43px;
-    border-radius: 11px;
-    padding: 0 10px;
-    font-size: 18px;
-    line-height: 43px;
+    width: 455px;
+    height: 34px;
+    border-radius: 10px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 34px;
+    .Q_SearchIcon {
+      width: 14px;
+      height: 12.25px;
+    }
   }
   .M_NothingFound {
-    margin: 50px auto 100px;
-    gap: 16px;
+    margin: 25px auto 75px;
+    gap: 14px;
   }
 }
 @media only screen and (max-device-width: 499px) {
@@ -951,5 +985,21 @@
   .M_Description {
     gap: 15px;
     width: 328px;
+  }
+  .M_Search {
+    width: 328px;
+    height: 34px;
+    border-radius: 8px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 34px;
+    .Q_SearchIcon {
+      width: 20px;
+      height: 18px;
+    }
+  }
+  .M_NothingFound {
+    margin: 40px auto 120px;
+    gap: 10px;
   }
 }

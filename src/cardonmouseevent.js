@@ -16,9 +16,9 @@ function draw() {
   canvas.height = vh
   const img = document.getElementById('mousecard')
   canvas.addEventListener('mousemove', function (e) {
-    console.log(`${e.offsetY}`)
-    console.log(`${e.offsetX}`)
-    console.log(vh, vw)
+    // console.log(`${e.offsetY}`)
+    // console.log(`${e.offsetX}`)
+    // console.log(vh, vw)
     ctx.drawImage(img, e.offsetX - vw / 100, e.offsetY - vh / 100, 50, 70)
     ctx.drawImage(img, vw - e.offsetX - vw / 100, e.offsetY - vh / 100, 50, 70)
   })

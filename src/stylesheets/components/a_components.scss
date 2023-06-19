@@ -459,13 +459,13 @@
     border-radius: 12px;
   }
   .A_SearchInput {
-    height: 43px;
-    width: 400px;
-    font-size: 18px;
-    line-height: 43px;
+    height: 34px;
+    width: 520px;
+    font-size: 14px;
+    line-height: 34px;
     &::placeholder {
-      font-size: 18px;
-      line-height: 43px;
+      font-size: 14px;
+      line-height: 34px;
     }
   }
 }
@@ -477,6 +477,9 @@
     width: 458px;
     height: 244px;
     border-radius: 8px;
+  }
+  .A_SearchInput {
+    width: 420px;
   }
 }
 
@@ -533,5 +536,15 @@
     width: 328px;
     height: 180px;
     border-radius: 8px;
+  }
+  .A_SearchInput {
+    height: 34px;
+    width: 300px;
+    font-size: 14px;
+    line-height: 34px;
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
   }
 }
