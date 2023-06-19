@@ -32,6 +32,10 @@ const menu = [
   {
     text: 'карта дня',
     url: '/cardoftheday.html'
+  },
+  {
+    text: 'о нас',
+    url: '/about.html'
   }
 ]
 
@@ -114,6 +118,8 @@ export default class O_MenuBar extends React.Component {
           <A_MenuElement text={menu[3].text} url={menu[3].url} current={current} logo={false} wrapper='W_MenuElement3'/>
           <div className="Q_MenuStar Black"></div>
           <A_MenuElement text={menu[4].text} url={menu[4].url} current={current} logo={false} wrapper='W_MenuElement4'/>
+          <div className="Q_MenuStar Black"></div>
+          <A_MenuElement text={menu[5].text} url={menu[5].url} current={current} logo={false} wrapper='W_MenuElement5'/>
         </div>
         <M_SearchBar
           onFocus={this.handleFocus}
