@@ -45,51 +45,99 @@
   <body class="index">
     <div id="app"></div>
     <menu></menu>
-    <div
-      class="helpingone"
-      style="
-        width: 100vw;
-        z-index: 100;
-        position: relative;
-        pointer-events: none;
-      "
-    >
-      <h1>
-        <div class="gootransparent" id="section-1">
-          расклад&nbsp;&mdash; это твоя <br />лучшая подружка <br /><span
-            class="prikolfont"
-            >в&nbsp;мире таро</span
-          >
+    <div class="M_MainHeading">
+      <div class="W_MainHeading">
+        <div class="W_Heading1">
+          <div class="W_Heading1Part">
+            <div class="A_Heading1Grotesk">расклад&nbsp;&mdash;</div>
+            <div class="A_Heading1Grotesk">это твоя</div>
+          </div>
+          <br />
+          <div class="W_Heading1Part">
+            <div class="A_Heading1Antiqua">лучшая</div>
+            <div class="A_Heading1Antiqua">подружка</div>
+          </div>
+          <br />
+          <div class="A_Heading1Grotesk">в&nbsp;мире таро</div>
           <br />
           <br />
           <br />
-          <br /><span
-            class="prikolfont button12"
-            onclick="location='fortunetellings.html'"
-            style="pointer-events: auto"
-            >погадать</span
+          <br />
+          <br class="invisible" />
+          <br class="invisible" />
+          <br class="invisible" />
+          <br class="invisible" />
+          <a href="fortunetellings.html"
+            ><div class="A_AccentButtonTarotTellings">погадать</div></a
           >
         </div>
-      </h1>
+      </div>
     </div>
-    <canvas id="canvas"
+    <!-- <canvas id="canvas"
       ><img id="mousecard" src="images/mousecard.png" alt=""
-    /></canvas>
-    <div class="с2_landingpage" id="section-2" style="pointer-events: none">
-      <img class="starsvg1 rotate" src="images/star53.svg" alt="" />
-      <img class="starsvg1 rotate" src="images/star53.svg" alt="" />
-      <h2>
-        медиа о&nbsp;таро для зумерок, сочетающее в&nbsp;себе онлайн-гадания
-        в&nbsp;различных форматах, актуальные статьи <br />
-        <span class="prikolfont"
-          >о&nbsp;культуре таро <br />и&nbsp;справочник с&nbsp;трактовками
-          карт</span
-        >
-      </h2>
-      <img class="starsvg1 rotate" src="images/star53.svg" alt="" />
-      <img class="starsvg1 rotate" src="images/star53.svg" alt="" />
+    /></canvas> -->
+    <div class="M_Header">
+      <div class="W_HeaderText">
+        <div class="Q_MenuStar Stroke Big"></div>
+        <div class="Q_MenuStar Stroke Big"></div>
+        <div class="W_HeaderHeading">
+          <div class="A_Heading2Grotesk">
+            медиа о&nbsp;таро для зумерок, сочетающее в&nbsp;себе онлайн-гадания
+            в&nbsp;различных форматах,
+          </div>
+          <div class="A_Heading2Antiqua">
+            актуальные статьи о&nbsp;культуре таро и&nbsp;справочник
+            с&nbsp;трактовками карт
+          </div>
+        </div>
+        <div class="Q_MenuStar Stroke Big"></div>
+        <div class="Q_MenuStar Stroke Big"></div>
+      </div>
     </div>
-    <div class="c3_landingpage" id="section-3">
+    <div class="M_MainHeading ver2">
+      <div class="Q_MenuStar Stroke Big"></div>
+      <div class="Q_MenuStar Stroke Big"></div>
+      <div class="W_MainHeading">
+        <div class="W_Heading1">
+          <div class="W_Heading1Part">
+            <div class="A_Heading1Grotesk">никакой</div>
+            <div class="A_Heading1Grotesk">магии</div>
+          </div>
+          <br />
+          <div class="A_Heading1Grotesk">и&nbsp;псевдонаук:</div>
+          <br />
+          <div class="A_Heading1Grotesk">только</div>
+          <br />
+          <div class="A_Heading1Antiqua">ассоциации</div>
+          <br />
+          <div class="W_Heading1Part">
+            <div class="A_Heading1Grotesk">только</div>
+            <div class="A_Heading1Grotesk">игра</div>
+          </div>
+        </div>
+      </div>
+      <div class="Q_MenuStar Stroke Big"></div>
+      <div class="Q_MenuStar Stroke Big"></div>
+    </div>
+    <!-- <div class="M_TarotCardLandingVersion">
+      <div class="W_TarotCardShadow">
+        <div class="W_TarotCardInside">
+          <div class="A_HighlightHeading4"></div>
+          <br />
+          <br />
+          <div class="A_TarotCardImage"></div>
+          <br />
+          <A_HighlightHeading4
+            none="{none}"
+            texttype="Antiqua"
+            text="{line1}"
+          />
+          <br />
+          <A_HighlightHeading4 texttype="Grotesk" text="{line2}" />
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="c3_landingpage" id="section-3">
       <img
         class="m_cardlanding buttoncard"
         src="images/m1_cardlanding.svg"
@@ -225,7 +273,7 @@
           >
         </div>
       </h1>
-    </div>
+    </div> -->
     <footer></footer>
 
     <svg
@@ -237,7 +285,7 @@
     >
       <defs>
         <filter id="goo">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
           <feColorMatrix
             in="blur"
             mode="matrix"

@@ -1,3 +1,45 @@
+.M_MainHeading {
+  z-index: 1;
+  position: relative;
+  display: block;
+  text-align: center;
+  top: 200px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  .W_Heading1,
+  .W_Heading1Part {
+    position: relative;
+    display: inline;
+    width: fit-content;
+    text-align: center;
+    filter: url('#goo');
+    box-decoration-break: clone;
+    font-size: 82px;
+    line-height: 128%;
+    background: var(--white);
+    padding: 15px;
+    filter: url(#goo);
+    box-shadow: none;
+    .A_AccentButtonTarotTellings {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      left: 0;
+      top: -12px;
+    }
+  }
+  .invisible {
+    display: none;
+  }
+  .Q_MenuStar {
+    position: relative;
+    margin: 40px auto;
+    &:hover {
+      animation: rotate 0.5s infinite linear;
+    }
+  }
+}
 .M_ArticlesCategories {
   position: relative;
   display: flex;
@@ -268,6 +310,13 @@
     justify-content: center;
     gap: 8px;
   }
+  .Q_MenuStar {
+    position: relative;
+    margin: 0 auto;
+    &:hover {
+      animation: rotate 0.5s infinite linear;
+    }
+  }
 }
 .M_Content {
   position: relative;
@@ -336,7 +385,27 @@
     position: relative;
   }
 }
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_MainHeading {
+    top: 180px;
+    .W_Heading1,
+    .W_Heading1Part {
+      font-size: 70px;
+      line-height: 120%;
+      padding: 12px;
+      .A_AccentButtonTarotTellings {
+        top: -12px;
+      }
+    }
+  }
   .M_ArticlesCategories {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -495,6 +564,18 @@
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_MainHeading {
+    top: 170px;
+    .W_Heading1,
+    .W_Heading1Part {
+      font-size: 65px;
+      line-height: 100%;
+      padding: 10px;
+      .A_AccentButtonTarotTellings {
+        top: -9px;
+      }
+    }
+  }
   .M_ArticlesCategories {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -653,6 +734,24 @@
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_MainHeading {
+    top: 150px;
+    .W_Heading1,
+    .W_Heading1Part {
+      font-size: 55px;
+      line-height: 100%;
+      padding: 10px;
+      .W_Heading1Part {
+        padding: 2px 10px 10px;
+      }
+      .A_AccentButtonTarotTellings {
+        top: -8px;
+      }
+    }
+    .invisible {
+      display: block;
+    }
+  }
   .M_ArticlesCategories {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -824,6 +923,16 @@
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
+  .M_MainHeading {
+    width: 400px;
+    .W_Heading1,
+    .W_Heading1Part {
+      line-height: 89%;
+    }
+    &.ver2 {
+      width: 490px;
+    }
+  }
   .M_Content {
     flex-direction: column;
     gap: 25px;
@@ -860,6 +969,25 @@
 }
 @media only screen and (max-device-width: 499px) {
   /* Phone */
+  .M_MainHeading {
+    top: 130px;
+    width: 320px;
+    .W_Heading1,
+    .W_Heading1Part {
+      font-size: 47px;
+      line-height: 95%;
+      padding: 9px;
+      .W_Heading1Part {
+        padding: 0px 4px 4px;
+      }
+      .A_AccentButtonTarotTellings {
+        top: -6px;
+      }
+    }
+    .invisible {
+      display: block;
+    }
+  }
   .M_Header {
     background: none;
     .W_HeaderText {

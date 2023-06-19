@@ -5,6 +5,36 @@
 .A_HeadingIndex {
   top: 0;
 }
+.A_Heading1Grotesk {
+  position: relative;
+  display: inline-block;
+  font-family: 'Gramatika Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 134px;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+  margin: 0 auto;
+  div {
+    display: inline-block;
+  }
+}
+.A_Heading1Antiqua {
+  position: relative;
+  margin: 0 auto;
+  display: inline-block;
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 156px;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+  div {
+    display: inline-block;
+  }
+}
 .A_Heading2Grotesk {
   position: relative;
   display: inline-block;
@@ -276,12 +306,22 @@
     background-image: url('images/Q_MenuStarWhite.svg');
     background-size: contain;
   }
+  &.Stroke {
+    background-image: url('images/Q_StrokeStar.svg');
+    background-size: contain;
+  }
   &.Big {
     width: 40px;
     height: 40px;
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_Heading1Grotesk {
+    font-size: 122px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 130px;
+  }
   .A_Heading2Grotesk {
     font-size: 78px;
   }
@@ -341,9 +381,21 @@
       line-height: 47px;
     }
   }
+  .Q_MenuStar {
+    &.Big {
+      width: 32px;
+      height: 32px;
+    }
+  }
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_Heading1Grotesk {
+    font-size: 100px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 106px;
+  }
   .A_Heading2Grotesk {
     font-size: 66px;
   }
@@ -402,6 +454,12 @@
       line-height: 43px;
     }
   }
+  .Q_MenuStar {
+    &.Big {
+      width: 28px;
+      height: 28px;
+    }
+  }
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
@@ -409,6 +467,12 @@
 }
 
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_Heading1Grotesk {
+    font-size: 74px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 76px;
+  }
   .A_Heading2Grotesk {
     font-size: 46px;
   }
@@ -468,11 +532,23 @@
       line-height: 34px;
     }
   }
+  .Q_MenuStar {
+    &.Big {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
-
+@media only screen and (min-width: 500px) and (max-width: 642px) {
+}
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
-
+  // .A_Heading1Grotesk {
+  //   max-width: 400px;
+  // }
+  // .A_Heading1Antiqua {
+  //   max-width: 400px;
+  // }
   .A_ImageWithGradient {
     width: 458px;
     height: 244px;
@@ -484,6 +560,12 @@
 }
 
 @media only screen and (max-device-width: 499px) {
+  .A_Heading1Grotesk {
+    font-size: 52px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 54px;
+  }
   .A_Heading2Grotesk {
     font-size: 36px;
     width: fit-content;
@@ -545,6 +627,12 @@
     &::placeholder {
       font-size: 14px;
       line-height: 34px;
+    }
+  }
+  .Q_MenuStar {
+    &.Big {
+      width: 16px;
+      height: 16px;
     }
   }
 }

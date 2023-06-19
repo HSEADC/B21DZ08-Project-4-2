@@ -4,3 +4,7 @@
 @import 'stylesheets/basics.scss';
 @import 'stylesheets/about.scss';
 @import 'stylesheets/responsive.scss';
+@import 'stylesheets/components/a_components.scss';
+@import 'stylesheets/components/m_components.scss';
+@import 'stylesheets/components/o_components.scss';
+@import 'stylesheets/components/so_components.scss';
