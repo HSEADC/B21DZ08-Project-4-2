@@ -173,7 +173,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/about.html',
       filename: './about.html',
-      chunks: ['index', 'menu', 'mouseeventcard']
+      chunks: ['menu', 'mouseeventcard', 'about']
     }),
     new HtmlWebpackPlugin({
       template: './src/styleguide.html',

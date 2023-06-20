@@ -16,9 +16,9 @@
     filter: url('#goo');
     box-decoration-break: clone;
     font-size: 82px;
-    line-height: 128%;
+    // line-height: 128%;
     background: var(--white);
-    padding: 15px;
+    padding: 24px;
     filter: url(#goo);
     box-shadow: none;
     .A_AccentButtonTarotTellings {
@@ -26,18 +26,112 @@
       display: inline-block;
       margin: 0 auto;
       left: 0;
-      top: -12px;
+      top: -6px;
     }
   }
   .invisible {
     display: none;
   }
+}
+.S_About {
+  background-color: var(--white);
+}
+.O_Section2 {
+  .M_Header {
+    margin: 300px auto 150px;
+    background: transparent;
+    .W_HeaderText {
+      padding: 0;
+    }
+  }
+}
+.O_Section4 {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: fit-content;
+  padding: 100px 0 200px;
+  border-radius: 22px;
+  background: radial-gradient(
+      33.92% 33.92% at 50% 100%,
+      #f8f6f0 0%,
+      rgba(248, 246, 240, 0) 100%
+    ),
+    radial-gradient(
+        108.95% 108.95% at 50% 0%,
+        #f8f6f0 0%,
+        rgba(255, 139, 236, 0) 100%
+      )
+      #ffa9e7;
+  .A_Heading2Grotesk {
+    display: block;
+    margin: 0 auto;
+  }
+  .C_AccentNumbers {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    width: fit-content;
+    margin: 175px auto;
+    .W_TwoAndThree {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      align-items: center;
+      width: fit-content;
+    }
+  }
+}
+.O_Section5 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  gap: 30px;
+  top: 0;
+  margin-top: 500px;
+  .M_MainHeading {
+    top: 0px;
+    margin: 0 auto;
+  }
   .Q_MenuStar {
     position: relative;
-    margin: 40px auto;
     &:hover {
       animation: rotate 0.5s infinite linear;
     }
+  }
+}
+.O_Section7 {
+  display: flex;
+  position: relative;
+  top: 7vh;
+  left: 2vw;
+  width: 96vw;
+  height: 100vh;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .c1_c7,
+  .c3_c7 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+  }
+  .m1_c7,
+  .m2_c7 {
+    height: 50vh;
+    width: auto;
+    margin-bottom: 0;
+    top: 0;
+  }
+  .M_Header {
+    background: transparent;
   }
 }
 .M_ArticlesCategories {
@@ -385,6 +479,37 @@
     position: relative;
   }
 }
+.M_TextPoint {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  width: 740px;
+  height: fit-content;
+  .M_Header {
+    background: transparent;
+  }
+  .A_Paragraph {
+    width: 428px;
+  }
+}
+.W_FlexTextPoint {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 196px;
+  .M_TextPoint {
+    margin-top: 320px;
+  }
+  img {
+    position: relative;
+    height: fit-content;
+  }
+}
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -393,16 +518,67 @@
     transform: rotate(360deg);
   }
 }
+.M_AccentNumber {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: fit-content;
+  height: fit-content;
+  .W_AccentNumberHead {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 240px;
+    height: 240px;
+    background: url('./images/Q_AccentNumberBg.svg');
+    background-position: center;
+    background-size: contain;
+  }
+  .A_Heading2Antiqua {
+    color: var(--white);
+  }
+  .A_Heading3 {
+    width: 584px;
+    text-align: center;
+  }
+}
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .O_Section4 {
+    padding: 100px 0 140px;
+    border-radius: 16px;
+    .C_AccentNumbers {
+      gap: 25px;
+      margin: 100px auto;
+      .W_TwoAndThree {
+        gap: 25px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 260px auto 80px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 25px;
+    top: 0;
+    margin-top: 200px;
+  }
   .M_MainHeading {
     top: 180px;
     .W_Heading1,
     .W_Heading1Part {
       font-size: 70px;
-      line-height: 120%;
-      padding: 12px;
+      padding: 16px;
       .A_AccentButtonTarotTellings {
-        top: -12px;
+        top: -6px;
       }
     }
   }
@@ -562,17 +738,69 @@
     margin: 60px auto 120px;
     gap: 18px;
   }
+  .M_AccentNumber {
+    gap: 40px;
+    .W_AccentNumberHead {
+      width: 205px;
+      height: 205px;
+    }
+    .A_Heading3 {
+      width: 435px;
+    }
+  }
+  .M_TextPoint {
+    gap: 35px;
+    width: 550px;
+    .A_Paragraph {
+      width: 435px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 95px;
+    .M_TextPoint {
+      margin-top: 180px;
+    }
+    img {
+      width: 665px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .O_Section4 {
+    padding: 70px 0 110px;
+    border-radius: 14px;
+    .C_AccentNumbers {
+      gap: 22px;
+      margin: 75px auto;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 230px auto 60px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 25px;
+    top: 0;
+    margin-top: 120px;
+  }
   .M_MainHeading {
     top: 170px;
     .W_Heading1,
     .W_Heading1Part {
       font-size: 65px;
       line-height: 100%;
-      padding: 10px;
+      padding: 12px;
       .A_AccentButtonTarotTellings {
-        top: -9px;
+        top: -3px;
       }
     }
   }
@@ -730,10 +958,129 @@
     margin: 50px auto 100px;
     gap: 16px;
   }
+  .M_AccentNumber {
+    gap: 35px;
+    .W_AccentNumberHead {
+      width: 182px;
+      height: 182px;
+    }
+    .A_Heading3 {
+      width: 386px;
+    }
+  }
+  .M_TextPoint {
+    gap: 25px;
+    width: 488px;
+    .A_Paragraph {
+      width: 386px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 60px;
+    .M_TextPoint {
+      margin-top: 130px;
+    }
+    img {
+      width: 590px;
+    }
+  }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
+  .O_Section4 {
+    padding: 70px 0 110px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 75px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .M_TextPoint {
+    margin-top: 70px;
+    gap: 25px;
+    width: 488px;
+    .A_Paragraph {
+      width: 386px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 25px;
+    width: 688px;
+    flex-direction: column;
+    &.ReverseColumn {
+      flex-direction: column-reverse;
+    }
+    .LeftSelf {
+      align-self: flex-start;
+    }
+    .RightSelf {
+      align-self: flex-end;
+    }
+    img {
+      align-self: center;
+      width: 590px;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_TextPoint {
+    gap: 20px;
+    width: 335px;
+    .A_Paragraph {
+      width: 215px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 40px;
+    width: 500px;
+    flex-direction: column;
+    &.ReverseColumn {
+      flex-direction: column-reverse;
+    }
+    .LeftSelf {
+      align-self: flex-start;
+    }
+    .RightSelf {
+      align-self: flex-end;
+    }
+    img {
+      align-self: center;
+      width: 500px;
+    }
+    .M_TextPoint {
+      margin-top: 25px;
+    }
+  }
+  .O_Section4 {
+    padding: 120px 0 140px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 185px auto 45px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 12px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 20px;
+    top: 0;
+    margin-top: 120px;
+  }
   .M_MainHeading {
     top: 150px;
     .W_Heading1,
@@ -745,7 +1092,7 @@
         padding: 2px 10px 10px;
       }
       .A_AccentButtonTarotTellings {
-        top: -8px;
+        top: -3px;
       }
     }
     .invisible {
@@ -912,6 +1259,16 @@
     margin: 25px auto 75px;
     gap: 14px;
   }
+  .M_AccentNumber {
+    gap: 10px;
+    .W_AccentNumberHead {
+      width: 167px;
+      height: 167px;
+    }
+    .A_Heading3 {
+      width: 331px;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 642px) {
   /*скролл на категориях!)*/
@@ -923,14 +1280,24 @@
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
+  .O_Section4 {
+    padding: 120px 0 140px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+        flex-direction: column;
+      }
+    }
+  }
   .M_MainHeading {
-    width: 400px;
+    width: 490px;
     .W_Heading1,
     .W_Heading1Part {
       line-height: 89%;
-    }
-    &.ver2 {
-      width: 490px;
     }
   }
   .M_Content {
@@ -966,9 +1333,95 @@
     margin: 25px auto 75px;
     gap: 14px;
   }
+  .M_TextPoint {
+    gap: 20px;
+    width: 335px;
+    .A_Paragraph {
+      width: 215px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 40px;
+    width: 500px;
+    flex-direction: column;
+    margin: 50px auto;
+    &.ReverseColumn {
+      flex-direction: column-reverse;
+    }
+    .LeftSelf {
+      align-self: center;
+    }
+    .RightSelf {
+      align-self: center;
+    }
+    img {
+      align-self: center;
+      width: 500px;
+    }
+    .M_TextPoint {
+      margin-top: 25px;
+    }
+  }
 }
 @media only screen and (max-device-width: 499px) {
   /* Phone */
+  .O_Section4 {
+    padding: 60px 0 120px;
+    border-radius: 8px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 70px;
+        flex-direction: column;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 20px;
+    top: 0;
+    margin-top: 90px;
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 185px auto 45px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .M_TextPoint {
+    gap: 15px;
+    width: 235px;
+    .A_Paragraph {
+      width: 215px;
+    }
+  }
+  .W_FlexTextPoint {
+    gap: 40px;
+    width: 328px;
+    flex-direction: column;
+    margin: 50px auto;
+    &.ReverseColumn {
+      flex-direction: column-reverse;
+    }
+    .LeftSelf {
+      align-self: center;
+    }
+    .RightSelf {
+      align-self: center;
+    }
+    img {
+      align-self: center;
+      width: 328px;
+    }
+    .M_TextPoint {
+      margin-top: 25px;
+    }
+  }
   .M_MainHeading {
     top: 130px;
     width: 320px;
@@ -981,7 +1434,7 @@
         padding: 0px 4px 4px;
       }
       .A_AccentButtonTarotTellings {
-        top: -6px;
+        top: -2px;
       }
     }
     .invisible {
@@ -1129,5 +1582,15 @@
   .M_NothingFound {
     margin: 40px auto 120px;
     gap: 10px;
+  }
+  .M_AccentNumber {
+    gap: 0px;
+    .W_AccentNumberHead {
+      width: 121px;
+      height: 121px;
+    }
+    .A_Heading3 {
+      width: 227px;
+    }
   }
 }
