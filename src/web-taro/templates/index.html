@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taro Prediction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/predict',
+                    data: formData,
+                    success: function(response) {
+                        if (response.error) {
+                            $('#result').html(response.error);
+                        } else {
+                            $('#result').html(response.names + '<br>' + response.prediction);
+                        }
+                    },
+                    error: function() {
+                        $('#result').html('Произошла ошибка');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Taro Prediction</h1>
+    <form>
+        <input type="text" name="message" placeholder="Введите сообщение">
+        <button type="submit">Предсказать</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>

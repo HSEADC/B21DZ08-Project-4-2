@@ -1,0 +1,128 @@
+.S_SearchPage {
+  .O_Search {
+    position: relative;
+    width: 891px;
+    height: 58px;
+    background: var(--white);
+    box-shadow: 0px 6px 9px var(--blackshadow);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+    transition: all 1s ease-out;
+    margin: 0 auto;
+  }
+  .Q_SearchIcon {
+    background-image: url('./images/Q_SearchIcon.svg');
+    width: 22px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &.disabled {
+      color: var(--black), 30%;
+    }
+  }
+  .A_SearchInput {
+    height: 58px;
+    width: 830px;
+    border: none;
+    background: transparent;
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+    cursor: url('./images/pointer.svg'), auto;
+
+    &::placeholder {
+      font-family: 'Gramatika Demo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      line-height: 58px;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &:hover {
+    cursor: url('./images/pointer.svg'), auto;
+  }
+  .C_SearchOutput {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    .W_SearchedContent {
+      position: relative;
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+      .O_SearchedArticles,
+      .O_SearchedFortuneTellings,
+      .O_SearchedTarotCards {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: radial-gradient(
+            117.87% 117.87% at 51.17% 0%,
+            #f8f6f0 13.54%,
+            #ff8bec 100%
+          ),
+          #313131;
+        border-radius: 22px 22px 0px 0px;
+        margin-bottom: -22px;
+        .W_SearchedArticleCards {
+          position: relative;
+          width: fit-content;
+          height: fit-content;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 40px;
+          margin: 40px auto;
+          .M_CardArticle {
+            margin-top: 40px auto;
+          }
+        }
+        .A_Heading3 {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (max-device-width: 499px) {
+}

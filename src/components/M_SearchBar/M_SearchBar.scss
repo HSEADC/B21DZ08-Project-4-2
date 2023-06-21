@@ -1,0 +1,135 @@
+.M_SearchBar {
+  width: 136px;
+  height: 58px;
+  background: var(--white);
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  transition: all 1s ease-out;
+  &.Modify {
+    height: fit-content;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+  }
+  &:hover {
+    cursor: url('./../../images/pointer.svg'), auto;
+  }
+  &.Active {
+    width: 352px;
+    transition: all 1s ease-out;
+    .A_Input {
+      width: 280px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .M_SearchBar {
+    width: 111.5px;
+    height: 47px;
+    box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 0 15px;
+    font-size: 20px;
+    line-height: 47px;
+    &.Active {
+      width: 253px;
+      .A_Input {
+        width: 200px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .M_SearchBar {
+    width: 98px;
+    height: 43px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 11px;
+    padding: 0 13px;
+    font-size: 18px;
+    line-height: 43px;
+    &.Active {
+      width: 231px;
+      .A_Input {
+        width: 190px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  /*только смена количества колонок*/
+}
+@media only screen and (min-width: 500px) and (max-width: 959px) {
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+    &.Active {
+      width: 188px;
+      .A_Input {
+        width: 150px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 767px) {
+  /*только смена количества колонок*/
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+    &.NotShowing {
+      display: none;
+    }
+    &.Active {
+      width: 60vw;
+      .A_Input {
+        width: 50vw;
+      }
+    }
+  }
+}
+@media only screen and (max-device-width: 767px) {
+  .M_SearchBar {
+    width: 82.25px;
+    height: 34px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 34px;
+    top: -80vw;
+    position: relative;
+    &.NotShowing {
+      display: none;
+    }
+    &.Shows {
+      top: 65px;
+    }
+    &.Active {
+      width: 60vw;
+      .A_Input {
+        width: 50vw;
+      }
+    }
+  }
+}

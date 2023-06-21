@@ -1,3 +1,40 @@
+.CardContainer {
+  width: fit-content;
+  margin: 0 auto;
+}
+.A_HeadingIndex {
+  top: 0;
+}
+.A_Heading1Grotesk {
+  position: relative;
+  display: inline-block;
+  font-family: 'Gramatika Demo';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 134px;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+  margin: 0 auto;
+  div {
+    display: inline-block;
+  }
+}
+.A_Heading1Antiqua {
+  position: relative;
+  margin: 0 auto;
+  display: inline-block;
+  font-family: 'Wremena';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 156px;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+  div {
+    display: inline-block;
+  }
+}
 .A_Heading2Grotesk {
   position: relative;
   display: inline-block;
@@ -9,9 +46,13 @@
   text-align: center;
   text-shadow: 0px 0px 12px var(--white);
   color: var(--black);
+  max-width: 60vw;
+  margin: 0 auto;
 }
 .A_Heading2Antiqua {
   position: relative;
+  margin: 0 auto;
+  max-width: 60vw;
   display: inline-block;
   font-family: 'Wremena';
   font-weight: 300;
@@ -74,7 +115,7 @@
   font-weight: 300;
   font-style: normal;
   font-size: 24px;
-  line-height: 90%;
+  line-height: 105%;
   color: var(--black);
   &.Left {
     text-align: left;
@@ -99,7 +140,8 @@
 .A_AccentButtonTarotTellings {
   position: relative;
   width: 352px;
-  height: 87px;
+  padding: 8px;
+  height: 110px;
   left: calc((100% - 352px) / 2);
   background: var(--black);
   box-shadow: 0px 6px 9px var(--blackshadow), inset 0px 4px 10px var(--white);
@@ -196,15 +238,10 @@
     );
   }
 }
-.A_TarotCardIcon {
-  background-color: var(--white);
-}
-.A_TarotCardImage {
-  width: 160px;
-  height: 160px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: var(--white);
+#canvas {
+  &.A_CanvasIndex {
+    background: transparent;
+  }
 }
 .A_ImageWithGradient {
   position: relative;
@@ -235,15 +272,56 @@
     z-index: 1;
   }
 }
-.Q_MenuStar.Black {
-  background-image: url('images/Q_MenuStar.svg');
-  background-size: contain;
+.A_SearchInput {
+  height: 58px;
+  width: 830px;
+  border: none;
+  background: transparent;
+  font-family: 'Gramatika Demo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--black);
+  line-height: 58px;
+  cursor: url('./images/pointer.svg'), auto;
+
+  &::placeholder {
+    font-family: 'Gramatika Demo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--black);
+    line-height: 58px;
+  }
+  &:focus {
+    outline: none;
+  }
 }
-.Q_MenuStar.White {
-  background-image: url('images/Q_MenuStarWhite.svg');
-  background-size: contain;
+.Q_MenuStar {
+  &.Black {
+    background-image: url('images/Q_MenuStar.svg');
+    background-size: contain;
+  }
+  &.White {
+    background-image: url('images/Q_MenuStarWhite.svg');
+    background-size: contain;
+  }
+  &.Stroke {
+    background-image: url('images/Q_StrokeStar.svg');
+    background-size: contain;
+  }
+  &.Big {
+    width: 40px;
+    height: 40px;
+  }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .A_Heading1Grotesk {
+    font-size: 122px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 130px;
+  }
   .A_Heading2Grotesk {
     font-size: 78px;
   }
@@ -267,7 +345,7 @@
   }
   .A_AccentButtonTarotTellings {
     width: 253px;
-    height: 62px;
+    height: 78px;
     left: calc((100% - 253px) / 2);
     border-radius: 9px;
     font-size: 46px;
@@ -287,20 +365,37 @@
   .A_CardArticleImage {
     border-radius: 11px;
   }
-  .A_TarotCardImage {
-    width: 170px;
-    height: 170px;
-    padding: 7px;
-    border-radius: 0px;
-  }
   .A_ImageWithGradient {
     width: 895px;
     height: 470px;
     border-radius: 12px;
   }
+  .A_SearchInput {
+    height: 47px;
+    width: 580px;
+    font-size: 20px;
+    line-height: 47px;
+    &::placeholder {
+      font-size: 20px;
+      color: var(--black);
+      line-height: 47px;
+    }
+  }
+  .Q_MenuStar {
+    &.Big {
+      width: 32px;
+      height: 32px;
+    }
+  }
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .A_Heading1Grotesk {
+    font-size: 100px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 106px;
+  }
   .A_Heading2Grotesk {
     font-size: 66px;
   }
@@ -318,7 +413,7 @@
   }
   .A_AccentButtonTarotTellings {
     width: 231px;
-    height: 57px;
+    height: 73px;
     left: calc((100% - 231px) / 2);
     border-radius: 9px;
     font-size: 42px;
@@ -344,16 +439,26 @@
   .A_CardArticleImage {
     border-radius: 10px;
   }
-  .A_TarotCardImage {
-    width: 158px;
-    height: 158px;
-    padding: 7px;
-    border-radius: 0px;
-  }
   .A_ImageWithGradient {
     width: 794px;
     height: 420px;
     border-radius: 12px;
+  }
+  .A_SearchInput {
+    height: 43px;
+    width: 520px;
+    font-size: 18px;
+    line-height: 43px;
+    &::placeholder {
+      font-size: 18px;
+      line-height: 43px;
+    }
+  }
+  .Q_MenuStar {
+    &.Big {
+      width: 28px;
+      height: 28px;
+    }
   }
 }
 
@@ -362,6 +467,12 @@
 }
 
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .A_Heading1Grotesk {
+    font-size: 74px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 76px;
+  }
   .A_Heading2Grotesk {
     font-size: 46px;
   }
@@ -385,7 +496,7 @@
   }
   .A_AccentButtonTarotTellings {
     width: 188px;
-    height: 46px;
+    height: 60px;
     left: calc((100% - 188px) / 2);
     border-radius: 8px;
     font-size: 34px;
@@ -406,36 +517,60 @@
   .A_CardArticleImage {
     border-radius: 8px;
   }
-  .A_TarotCardImage {
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border-radius: 0px;
-  }
-  .A_TarotCardNumber {
-    font-size: 23px;
-    padding: 0 5px;
-  }
   .A_ImageWithGradient {
     width: 695px;
     height: 370px;
     border-radius: 12px;
   }
+  .A_SearchInput {
+    height: 34px;
+    width: 520px;
+    font-size: 14px;
+    line-height: 34px;
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
+  }
+  .Q_MenuStar {
+    &.Big {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
-
+@media only screen and (min-width: 500px) and (max-width: 642px) {
+}
 @media only screen and (min-width: 500px) and (max-width: 767px) {
   /*только смена количества колонок*/
-
+  // .A_Heading1Grotesk {
+  //   max-width: 400px;
+  // }
+  // .A_Heading1Antiqua {
+  //   max-width: 400px;
+  // }
   .A_ImageWithGradient {
     width: 458px;
     height: 244px;
     border-radius: 8px;
   }
+  .A_SearchInput {
+    width: 420px;
+  }
 }
 
 @media only screen and (max-device-width: 499px) {
+  .A_Heading1Grotesk {
+    font-size: 52px;
+  }
+  .A_Heading1Antiqua {
+    font-size: 54px;
+  }
   .A_Heading2Grotesk {
     font-size: 36px;
+    width: fit-content;
+    max-width: 80vw;
+    margin: 0 auto;
   }
   .A_Heading2Antiqua {
     font-size: 36px;
@@ -459,7 +594,7 @@
   .A_AccentButtonTarotTellings {
     margin-bottom: 60vh;
     width: 188px;
-    height: 46px;
+    height: 60px;
     left: calc((100% - 188px) / 2);
     border-radius: 8px;
     font-size: 34px;
@@ -479,15 +614,25 @@
   .A_CardArticleImage {
     border-radius: 8px;
   }
-  .A_TarotCardImage {
-    width: 88px;
-    height: 88px;
-    padding: 5px;
-    border-radius: 0px;
-  }
   .A_ImageWithGradient {
     width: 328px;
     height: 180px;
     border-radius: 8px;
+  }
+  .A_SearchInput {
+    height: 34px;
+    width: 300px;
+    font-size: 14px;
+    line-height: 34px;
+    &::placeholder {
+      font-size: 14px;
+      line-height: 34px;
+    }
+  }
+  .Q_MenuStar {
+    &.Big {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
