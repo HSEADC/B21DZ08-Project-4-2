@@ -1,43 +1,46 @@
-name: Merge and build
+# name: Merge and build
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  merge-and-build:
-    runs-on: ubuntu-latest
+# jobs:
+#   merge-and-build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        ref: main
-        fetch-depth: 0  # Fetches all history for all branches and tags
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#         with:
+#           ref: main
+#           fetch-depth: 0 # Fetches all history for all branches and tags
 
-    - name: Merge to gh-pages branch
-      run: |
-        git config user.name "okonnaya"
-        git config user.email "rin.ramazanova@yandex.com"
-        git checkout gh-pages
-        git merge main
-        git push
+#       - name: Merge to gh-pages branch
+#         run: |
+#           git config user.name "okonnaya"
+#           git config user.email "rin.ramazanova@yandex.com"
+#           git checkout main
+#           git add .
+#           git commit -am "main commit"
+#           git push origin main
+#           git checkout gh-pages
+#           git merge main
+#           git push
 
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+#       - name: Use Node.js 14
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '14'
 
-    - name: Install dependencies
-      run: yarn install
+#       - name: Install dependencies
+#         run: yarn install
 
-    - name: Build
-      run: yarn build
+#       - name: Build
+#         run: yarn build
 
-    - name: Push changes
-      run: |
-        git add docs
-        git commit -am "Merge main and build"
-        git push
-
+#       - name: Push changes
+#         run: |
+#           git add docs
+#           git commit -am "Merge main and build"
+#           git push
