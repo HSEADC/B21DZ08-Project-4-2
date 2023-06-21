@@ -3763,14 +3763,23 @@ module.exports = Airtable;
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "K": () => (/* binding */ getTarotCards)
+/* harmony export */   "Im": () => (/* binding */ getSearchData),
+/* harmony export */   "Kj": () => (/* binding */ getTarotCards)
 /* harmony export */ });
-/* unused harmony export getSearchData */
+/* unused harmony exports getArticles, getFortuneTellings */
 /* harmony import */ var airtable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(829);
 /* harmony import */ var airtable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(airtable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _images_tarotcard1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(552);
 /* harmony import */ var _images_tarotcard2_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(596);
 /* harmony import */ var _images_tarotcard3_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(673);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -3802,22 +3811,36 @@ function getTarotCards() {
           texttype = 'Antiqua';
         }
 
-        console.log(texttype);
         var color = 'pink';
 
         if (record.fields['arcana'] == 'major') {
           color = 'black';
         }
 
+        var link = 'cards/' + record.fields['htmlPage'] + '.html';
         tarotCards.push({
+          htmlname: record.fields['htmlPage'],
           color: color,
+          arcana: record.fields['arcana'],
           emoji: record.fields['icon'],
           line1: record.fields['line1'],
           line2: record.fields['line2'],
           none: none,
+          link: link,
           image: record.fields['image'][0]['url'],
           id: record.fields['id'],
-          texttype: texttype
+          texttype: texttype,
+          name: record.fields['name'],
+          basics: record.fields['basics'],
+          love: record.fields['love'],
+          work: record.fields['work'],
+          advice: record.fields['advice'],
+          basicMeaning: record.fields['basicMeaning'],
+          loveTelling: record.fields['loveTelling'],
+          answer: record.fields['answer'],
+          cardOfTheDay: record.fields['cardOfTheDay'],
+          adviceLong: record.fields['adviceLong'],
+          history: record.fields['history']
         });
       });
       resolve(tarotCards);
@@ -3825,72 +3848,749 @@ function getTarotCards() {
   });
 }
 
-function getSearchData() {
+function getFortuneTellings() {
   return new Promise(function (resolve, reject) {
-    var tarotCards = [];
+    var fortuneTellings = [];
+    base('fortuneTellings').select({
+      maxRecords: 100
+    }).firstPage().then(function (result) {
+      result.forEach(function (record) {
+        var link = 'fortunetellings/' + record.fields['htmlPage'] + '.html';
+        fortuneTellings.push({
+          color: 'black',
+          line1: record.fields['line1'],
+          line2: record.fields['line2'],
+          image: record.fields['image'][0]['url'],
+          link: link,
+          id: record.fields['id'],
+          emoji: record.fields['icon'],
+          none: false,
+          texttype: 'Emoji'
+        });
+      });
+      resolve(fortuneTellings);
+    });
+  });
+}
+
+function getArticles() {
+  return new Promise(function (resolve, reject) {
+    var Articles = [];
     base('Articles').select({
       maxRecords: 100
     }).firstPage().then(function (result) {
       result.forEach(function (record) {
-        tarotCards.push({
+        var link = 'articles/' + record.fields['htmlPage'] + '.html';
+        Articles.push({
           title: record.fields['Заголовок'],
           description: record.fields['Описание'],
-          id: record.fields['id']
+          id: record.fields['id'],
+          link: link,
+          image: record.fields['image'][0]['url']
         });
       });
-      resolve(tarotCards);
+      resolve(Articles);
     });
   });
 } //все базы для поиска
-// async function getSearchData(lines) {
-//   return new Promise((resolve, reject) => {
-//     const searchData = []
-//     base('Articles')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           searchData.push({
-//             title: record.fields['Заголовок'],
-//             description: record.fields['Описание'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(searchData)
-//       })
-//     base('FortuneTellings')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           searchData.push({
-//             title: record.fields['line1'],
-//             description: record.fields['line2'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(searchData)
-//       })
-//     base('TarotCards')
-//       .select({ maxRecords: 100 })
-//       .firstPage()
-//       .then((result) => {
-//         result.forEach((record) => {
-//           searchData.push({
-//             title: record.fields['line1'],
-//             description: record.fields['line2'],
-//             id: record.fields['id']
-//           })
-//         })
-//         resolve(searchData)
-//       })
-//     console.log(searchData)
-//   })
-// }
+
+
+function getSearchData() {
+  return _getSearchData.apply(this, arguments);
+}
+
+function _getSearchData() {
+  _getSearchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var counter;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            counter = 0;
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              var searchData = [];
+              base('Articles').select({
+                maxRecords: 100
+              }).firstPage().then(function (result) {
+                result.forEach(function (record) {
+                  var link = 'articles/' + record.fields['htmlPage'] + '.html';
+                  searchData.push({
+                    title: record.fields['Заголовок'],
+                    description: record.fields['Описание'],
+                    id: record.fields['id'],
+                    link: link,
+                    image: record.fields['image'][0]['url'],
+                    similarWords: record.fields['для поиска']
+                  });
+                });
+                counter += 1;
+
+                if (counter === 3) {
+                  resolve(searchData);
+                }
+              });
+              base('FortuneTellings').select({
+                maxRecords: 100
+              }).firstPage().then(function (result) {
+                result.forEach(function (record) {
+                  var link = 'fortunerellings/' + record.fields['htmlPage'] + '.html';
+                  searchData.push({
+                    color: 'black',
+                    line1: record.fields['line1'],
+                    line2: record.fields['line2'],
+                    image: record.fields['image'][0]['url'],
+                    link: link,
+                    id: record.fields['id'],
+                    emoji: record.fields['icon'],
+                    none: false,
+                    texttype: 'Emoji',
+                    similarWords: record.fields['для поиска']
+                  });
+                });
+                counter += 1;
+
+                if (counter === 3) {
+                  resolve(searchData);
+                }
+              });
+              base('TarotCards').select({
+                maxRecords: 100
+              }).firstPage().then(function (result) {
+                result.forEach(function (record) {
+                  // let title = record.fields['line1']
+                  // if (title === undefined) {
+                  //   title = ' '
+                  // }
+                  // searchData.push({
+                  //   title,
+                  //   description: record.fields['line2'],
+                  //   id: record.fields['id']
+                  var none = false;
+                  var line1 = record.fields['line1'];
+
+                  if (line1 == undefined) {
+                    none = true;
+                    line1 = ' ';
+                  }
+
+                  var texttype = 'Emoji';
+                  var icon = record.fields['icon'];
+
+                  if (icon.includes('I') || icon.includes('V') || icon.includes('X') || icon.includes('L') || icon.includes('C')) {
+                    texttype = 'Antiqua';
+                  }
+
+                  var color = 'pink';
+
+                  if (record.fields['arcana'] == 'major') {
+                    color = 'black';
+                  }
+
+                  var link = 'cards/' + record.fields['htmlPage'] + '.html';
+                  searchData.push({
+                    color: color,
+                    arcana: record.fields['arcana'],
+                    emoji: icon,
+                    line1: line1,
+                    line2: record.fields['line2'],
+                    none: none,
+                    link: link,
+                    image: record.fields['image'][0]['url'],
+                    id: record.fields['id'],
+                    texttype: texttype,
+                    name: record.fields['name'],
+                    similarWords: record.fields['для поиска']
+                  });
+                });
+                counter += 1;
+
+                if (counter === 3) {
+                  resolve(searchData);
+                }
+              });
+            }));
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _getSearchData.apply(this, arguments);
+}
 
 
 
 
+
+
+/***/ }),
+
+/***/ 506:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ A_HighlightHeading4)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(294);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var A_HighlightHeading4 = /*#__PURE__*/function (_React$Component) {
+  _inherits(A_HighlightHeading4, _React$Component);
+
+  var _super = _createSuper(A_HighlightHeading4);
+
+  function A_HighlightHeading4() {
+    _classCallCheck(this, A_HighlightHeading4);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(A_HighlightHeading4, [{
+    key: "render",
+    value: function render() {
+      var _classnames;
+
+      var _this$props = this.props,
+          text = _this$props.text,
+          texttype = _this$props.texttype,
+          none = _this$props.none;
+      var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()((_classnames = {
+        A_HighlightHeading4: true
+      }, _defineProperty(_classnames, "".concat(texttype), true), _defineProperty(_classnames, "None", none), _classnames));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: classes,
+        texttype: texttype
+      }, text);
+    }
+  }]);
+
+  return A_HighlightHeading4;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+/***/ }),
+
+/***/ 988:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ A_TarotCardImage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(294);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _images_tarotcard6_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(691);
+/* harmony import */ var _images_tarotcard1_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(552);
+/* harmony import */ var _images_tarotcard2_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(596);
+/* harmony import */ var _images_tarotcard3_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(673);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+
+var A_TarotCardImage = /*#__PURE__*/function (_React$Component) {
+  _inherits(A_TarotCardImage, _React$Component);
+
+  var _super = _createSuper(A_TarotCardImage);
+
+  function A_TarotCardImage() {
+    _classCallCheck(this, A_TarotCardImage);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(A_TarotCardImage, [{
+    key: "render",
+    value: function render() {
+      var image = this.props.image;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        src: image,
+        className: "A_TarotCardImage"
+      });
+    }
+  }]);
+
+  return A_TarotCardImage;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+/***/ }),
+
+/***/ 116:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ M_TarotCard)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(294);
+/* harmony import */ var _A_HighlightHeading4_A_HighlightHeading4_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(506);
+/* harmony import */ var _A_TarotCardImage_A_TarotCardImage_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(988);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var M_TarotCard = /*#__PURE__*/function (_React$Component) {
+  _inherits(M_TarotCard, _React$Component);
+
+  var _super = _createSuper(M_TarotCard);
+
+  function M_TarotCard() {
+    _classCallCheck(this, M_TarotCard);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(M_TarotCard, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          color = _this$props.color,
+          emoji = _this$props.emoji,
+          line1 = _this$props.line1,
+          line2 = _this$props.line2,
+          image = _this$props.image,
+          none = _this$props.none,
+          texttype = _this$props.texttype,
+          link = _this$props.link;
+      var classes = classnames__WEBPACK_IMPORTED_MODULE_3___default()(_defineProperty({
+        M_TarotCard: true
+      }, "".concat(color), true));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        href: link
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: classes
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "W_TarotCardShadow"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "W_TarotCardInside"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_A_HighlightHeading4_A_HighlightHeading4_jsx__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
+        texttype: texttype,
+        text: emoji
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_A_TarotCardImage_A_TarotCardImage_jsx__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+        image: image
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_A_HighlightHeading4_A_HighlightHeading4_jsx__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
+        none: none,
+        texttype: "Antiqua",
+        text: line1
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_A_HighlightHeading4_A_HighlightHeading4_jsx__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
+        texttype: "Grotesk",
+        text: line2
+      })))));
+    }
+  }]);
+
+  return M_TarotCard;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+/***/ }),
+
+/***/ 756:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ O_BlockOfTarotCards)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(294);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _M_TarotCard_M_TarotCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(116);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+var O_BlockOfTarotCards = /*#__PURE__*/function (_React$Component) {
+  _inherits(O_BlockOfTarotCards, _React$Component);
+
+  var _super = _createSuper(O_BlockOfTarotCards);
+
+  function O_BlockOfTarotCards() {
+    _classCallCheck(this, O_BlockOfTarotCards);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(O_BlockOfTarotCards, [{
+    key: "render",
+    value: function render() {
+      var data = this.props.data;
+      var tarotCollection = data.map(function (tarotCard, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_M_TarotCard_M_TarotCard_jsx__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+          link: tarotCard.link,
+          color: tarotCard.color,
+          emoji: tarotCard.emoji,
+          line1: tarotCard.line1,
+          line2: tarotCard.line2,
+          none: tarotCard.none,
+          image: tarotCard.image,
+          texttype: tarotCard.texttype,
+          key: i
+        });
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "O_BlockOfTarotCards"
+      }, tarotCollection);
+    }
+  }]);
+
+  return O_BlockOfTarotCards;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+/***/ }),
+
+/***/ 919:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(294);
+/* harmony import */ var _airtableData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(605);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(745);
+/* harmony import */ var _components_O_BlockOfTarotCards_O_BlockOfTarotCards_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(756);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+
+var content;
+
+function getSearchRequest() {
+  var url = new URL(window.location.href);
+  var searchParams = new URLSearchParams(url.search);
+
+  if (searchParams.has('request')) {
+    return searchParams.get('request');
+  }
+}
+
+function setSearchRequest(requestText) {
+  var url = getPathFromUrl(window.location.href);
+  window.location.href = url + '?request=' + requestText;
+}
+
+function getPathFromUrl(url) {
+  return url.split('?')[0];
+}
+
+function createArticleCard(contentItemData) {
+  var contentItemLink = document.createElement('a');
+  contentItemLink.href = contentItemData.link;
+  var contentItem = document.createElement('div');
+  contentItem.classList.add('M_CardArticle');
+  var contentItemImage = document.createElement('img');
+  contentItemImage.classList.add('A_CardArticleImage');
+  contentItemImage.src = contentItemData.image;
+  var contentItemTitle = document.createElement('div');
+  contentItemTitle.classList.add('A_Heading5');
+  contentItemTitle.innerHTML = contentItemData.title;
+  var contentItemDescription = document.createElement('div');
+  contentItemDescription.classList.add('A_Paragraph', 'Center');
+  contentItemDescription.innerHTML = contentItemData.description;
+  contentItem.appendChild(contentItemImage);
+  contentItem.appendChild(contentItemTitle);
+  contentItem.appendChild(contentItemDescription);
+  contentItemLink.appendChild(contentItem);
+  return contentItemLink;
+}
+
+function createTarotCards(tarotCardData) {
+  var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__/* .createRoot */ .s)(document.querySelector('.C_FoundTarotCards'));
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_O_BlockOfTarotCards_O_BlockOfTarotCards_jsx__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z, {
+    data: tarotCardData
+  }));
+}
+
+function createFortuneTellings(fortuneTellings) {
+  var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__/* .createRoot */ .s)(document.querySelector('.C_FoundFortuneTellings'));
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_O_BlockOfTarotCards_O_BlockOfTarotCards_jsx__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z, {
+    data: fortuneTellings
+  }));
+}
+
+function renderCardsByIds(container, ids) {
+  ids = _toConsumableArray(new Set(ids));
+  var tarotCards = [];
+  var fortuneTellings = [];
+  ids.forEach(function (id) {
+    content.forEach(function (item) {
+      if (item.id === id && id.startsWith('article')) {
+        container.appendChild(createArticleCard(item));
+      } else if (item.id === id && id.startsWith('tarotCard')) {
+        tarotCards.push(item);
+      } else if (item.id === id && id.startsWith('fortuneTelling')) {
+        fortuneTellings.push(item);
+      }
+    });
+  });
+  createTarotCards(tarotCards);
+  createFortuneTellings(fortuneTellings);
+}
+
+function rerenderSearchedContent(requestText) {
+  var contentItemsContainer1 = document.querySelector('.C_FoundArticleCards');
+  contentItemsContainer1.innerHTML = '';
+  var Ids = [];
+  var articleFound = false;
+  var tarotCardFound = false;
+  var fortuneTellingFound = false;
+  content.forEach(function (contentItem) {
+    var nbspRegex = /[\u202F\u00A0]/gm;
+    var punctuationRegex = /[.,\/#!$%\^&\*;:{}=\-_`~()]/gm;
+    var title = contentItem.title,
+        description = contentItem.description,
+        line1 = contentItem.line1,
+        line2 = contentItem.line2,
+        name = contentItem.name,
+        similarWords = contentItem.similarWords;
+    similarWords = similarWords.replaceAll(nbspRegex, ' ');
+    similarWords = similarWords.replaceAll(punctuationRegex, '');
+
+    if (contentItem.id.startsWith('article') && requestText.length >= 3) {
+      if (title.includes(requestText) || description.includes(requestText) || similarWords.includes(requestText)) {
+        title = title.replaceAll(nbspRegex, ' ');
+        title = title.replaceAll(punctuationRegex, '');
+        description = description.replaceAll(nbspRegex, ' ');
+        description = description.replaceAll(punctuationRegex, '');
+        Ids.push(contentItem.id);
+        articleFound = true;
+      }
+    } else if (contentItem.id.startsWith('tarotCard') && requestText.length >= 3) {
+      line1 = line1.replaceAll(nbspRegex, ' ');
+      line1 = line1.replaceAll(punctuationRegex, '');
+      line2 = line2.replaceAll(nbspRegex, ' ');
+      line2 = line2.replaceAll(punctuationRegex, '');
+      name = name.replaceAll(nbspRegex, ' ');
+      name = name.replaceAll(punctuationRegex, '');
+
+      if (line1.includes(requestText) || line2.includes(requestText) || name.includes(requestText) || similarWords.includes(requestText)) {
+        Ids.push(contentItem.id);
+        tarotCardFound = true;
+      }
+    } else if (contentItem.id.startsWith('fortuneTelling') && requestText.length >= 3) {
+      line1 = line1.replaceAll(nbspRegex, ' ');
+      line1 = line1.replaceAll(punctuationRegex, '');
+      line2 = line2.replaceAll(nbspRegex, ' ');
+      line2 = line2.replaceAll(punctuationRegex, '');
+
+      if (line1.includes(requestText) || line2.includes(requestText) || similarWords.includes(requestText)) {
+        Ids.push(contentItem.id);
+        fortuneTellingFound = true;
+      }
+    }
+  });
+
+  if (articleFound) {
+    var articlesSection = document.querySelector('.W_FoundArticlesSection');
+
+    if (articlesSection) {
+      articlesSection.style.display = 'flex';
+    }
+  }
+
+  if (tarotCardFound) {
+    var tarotCardsSection = document.querySelector('.W_FoundTarotCardsSection');
+
+    if (tarotCardsSection) {
+      tarotCardsSection.style.display = 'flex';
+    }
+  }
+
+  if (fortuneTellingFound) {
+    var fortuneTellingsSection = document.querySelector('.W_FoundFortuneTellingsSection');
+
+    if (fortuneTellingsSection) {
+      fortuneTellingsSection.style.display = 'flex';
+    }
+  }
+
+  if (Ids.length > 0) {
+    renderCardsByIds(contentItemsContainer1, Ids);
+  } else {
+    renderNothingFound();
+  }
+
+  function renderNothingFound() {
+    var NothingFound = document.querySelector('.M_NothingFound');
+    NothingFound.style.display = 'flex';
+  }
+}
+
+function initSearch() {
+  var O_Search = document.querySelector('.M_Search');
+  var A_SearchInput = O_Search.querySelector('.A_SearchInput');
+  var Q_SearchIcon = O_Search.querySelector('.Q_SearchIcon');
+  var requestText = getSearchRequest();
+
+  if (requestText != undefined) {
+    A_SearchInput.value = requestText;
+
+    if (content) {
+      rerenderSearchedContent(requestText);
+    }
+  } else {
+    A_SearchInput.value = '';
+  }
+
+  A_SearchInput.addEventListener('input', function (e) {
+    var requestText = e.target.value;
+
+    if (requestText.length >= 3) {
+      Q_SearchIcon.classList.remove('disabled');
+    } else {
+      Q_SearchIcon.classList.add('disabled');
+    }
+  });
+  A_SearchInput.addEventListener('keydown', function (e) {
+    requestText = e.target.value;
+
+    if (requestText.length >= 3) {
+      if (e.key === 'Enter') {
+        setSearchRequest(requestText);
+      }
+    }
+  });
+  Q_SearchIcon.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('disabled')) {
+      var _requestText = A_SearchInput.value;
+      setSearchRequest(_requestText);
+      rerenderSearchedContent(_requestText);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  (0,_airtableData_js__WEBPACK_IMPORTED_MODULE_1__/* .getSearchData */ .Im)().then(function (data) {
+    content = data;
+    initSearch();
+  });
+}); // export { getSearchRequest }
 
 /***/ }),
 
@@ -4451,6 +5151,14 @@ module.exports = __webpack_require__.p + "images/c1944c343533bae6b257.png";
 "use strict";
 module.exports = __webpack_require__.p + "images/a11ee416c5119613c769.png";
 
+/***/ }),
+
+/***/ 691:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/e0e31ac074260753be3d.png";
+
 /***/ })
 
 /******/ 	});
@@ -4549,16 +5257,16 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(294);
-// EXTERNAL MODULE: ./node_modules/airtable/lib/airtable.umd.js
-var airtable_umd = __webpack_require__(829);
 // EXTERNAL MODULE: ./src/airtableData.js
 var airtableData = __webpack_require__(605);
 // EXTERNAL MODULE: ./node_modules/react-dom/client.js
 var client = __webpack_require__(745);
+// EXTERNAL MODULE: ./src/components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx
+var O_BlockOfTarotCards = __webpack_require__(756);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-;// CONCATENATED MODULE: ./src/components/A_HighlightHeading4/A_HighlightHeading4.jsx
+;// CONCATENATED MODULE: ./src/components/A_MenuElement/A_MenuElement.jsx
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4587,256 +5295,571 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var A_HighlightHeading4 = /*#__PURE__*/function (_React$Component) {
-  _inherits(A_HighlightHeading4, _React$Component);
+var A_MenuElement = /*#__PURE__*/function (_React$Component) {
+  _inherits(A_MenuElement, _React$Component);
 
-  var _super = _createSuper(A_HighlightHeading4);
+  var _super = _createSuper(A_MenuElement);
 
-  function A_HighlightHeading4() {
-    _classCallCheck(this, A_HighlightHeading4);
+  function A_MenuElement() {
+    _classCallCheck(this, A_MenuElement);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(A_HighlightHeading4, [{
+  _createClass(A_MenuElement, [{
     key: "render",
     value: function render() {
-      var _classnames;
-
       var _this$props = this.props,
           text = _this$props.text,
-          texttype = _this$props.texttype,
-          none = _this$props.none;
-      var classes = classnames_default()((_classnames = {
-        A_HighlightHeading4: true
-      }, _defineProperty(_classnames, "".concat(texttype), true), _defineProperty(_classnames, "None", none), _classnames));
-      return /*#__PURE__*/react.createElement("div", {
-        className: classes,
-        texttype: texttype
-      }, text);
-    }
-  }]);
-
-  return A_HighlightHeading4;
-}(react.Component);
-
-
-;// CONCATENATED MODULE: ./src/images/tarotcard6.png
-const tarotcard6_namespaceObject = __webpack_require__.p + "images/e0e31ac074260753be3d.png";
-// EXTERNAL MODULE: ./src/images/tarotcard1.png
-var tarotcard1 = __webpack_require__(552);
-// EXTERNAL MODULE: ./src/images/tarotcard2.png
-var tarotcard2 = __webpack_require__(596);
-// EXTERNAL MODULE: ./src/images/tarotcard3.png
-var tarotcard3 = __webpack_require__(673);
-;// CONCATENATED MODULE: ./src/components/A_TarotCardImage/A_TarotCardImage.jsx
-function A_TarotCardImage_typeof(obj) { "@babel/helpers - typeof"; return A_TarotCardImage_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_TarotCardImage_typeof(obj); }
-
-function A_TarotCardImage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function A_TarotCardImage_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function A_TarotCardImage_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_TarotCardImage_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_TarotCardImage_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function A_TarotCardImage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_TarotCardImage_setPrototypeOf(subClass, superClass); }
-
-function A_TarotCardImage_setPrototypeOf(o, p) { A_TarotCardImage_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_TarotCardImage_setPrototypeOf(o, p); }
-
-function A_TarotCardImage_createSuper(Derived) { var hasNativeReflectConstruct = A_TarotCardImage_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_TarotCardImage_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_TarotCardImage_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_TarotCardImage_possibleConstructorReturn(this, result); }; }
-
-function A_TarotCardImage_possibleConstructorReturn(self, call) { if (call && (A_TarotCardImage_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_TarotCardImage_assertThisInitialized(self); }
-
-function A_TarotCardImage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function A_TarotCardImage_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function A_TarotCardImage_getPrototypeOf(o) { A_TarotCardImage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_TarotCardImage_getPrototypeOf(o); }
-
-
-
-
-
-
-
-
-
-var A_TarotCardImage = /*#__PURE__*/function (_React$Component) {
-  A_TarotCardImage_inherits(A_TarotCardImage, _React$Component);
-
-  var _super = A_TarotCardImage_createSuper(A_TarotCardImage);
-
-  function A_TarotCardImage() {
-    A_TarotCardImage_classCallCheck(this, A_TarotCardImage);
-
-    return _super.apply(this, arguments);
-  }
-
-  A_TarotCardImage_createClass(A_TarotCardImage, [{
-    key: "render",
-    value: function render() {
-      var image = this.props.image;
-      return /*#__PURE__*/react.createElement("img", {
-        src: image,
-        className: "A_TarotCardImage"
+          url = _this$props.url,
+          current = _this$props.current,
+          wrapper = _this$props.wrapper;
+      var classes = classnames_default()({
+        A_MenuElement: true
       });
+      var wrapperClasses = classnames_default()(_defineProperty({}, "".concat(wrapper), true));
+      return /*#__PURE__*/react.createElement("div", {
+        className: wrapperClasses
+      }, /*#__PURE__*/react.createElement("a", {
+        className: classes,
+        href: url
+      }, text));
     }
   }]);
 
-  return A_TarotCardImage;
+  return A_MenuElement;
 }(react.Component);
 
 
-;// CONCATENATED MODULE: ./src/components/M_TarotCard/M_TarotCard.jsx
-function M_TarotCard_typeof(obj) { "@babel/helpers - typeof"; return M_TarotCard_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, M_TarotCard_typeof(obj); }
+;// CONCATENATED MODULE: ./src/components/A_Input/A_Input.jsx
+function A_Input_typeof(obj) { "@babel/helpers - typeof"; return A_Input_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_Input_typeof(obj); }
 
-function M_TarotCard_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function A_Input_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function M_TarotCard_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function A_Input_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function M_TarotCard_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function A_Input_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_Input_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_Input_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function M_TarotCard_createClass(Constructor, protoProps, staticProps) { if (protoProps) M_TarotCard_defineProperties(Constructor.prototype, protoProps); if (staticProps) M_TarotCard_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function A_Input_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_Input_setPrototypeOf(subClass, superClass); }
 
-function M_TarotCard_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) M_TarotCard_setPrototypeOf(subClass, superClass); }
+function A_Input_setPrototypeOf(o, p) { A_Input_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_Input_setPrototypeOf(o, p); }
 
-function M_TarotCard_setPrototypeOf(o, p) { M_TarotCard_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return M_TarotCard_setPrototypeOf(o, p); }
+function A_Input_createSuper(Derived) { var hasNativeReflectConstruct = A_Input_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_Input_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_Input_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_Input_possibleConstructorReturn(this, result); }; }
 
-function M_TarotCard_createSuper(Derived) { var hasNativeReflectConstruct = M_TarotCard_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = M_TarotCard_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = M_TarotCard_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return M_TarotCard_possibleConstructorReturn(this, result); }; }
+function A_Input_possibleConstructorReturn(self, call) { if (call && (A_Input_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_Input_assertThisInitialized(self); }
 
-function M_TarotCard_possibleConstructorReturn(self, call) { if (call && (M_TarotCard_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return M_TarotCard_assertThisInitialized(self); }
+function A_Input_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function M_TarotCard_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function A_Input_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
-function M_TarotCard_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function A_Input_getPrototypeOf(o) { A_Input_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_Input_getPrototypeOf(o); }
 
-function M_TarotCard_getPrototypeOf(o) { M_TarotCard_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return M_TarotCard_getPrototypeOf(o); }
-
-
+function A_Input_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
-var M_TarotCard = /*#__PURE__*/function (_React$Component) {
-  M_TarotCard_inherits(M_TarotCard, _React$Component);
+var A_Input = /*#__PURE__*/function (_React$Component) {
+  A_Input_inherits(A_Input, _React$Component);
 
-  var _super = M_TarotCard_createSuper(M_TarotCard);
+  var _super = A_Input_createSuper(A_Input);
 
-  function M_TarotCard() {
-    M_TarotCard_classCallCheck(this, M_TarotCard);
+  function A_Input(props) {
+    var _this;
 
-    return _super.apply(this, arguments);
+    A_Input_classCallCheck(this, A_Input);
+
+    _this = _super.call(this, props);
+
+    A_Input_defineProperty(A_Input_assertThisInitialized(_this), "handleInput", function () {
+      var value = _this.input.current.value;
+      var handleInput = _this.props.handleInput;
+      handleInput(value);
+    });
+
+    _this.input = /*#__PURE__*/react.createRef();
+    _this.state = {
+      isFocused: false
+    };
+    return _this;
   }
 
-  M_TarotCard_createClass(M_TarotCard, [{
+  A_Input_createClass(A_Input, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          color = _this$props.color,
-          emoji = _this$props.emoji,
-          line1 = _this$props.line1,
-          line2 = _this$props.line2,
-          image = _this$props.image,
-          none = _this$props.none,
-          texttype = _this$props.texttype;
-      var classes = classnames_default()(M_TarotCard_defineProperty({
-        M_TarotCard: true
-      }, "".concat(color), true));
-      return /*#__PURE__*/react.createElement("a", {
-        href: ""
-      }, /*#__PURE__*/react.createElement("div", {
-        className: classes
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "W_TarotCardShadow"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "W_TarotCardInside"
-      }, /*#__PURE__*/react.createElement(A_HighlightHeading4, {
-        texttype: texttype,
-        text: emoji
-      }), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement(A_TarotCardImage, {
-        image: image
-      }), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement(A_HighlightHeading4, {
-        none: none,
-        texttype: "Antiqua",
-        text: line1
-      }), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement(A_HighlightHeading4, {
-        texttype: "Grotesk",
-        text: line2
-      })))));
+          value = _this$props.value,
+          placeholder = _this$props.placeholder,
+          handleSubmit = _this$props.handleSubmit,
+          onChange = _this$props.onChange,
+          onFocus = _this$props.onFocus,
+          onBlur = _this$props.onBlur;
+      return /*#__PURE__*/react.createElement("input", {
+        onFocus: onFocus,
+        onBlur: onBlur,
+        className: "A_Input",
+        ref: this.input,
+        value: value,
+        onChange: onChange,
+        placeholder: placeholder,
+        onInput: this.handleInput,
+        onKeyDown: function onKeyDown(e) {
+          return e.key === 'Enter' && handleSubmit();
+        }
+      });
     }
   }]);
 
-  return M_TarotCard;
+  return A_Input;
 }(react.Component);
 
 
-;// CONCATENATED MODULE: ./src/components/O_BlockOfTarotCards/O_BlockOfTarotCards.jsx
-function O_BlockOfTarotCards_typeof(obj) { "@babel/helpers - typeof"; return O_BlockOfTarotCards_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, O_BlockOfTarotCards_typeof(obj); }
+;// CONCATENATED MODULE: ./src/components/A_SearchButton/A_SearchButton.jsx
+function A_SearchButton_typeof(obj) { "@babel/helpers - typeof"; return A_SearchButton_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_SearchButton_typeof(obj); }
 
-function O_BlockOfTarotCards_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function A_SearchButton_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function O_BlockOfTarotCards_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function A_SearchButton_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function O_BlockOfTarotCards_createClass(Constructor, protoProps, staticProps) { if (protoProps) O_BlockOfTarotCards_defineProperties(Constructor.prototype, protoProps); if (staticProps) O_BlockOfTarotCards_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function A_SearchButton_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_SearchButton_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_SearchButton_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function O_BlockOfTarotCards_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) O_BlockOfTarotCards_setPrototypeOf(subClass, superClass); }
+function A_SearchButton_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_SearchButton_setPrototypeOf(subClass, superClass); }
 
-function O_BlockOfTarotCards_setPrototypeOf(o, p) { O_BlockOfTarotCards_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return O_BlockOfTarotCards_setPrototypeOf(o, p); }
+function A_SearchButton_setPrototypeOf(o, p) { A_SearchButton_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_SearchButton_setPrototypeOf(o, p); }
 
-function O_BlockOfTarotCards_createSuper(Derived) { var hasNativeReflectConstruct = O_BlockOfTarotCards_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = O_BlockOfTarotCards_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = O_BlockOfTarotCards_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return O_BlockOfTarotCards_possibleConstructorReturn(this, result); }; }
+function A_SearchButton_createSuper(Derived) { var hasNativeReflectConstruct = A_SearchButton_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_SearchButton_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_SearchButton_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_SearchButton_possibleConstructorReturn(this, result); }; }
 
-function O_BlockOfTarotCards_possibleConstructorReturn(self, call) { if (call && (O_BlockOfTarotCards_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return O_BlockOfTarotCards_assertThisInitialized(self); }
+function A_SearchButton_possibleConstructorReturn(self, call) { if (call && (A_SearchButton_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_SearchButton_assertThisInitialized(self); }
 
-function O_BlockOfTarotCards_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function A_SearchButton_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function O_BlockOfTarotCards_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function A_SearchButton_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
-function O_BlockOfTarotCards_getPrototypeOf(o) { O_BlockOfTarotCards_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return O_BlockOfTarotCards_getPrototypeOf(o); }
-
-
+function A_SearchButton_getPrototypeOf(o) { A_SearchButton_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_SearchButton_getPrototypeOf(o); }
 
 
 
 
-var O_BlockOfTarotCards = /*#__PURE__*/function (_React$Component) {
-  O_BlockOfTarotCards_inherits(O_BlockOfTarotCards, _React$Component);
 
-  var _super = O_BlockOfTarotCards_createSuper(O_BlockOfTarotCards);
+var A_SearchButton = /*#__PURE__*/function (_React$Component) {
+  A_SearchButton_inherits(A_SearchButton, _React$Component);
 
-  function O_BlockOfTarotCards() {
-    O_BlockOfTarotCards_classCallCheck(this, O_BlockOfTarotCards);
+  var _super = A_SearchButton_createSuper(A_SearchButton);
+
+  function A_SearchButton() {
+    A_SearchButton_classCallCheck(this, A_SearchButton);
 
     return _super.apply(this, arguments);
   }
 
-  O_BlockOfTarotCards_createClass(O_BlockOfTarotCards, [{
+  A_SearchButton_createClass(A_SearchButton, [{
     key: "render",
     value: function render() {
-      var data = this.props.data;
-      var tarotCollection = data.map(function (tarotCard, i) {
-        return /*#__PURE__*/react.createElement(M_TarotCard, {
-          color: tarotCard.color,
-          emoji: tarotCard.emoji,
-          line1: tarotCard.line1,
-          line2: tarotCard.line2,
-          none: tarotCard.none,
-          image: tarotCard.image,
-          texttype: tarotCard.texttype,
-          key: i
-        });
-      });
+      var handleClick = this.props.handleClick;
       return /*#__PURE__*/react.createElement("div", {
-        className: "O_BlockOfTarotCards"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "C_TarotCards"
-      }, tarotCollection));
+        className: "A_SearchButton",
+        onClick: handleClick
+      });
     }
   }]);
 
-  return O_BlockOfTarotCards;
+  return A_SearchButton;
 }(react.Component);
 
 
+;// CONCATENATED MODULE: ./src/components/M_SearchBar/M_SearchBar.jsx
+function M_SearchBar_typeof(obj) { "@babel/helpers - typeof"; return M_SearchBar_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, M_SearchBar_typeof(obj); }
+
+function M_SearchBar_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function M_SearchBar_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function M_SearchBar_createClass(Constructor, protoProps, staticProps) { if (protoProps) M_SearchBar_defineProperties(Constructor.prototype, protoProps); if (staticProps) M_SearchBar_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function M_SearchBar_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) M_SearchBar_setPrototypeOf(subClass, superClass); }
+
+function M_SearchBar_setPrototypeOf(o, p) { M_SearchBar_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return M_SearchBar_setPrototypeOf(o, p); }
+
+function M_SearchBar_createSuper(Derived) { var hasNativeReflectConstruct = M_SearchBar_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = M_SearchBar_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = M_SearchBar_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return M_SearchBar_possibleConstructorReturn(this, result); }; }
+
+function M_SearchBar_possibleConstructorReturn(self, call) { if (call && (M_SearchBar_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return M_SearchBar_assertThisInitialized(self); }
+
+function M_SearchBar_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function M_SearchBar_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function M_SearchBar_getPrototypeOf(o) { M_SearchBar_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return M_SearchBar_getPrototypeOf(o); }
+
+
+
+
+
+
+
+var M_SearchBar = /*#__PURE__*/function (_React$Component) {
+  M_SearchBar_inherits(M_SearchBar, _React$Component);
+
+  var _super = M_SearchBar_createSuper(M_SearchBar);
+
+  function M_SearchBar(props) {
+    M_SearchBar_classCallCheck(this, M_SearchBar);
+
+    return _super.call(this, props);
+  }
+
+  M_SearchBar_createClass(M_SearchBar, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          searchInputValue = _this$props.searchInputValue,
+          handleSearchInput = _this$props.handleSearchInput,
+          handleSearchSubmit = _this$props.handleSearchSubmit,
+          onFocus = _this$props.onFocus,
+          onBlur = _this$props.onBlur;
+      var classes = classnames_default()({
+        'M_SearchBar': true,
+        'Active': this.props.isFocused
+      });
+      return /*#__PURE__*/react.createElement("div", {
+        className: classes
+      }, /*#__PURE__*/react.createElement(A_Input, {
+        onFocus: onFocus,
+        onBlur: onBlur,
+        value: searchInputValue,
+        placeholder: "\u043F\u043E\u0438\u0441\u043A",
+        handleInput: handleSearchInput,
+        handleSubmit: handleSearchSubmit
+      }), /*#__PURE__*/react.createElement(A_SearchButton, {
+        handleClick: handleSearchSubmit
+      }));
+    }
+  }]);
+
+  return M_SearchBar;
+}(react.Component);
+
+
+;// CONCATENATED MODULE: ./src/images/A_Logo.svg
+const A_Logo_namespaceObject = __webpack_require__.p + "images/18e151d62a2a107ecf4d.svg";
+;// CONCATENATED MODULE: ./src/components/A_MenuLogo/A_MenuLogo.jsx
+function A_MenuLogo_typeof(obj) { "@babel/helpers - typeof"; return A_MenuLogo_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_MenuLogo_typeof(obj); }
+
+function A_MenuLogo_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function A_MenuLogo_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function A_MenuLogo_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_MenuLogo_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_MenuLogo_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function A_MenuLogo_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_MenuLogo_setPrototypeOf(subClass, superClass); }
+
+function A_MenuLogo_setPrototypeOf(o, p) { A_MenuLogo_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_MenuLogo_setPrototypeOf(o, p); }
+
+function A_MenuLogo_createSuper(Derived) { var hasNativeReflectConstruct = A_MenuLogo_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_MenuLogo_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_MenuLogo_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_MenuLogo_possibleConstructorReturn(this, result); }; }
+
+function A_MenuLogo_possibleConstructorReturn(self, call) { if (call && (A_MenuLogo_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_MenuLogo_assertThisInitialized(self); }
+
+function A_MenuLogo_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function A_MenuLogo_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function A_MenuLogo_getPrototypeOf(o) { A_MenuLogo_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_MenuLogo_getPrototypeOf(o); }
+
+
+
+
+
+
+var A_MenuLogo = /*#__PURE__*/function (_React$Component) {
+  A_MenuLogo_inherits(A_MenuLogo, _React$Component);
+
+  var _super = A_MenuLogo_createSuper(A_MenuLogo);
+
+  function A_MenuLogo() {
+    A_MenuLogo_classCallCheck(this, A_MenuLogo);
+
+    return _super.apply(this, arguments);
+  }
+
+  A_MenuLogo_createClass(A_MenuLogo, [{
+    key: "render",
+    value: function render() {
+      var url = this.props.url;
+      return /*#__PURE__*/react.createElement("a", {
+        className: "A_MenuLogo",
+        href: url
+      }, /*#__PURE__*/react.createElement("img", {
+        src: A_Logo_namespaceObject
+      }));
+    }
+  }]);
+
+  return A_MenuLogo;
+}(react.Component);
+
+
+;// CONCATENATED MODULE: ./src/components/A_MenuMobileToggle/A_MenuMobileToggle.jsx
+function A_MenuMobileToggle_typeof(obj) { "@babel/helpers - typeof"; return A_MenuMobileToggle_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_MenuMobileToggle_typeof(obj); }
+
+function A_MenuMobileToggle_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function A_MenuMobileToggle_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function A_MenuMobileToggle_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_MenuMobileToggle_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_MenuMobileToggle_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function A_MenuMobileToggle_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_MenuMobileToggle_setPrototypeOf(subClass, superClass); }
+
+function A_MenuMobileToggle_setPrototypeOf(o, p) { A_MenuMobileToggle_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_MenuMobileToggle_setPrototypeOf(o, p); }
+
+function A_MenuMobileToggle_createSuper(Derived) { var hasNativeReflectConstruct = A_MenuMobileToggle_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_MenuMobileToggle_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_MenuMobileToggle_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_MenuMobileToggle_possibleConstructorReturn(this, result); }; }
+
+function A_MenuMobileToggle_possibleConstructorReturn(self, call) { if (call && (A_MenuMobileToggle_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_MenuMobileToggle_assertThisInitialized(self); }
+
+function A_MenuMobileToggle_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function A_MenuMobileToggle_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function A_MenuMobileToggle_getPrototypeOf(o) { A_MenuMobileToggle_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_MenuMobileToggle_getPrototypeOf(o); }
+
+function A_MenuMobileToggle_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var A_MenuMobileToggle = /*#__PURE__*/function (_React$Component) {
+  A_MenuMobileToggle_inherits(A_MenuMobileToggle, _React$Component);
+
+  var _super = A_MenuMobileToggle_createSuper(A_MenuMobileToggle);
+
+  function A_MenuMobileToggle() {
+    var _this;
+
+    A_MenuMobileToggle_classCallCheck(this, A_MenuMobileToggle);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    A_MenuMobileToggle_defineProperty(A_MenuMobileToggle_assertThisInitialized(_this), "handleClick", function () {
+      var searchbb = document.querySelector(".M_SearchBar");
+      var menuelems = document.querySelector(".M_MenuElements");
+      console.log('clockclickkk');
+      searchbb.classList.toggle("Shows");
+      menuelems.classList.toggle("Shows");
+    });
+
+    return _this;
+  }
+
+  A_MenuMobileToggle_createClass(A_MenuMobileToggle, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react.createElement("a", {
+        className: "A_MenuMobileToggle",
+        onClick: this.handleClick
+      }, /*#__PURE__*/react.createElement("div", null), /*#__PURE__*/react.createElement("div", null), /*#__PURE__*/react.createElement("div", null));
+    }
+  }]);
+
+  return A_MenuMobileToggle;
+}(react.Component);
+
+
+;// CONCATENATED MODULE: ./src/components/O_MenuBar/O_Menubar.jsx
+function O_Menubar_typeof(obj) { "@babel/helpers - typeof"; return O_Menubar_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, O_Menubar_typeof(obj); }
+
+function O_Menubar_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function O_Menubar_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function O_Menubar_createClass(Constructor, protoProps, staticProps) { if (protoProps) O_Menubar_defineProperties(Constructor.prototype, protoProps); if (staticProps) O_Menubar_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function O_Menubar_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) O_Menubar_setPrototypeOf(subClass, superClass); }
+
+function O_Menubar_setPrototypeOf(o, p) { O_Menubar_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return O_Menubar_setPrototypeOf(o, p); }
+
+function O_Menubar_createSuper(Derived) { var hasNativeReflectConstruct = O_Menubar_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = O_Menubar_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = O_Menubar_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return O_Menubar_possibleConstructorReturn(this, result); }; }
+
+function O_Menubar_possibleConstructorReturn(self, call) { if (call && (O_Menubar_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return O_Menubar_assertThisInitialized(self); }
+
+function O_Menubar_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function O_Menubar_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function O_Menubar_getPrototypeOf(o) { O_Menubar_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return O_Menubar_getPrototypeOf(o); }
+
+function O_Menubar_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+var adressPart = ':8080/'; // const addressPart = '.adc.ac/'
+
+var menu = [{
+  text: '',
+  url: '/index.html'
+}, {
+  text: 'погадать',
+  url: '/fortunetellings.html'
+}, {
+  text: 'почитать',
+  url: '/articles.html'
+}, {
+  text: 'толкования карт',
+  url: '/cards.html'
+}, {
+  text: 'карта дня',
+  url: '/cardoftheday.html'
+}, {
+  text: 'о нас',
+  url: '/about.html'
+}];
+
+var O_MenuBar = /*#__PURE__*/function (_React$Component) {
+  O_Menubar_inherits(O_MenuBar, _React$Component);
+
+  var _super = O_Menubar_createSuper(O_MenuBar);
+
+  function O_MenuBar(props) {
+    var _this;
+
+    O_Menubar_classCallCheck(this, O_MenuBar);
+
+    _this = _super.call(this, props);
+
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "getPathFromUrl", function (url) {
+      return url.split(adressPart)[0];
+    });
+
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "handleSearchInput", function (searchInputValue) {
+      var isSearchButtonDisabled = true;
+
+      if (searchInputValue.length >= 3) {
+        isSearchButtonDisabled = false;
+      }
+
+      _this.setState({
+        isSearchButtonDisabled: isSearchButtonDisabled,
+        searchInputValue: searchInputValue
+      });
+    });
+
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "handleSearchSubmit", function () {
+      var searchInputValue = _this.state.searchInputValue;
+
+      if (searchInputValue.length >= 3) {
+        var url = _this.getPathFromUrl(window.location.href);
+
+        window.location.href = url + adressPart + 'search.html?request=' + searchInputValue;
+      }
+    });
+
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "handleFocus", function () {
+      _this.setState({
+        isFocused: true
+      });
+    });
+
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "handleBlur", function () {
+      _this.setState({
+        isFocused: false
+      });
+    });
+
+    var _searchInputValue = props.searchInputValue;
+    _this.state = {
+      isSearchButtonDisabled: true,
+      teasers: [],
+      searchInputValue: _searchInputValue,
+      isFocused: false
+    };
+    return _this;
+  } // componentDidMount() {
+  //   getSearchData().then((data) => {
+  //     this.setState({
+  //       teasers: data
+  //     })
+  //   })
+  // }
+  // вынести функцию в утилиты
+
+
+  O_Menubar_createClass(O_MenuBar, [{
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          searchInputValue = _this$state.searchInputValue,
+          current = _this$state.current;
+      var url = this.getPathFromUrl(window.location.href);
+      return /*#__PURE__*/react.createElement("div", {
+        className: "O_MenuBar"
+      }, /*#__PURE__*/react.createElement(A_MenuMobileToggle, null), /*#__PURE__*/react.createElement(A_MenuLogo, {
+        url: url + adressPart
+      }), /*#__PURE__*/react.createElement("div", {
+        className: "M_MenuElements"
+      }, /*#__PURE__*/react.createElement(A_MenuElement, {
+        text: menu[1].text,
+        url: menu[1].url,
+        current: current,
+        logo: false,
+        wrapper: "W_MenuElement1"
+      }), /*#__PURE__*/react.createElement("div", {
+        className: "Q_MenuStar Black"
+      }), /*#__PURE__*/react.createElement(A_MenuElement, {
+        text: menu[2].text,
+        url: menu[2].url,
+        current: current,
+        logo: false,
+        wrapper: "W_MenuElement2"
+      }), /*#__PURE__*/react.createElement("div", {
+        className: "Q_MenuStar Black"
+      }), /*#__PURE__*/react.createElement(A_MenuElement, {
+        text: menu[3].text,
+        url: menu[3].url,
+        current: current,
+        logo: false,
+        wrapper: "W_MenuElement3"
+      }), /*#__PURE__*/react.createElement("div", {
+        className: "Q_MenuStar Black"
+      }), /*#__PURE__*/react.createElement(A_MenuElement, {
+        text: menu[4].text,
+        url: menu[4].url,
+        current: current,
+        logo: false,
+        wrapper: "W_MenuElement4"
+      }), /*#__PURE__*/react.createElement("div", {
+        className: "Q_MenuStar Black"
+      }), /*#__PURE__*/react.createElement(A_MenuElement, {
+        text: menu[5].text,
+        url: menu[5].url,
+        current: current,
+        logo: false,
+        wrapper: "W_MenuElement5"
+      })), /*#__PURE__*/react.createElement(M_SearchBar, {
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
+        isFocused: this.state.isFocused,
+        handleSearchInput: this.handleSearchInput,
+        handleSearchSubmit: this.handleSearchSubmit
+      }));
+    }
+  }]);
+
+  return O_MenuBar;
+}(react.Component);
+
+
+// EXTERNAL MODULE: ./src/search.jsx
+var search = __webpack_require__(919);
 ;// CONCATENATED MODULE: ./src/cards.jsx
 
 
@@ -4844,33 +5867,79 @@ var O_BlockOfTarotCards = /*#__PURE__*/function (_React$Component) {
 
 
 
-var tarotCardsMajorArcana;
+
+var tarotCards;
 document.addEventListener('DOMContentLoaded', function () {
-  (0,airtableData/* getTarotCards */.K)().then(function (data) {
-    tarotCardsMajorArcana = data;
-    var root = (0,client/* createRoot */.s)(document.querySelector('.Testtt'));
+  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+    tarotCards = data;
+    var root = (0,client/* createRoot */.s)(document.querySelector('.Major'));
     var requiredCards = [];
-
-    for (var i = 1; i < 3; i++) {
-      requiredCards.push(tarotCardsMajorArcana[i]);
-    }
-
-    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards, {
+    tarotCards.forEach(function (card) {
+      if (card.arcana === 'major') {
+        requiredCards.push(card);
+      }
+    });
+    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards/* default */.Z, {
       data: requiredCards
     })));
   });
 });
 document.addEventListener('DOMContentLoaded', function () {
-  (0,airtableData/* getTarotCards */.K)().then(function (data) {
-    tarotCardsMajorArcana = data;
-    var root = (0,client/* createRoot */.s)(document.querySelector('.Testtt2'));
+  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+    tarotCards = data;
+    var root = (0,client/* createRoot */.s)(document.querySelector('.Swords'));
     var requiredCards = [];
-
-    for (var i = 0; i < 4; i++) {
-      requiredCards.push(tarotCardsMajorArcana[i]);
-    }
-
-    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards, {
+    tarotCards.forEach(function (card) {
+      if (card.arcana === 'swords') {
+        requiredCards.push(card);
+      }
+    });
+    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards/* default */.Z, {
+      data: requiredCards
+    })));
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+    tarotCards = data;
+    var root = (0,client/* createRoot */.s)(document.querySelector('.Cups'));
+    var requiredCards = [];
+    tarotCards.forEach(function (card) {
+      if (card.arcana === 'cups') {
+        requiredCards.push(card);
+      }
+    });
+    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards/* default */.Z, {
+      data: requiredCards
+    })));
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+    tarotCards = data;
+    var root = (0,client/* createRoot */.s)(document.querySelector('.Wands'));
+    var requiredCards = [];
+    tarotCards.forEach(function (card) {
+      if (card.arcana === 'wands') {
+        requiredCards.push(card);
+      }
+    });
+    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards/* default */.Z, {
+      data: requiredCards
+    })));
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+    tarotCards = data;
+    var root = (0,client/* createRoot */.s)(document.querySelector('.Pentacles'));
+    var requiredCards = [];
+    tarotCards.forEach(function (card) {
+      if (card.arcana === 'pentacles') {
+        requiredCards.push(card);
+      }
+    });
+    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards/* default */.Z, {
       data: requiredCards
     })));
   });
