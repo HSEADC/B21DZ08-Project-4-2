@@ -5,6 +5,33 @@
 .A_HeadingIndex {
   top: 0;
 }
+.A_HighlightHeading3 {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  line-height: 74%;
+  text-align: center;
+  color: var(--black);
+  &.Antiqua {
+    font-family: 'Wremena';
+    font-weight: 300;
+    font-size: 52px;
+    padding: 0 5px;
+  }
+  &.Grotesk {
+    font-family: 'Gramatika Demo';
+    font-weight: 300;
+    font-size: 46px;
+    padding: 0 5px;
+  }
+  &.Emoji {
+    top: 5px;
+    padding: 0 10px;
+    font-family: 'Noto Emoji';
+    font-weight: normal;
+    font-size: 44px;
+  }
+}
 .A_Heading1Grotesk {
   position: relative;
   display: inline-block;
@@ -123,6 +150,9 @@
   &.Center {
     text-align: center;
   }
+  &.Glowing {
+    text-shadow: 0px 0px 12.1275px var(--white);
+  }
 }
 .A_Link {
   font-family: 'Wremena';
@@ -222,7 +252,6 @@
   }
 }
 .A_CardArticleImage {
-  background-image: url('images/Q_card_article_image.png');
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 14px;
@@ -236,6 +265,15 @@
       rgba(255, 210, 237, 0) 70.83%,
       var(--pink) 100%
     );
+  }
+  &.Waite {
+    background-image: url('./images/articleImageWaite.png');
+  }
+  &.Fours {
+    background-image: url('./images/isThisAManicEpisode.png');
+  }
+  &.First {
+    background-image: url('./images/girlWithCandles.png');
   }
 }
 #canvas {
@@ -331,6 +369,22 @@
   .A_Heading3 {
     font-size: 44px;
   }
+
+  .A_HighlightHeading3 {
+    &.Antiqua {
+      font-size: 30px;
+      padding: 0 2px;
+    }
+    &.Grotesk {
+      font-size: 28px;
+      padding: 0 2px;
+    }
+    &.Emoji {
+      top: 5px;
+      padding: 0 6px;
+      font-size: 30px;
+    }
+  }
   .A_Heading4 {
     font-size: 30px;
   }
@@ -388,7 +442,6 @@
     }
   }
 }
-
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
   .A_Heading1Grotesk {
     font-size: 100px;
@@ -404,6 +457,22 @@
   }
   .A_Heading3 {
     font-size: 40px;
+  }
+
+  .A_HighlightHeading3 {
+    &.Antiqua {
+      font-size: 26px;
+      padding: 0 3px;
+    }
+    &.Grotesk {
+      font-size: 24px;
+      padding: 0 3px;
+    }
+    &.Emoji {
+      top: 5px;
+      padding: 0 8px;
+      font-size: 26px;
+    }
   }
   .A_Heading4 {
     font-size: 27px;
@@ -461,11 +530,9 @@
     }
   }
 }
-
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
 }
-
 @media only screen and (min-width: 500px) and (max-width: 959px) {
   .A_Heading1Grotesk {
     font-size: 74px;
@@ -481,6 +548,21 @@
   }
   .A_Heading3 {
     font-size: 30px;
+  }
+  .A_HighlightHeading3 {
+    &.Antiqua {
+      font-size: 37px;
+      padding: 0 3px;
+    }
+    &.Grotesk {
+      font-size: 34px;
+      padding: 0 3px;
+    }
+    &.Emoji {
+      top: 5px;
+      padding: 0 8px;
+      font-size: 37px;
+    }
   }
   .A_Heading4 {
     font-size: 18px;
@@ -577,6 +659,22 @@
   }
   .A_Heading3 {
     font-size: 20px;
+  }
+
+  .A_HighlightHeading3 {
+    &.Antiqua {
+      font-size: 26px;
+      padding: 0 2px;
+    }
+    &.Grotesk {
+      font-size: 24px;
+      padding: 0 2px;
+    }
+    &.Emoji {
+      top: 5px;
+      padding: 0 6px;
+      font-size: 24px;
+    }
   }
   .A_Heading4 {
     font-size: 18px;

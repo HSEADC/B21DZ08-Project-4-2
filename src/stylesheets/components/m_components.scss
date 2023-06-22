@@ -36,102 +36,45 @@
 .S_About {
   background-color: var(--white);
 }
-.O_Section2 {
-  .M_Header {
-    margin: 300px auto 150px;
-    background: transparent;
-    .W_HeaderText {
-      padding: 0;
-    }
-  }
-}
-.O_Section4 {
+.M_TarotCardLandingVersion {
   position: relative;
-  display: block;
-  width: 100%;
-  height: fit-content;
-  padding: 100px 0 200px;
-  border-radius: 22px;
-  background: radial-gradient(
-      33.92% 33.92% at 50% 100%,
-      #f8f6f0 0%,
-      rgba(248, 246, 240, 0) 100%
-    ),
-    radial-gradient(
-        108.95% 108.95% at 50% 0%,
-        #f8f6f0 0%,
-        rgba(255, 139, 236, 0) 100%
-      )
-      #ffa9e7;
-  .A_Heading2Grotesk {
-    display: block;
-    margin: 0 auto;
-  }
-  .C_AccentNumbers {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    align-items: center;
-    width: fit-content;
-    margin: 175px auto;
-    .W_TwoAndThree {
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-      align-items: center;
-      width: fit-content;
-    }
-  }
-}
-.O_Section5 {
-  position: relative;
+  width: 428px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: fit-content;
-  gap: 30px;
-  top: 0;
-  margin-top: 500px;
-  .M_MainHeading {
-    top: 0px;
-    margin: 0 auto;
-  }
-  .Q_MenuStar {
+  gap: 90px;
+  border-radius: 22px;
+  box-shadow: 0px 6px 9px var(--blackshadow);
+  background: radial-gradient(
+      98.45% 57.5% at 52.94% -0.07%,
+      #ffafe9 0%,
+      rgba(255, 148, 225, 0) 77.6%
+    ),
+    var(--white);
+  .W_TarotCardHighilight {
     position: relative;
-    &:hover {
-      animation: rotate 0.5s infinite linear;
+    text-align: center;
+    .W_TarotCardShadow {
+      width: fit-content;
+      height: fit-content;
+      filter: drop-shadow(0px 6px 9px var(--blackshadow));
+    }
+    .W_TarotCardInside {
+      position: relative;
+      top: 50px;
+      font-size: 38px;
+      line-height: 105%;
+      display: inline;
+      box-decoration-break: clone;
+      background: var(--white);
+      padding: 8px;
+      filter: url('#goo');
+      box-shadow: none;
     }
   }
-}
-.O_Section7 {
-  display: flex;
-  position: relative;
-  top: 7vh;
-  left: 2vw;
-  width: 96vw;
-  height: 100vh;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  .c1_c7,
-  .c3_c7 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1vh;
-  }
-  .m1_c7,
-  .m2_c7 {
-    height: 50vh;
-    width: auto;
-    margin-bottom: 0;
-    top: 0;
-  }
-  .M_Header {
-    background: transparent;
+  .A_Paragraph {
+    width: 83%;
   }
 }
 .M_ArticlesCategories {
@@ -545,31 +488,19 @@
   }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
-  .O_Section4 {
-    padding: 100px 0 140px;
+  .M_TarotCardLandingVersion {
+    width: 335px;
+    height: 510px;
+    gap: 80px;
     border-radius: 16px;
-    .C_AccentNumbers {
-      gap: 25px;
-      margin: 100px auto;
-      .W_TwoAndThree {
-        gap: 25px;
+    .W_TarotCardHighilight {
+      .W_TarotCardInside {
+        top: 40px;
+        font-size: 30px;
+        line-height: 100%;
+        padding: 8px;
       }
     }
-  }
-  .O_Section2 {
-    .M_Header {
-      margin: 260px auto 80px;
-      background: transparent;
-      .W_HeaderText {
-        padding: 0;
-        gap: 20px;
-      }
-    }
-  }
-  .O_Section5 {
-    gap: 25px;
-    top: 0;
-    margin-top: 200px;
   }
   .M_MainHeading {
     top: 180px;
@@ -766,31 +697,19 @@
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
-  .O_Section4 {
-    padding: 70px 0 110px;
+  .M_TarotCardLandingVersion {
+    width: 284px;
+    height: 430px;
+    gap: 70px;
     border-radius: 14px;
-    .C_AccentNumbers {
-      gap: 22px;
-      margin: 75px auto;
-      .W_TwoAndThree {
-        gap: 22px;
+    .W_TarotCardHighilight {
+      .W_TarotCardInside {
+        top: 35px;
+        font-size: 30px;
+        line-height: 85%;
+        padding: 8px;
       }
     }
-  }
-  .O_Section2 {
-    .M_Header {
-      margin: 230px auto 60px;
-      background: transparent;
-      .W_HeaderText {
-        padding: 0;
-        gap: 20px;
-      }
-    }
-  }
-  .O_Section5 {
-    gap: 25px;
-    top: 0;
-    margin-top: 120px;
   }
   .M_MainHeading {
     top: 170px;
@@ -986,18 +905,6 @@
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
-  .O_Section4 {
-    padding: 70px 0 110px;
-    border-radius: 12px;
-    .C_AccentNumbers {
-      gap: 50px;
-      margin: 75px auto;
-      flex-direction: column;
-      .W_TwoAndThree {
-        gap: 22px;
-      }
-    }
-  }
   .M_TextPoint {
     margin-top: 70px;
     gap: 25px;
@@ -1023,6 +930,14 @@
       align-self: center;
       width: 590px;
     }
+  }
+  .O_Section3 {
+    width: 590px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    gap: 22px;
+    margin-top: 80px;
+    margin-bottom: 80px;
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
@@ -1053,33 +968,6 @@
     .M_TextPoint {
       margin-top: 25px;
     }
-  }
-  .O_Section4 {
-    padding: 120px 0 140px;
-    border-radius: 12px;
-    .C_AccentNumbers {
-      gap: 50px;
-      margin: 85px auto;
-      flex-direction: column;
-      .W_TwoAndThree {
-        gap: 22px;
-      }
-    }
-  }
-  .O_Section2 {
-    .M_Header {
-      margin: 185px auto 45px;
-      background: transparent;
-      .W_HeaderText {
-        padding: 0;
-        gap: 12px;
-      }
-    }
-  }
-  .O_Section5 {
-    gap: 20px;
-    top: 0;
-    margin-top: 120px;
   }
   .M_MainHeading {
     top: 150px;
@@ -1269,6 +1157,23 @@
       width: 331px;
     }
   }
+  .M_TarotCardLandingVersion {
+    width: 335px;
+    height: 510px;
+    gap: 70px;
+    border-radius: 10px;
+    .W_TarotCardHighilight {
+      .W_TarotCardInside {
+        top: 35px;
+        font-size: 33px;
+        line-height: 95%;
+        padding: 8px;
+      }
+    }
+    .A_Paragraph {
+      width: 70%;
+    }
+  }
 }
 @media only screen and (min-width: 500px) and (max-width: 642px) {
   /*скролл на категориях!)*/
@@ -1280,19 +1185,6 @@
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
-  .O_Section4 {
-    padding: 120px 0 140px;
-    border-radius: 12px;
-    .C_AccentNumbers {
-      gap: 50px;
-      margin: 85px auto;
-      flex-direction: column;
-      .W_TwoAndThree {
-        gap: 22px;
-        flex-direction: column;
-      }
-    }
-  }
   .M_MainHeading {
     width: 490px;
     .W_Heading1,
@@ -1365,32 +1257,21 @@
 }
 @media only screen and (max-device-width: 499px) {
   /* Phone */
-  .O_Section4 {
-    padding: 60px 0 120px;
+  .M_TarotCardLandingVersion {
+    width: 240px;
+    height: 365px;
+    gap: 70px;
     border-radius: 8px;
-    .C_AccentNumbers {
-      gap: 50px;
-      margin: 85px auto;
-      flex-direction: column;
-      .W_TwoAndThree {
-        gap: 70px;
-        flex-direction: column;
+    .W_TarotCardHighilight {
+      .W_TarotCardInside {
+        top: 30px;
+        font-size: 22px;
+        line-height: 105%;
+        padding: 8px;
       }
     }
-  }
-  .O_Section5 {
-    gap: 20px;
-    top: 0;
-    margin-top: 90px;
-  }
-  .O_Section2 {
-    .M_Header {
-      margin: 185px auto 45px;
-      background: transparent;
-      .W_HeaderText {
-        padding: 0;
-        gap: 20px;
-      }
+    .A_Paragraph {
+      width: 70%;
     }
   }
   .M_TextPoint {

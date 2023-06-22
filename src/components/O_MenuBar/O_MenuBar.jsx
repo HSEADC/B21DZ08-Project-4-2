@@ -10,8 +10,8 @@ import A_MenuLogo from '../A_MenuLogo/A_MenuLogo.jsx';
 
 import A_MenuMobileToggle from '../A_MenuMobileToggle/A_MenuMobileToggle.jsx';
 
-const adressPart = ':8080/'
-// const addressPart = '.adc.ac/'
+// const adressPart = ':8080/'
+const addressPart = '.adc.ac/'
 const menu = [
   {
     text: '',
@@ -31,7 +31,7 @@ const menu = [
   },
   {
     text: 'карта дня',
-    url: '/cardoftheday.html'
+    url: '/fortunetellings/cardoftheday.html'
   },
   {
     text: 'о нас',
@@ -49,7 +49,8 @@ export default class O_MenuBar extends React.Component {
       isSearchButtonDisabled: true,
       teasers: [],
       searchInputValue,
-      isFocused: false
+      isFocused: false,
+      isToggled: false
     }
   }
 
@@ -102,15 +103,25 @@ export default class O_MenuBar extends React.Component {
     this.setState({ isFocused: false });
   };
 
+  toggleClass = () => {
+    this.setState(prevState => ({
+      isToggled: !prevState.isToggled
+    }));
+  };
+
   render() {
-    const { searchInputValue, current } = this.state
+    const { searchInputValue, current, isToggled } = this.state
     const url = this.getPathFromUrl(window.location.href)
+    const menuElementsclasses = classnames({
+      'M_MenuElements': true,
+      'Shows': isToggled
+    });
     return (
       <div className="O_MenuBar">
         {/* <A_MenuLogo url={menu[0].url}/> */}
-        <A_MenuMobileToggle/>
+        <A_MenuMobileToggle onClick={this.toggleClass}/>
         <A_MenuLogo url={url + adressPart}/>
-        <div className='M_MenuElements'>
+        <div className={menuElementsclasses}>
           <A_MenuElement text={menu[1].text} url={menu[1].url} current={current} logo={false} wrapper='W_MenuElement1'/>
           <div className="Q_MenuStar Black"></div>
           <A_MenuElement text={menu[2].text} url={menu[2].url} current={current} logo={false} wrapper='W_MenuElement2'/>
@@ -122,6 +133,7 @@ export default class O_MenuBar extends React.Component {
           <A_MenuElement text={menu[5].text} url={menu[5].url} current={current} logo={false} wrapper='W_MenuElement5'/>
         </div>
         <M_SearchBar
+          isToggled = {isToggled}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           isFocused={this.state.isFocused}
