@@ -5282,6 +5282,10 @@ document.addEventListener('DOMContentLoaded', function () {
   AccentBottom.addEventListener('click', function () {
     AccentBottom.classList.toggle('NotShowing');
     FortuneTelling.classList.toggle('NotShowing');
+    window.gtag('event', 'Click', {
+      event_category: 'Button',
+      event_label: 'CardOfTheDay'
+    });
   });
   (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
     var allTarotCards = data;

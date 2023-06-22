@@ -14,6 +14,10 @@ const AccentBottom = document.querySelector('.A_AccentButtonTarotTellings')
 AccentBottom.addEventListener('click', () => {
         AccentBottom.classList.toggle('NotShowing')
         FortuneTelling.classList.toggle('NotShowing')
+        window.gtag('event', 'Click', {
+          event_category: 'Button',
+          event_label: 'CardOfTheDay',
+        });
       })
 
   getTarotCards().then((data) => {
