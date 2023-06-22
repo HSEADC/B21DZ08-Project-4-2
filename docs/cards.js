@@ -5694,7 +5694,7 @@ function O_Menubar_defineProperty(obj, key, value) { if (key in obj) { Object.de
 
  // const adressPart = ':8080/'
 
-var addressPart = '.adc.ac/';
+var adressPart = '.adc.ac/';
 var menu = [{
   text: '',
   url: '/index.html'
