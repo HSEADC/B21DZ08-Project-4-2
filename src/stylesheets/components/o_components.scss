@@ -1,3 +1,131 @@
+.O_SectionMainHeading {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 1080px;
+  background: radial-gradient(
+      85.93% 85.93% at 50% 100%,
+      #292929 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    radial-gradient(
+      52.85% 53.1% at 50% 0%,
+      #343434 0%,
+      rgba(255, 169, 231, 0) 100%
+    ),
+    #ffa9e7;
+  &.Last {
+    margin-top: 70px;
+  }
+}
+.O_Section2 {
+  .M_Header {
+    margin: 300px auto 150px;
+    background: transparent;
+    .W_HeaderText {
+      padding: 0;
+    }
+  }
+}
+.O_Section3 {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 75px;
+  margin-bottom: 100px;
+}
+.O_Section4 {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: fit-content;
+  padding: 100px 0 200px;
+  border-radius: 22px;
+  background: radial-gradient(
+      33.92% 33.92% at 50% 100%,
+      #f8f6f0 0%,
+      rgba(248, 246, 240, 0) 100%
+    ),
+    radial-gradient(
+        108.95% 108.95% at 50% 0%,
+        #f8f6f0 0%,
+        rgba(255, 139, 236, 0) 100%
+      )
+      #ffa9e7;
+  .A_Heading2Grotesk {
+    display: block;
+    margin: 0 auto;
+  }
+  .C_AccentNumbers {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    width: fit-content;
+    margin: 175px auto;
+    .W_TwoAndThree {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      align-items: center;
+      width: fit-content;
+    }
+  }
+}
+.O_Section5 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  gap: 30px;
+  top: 0;
+  margin-top: 250px;
+  .M_MainHeading {
+    top: 0px;
+    margin: 0 auto;
+  }
+  .Q_MenuStar {
+    position: relative;
+    &:hover {
+      animation: rotate 0.5s infinite linear;
+    }
+  }
+}
+.O_Section7 {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 175px;
+  gap: 70px;
+  .W_Social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .A_Img {
+    width: auto;
+    &.Img1 {
+      width: 585px;
+    }
+    &.Img2 {
+      width: 505px;
+    }
+  }
+  .M_Header {
+    background: transparent;
+  }
+}
 .O_Menu {
   height: 58px;
   position: fixed;
@@ -481,12 +609,6 @@
     margin-top: 100px;
   }
 }
-// .cardoftheday {
-//   .O_Footer {
-//     margin-top: 0;
-//     top: 0;
-//   }
-// }
 .W_BlockOfTarotCards {
   position: relative;
   display: flex;
@@ -513,6 +635,58 @@
   z-index: 101;
 }
 @media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  .O_Section4 {
+    padding: 100px 0 140px;
+    border-radius: 16px;
+    .C_AccentNumbers {
+      gap: 25px;
+      margin: 100px auto;
+      .W_TwoAndThree {
+        gap: 25px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 260px auto 80px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 25px;
+    top: 0;
+    margin-top: 200px;
+  }
+  .O_Section7 {
+    margin-top: 175px;
+    gap: 30px;
+    .W_Social {
+      gap: 10px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 435px;
+      }
+      &.Img2 {
+        width: 385px;
+      }
+    }
+  }
+  .O_SectionMainHeading {
+    height: 1000px;
+    &.Last {
+      margin-top: 70px;
+    }
+  }
+  .O_Section3 {
+    gap: 25px;
+    margin-top: 160px;
+    margin-bottom: 120px;
+  }
   .O_Menu {
     height: 47px;
     left: calc(50% - 826.5px / 2);
@@ -724,6 +898,58 @@
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
+  .O_Section4 {
+    padding: 70px 0 110px;
+    border-radius: 14px;
+    .C_AccentNumbers {
+      gap: 22px;
+      margin: 75px auto;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 230px auto 60px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 25px;
+    top: 0;
+    margin-top: 120px;
+  }
+  .O_Section7 {
+    margin-top: 175px;
+    gap: 22px;
+    .W_Social {
+      gap: 10px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 386px;
+      }
+      &.Img2 {
+        width: 354px;
+      }
+    }
+  }
+  .O_Section3 {
+    gap: 22px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+  .O_SectionMainHeading {
+    height: 832px;
+    &.Last {
+      margin-top: 60px;
+    }
+  }
   .O_Menu {
     height: 43px;
     left: calc(50% - 726.47px / 2);
@@ -960,6 +1186,34 @@
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {
   /*только смена количества колонок*/
+  .O_Section4 {
+    padding: 70px 0 110px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 75px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .O_Section7 {
+    flex-direction: column;
+    margin-top: 175px;
+    gap: 135px;
+    .W_Social {
+      gap: 10px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 386px;
+      }
+      &.Img2 {
+        width: 354px;
+      }
+    }
+  }
   .O_Articles,
   .O_FortuneTellings {
     .W_AllArticleCards {
@@ -1032,6 +1286,63 @@
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 959px) {
+  .O_Section4 {
+    padding: 120px 0 140px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+      }
+    }
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 185px auto 45px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 12px;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 20px;
+    top: 0;
+    margin-top: 120px;
+  }
+  .O_Section7 {
+    flex-direction: column;
+    margin-top: 120px;
+    gap: 115px;
+    .W_Social {
+      gap: 10px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 455px;
+      }
+      &.Img2 {
+        width: 395px;
+      }
+    }
+  }
+  .O_Section3 {
+    width: 695px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    gap: 25px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+  .O_SectionMainHeading {
+    height: 1024px;
+    &.Last {
+      margin-top: 70px;
+    }
+  }
   .O_Menu {
     height: 34px;
     left: calc(50% - 578.35px / 2);
@@ -1267,6 +1578,43 @@
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 767px) {
+  .O_Section4 {
+    padding: 120px 0 140px;
+    border-radius: 12px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 22px;
+        flex-direction: column;
+      }
+    }
+  }
+  .O_Section7 {
+    flex-direction: column;
+    margin-top: 120px;
+    gap: 115px;
+    .W_Social {
+      gap: 10px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 455px;
+      }
+      &.Img2 {
+        width: 395px;
+      }
+    }
+  }
+  .O_Section3 {
+    width: fit-content;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 25px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
   .O_Articles,
   .O_FortuneTellings {
     .W_AllArticleCards {
@@ -1395,6 +1743,65 @@
   }
 }
 @media only screen and (max-device-width: 499px) {
+  .O_Section4 {
+    padding: 60px 0 120px;
+    border-radius: 8px;
+    .C_AccentNumbers {
+      gap: 50px;
+      margin: 85px auto;
+      flex-direction: column;
+      .W_TwoAndThree {
+        gap: 70px;
+        flex-direction: column;
+      }
+    }
+  }
+  .O_Section5 {
+    gap: 20px;
+    top: 0;
+    margin-top: 90px;
+  }
+  .O_Section2 {
+    .M_Header {
+      margin: 185px auto 45px;
+      background: transparent;
+      .W_HeaderText {
+        padding: 0;
+        gap: 20px;
+      }
+    }
+  }
+  .O_SectionMainHeading {
+    height: 768px;
+    &.Last {
+      margin-top: 50px;
+      height: 820px;
+    }
+  }
+  .O_Section7 {
+    flex-direction: column;
+    margin-top: 100px;
+    gap: 80px;
+    .W_Social {
+      gap: 8px;
+    }
+    .A_Img {
+      &.Img1 {
+        width: 328px;
+      }
+      &.Img2 {
+        width: 289px;
+      }
+    }
+  }
+  .O_Section3 {
+    width: fit-content;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 25px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
   .O_Menu {
     background: linear-gradient(
       180deg,
