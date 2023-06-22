@@ -10,8 +10,8 @@ import A_MenuLogo from '../A_MenuLogo/A_MenuLogo.jsx';
 
 import A_MenuMobileToggle from '../A_MenuMobileToggle/A_MenuMobileToggle.jsx';
 
-const adressPart = ':8080/'
-// const addressPart = '.adc.ac/'
+// const adressPart = ':8080/'
+const addressPart = '.adc.ac/'
 const menu = [
   {
     text: '',
@@ -31,7 +31,7 @@ const menu = [
   },
   {
     text: 'карта дня',
-    url: '/cardoftheday.html'
+    url: '/fortunetellings/cardoftheday.html'
   },
   {
     text: 'о нас',

@@ -150,6 +150,9 @@
   &.Center {
     text-align: center;
   }
+  &.Glowing {
+    text-shadow: 0px 0px 12.1275px var(--white);
+  }
 }
 .A_Link {
   font-family: 'Wremena';
@@ -249,7 +252,6 @@
   }
 }
 .A_CardArticleImage {
-  background-image: url('images/Q_card_article_image.png');
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 14px;
@@ -263,6 +265,15 @@
       rgba(255, 210, 237, 0) 70.83%,
       var(--pink) 100%
     );
+  }
+  &.Waite {
+    background-image: url('./images/articleImageWaite.png');
+  }
+  &.Fours {
+    background-image: url('./images/isThisAManicEpisode.png');
+  }
+  &.First {
+    background-image: url('./images/girlWithCandles.png');
   }
 }
 #canvas {

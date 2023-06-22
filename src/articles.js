@@ -25,7 +25,6 @@ function initFilter() {
     })
   }
 }
-
 // function clickInit() {
 //   const allarticlescards = document.getElementById('W_AllArticleCards')
 //   const allchildren = allarticlescards.children
