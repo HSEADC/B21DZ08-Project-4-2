@@ -156,8 +156,8 @@ module.exports = {
       chunks: ['fortunetelling', 'menu', 'future']
     }),
     new HtmlWebpackPlugin({
-      template: './src/cardoftheday.html',
-      filename: './cardoftheday.html',
+      template: './src/fortunetellings/cardoftheday.html',
+      filename: './fortunetellings/cardoftheday.html',
       chunks: ['fortunetelling', 'menu', 'contentrandomizer', 'cardoftheday']
     }),
     new HtmlWebpackPlugin({

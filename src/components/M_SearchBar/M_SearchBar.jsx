@@ -17,12 +17,15 @@ export default class M_SearchBar extends React.Component {
       handleSearchInput,
       handleSearchSubmit,
       onFocus,
-      onBlur
+      onBlur,
+      isToggled,
+      isFocused
     } = this.props
 
     const classes = classnames({
       'M_SearchBar': true,
-      'Active': this.props.isFocused
+      'Active': isFocused,
+      'Shows': isToggled
     });
 
     return (

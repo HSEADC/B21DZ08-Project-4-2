@@ -1,5 +1,5 @@
 body.index {
-  background: var(--pink);
+  background: var(--white);
   overflow: overlay;
   overflow-x: hidden;
   cursor: url('./images/cursor.svg'), auto;
@@ -7,6 +7,7 @@ body.index {
     font-size: 550%;
     text-align: center;
     font-family: 'Gramatika Demo';
+    color: var(--black);
   }
   h2 {
     font-size: 300%;

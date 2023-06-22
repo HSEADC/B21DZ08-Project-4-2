@@ -27,30 +27,30 @@ function getPathFromUrl(url) {
 }
 
 function createArticleCard(contentItemData) {
-    const contentItemLink = document.createElement('a')
-    contentItemLink.href = contentItemData.link
+  const contentItemLink = document.createElement('a')
+  contentItemLink.href = contentItemData.link
 
-    const contentItem = document.createElement('div')
-    contentItem.classList.add('M_CardArticle')
-  
-    const contentItemImage = document.createElement('img')
-    contentItemImage.classList.add('A_CardArticleImage')
-    contentItemImage.src = contentItemData.image
-  
-    const contentItemTitle = document.createElement('div')
-    contentItemTitle.classList.add('A_Heading5')
-    contentItemTitle.innerHTML = contentItemData.title
+  const contentItem = document.createElement('div')
+  contentItem.classList.add('M_CardArticle')
 
-    const contentItemDescription = document.createElement('div')
-    contentItemDescription.classList.add('A_Paragraph', 'Center')
-    contentItemDescription.innerHTML = contentItemData.description
-  
-    contentItem.appendChild(contentItemImage)
-    contentItem.appendChild(contentItemTitle)
-    contentItem.appendChild(contentItemDescription)
-    contentItemLink.appendChild(contentItem)
+  const contentItemImage = document.createElement('img')
+  contentItemImage.classList.add('A_CardArticleImage')
+  contentItemImage.src = contentItemData.image
 
-    return contentItemLink
+  const contentItemTitle = document.createElement('div')
+  contentItemTitle.classList.add('A_Heading5')
+  contentItemTitle.innerHTML = contentItemData.title
+
+  const contentItemDescription = document.createElement('div')
+  contentItemDescription.classList.add('A_Paragraph', 'Center')
+  contentItemDescription.innerHTML = contentItemData.description
+
+  contentItem.appendChild(contentItemImage)
+  contentItem.appendChild(contentItemTitle)
+  contentItem.appendChild(contentItemDescription)
+  contentItemLink.appendChild(contentItem)
+
+  return contentItemLink
 }
 
 function createTarotCards(tarotCardData){

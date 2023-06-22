@@ -5,11 +5,13 @@
   font-size: 24px;
   color: var(--black);
   line-height: 58px;
+  &:hover {
+    cursor: url('./../../images/pointer.svg'), auto;
+  }
 }
 .W_MenuElementTextBox {
   height: 58px;
-  &:hover .A_MenuElement {
-    text-shadow: 0px 0px 12px var(--pink);
+  &:hover {
     cursor: url('./../../images/pointer.svg'), auto;
   }
 }
@@ -21,9 +23,6 @@
   }
   .W_MenuElementTextBox {
     height: 47px;
-    &:hover .A_MenuElement {
-      text-shadow: 0px 0px 10px var(--pink);
-    }
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1439px) {
@@ -33,9 +32,6 @@
   }
   .W_MenuElementTextBox {
     height: 43px;
-    &:hover .A_MenuElement {
-      text-shadow: 0px 0px 8px var(--pink);
-    }
   }
 }
 @media only screen and (min-width: 960px) and (max-width: 1279px) {

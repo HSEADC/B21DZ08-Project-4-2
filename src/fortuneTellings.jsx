@@ -10,10 +10,15 @@ import { getFortuneTellings, getTarotCards } from './airtableData.js'
     getFortuneTellings().then((data) => {
       tellings = data
       const root = createRoot(document.querySelector('.W_FortuneTellings'))
-    //   const requiredTellings = []
+      const requiredTellings = []
+      tellings.forEach(telling => {
+        if (telling.id === 'fortuneTelling3'){
+          requiredTellings.push(telling)
+        }
+      });
   root.render(
     <div>
-    <O_BlockOfTarotCards data={data} />
+    <O_BlockOfTarotCards data={requiredTellings} />
     </div>)
     })  
   })
