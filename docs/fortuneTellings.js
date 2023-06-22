@@ -4977,10 +4977,15 @@ var tellings;
 document.addEventListener('DOMContentLoaded', function () {
   (0,airtableData/* getFortuneTellings */.dN)().then(function (data) {
     tellings = data;
-    var root = (0,client/* createRoot */.s)(document.querySelector('.W_FortuneTellings')); //   const requiredTellings = []
-
+    var root = (0,client/* createRoot */.s)(document.querySelector('.W_FortuneTellings'));
+    var requiredTellings = [];
+    tellings.forEach(function (telling) {
+      if (telling.id === 'fortuneTelling3') {
+        requiredTellings.push(telling);
+      }
+    });
     root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_BlockOfTarotCards, {
-      data: data
+      data: requiredTellings
     })));
   });
 });

@@ -4935,10 +4935,13 @@ var M_SearchBar = /*#__PURE__*/function (_React$Component) {
           handleSearchInput = _this$props.handleSearchInput,
           handleSearchSubmit = _this$props.handleSearchSubmit,
           onFocus = _this$props.onFocus,
-          onBlur = _this$props.onBlur;
+          onBlur = _this$props.onBlur,
+          isToggled = _this$props.isToggled,
+          isFocused = _this$props.isFocused;
       var classes = classnames_default()({
         'M_SearchBar': true,
-        'Active': this.props.isFocused
+        'Active': isFocused,
+        'Shows': isToggled
       });
       return /*#__PURE__*/react.createElement("div", {
         className: classes
@@ -5040,8 +5043,6 @@ function A_MenuMobileToggle_isNativeReflectConstruct() { if (typeof Reflect === 
 
 function A_MenuMobileToggle_getPrototypeOf(o) { A_MenuMobileToggle_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_MenuMobileToggle_getPrototypeOf(o); }
 
-function A_MenuMobileToggle_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -5052,33 +5053,23 @@ var A_MenuMobileToggle = /*#__PURE__*/function (_React$Component) {
   var _super = A_MenuMobileToggle_createSuper(A_MenuMobileToggle);
 
   function A_MenuMobileToggle() {
-    var _this;
-
     A_MenuMobileToggle_classCallCheck(this, A_MenuMobileToggle);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    A_MenuMobileToggle_defineProperty(A_MenuMobileToggle_assertThisInitialized(_this), "handleClick", function () {
-      var searchbb = document.querySelector(".M_SearchBar");
-      var menuelems = document.querySelector(".M_MenuElements");
-      console.log('clockclickkk');
-      searchbb.classList.toggle("Shows");
-      menuelems.classList.toggle("Shows");
-    });
-
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   A_MenuMobileToggle_createClass(A_MenuMobileToggle, [{
     key: "render",
-    value: function render() {
+    value: // handleClick = () => {
+    //   const searchbb = document.querySelector(".M_SearchBar")
+    //   const menuelems = document.querySelector(".M_MenuElements")
+    //   searchbb.classList.toggle("Shows")
+    //   menuelems.classList.toggle("Shows")
+    // };
+    function render() {
       return /*#__PURE__*/react.createElement("a", {
         className: "A_MenuMobileToggle",
-        onClick: this.handleClick
+        onClick: this.props.onClick
       }, /*#__PURE__*/react.createElement("div", null), /*#__PURE__*/react.createElement("div", null), /*#__PURE__*/react.createElement("div", null));
     }
   }]);
@@ -5120,9 +5111,9 @@ function O_Menubar_defineProperty(obj, key, value) { if (key in obj) { Object.de
 
 
 
+ // const adressPart = ':8080/'
 
-var adressPart = ':8080/'; // const addressPart = '.adc.ac/'
-
+var addressPart = '.adc.ac/';
 var menu = [{
   text: '',
   url: '/index.html'
@@ -5137,7 +5128,7 @@ var menu = [{
   url: '/cards.html'
 }, {
   text: 'карта дня',
-  url: '/cardoftheday.html'
+  url: '/fortunetellings/cardoftheday.html'
 }, {
   text: 'о нас',
   url: '/about.html'
@@ -5194,12 +5185,21 @@ var O_MenuBar = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    O_Menubar_defineProperty(O_Menubar_assertThisInitialized(_this), "toggleClass", function () {
+      _this.setState(function (prevState) {
+        return {
+          isToggled: !prevState.isToggled
+        };
+      });
+    });
+
     var _searchInputValue = props.searchInputValue;
     _this.state = {
       isSearchButtonDisabled: true,
       teasers: [],
       searchInputValue: _searchInputValue,
-      isFocused: false
+      isFocused: false,
+      isToggled: false
     };
     return _this;
   } // componentDidMount() {
@@ -5217,14 +5217,21 @@ var O_MenuBar = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$state = this.state,
           searchInputValue = _this$state.searchInputValue,
-          current = _this$state.current;
+          current = _this$state.current,
+          isToggled = _this$state.isToggled;
       var url = this.getPathFromUrl(window.location.href);
+      var menuElementsclasses = classnames_default()({
+        'M_MenuElements': true,
+        'Shows': isToggled
+      });
       return /*#__PURE__*/react.createElement("div", {
         className: "O_MenuBar"
-      }, /*#__PURE__*/react.createElement(A_MenuMobileToggle, null), /*#__PURE__*/react.createElement(A_MenuLogo, {
+      }, /*#__PURE__*/react.createElement(A_MenuMobileToggle, {
+        onClick: this.toggleClass
+      }), /*#__PURE__*/react.createElement(A_MenuLogo, {
         url: url + adressPart
       }), /*#__PURE__*/react.createElement("div", {
-        className: "M_MenuElements"
+        className: menuElementsclasses
       }, /*#__PURE__*/react.createElement(A_MenuElement, {
         text: menu[1].text,
         url: menu[1].url,
@@ -5264,6 +5271,7 @@ var O_MenuBar = /*#__PURE__*/function (_React$Component) {
         logo: false,
         wrapper: "W_MenuElement5"
       })), /*#__PURE__*/react.createElement(M_SearchBar, {
+        isToggled: isToggled,
         onFocus: this.handleFocus,
         onBlur: this.handleBlur,
         isFocused: this.state.isFocused,

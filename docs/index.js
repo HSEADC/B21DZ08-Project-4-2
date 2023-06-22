@@ -5024,11 +5024,19 @@ var M_ArticleCard = /*#__PURE__*/function (_React$Component) {
         style: {
           backgroundImage: "url(".concat(image, ")")
         }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Q_CardArticlesImageGradient"
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "A_Heading5",
+        dangerouslySetInnerHTML: {
+          __html: title
+        }
       }), /*#__PURE__*/react.createElement("div", {
-        className: "A_Heading5 "
-      }, title), /*#__PURE__*/react.createElement("div", {
-        className: "A_Paragraph Center"
-      }, description)));
+        className: "A_Paragraph Center",
+        dangerouslySetInnerHTML: {
+          __html: description
+        }
+      })));
     }
   }]);
 
