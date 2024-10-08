@@ -1,0 +1,35 @@
+[
+  {
+    "color": "black",
+    "line1": "погадать",
+    "line2": "на работу",
+    "image": "https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/4PZMh1Eg1vQdTxSb0F14ag/Wpb6Nt3W14KfBNIrq76mAJaxBv7ylIm7_UmLvEW_l8P7to4pVrw42qdhi78xvzLWG8nZC-A3xCB6YC0M5VorbrsuoSjhQaRkQxcKGKAES0pjr__Azdh2767MY-ruF8qTGxxQxqYefAhw03fd156wmg/WGLORj-jKrkpLw0X4jFOcjeUQO2gQq3kKdO8lfIZAbE",
+    "link": "fortunetellings/work.html",
+    "id": "fortuneTelling2",
+    "emoji": "💰",
+    "none": false,
+    "texttype": "Emoji"
+  },
+  {
+    "color": "black",
+    "line1": "карта",
+    "line2": "дня",
+    "image": "https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/-IeXUKJopupFY5CfPELbwA/UrlUkCxSKhi8nueS2u3dbLnl6DbWHSDu6mGNaIJUi5AWH3UELCtCdA3nq3PexeXMV21eq6H9kDQ7KfbB550m7BeYkjJCttVVGh5Fe2mmp1Dad7GCn8BXEqCYMjgxkhsEncoHEe5kCeQ8OrU9_jnqOA/f9TNHG6fkjvKvlAZ3ReehUHbY7_7zp3Al69OZ3Shvpw",
+    "link": "fortunetellings/cardoftheday.html",
+    "id": "fortuneTelling3",
+    "emoji": "👀",
+    "none": false,
+    "texttype": "Emoji"
+  },
+  {
+    "color": "black",
+    "line1": "расклад",
+    "line2": "на любовь",
+    "image": "https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/czZIUETXwgaMk1z3DOgpbA/wf8RifBTmQjPbRqAtk2ZtZULVYYXMbphlrlTBGDnYSV5cEEl44rFuX_2NBqcYqnCxX_rMov3FJXc-NzOtosHSV1AuiskLkMA-L1pIeHHmhqKk7ldpVtbnl8ViNw_RwVEm9ejsMJzSHSo4iWnVeDg7Q/RjXVENWjM_JjPn8jsdjcaXrV6ViN1zAuPMmtxaKoIy8",
+    "link": "fortunetellings/love.html",
+    "id": "fortuneTelling1",
+    "emoji": "🤍",
+    "none": false,
+    "texttype": "Emoji"
+  }
+]

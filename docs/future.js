@@ -1,4032 +1,67 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 829:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-(function(f){if(true){module.exports=f()}else { var g; }})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=undefined;if(!f&&c)return require(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=undefined,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-"use strict";
-// istanbul ignore file
-var AbortController;
-var browserGlobal = typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : null; // self is the global in web workers
-if (!browserGlobal) {
-    AbortController = require('abort-controller');
-}
-else if ('signal' in new Request('')) {
-    AbortController = browserGlobal.AbortController;
-}
-else {
-    /* eslint-disable @typescript-eslint/no-var-requires */
-    var polyfill = require('abortcontroller-polyfill/dist/cjs-ponyfill');
-    /* eslint-enable @typescript-eslint/no-var-requires */
-    AbortController = polyfill.AbortController;
-}
-module.exports = AbortController;
-
-},{"abort-controller":20,"abortcontroller-polyfill/dist/cjs-ponyfill":19}],2:[function(require,module,exports){
-"use strict";
-var AirtableError = /** @class */ (function () {
-    function AirtableError(error, message, statusCode) {
-        this.error = error;
-        this.message = message;
-        this.statusCode = statusCode;
-    }
-    AirtableError.prototype.toString = function () {
-        return [
-            this.message,
-            '(',
-            this.error,
-            ')',
-            this.statusCode ? "[Http code " + this.statusCode + "]" : '',
-        ].join('');
-    };
-    return AirtableError;
-}());
-module.exports = AirtableError;
-
-},{}],3:[function(require,module,exports){
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var get_1 = __importDefault(require("lodash/get"));
-var isPlainObject_1 = __importDefault(require("lodash/isPlainObject"));
-var keys_1 = __importDefault(require("lodash/keys"));
-var fetch_1 = __importDefault(require("./fetch"));
-var abort_controller_1 = __importDefault(require("./abort-controller"));
-var object_to_query_param_string_1 = __importDefault(require("./object_to_query_param_string"));
-var airtable_error_1 = __importDefault(require("./airtable_error"));
-var table_1 = __importDefault(require("./table"));
-var http_headers_1 = __importDefault(require("./http_headers"));
-var run_action_1 = __importDefault(require("./run_action"));
-var package_version_1 = __importDefault(require("./package_version"));
-var exponential_backoff_with_jitter_1 = __importDefault(require("./exponential_backoff_with_jitter"));
-var userAgent = "Airtable.js/" + package_version_1.default;
-var Base = /** @class */ (function () {
-    function Base(airtable, baseId) {
-        this._airtable = airtable;
-        this._id = baseId;
-    }
-    Base.prototype.table = function (tableName) {
-        return new table_1.default(this, null, tableName);
-    };
-    Base.prototype.makeRequest = function (options) {
-        var _this = this;
-        var _a;
-        if (options === void 0) { options = {}; }
-        var method = get_1.default(options, 'method', 'GET').toUpperCase();
-        var url = this._airtable._endpointUrl + "/v" + this._airtable._apiVersionMajor + "/" + this._id + get_1.default(options, 'path', '/') + "?" + object_to_query_param_string_1.default(get_1.default(options, 'qs', {}));
-        var controller = new abort_controller_1.default();
-        var headers = this._getRequestHeaders(Object.assign({}, this._airtable._customHeaders, (_a = options.headers) !== null && _a !== void 0 ? _a : {}));
-        var requestOptions = {
-            method: method,
-            headers: headers,
-            signal: controller.signal,
-        };
-        if ('body' in options && _canRequestMethodIncludeBody(method)) {
-            requestOptions.body = JSON.stringify(options.body);
-        }
-        var timeout = setTimeout(function () {
-            controller.abort();
-        }, this._airtable._requestTimeout);
-        return new Promise(function (resolve, reject) {
-            fetch_1.default(url, requestOptions)
-                .then(function (resp) {
-                clearTimeout(timeout);
-                if (resp.status === 429 && !_this._airtable._noRetryIfRateLimited) {
-                    var numAttempts_1 = get_1.default(options, '_numAttempts', 0);
-                    var backoffDelayMs = exponential_backoff_with_jitter_1.default(numAttempts_1);
-                    setTimeout(function () {
-                        var newOptions = __assign(__assign({}, options), { _numAttempts: numAttempts_1 + 1 });
-                        _this.makeRequest(newOptions)
-                            .then(resolve)
-                            .catch(reject);
-                    }, backoffDelayMs);
-                }
-                else {
-                    resp.json()
-                        .then(function (body) {
-                        var err = _this._checkStatusForError(resp.status, body) ||
-                            _getErrorForNonObjectBody(resp.status, body);
-                        if (err) {
-                            reject(err);
-                        }
-                        else {
-                            resolve({
-                                statusCode: resp.status,
-                                headers: resp.headers,
-                                body: body,
-                            });
-                        }
-                    })
-                        .catch(function () {
-                        var err = _getErrorForNonObjectBody(resp.status);
-                        reject(err);
-                    });
-                }
-            })
-                .catch(function (err) {
-                clearTimeout(timeout);
-                err = new airtable_error_1.default('CONNECTION_ERROR', err.message, null);
-                reject(err);
-            });
-        });
-    };
-    /**
-     * @deprecated This method is deprecated.
-     */
-    Base.prototype.runAction = function (method, path, queryParams, bodyData, callback) {
-        run_action_1.default(this, method, path, queryParams, bodyData, callback, 0);
-    };
-    Base.prototype._getRequestHeaders = function (headers) {
-        var result = new http_headers_1.default();
-        result.set('Authorization', "Bearer " + this._airtable._apiKey);
-        result.set('User-Agent', userAgent);
-        result.set('Content-Type', 'application/json');
-        for (var _i = 0, _a = keys_1.default(headers); _i < _a.length; _i++) {
-            var headerKey = _a[_i];
-            result.set(headerKey, headers[headerKey]);
-        }
-        return result.toJSON();
-    };
-    Base.prototype._checkStatusForError = function (statusCode, body) {
-        var _a = (body !== null && body !== void 0 ? body : { error: {} }).error, error = _a === void 0 ? {} : _a;
-        var type = error.type, message = error.message;
-        if (statusCode === 401) {
-            return new airtable_error_1.default('AUTHENTICATION_REQUIRED', 'You should provide valid api key to perform this operation', statusCode);
-        }
-        else if (statusCode === 403) {
-            return new airtable_error_1.default('NOT_AUTHORIZED', 'You are not authorized to perform this operation', statusCode);
-        }
-        else if (statusCode === 404) {
-            return new airtable_error_1.default('NOT_FOUND', message !== null && message !== void 0 ? message : 'Could not find what you are looking for', statusCode);
-        }
-        else if (statusCode === 413) {
-            return new airtable_error_1.default('REQUEST_TOO_LARGE', 'Request body is too large', statusCode);
-        }
-        else if (statusCode === 422) {
-            return new airtable_error_1.default(type !== null && type !== void 0 ? type : 'UNPROCESSABLE_ENTITY', message !== null && message !== void 0 ? message : 'The operation cannot be processed', statusCode);
-        }
-        else if (statusCode === 429) {
-            return new airtable_error_1.default('TOO_MANY_REQUESTS', 'You have made too many requests in a short period of time. Please retry your request later', statusCode);
-        }
-        else if (statusCode === 500) {
-            return new airtable_error_1.default('SERVER_ERROR', 'Try again. If the problem persists, contact support.', statusCode);
-        }
-        else if (statusCode === 503) {
-            return new airtable_error_1.default('SERVICE_UNAVAILABLE', 'The service is temporarily unavailable. Please retry shortly.', statusCode);
-        }
-        else if (statusCode >= 400) {
-            return new airtable_error_1.default(type !== null && type !== void 0 ? type : 'UNEXPECTED_ERROR', message !== null && message !== void 0 ? message : 'An unexpected error occurred', statusCode);
-        }
-        else {
-            return null;
-        }
-    };
-    Base.prototype.doCall = function (tableName) {
-        return this.table(tableName);
-    };
-    Base.prototype.getId = function () {
-        return this._id;
-    };
-    Base.createFunctor = function (airtable, baseId) {
-        var base = new Base(airtable, baseId);
-        var baseFn = function (tableName) {
-            return base.doCall(tableName);
-        };
-        baseFn._base = base;
-        baseFn.table = base.table.bind(base);
-        baseFn.makeRequest = base.makeRequest.bind(base);
-        baseFn.runAction = base.runAction.bind(base);
-        baseFn.getId = base.getId.bind(base);
-        return baseFn;
-    };
-    return Base;
-}());
-function _canRequestMethodIncludeBody(method) {
-    return method !== 'GET' && method !== 'DELETE';
-}
-function _getErrorForNonObjectBody(statusCode, body) {
-    if (isPlainObject_1.default(body)) {
-        return null;
-    }
-    else {
-        return new airtable_error_1.default('UNEXPECTED_ERROR', 'The response from Airtable was invalid JSON. Please try again soon.', statusCode);
-    }
-}
-module.exports = Base;
-
-},{"./abort-controller":1,"./airtable_error":2,"./exponential_backoff_with_jitter":6,"./fetch":7,"./http_headers":9,"./object_to_query_param_string":11,"./package_version":12,"./run_action":16,"./table":17,"lodash/get":77,"lodash/isPlainObject":89,"lodash/keys":93}],4:[function(require,module,exports){
-"use strict";
-/**
- * Given a function fn that takes a callback as its last argument, returns
- * a new version of the function that takes the callback optionally. If
- * the function is not called with a callback for the last argument, the
- * function will return a promise instead.
- */
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
-function callbackToPromise(fn, context, callbackArgIndex) {
-    if (callbackArgIndex === void 0) { callbackArgIndex = void 0; }
-    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
-    return function () {
-        var callArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            callArgs[_i] = arguments[_i];
-        }
-        var thisCallbackArgIndex;
-        if (callbackArgIndex === void 0) {
-            // istanbul ignore next
-            thisCallbackArgIndex = callArgs.length > 0 ? callArgs.length - 1 : 0;
-        }
-        else {
-            thisCallbackArgIndex = callbackArgIndex;
-        }
-        var callbackArg = callArgs[thisCallbackArgIndex];
-        if (typeof callbackArg === 'function') {
-            fn.apply(context, callArgs);
-            return void 0;
-        }
-        else {
-            var args_1 = [];
-            // If an explicit callbackArgIndex is set, but the function is called
-            // with too few arguments, we want to push undefined onto args so that
-            // our constructed callback ends up at the right index.
-            var argLen = Math.max(callArgs.length, thisCallbackArgIndex);
-            for (var i = 0; i < argLen; i++) {
-                args_1.push(callArgs[i]);
-            }
-            return new Promise(function (resolve, reject) {
-                args_1.push(function (err, result) {
-                    if (err) {
-                        reject(err);
-                    }
-                    else {
-                        resolve(result);
-                    }
-                });
-                fn.apply(context, args_1);
-            });
-        }
-    };
-}
-module.exports = callbackToPromise;
-
-},{}],5:[function(require,module,exports){
-"use strict";
-var didWarnForDeprecation = {};
-/**
- * Convenience function for marking a function as deprecated.
- *
- * Will emit a warning the first time that function is called.
- *
- * @param fn the function to mark as deprecated.
- * @param key a unique key identifying the function.
- * @param message the warning message.
- *
- * @return a wrapped function
- */
-function deprecate(fn, key, message) {
-    return function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        if (!didWarnForDeprecation[key]) {
-            didWarnForDeprecation[key] = true;
-            console.warn(message);
-        }
-        fn.apply(this, args);
-    };
-}
-module.exports = deprecate;
-
-},{}],6:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var internal_config_json_1 = __importDefault(require("./internal_config.json"));
-// "Full Jitter" algorithm taken from https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
-function exponentialBackoffWithJitter(numberOfRetries) {
-    var rawBackoffTimeMs = internal_config_json_1.default.INITIAL_RETRY_DELAY_IF_RATE_LIMITED * Math.pow(2, numberOfRetries);
-    var clippedBackoffTimeMs = Math.min(internal_config_json_1.default.MAX_RETRY_DELAY_IF_RATE_LIMITED, rawBackoffTimeMs);
-    var jitteredBackoffTimeMs = Math.random() * clippedBackoffTimeMs;
-    return jitteredBackoffTimeMs;
-}
-module.exports = exponentialBackoffWithJitter;
-
-},{"./internal_config.json":10}],7:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-// istanbul ignore file
-var node_fetch_1 = __importDefault(require("node-fetch"));
-var browserGlobal = typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : null; // self is the global in web workers
-module.exports = !browserGlobal ? node_fetch_1.default : browserGlobal.fetch.bind(browserGlobal);
-
-},{"node-fetch":20}],8:[function(require,module,exports){
-"use strict";
-/* eslint-enable @typescript-eslint/no-explicit-any */
-function has(object, property) {
-    return Object.prototype.hasOwnProperty.call(object, property);
-}
-module.exports = has;
-
-},{}],9:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var keys_1 = __importDefault(require("lodash/keys"));
-var isBrowser = typeof window !== 'undefined';
-var HttpHeaders = /** @class */ (function () {
-    function HttpHeaders() {
-        this._headersByLowercasedKey = {};
-    }
-    HttpHeaders.prototype.set = function (headerKey, headerValue) {
-        var lowercasedKey = headerKey.toLowerCase();
-        if (lowercasedKey === 'x-airtable-user-agent') {
-            lowercasedKey = 'user-agent';
-            headerKey = 'User-Agent';
-        }
-        this._headersByLowercasedKey[lowercasedKey] = {
-            headerKey: headerKey,
-            headerValue: headerValue,
-        };
-    };
-    HttpHeaders.prototype.toJSON = function () {
-        var result = {};
-        for (var _i = 0, _a = keys_1.default(this._headersByLowercasedKey); _i < _a.length; _i++) {
-            var lowercasedKey = _a[_i];
-            var headerDefinition = this._headersByLowercasedKey[lowercasedKey];
-            var headerKey = void 0;
-            /* istanbul ignore next */
-            if (isBrowser && lowercasedKey === 'user-agent') {
-                // Some browsers do not allow overriding the user agent.
-                // https://github.com/Airtable/airtable.js/issues/52
-                headerKey = 'X-Airtable-User-Agent';
-            }
-            else {
-                headerKey = headerDefinition.headerKey;
-            }
-            result[headerKey] = headerDefinition.headerValue;
-        }
-        return result;
-    };
-    return HttpHeaders;
-}());
-module.exports = HttpHeaders;
-
-},{"lodash/keys":93}],10:[function(require,module,exports){
-module.exports={
-    "INITIAL_RETRY_DELAY_IF_RATE_LIMITED": 5000,
-    "MAX_RETRY_DELAY_IF_RATE_LIMITED": 600000
-}
-
-},{}],11:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var isArray_1 = __importDefault(require("lodash/isArray"));
-var isNil_1 = __importDefault(require("lodash/isNil"));
-var keys_1 = __importDefault(require("lodash/keys"));
-/* eslint-enable @typescript-eslint/no-explicit-any */
-// Adapted from jQuery.param:
-// https://github.com/jquery/jquery/blob/2.2-stable/src/serialize.js
-function buildParams(prefix, obj, addFn) {
-    if (isArray_1.default(obj)) {
-        // Serialize array item.
-        for (var index = 0; index < obj.length; index++) {
-            var value = obj[index];
-            if (/\[\]$/.test(prefix)) {
-                // Treat each array item as a scalar.
-                addFn(prefix, value);
-            }
-            else {
-                // Item is non-scalar (array or object), encode its numeric index.
-                buildParams(prefix + "[" + (typeof value === 'object' && value !== null ? index : '') + "]", value, addFn);
-            }
-        }
-    }
-    else if (typeof obj === 'object') {
-        // Serialize object item.
-        for (var _i = 0, _a = keys_1.default(obj); _i < _a.length; _i++) {
-            var key = _a[_i];
-            var value = obj[key];
-            buildParams(prefix + "[" + key + "]", value, addFn);
-        }
-    }
-    else {
-        // Serialize scalar item.
-        addFn(prefix, obj);
-    }
-}
-function objectToQueryParamString(obj) {
-    var parts = [];
-    var addFn = function (key, value) {
-        value = isNil_1.default(value) ? '' : value;
-        parts.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
-    };
-    for (var _i = 0, _a = keys_1.default(obj); _i < _a.length; _i++) {
-        var key = _a[_i];
-        var value = obj[key];
-        buildParams(key, value, addFn);
-    }
-    return parts.join('&').replace(/%20/g, '+');
-}
-module.exports = objectToQueryParamString;
-
-},{"lodash/isArray":79,"lodash/isNil":85,"lodash/keys":93}],12:[function(require,module,exports){
-"use strict";
-module.exports = "0.11.6";
-
-},{}],13:[function(require,module,exports){
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var isFunction_1 = __importDefault(require("lodash/isFunction"));
-var keys_1 = __importDefault(require("lodash/keys"));
-var record_1 = __importDefault(require("./record"));
-var callback_to_promise_1 = __importDefault(require("./callback_to_promise"));
-var has_1 = __importDefault(require("./has"));
-var query_params_1 = require("./query_params");
-var object_to_query_param_string_1 = __importDefault(require("./object_to_query_param_string"));
-/**
- * Builds a query object. Won't fetch until `firstPage` or
- * or `eachPage` is called.
- *
- * Params should be validated prior to being passed to Query
- * with `Query.validateParams`.
- */
-var Query = /** @class */ (function () {
-    function Query(table, params) {
-        this._table = table;
-        this._params = params;
-        this.firstPage = callback_to_promise_1.default(firstPage, this);
-        this.eachPage = callback_to_promise_1.default(eachPage, this, 1);
-        this.all = callback_to_promise_1.default(all, this);
-    }
-    /**
-     * Validates the parameters for passing to the Query constructor.
-     *
-     * @params {object} params parameters to validate
-     *
-     * @return an object with two keys:
-     *  validParams: the object that should be passed to the constructor.
-     *  ignoredKeys: a list of keys that will be ignored.
-     *  errors: a list of error messages.
-     */
-    Query.validateParams = function (params) {
-        var validParams = {};
-        var ignoredKeys = [];
-        var errors = [];
-        for (var _i = 0, _a = keys_1.default(params); _i < _a.length; _i++) {
-            var key = _a[_i];
-            var value = params[key];
-            if (has_1.default(Query.paramValidators, key)) {
-                var validator = Query.paramValidators[key];
-                var validationResult = validator(value);
-                if (validationResult.pass) {
-                    validParams[key] = value;
-                }
-                else {
-                    errors.push(validationResult.error);
-                }
-            }
-            else {
-                ignoredKeys.push(key);
-            }
-        }
-        return {
-            validParams: validParams,
-            ignoredKeys: ignoredKeys,
-            errors: errors,
-        };
-    };
-    Query.paramValidators = query_params_1.paramValidators;
-    return Query;
-}());
-/**
- * Fetches the first page of results for the query asynchronously,
- * then calls `done(error, records)`.
- */
-function firstPage(done) {
-    if (!isFunction_1.default(done)) {
-        throw new Error('The first parameter to `firstPage` must be a function');
-    }
-    this.eachPage(function (records) {
-        done(null, records);
-    }, function (error) {
-        done(error, null);
-    });
-}
-/**
- * Fetches each page of results for the query asynchronously.
- *
- * Calls `pageCallback(records, fetchNextPage)` for each
- * page. You must call `fetchNextPage()` to fetch the next page of
- * results.
- *
- * After fetching all pages, or if there's an error, calls
- * `done(error)`.
- */
-function eachPage(pageCallback, done) {
-    var _this = this;
-    if (!isFunction_1.default(pageCallback)) {
-        throw new Error('The first parameter to `eachPage` must be a function');
-    }
-    if (!isFunction_1.default(done) && done !== void 0) {
-        throw new Error('The second parameter to `eachPage` must be a function or undefined');
-    }
-    var params = __assign({}, this._params);
-    var pathAndParamsAsString = "/" + this._table._urlEncodedNameOrId() + "?" + object_to_query_param_string_1.default(params);
-    var queryParams = {};
-    var requestData = null;
-    var method;
-    var path;
-    if (params.method === 'post' || pathAndParamsAsString.length > query_params_1.URL_CHARACTER_LENGTH_LIMIT) {
-        // There is a 16kb limit on GET requests. Since the URL makes up nearly all of the request size, we check for any requests that
-        // that come close to this limit and send it as a POST instead. Additionally, we'll send the request as a post if it is specified
-        // with the request params
-        requestData = params;
-        method = 'post';
-        path = "/" + this._table._urlEncodedNameOrId() + "/listRecords";
-        var paramNames = Object.keys(params);
-        for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
-            var paramName = paramNames_1[_i];
-            if (query_params_1.shouldListRecordsParamBePassedAsParameter(paramName)) {
-                // timeZone and userLocale is parsed from the GET request separately from the other params. This parsing
-                // does not occurring within the body parser we use for POST requests, so this will still need to be passed
-                // via query params
-                queryParams[paramName] = params[paramName];
-            }
-            else {
-                requestData[paramName] = params[paramName];
-            }
-        }
-    }
-    else {
-        method = 'get';
-        queryParams = params;
-        path = "/" + this._table._urlEncodedNameOrId();
-    }
-    var inner = function () {
-        _this._table._base.runAction(method, path, queryParams, requestData, function (err, response, result) {
-            if (err) {
-                done(err, null);
-            }
-            else {
-                var next = void 0;
-                if (result.offset) {
-                    params.offset = result.offset;
-                    next = inner;
-                }
-                else {
-                    next = function () {
-                        done(null);
-                    };
-                }
-                var records = result.records.map(function (recordJson) {
-                    return new record_1.default(_this._table, null, recordJson);
-                });
-                pageCallback(records, next);
-            }
-        });
-    };
-    inner();
-}
-/**
- * Fetches all pages of results asynchronously. May take a long time.
- */
-function all(done) {
-    if (!isFunction_1.default(done)) {
-        throw new Error('The first parameter to `all` must be a function');
-    }
-    var allRecords = [];
-    this.eachPage(function (pageRecords, fetchNextPage) {
-        allRecords.push.apply(allRecords, pageRecords);
-        fetchNextPage();
-    }, function (err) {
-        if (err) {
-            done(err, null);
-        }
-        else {
-            done(null, allRecords);
-        }
-    });
-}
-module.exports = Query;
-
-},{"./callback_to_promise":4,"./has":8,"./object_to_query_param_string":11,"./query_params":14,"./record":15,"lodash/isFunction":83,"lodash/keys":93}],14:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.shouldListRecordsParamBePassedAsParameter = exports.URL_CHARACTER_LENGTH_LIMIT = exports.paramValidators = void 0;
-var typecheck_1 = __importDefault(require("./typecheck"));
-var isString_1 = __importDefault(require("lodash/isString"));
-var isNumber_1 = __importDefault(require("lodash/isNumber"));
-var isPlainObject_1 = __importDefault(require("lodash/isPlainObject"));
-var isBoolean_1 = __importDefault(require("lodash/isBoolean"));
-exports.paramValidators = {
-    fields: typecheck_1.default(typecheck_1.default.isArrayOf(isString_1.default), 'the value for `fields` should be an array of strings'),
-    filterByFormula: typecheck_1.default(isString_1.default, 'the value for `filterByFormula` should be a string'),
-    maxRecords: typecheck_1.default(isNumber_1.default, 'the value for `maxRecords` should be a number'),
-    pageSize: typecheck_1.default(isNumber_1.default, 'the value for `pageSize` should be a number'),
-    offset: typecheck_1.default(isNumber_1.default, 'the value for `offset` should be a number'),
-    sort: typecheck_1.default(typecheck_1.default.isArrayOf(function (obj) {
-        return (isPlainObject_1.default(obj) &&
-            isString_1.default(obj.field) &&
-            (obj.direction === void 0 || ['asc', 'desc'].includes(obj.direction)));
-    }), 'the value for `sort` should be an array of sort objects. ' +
-        'Each sort object must have a string `field` value, and an optional ' +
-        '`direction` value that is "asc" or "desc".'),
-    view: typecheck_1.default(isString_1.default, 'the value for `view` should be a string'),
-    cellFormat: typecheck_1.default(function (cellFormat) {
-        return isString_1.default(cellFormat) && ['json', 'string'].includes(cellFormat);
-    }, 'the value for `cellFormat` should be "json" or "string"'),
-    timeZone: typecheck_1.default(isString_1.default, 'the value for `timeZone` should be a string'),
-    userLocale: typecheck_1.default(isString_1.default, 'the value for `userLocale` should be a string'),
-    method: typecheck_1.default(function (method) {
-        return isString_1.default(method) && ['get', 'post'].includes(method);
-    }, 'the value for `method` should be "get" or "post"'),
-    returnFieldsByFieldId: typecheck_1.default(isBoolean_1.default, 'the value for `returnFieldsByFieldId` should be a boolean'),
-};
-exports.URL_CHARACTER_LENGTH_LIMIT = 15000;
-exports.shouldListRecordsParamBePassedAsParameter = function (paramName) {
-    return paramName === 'timeZone' || paramName === 'userLocale';
-};
-
-},{"./typecheck":18,"lodash/isBoolean":81,"lodash/isNumber":86,"lodash/isPlainObject":89,"lodash/isString":90}],15:[function(require,module,exports){
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var callback_to_promise_1 = __importDefault(require("./callback_to_promise"));
-var Record = /** @class */ (function () {
-    function Record(table, recordId, recordJson) {
-        this._table = table;
-        this.id = recordId || recordJson.id;
-        this.setRawJson(recordJson);
-        this.save = callback_to_promise_1.default(save, this);
-        this.patchUpdate = callback_to_promise_1.default(patchUpdate, this);
-        this.putUpdate = callback_to_promise_1.default(putUpdate, this);
-        this.destroy = callback_to_promise_1.default(destroy, this);
-        this.fetch = callback_to_promise_1.default(fetch, this);
-        this.updateFields = this.patchUpdate;
-        this.replaceFields = this.putUpdate;
-    }
-    Record.prototype.getId = function () {
-        return this.id;
-    };
-    Record.prototype.get = function (columnName) {
-        return this.fields[columnName];
-    };
-    Record.prototype.set = function (columnName, columnValue) {
-        this.fields[columnName] = columnValue;
-    };
-    Record.prototype.setRawJson = function (rawJson) {
-        this._rawJson = rawJson;
-        this.fields = (this._rawJson && this._rawJson.fields) || {};
-    };
-    return Record;
-}());
-function save(done) {
-    this.putUpdate(this.fields, done);
-}
-function patchUpdate(cellValuesByName, opts, done) {
-    var _this = this;
-    if (!done) {
-        done = opts;
-        opts = {};
-    }
-    var updateBody = __assign({ fields: cellValuesByName }, opts);
-    this._table._base.runAction('patch', "/" + this._table._urlEncodedNameOrId() + "/" + this.id, {}, updateBody, function (err, response, results) {
-        if (err) {
-            done(err);
-            return;
-        }
-        _this.setRawJson(results);
-        done(null, _this);
-    });
-}
-function putUpdate(cellValuesByName, opts, done) {
-    var _this = this;
-    if (!done) {
-        done = opts;
-        opts = {};
-    }
-    var updateBody = __assign({ fields: cellValuesByName }, opts);
-    this._table._base.runAction('put', "/" + this._table._urlEncodedNameOrId() + "/" + this.id, {}, updateBody, function (err, response, results) {
-        if (err) {
-            done(err);
-            return;
-        }
-        _this.setRawJson(results);
-        done(null, _this);
-    });
-}
-function destroy(done) {
-    var _this = this;
-    this._table._base.runAction('delete', "/" + this._table._urlEncodedNameOrId() + "/" + this.id, {}, null, function (err) {
-        if (err) {
-            done(err);
-            return;
-        }
-        done(null, _this);
-    });
-}
-function fetch(done) {
-    var _this = this;
-    this._table._base.runAction('get', "/" + this._table._urlEncodedNameOrId() + "/" + this.id, {}, null, function (err, response, results) {
-        if (err) {
-            done(err);
-            return;
-        }
-        _this.setRawJson(results);
-        done(null, _this);
-    });
-}
-module.exports = Record;
-
-},{"./callback_to_promise":4}],16:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var exponential_backoff_with_jitter_1 = __importDefault(require("./exponential_backoff_with_jitter"));
-var object_to_query_param_string_1 = __importDefault(require("./object_to_query_param_string"));
-var package_version_1 = __importDefault(require("./package_version"));
-var fetch_1 = __importDefault(require("./fetch"));
-var abort_controller_1 = __importDefault(require("./abort-controller"));
-var userAgent = "Airtable.js/" + package_version_1.default;
-function runAction(base, method, path, queryParams, bodyData, callback, numAttempts) {
-    var url = base._airtable._endpointUrl + "/v" + base._airtable._apiVersionMajor + "/" + base._id + path + "?" + object_to_query_param_string_1.default(queryParams);
-    var headers = {
-        authorization: "Bearer " + base._airtable._apiKey,
-        'x-api-version': base._airtable._apiVersion,
-        'x-airtable-application-id': base.getId(),
-        'content-type': 'application/json',
-    };
-    var isBrowser = typeof window !== 'undefined';
-    // Some browsers do not allow overriding the user agent.
-    // https://github.com/Airtable/airtable.js/issues/52
-    if (isBrowser) {
-        headers['x-airtable-user-agent'] = userAgent;
-    }
-    else {
-        headers['User-Agent'] = userAgent;
-    }
-    var controller = new abort_controller_1.default();
-    var normalizedMethod = method.toUpperCase();
-    var options = {
-        method: normalizedMethod,
-        headers: headers,
-        signal: controller.signal,
-    };
-    if (bodyData !== null) {
-        if (normalizedMethod === 'GET' || normalizedMethod === 'HEAD') {
-            console.warn('body argument to runAction are ignored with GET or HEAD requests');
-        }
-        else {
-            options.body = JSON.stringify(bodyData);
-        }
-    }
-    var timeout = setTimeout(function () {
-        controller.abort();
-    }, base._airtable._requestTimeout);
-    fetch_1.default(url, options)
-        .then(function (resp) {
-        clearTimeout(timeout);
-        if (resp.status === 429 && !base._airtable._noRetryIfRateLimited) {
-            var backoffDelayMs = exponential_backoff_with_jitter_1.default(numAttempts);
-            setTimeout(function () {
-                runAction(base, method, path, queryParams, bodyData, callback, numAttempts + 1);
-            }, backoffDelayMs);
-        }
-        else {
-            resp.json()
-                .then(function (body) {
-                var error = base._checkStatusForError(resp.status, body);
-                // Ensure Response interface matches interface from
-                // `request` Response object
-                var r = {};
-                Object.keys(resp).forEach(function (property) {
-                    r[property] = resp[property];
-                });
-                r.body = body;
-                r.statusCode = resp.status;
-                callback(error, r, body);
-            })
-                .catch(function () {
-                callback(base._checkStatusForError(resp.status));
-            });
-        }
-    })
-        .catch(function (error) {
-        clearTimeout(timeout);
-        callback(error);
-    });
-}
-module.exports = runAction;
-
-},{"./abort-controller":1,"./exponential_backoff_with_jitter":6,"./fetch":7,"./object_to_query_param_string":11,"./package_version":12}],17:[function(require,module,exports){
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var isPlainObject_1 = __importDefault(require("lodash/isPlainObject"));
-var deprecate_1 = __importDefault(require("./deprecate"));
-var query_1 = __importDefault(require("./query"));
-var query_params_1 = require("./query_params");
-var object_to_query_param_string_1 = __importDefault(require("./object_to_query_param_string"));
-var record_1 = __importDefault(require("./record"));
-var callback_to_promise_1 = __importDefault(require("./callback_to_promise"));
-var Table = /** @class */ (function () {
-    function Table(base, tableId, tableName) {
-        if (!tableId && !tableName) {
-            throw new Error('Table name or table ID is required');
-        }
-        this._base = base;
-        this.id = tableId;
-        this.name = tableName;
-        // Public API
-        this.find = callback_to_promise_1.default(this._findRecordById, this);
-        this.select = this._selectRecords.bind(this);
-        this.create = callback_to_promise_1.default(this._createRecords, this);
-        this.update = callback_to_promise_1.default(this._updateRecords.bind(this, false), this);
-        this.replace = callback_to_promise_1.default(this._updateRecords.bind(this, true), this);
-        this.destroy = callback_to_promise_1.default(this._destroyRecord, this);
-        // Deprecated API
-        this.list = deprecate_1.default(this._listRecords.bind(this), 'table.list', 'Airtable: `list()` is deprecated. Use `select()` instead.');
-        this.forEach = deprecate_1.default(this._forEachRecord.bind(this), 'table.forEach', 'Airtable: `forEach()` is deprecated. Use `select()` instead.');
-    }
-    Table.prototype._findRecordById = function (recordId, done) {
-        var record = new record_1.default(this, recordId);
-        record.fetch(done);
-    };
-    Table.prototype._selectRecords = function (params) {
-        if (params === void 0) {
-            params = {};
-        }
-        if (arguments.length > 1) {
-            console.warn("Airtable: `select` takes only one parameter, but it was given " + arguments.length + " parameters. Use `eachPage` or `firstPage` to fetch records.");
-        }
-        if (isPlainObject_1.default(params)) {
-            var validationResults = query_1.default.validateParams(params);
-            if (validationResults.errors.length) {
-                var formattedErrors = validationResults.errors.map(function (error) {
-                    return "  * " + error;
-                });
-                throw new Error("Airtable: invalid parameters for `select`:\n" + formattedErrors.join('\n'));
-            }
-            if (validationResults.ignoredKeys.length) {
-                console.warn("Airtable: the following parameters to `select` will be ignored: " + validationResults.ignoredKeys.join(', '));
-            }
-            return new query_1.default(this, validationResults.validParams);
-        }
-        else {
-            throw new Error('Airtable: the parameter for `select` should be a plain object or undefined.');
-        }
-    };
-    Table.prototype._urlEncodedNameOrId = function () {
-        return this.id || encodeURIComponent(this.name);
-    };
-    Table.prototype._createRecords = function (recordsData, optionalParameters, done) {
-        var _this = this;
-        var isCreatingMultipleRecords = Array.isArray(recordsData);
-        if (!done) {
-            done = optionalParameters;
-            optionalParameters = {};
-        }
-        var requestData;
-        if (isCreatingMultipleRecords) {
-            requestData = __assign({ records: recordsData }, optionalParameters);
-        }
-        else {
-            requestData = __assign({ fields: recordsData }, optionalParameters);
-        }
-        this._base.runAction('post', "/" + this._urlEncodedNameOrId() + "/", {}, requestData, function (err, resp, body) {
-            if (err) {
-                done(err);
-                return;
-            }
-            var result;
-            if (isCreatingMultipleRecords) {
-                result = body.records.map(function (record) {
-                    return new record_1.default(_this, record.id, record);
-                });
-            }
-            else {
-                result = new record_1.default(_this, body.id, body);
-            }
-            done(null, result);
-        });
-    };
-    Table.prototype._updateRecords = function (isDestructiveUpdate, recordsDataOrRecordId, recordDataOrOptsOrDone, optsOrDone, done) {
-        var _this = this;
-        var opts;
-        if (Array.isArray(recordsDataOrRecordId)) {
-            var recordsData = recordsDataOrRecordId;
-            opts = isPlainObject_1.default(recordDataOrOptsOrDone) ? recordDataOrOptsOrDone : {};
-            done = (optsOrDone || recordDataOrOptsOrDone);
-            var method = isDestructiveUpdate ? 'put' : 'patch';
-            var requestData = __assign({ records: recordsData }, opts);
-            this._base.runAction(method, "/" + this._urlEncodedNameOrId() + "/", {}, requestData, function (err, resp, body) {
-                if (err) {
-                    done(err);
-                    return;
-                }
-                var result = body.records.map(function (record) {
-                    return new record_1.default(_this, record.id, record);
-                });
-                done(null, result);
-            });
-        }
-        else {
-            var recordId = recordsDataOrRecordId;
-            var recordData = recordDataOrOptsOrDone;
-            opts = isPlainObject_1.default(optsOrDone) ? optsOrDone : {};
-            done = (done || optsOrDone);
-            var record = new record_1.default(this, recordId);
-            if (isDestructiveUpdate) {
-                record.putUpdate(recordData, opts, done);
-            }
-            else {
-                record.patchUpdate(recordData, opts, done);
-            }
-        }
-    };
-    Table.prototype._destroyRecord = function (recordIdsOrId, done) {
-        var _this = this;
-        if (Array.isArray(recordIdsOrId)) {
-            var queryParams = { records: recordIdsOrId };
-            this._base.runAction('delete', "/" + this._urlEncodedNameOrId(), queryParams, null, function (err, response, results) {
-                if (err) {
-                    done(err);
-                    return;
-                }
-                var records = results.records.map(function (_a) {
-                    var id = _a.id;
-                    return new record_1.default(_this, id, null);
-                });
-                done(null, records);
-            });
-        }
-        else {
-            var record = new record_1.default(this, recordIdsOrId);
-            record.destroy(done);
-        }
-    };
-    Table.prototype._listRecords = function (pageSize, offset, opts, done) {
-        var _this = this;
-        if (!done) {
-            done = opts;
-            opts = {};
-        }
-        var pathAndParamsAsString = "/" + this._urlEncodedNameOrId() + "?" + object_to_query_param_string_1.default(opts);
-        var path;
-        var listRecordsParameters = {};
-        var listRecordsData = null;
-        var method;
-        if ((typeof opts !== 'function' && opts.method === 'post') ||
-            pathAndParamsAsString.length > query_params_1.URL_CHARACTER_LENGTH_LIMIT) {
-            // // There is a 16kb limit on GET requests. Since the URL makes up nearly all of the request size, we check for any requests that
-            // that come close to this limit and send it as a POST instead. Additionally, we'll send the request as a post if it is specified
-            // with the request params
-            path = "/" + this._urlEncodedNameOrId() + "/listRecords";
-            listRecordsData = __assign(__assign({}, (pageSize && { pageSize: pageSize })), (offset && { offset: offset }));
-            method = 'post';
-            var paramNames = Object.keys(opts);
-            for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
-                var paramName = paramNames_1[_i];
-                if (query_params_1.shouldListRecordsParamBePassedAsParameter(paramName)) {
-                    listRecordsParameters[paramName] = opts[paramName];
-                }
-                else {
-                    listRecordsData[paramName] = opts[paramName];
-                }
-            }
-        }
-        else {
-            method = 'get';
-            path = "/" + this._urlEncodedNameOrId() + "/";
-            listRecordsParameters = __assign({ limit: pageSize, offset: offset }, opts);
-        }
-        this._base.runAction(method, path, listRecordsParameters, listRecordsData, function (err, response, results) {
-            if (err) {
-                done(err);
-                return;
-            }
-            var records = results.records.map(function (recordJson) {
-                return new record_1.default(_this, null, recordJson);
-            });
-            done(null, records, results.offset);
-        });
-    };
-    Table.prototype._forEachRecord = function (opts, callback, done) {
-        var _this = this;
-        if (arguments.length === 2) {
-            done = callback;
-            callback = opts;
-            opts = {};
-        }
-        var limit = Table.__recordsPerPageForIteration || 100;
-        var offset = null;
-        var nextPage = function () {
-            _this._listRecords(limit, offset, opts, function (err, page, newOffset) {
-                if (err) {
-                    done(err);
-                    return;
-                }
-                for (var index = 0; index < page.length; index++) {
-                    callback(page[index]);
-                }
-                if (newOffset) {
-                    offset = newOffset;
-                    nextPage();
-                }
-                else {
-                    done();
-                }
-            });
-        };
-        nextPage();
-    };
-    return Table;
-}());
-module.exports = Table;
-
-},{"./callback_to_promise":4,"./deprecate":5,"./object_to_query_param_string":11,"./query":13,"./query_params":14,"./record":15,"lodash/isPlainObject":89}],18:[function(require,module,exports){
-"use strict";
-/* eslint-enable @typescript-eslint/no-explicit-any */
-function check(fn, error) {
-    return function (value) {
-        if (fn(value)) {
-            return { pass: true };
-        }
-        else {
-            return { pass: false, error: error };
-        }
-    };
-}
-check.isOneOf = function isOneOf(options) {
-    return options.includes.bind(options);
-};
-check.isArrayOf = function (itemValidator) {
-    return function (value) {
-        return Array.isArray(value) && value.every(itemValidator);
-    };
-};
-module.exports = check;
-
-},{}],19:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _superPropBase(object, property) {
-  while (!Object.prototype.hasOwnProperty.call(object, property)) {
-    object = _getPrototypeOf(object);
-    if (object === null) break;
-  }
-
-  return object;
-}
-
-function _get(target, property, receiver) {
-  if (typeof Reflect !== "undefined" && Reflect.get) {
-    _get = Reflect.get;
-  } else {
-    _get = function _get(target, property, receiver) {
-      var base = _superPropBase(target, property);
-
-      if (!base) return;
-      var desc = Object.getOwnPropertyDescriptor(base, property);
-
-      if (desc.get) {
-        return desc.get.call(receiver);
-      }
-
-      return desc.value;
-    };
-  }
-
-  return _get(target, property, receiver || target);
-}
-
-var Emitter =
-/*#__PURE__*/
-function () {
-  function Emitter() {
-    _classCallCheck(this, Emitter);
-
-    Object.defineProperty(this, 'listeners', {
-      value: {},
-      writable: true,
-      configurable: true
-    });
-  }
-
-  _createClass(Emitter, [{
-    key: "addEventListener",
-    value: function addEventListener(type, callback) {
-      if (!(type in this.listeners)) {
-        this.listeners[type] = [];
-      }
-
-      this.listeners[type].push(callback);
-    }
-  }, {
-    key: "removeEventListener",
-    value: function removeEventListener(type, callback) {
-      if (!(type in this.listeners)) {
-        return;
-      }
-
-      var stack = this.listeners[type];
-
-      for (var i = 0, l = stack.length; i < l; i++) {
-        if (stack[i] === callback) {
-          stack.splice(i, 1);
-          return;
-        }
-      }
-    }
-  }, {
-    key: "dispatchEvent",
-    value: function dispatchEvent(event) {
-      var _this = this;
-
-      if (!(event.type in this.listeners)) {
-        return;
-      }
-
-      var debounce = function debounce(callback) {
-        setTimeout(function () {
-          return callback.call(_this, event);
-        });
-      };
-
-      var stack = this.listeners[event.type];
-
-      for (var i = 0, l = stack.length; i < l; i++) {
-        debounce(stack[i]);
-      }
-
-      return !event.defaultPrevented;
-    }
-  }]);
-
-  return Emitter;
-}();
-
-var AbortSignal =
-/*#__PURE__*/
-function (_Emitter) {
-  _inherits(AbortSignal, _Emitter);
-
-  function AbortSignal() {
-    var _this2;
-
-    _classCallCheck(this, AbortSignal);
-
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(AbortSignal).call(this)); // Some versions of babel does not transpile super() correctly for IE <= 10, if the parent
-    // constructor has failed to run, then "this.listeners" will still be undefined and then we call
-    // the parent constructor directly instead as a workaround. For general details, see babel bug:
-    // https://github.com/babel/babel/issues/3041
-    // This hack was added as a fix for the issue described here:
-    // https://github.com/Financial-Times/polyfill-library/pull/59#issuecomment-477558042
-
-    if (!_this2.listeners) {
-      Emitter.call(_assertThisInitialized(_this2));
-    } // Compared to assignment, Object.defineProperty makes properties non-enumerable by default and
-    // we want Object.keys(new AbortController().signal) to be [] for compat with the native impl
-
-
-    Object.defineProperty(_assertThisInitialized(_this2), 'aborted', {
-      value: false,
-      writable: true,
-      configurable: true
-    });
-    Object.defineProperty(_assertThisInitialized(_this2), 'onabort', {
-      value: null,
-      writable: true,
-      configurable: true
-    });
-    return _this2;
-  }
-
-  _createClass(AbortSignal, [{
-    key: "toString",
-    value: function toString() {
-      return '[object AbortSignal]';
-    }
-  }, {
-    key: "dispatchEvent",
-    value: function dispatchEvent(event) {
-      if (event.type === 'abort') {
-        this.aborted = true;
-
-        if (typeof this.onabort === 'function') {
-          this.onabort.call(this, event);
-        }
-      }
-
-      _get(_getPrototypeOf(AbortSignal.prototype), "dispatchEvent", this).call(this, event);
-    }
-  }]);
-
-  return AbortSignal;
-}(Emitter);
-var AbortController =
-/*#__PURE__*/
-function () {
-  function AbortController() {
-    _classCallCheck(this, AbortController);
-
-    // Compared to assignment, Object.defineProperty makes properties non-enumerable by default and
-    // we want Object.keys(new AbortController()) to be [] for compat with the native impl
-    Object.defineProperty(this, 'signal', {
-      value: new AbortSignal(),
-      writable: true,
-      configurable: true
-    });
-  }
-
-  _createClass(AbortController, [{
-    key: "abort",
-    value: function abort() {
-      var event;
-
-      try {
-        event = new Event('abort');
-      } catch (e) {
-        if (typeof document !== 'undefined') {
-          if (!document.createEvent) {
-            // For Internet Explorer 8:
-            event = document.createEventObject();
-            event.type = 'abort';
-          } else {
-            // For Internet Explorer 11:
-            event = document.createEvent('Event');
-            event.initEvent('abort', false, false);
-          }
-        } else {
-          // Fallback where document isn't available:
-          event = {
-            type: 'abort',
-            bubbles: false,
-            cancelable: false
-          };
-        }
-      }
-
-      this.signal.dispatchEvent(event);
-    }
-  }, {
-    key: "toString",
-    value: function toString() {
-      return '[object AbortController]';
-    }
-  }]);
-
-  return AbortController;
-}();
-
-if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-  // These are necessary to make sure that we get correct output for:
-  // Object.prototype.toString.call(new AbortController())
-  AbortController.prototype[Symbol.toStringTag] = 'AbortController';
-  AbortSignal.prototype[Symbol.toStringTag] = 'AbortSignal';
-}
-
-function polyfillNeeded(self) {
-  if (self.__FORCE_INSTALL_ABORTCONTROLLER_POLYFILL) {
-    console.log('__FORCE_INSTALL_ABORTCONTROLLER_POLYFILL=true is set, will force install polyfill');
-    return true;
-  } // Note that the "unfetch" minimal fetch polyfill defines fetch() without
-  // defining window.Request, and this polyfill need to work on top of unfetch
-  // so the below feature detection needs the !self.AbortController part.
-  // The Request.prototype check is also needed because Safari versions 11.1.2
-  // up to and including 12.1.x has a window.AbortController present but still
-  // does NOT correctly implement abortable fetch:
-  // https://bugs.webkit.org/show_bug.cgi?id=174980#c2
-
-
-  return typeof self.Request === 'function' && !self.Request.prototype.hasOwnProperty('signal') || !self.AbortController;
-}
-
-/**
- * Note: the "fetch.Request" default value is available for fetch imported from
- * the "node-fetch" package and not in browsers. This is OK since browsers
- * will be importing umd-polyfill.js from that path "self" is passed the
- * decorator so the default value will not be used (because browsers that define
- * fetch also has Request). One quirky setup where self.fetch exists but
- * self.Request does not is when the "unfetch" minimal fetch polyfill is used
- * on top of IE11; for this case the browser will try to use the fetch.Request
- * default value which in turn will be undefined but then then "if (Request)"
- * will ensure that you get a patched fetch but still no Request (as expected).
- * @param {fetch, Request = fetch.Request}
- * @returns {fetch: abortableFetch, Request: AbortableRequest}
- */
-
-function abortableFetchDecorator(patchTargets) {
-  if ('function' === typeof patchTargets) {
-    patchTargets = {
-      fetch: patchTargets
-    };
-  }
-
-  var _patchTargets = patchTargets,
-      fetch = _patchTargets.fetch,
-      _patchTargets$Request = _patchTargets.Request,
-      NativeRequest = _patchTargets$Request === void 0 ? fetch.Request : _patchTargets$Request,
-      NativeAbortController = _patchTargets.AbortController,
-      _patchTargets$__FORCE = _patchTargets.__FORCE_INSTALL_ABORTCONTROLLER_POLYFILL,
-      __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL = _patchTargets$__FORCE === void 0 ? false : _patchTargets$__FORCE;
-
-  if (!polyfillNeeded({
-    fetch: fetch,
-    Request: NativeRequest,
-    AbortController: NativeAbortController,
-    __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL: __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL
-  })) {
-    return {
-      fetch: fetch,
-      Request: Request
-    };
-  }
-
-  var Request = NativeRequest; // Note that the "unfetch" minimal fetch polyfill defines fetch() without
-  // defining window.Request, and this polyfill need to work on top of unfetch
-  // hence we only patch it if it's available. Also we don't patch it if signal
-  // is already available on the Request prototype because in this case support
-  // is present and the patching below can cause a crash since it assigns to
-  // request.signal which is technically a read-only property. This latter error
-  // happens when you run the main5.js node-fetch example in the repo
-  // "abortcontroller-polyfill-examples". The exact error is:
-  //   request.signal = init.signal;
-  //   ^
-  // TypeError: Cannot set property signal of #<Request> which has only a getter
-
-  if (Request && !Request.prototype.hasOwnProperty('signal') || __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL) {
-    Request = function Request(input, init) {
-      var signal;
-
-      if (init && init.signal) {
-        signal = init.signal; // Never pass init.signal to the native Request implementation when the polyfill has
-        // been installed because if we're running on top of a browser with a
-        // working native AbortController (i.e. the polyfill was installed due to
-        // __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL being set), then passing our
-        // fake AbortSignal to the native fetch will trigger:
-        // TypeError: Failed to construct 'Request': member signal is not of type AbortSignal.
-
-        delete init.signal;
-      }
-
-      var request = new NativeRequest(input, init);
-
-      if (signal) {
-        Object.defineProperty(request, 'signal', {
-          writable: false,
-          enumerable: false,
-          configurable: true,
-          value: signal
-        });
-      }
-
-      return request;
-    };
-
-    Request.prototype = NativeRequest.prototype;
-  }
-
-  var realFetch = fetch;
-
-  var abortableFetch = function abortableFetch(input, init) {
-    var signal = Request && Request.prototype.isPrototypeOf(input) ? input.signal : init ? init.signal : undefined;
-
-    if (signal) {
-      var abortError;
-
-      try {
-        abortError = new DOMException('Aborted', 'AbortError');
-      } catch (err) {
-        // IE 11 does not support calling the DOMException constructor, use a
-        // regular error object on it instead.
-        abortError = new Error('Aborted');
-        abortError.name = 'AbortError';
-      } // Return early if already aborted, thus avoiding making an HTTP request
-
-
-      if (signal.aborted) {
-        return Promise.reject(abortError);
-      } // Turn an event into a promise, reject it once `abort` is dispatched
-
-
-      var cancellation = new Promise(function (_, reject) {
-        signal.addEventListener('abort', function () {
-          return reject(abortError);
-        }, {
-          once: true
-        });
-      });
-
-      if (init && init.signal) {
-        // Never pass .signal to the native implementation when the polyfill has
-        // been installed because if we're running on top of a browser with a
-        // working native AbortController (i.e. the polyfill was installed due to
-        // __FORCE_INSTALL_ABORTCONTROLLER_POLYFILL being set), then passing our
-        // fake AbortSignal to the native fetch will trigger:
-        // TypeError: Failed to execute 'fetch' on 'Window': member signal is not of type AbortSignal.
-        delete init.signal;
-      } // Return the fastest promise (don't need to wait for request to finish)
-
-
-      return Promise.race([cancellation, realFetch(input, init)]);
-    }
-
-    return realFetch(input, init);
-  };
-
-  return {
-    fetch: abortableFetch,
-    Request: Request
-  };
-}
-
-exports.AbortController = AbortController;
-exports.AbortSignal = AbortSignal;
-exports.abortableFetch = abortableFetchDecorator;
-
-},{}],20:[function(require,module,exports){
-
-},{}],21:[function(require,module,exports){
-var hashClear = require('./_hashClear'),
-    hashDelete = require('./_hashDelete'),
-    hashGet = require('./_hashGet'),
-    hashHas = require('./_hashHas'),
-    hashSet = require('./_hashSet');
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Hash(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `Hash`.
-Hash.prototype.clear = hashClear;
-Hash.prototype['delete'] = hashDelete;
-Hash.prototype.get = hashGet;
-Hash.prototype.has = hashHas;
-Hash.prototype.set = hashSet;
-
-module.exports = Hash;
-
-},{"./_hashClear":46,"./_hashDelete":47,"./_hashGet":48,"./_hashHas":49,"./_hashSet":50}],22:[function(require,module,exports){
-var listCacheClear = require('./_listCacheClear'),
-    listCacheDelete = require('./_listCacheDelete'),
-    listCacheGet = require('./_listCacheGet'),
-    listCacheHas = require('./_listCacheHas'),
-    listCacheSet = require('./_listCacheSet');
-
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function ListCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `ListCache`.
-ListCache.prototype.clear = listCacheClear;
-ListCache.prototype['delete'] = listCacheDelete;
-ListCache.prototype.get = listCacheGet;
-ListCache.prototype.has = listCacheHas;
-ListCache.prototype.set = listCacheSet;
-
-module.exports = ListCache;
-
-},{"./_listCacheClear":56,"./_listCacheDelete":57,"./_listCacheGet":58,"./_listCacheHas":59,"./_listCacheSet":60}],23:[function(require,module,exports){
-var getNative = require('./_getNative'),
-    root = require('./_root');
-
-/* Built-in method references that are verified to be native. */
-var Map = getNative(root, 'Map');
-
-module.exports = Map;
-
-},{"./_getNative":42,"./_root":72}],24:[function(require,module,exports){
-var mapCacheClear = require('./_mapCacheClear'),
-    mapCacheDelete = require('./_mapCacheDelete'),
-    mapCacheGet = require('./_mapCacheGet'),
-    mapCacheHas = require('./_mapCacheHas'),
-    mapCacheSet = require('./_mapCacheSet');
-
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function MapCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = mapCacheClear;
-MapCache.prototype['delete'] = mapCacheDelete;
-MapCache.prototype.get = mapCacheGet;
-MapCache.prototype.has = mapCacheHas;
-MapCache.prototype.set = mapCacheSet;
-
-module.exports = MapCache;
-
-},{"./_mapCacheClear":61,"./_mapCacheDelete":62,"./_mapCacheGet":63,"./_mapCacheHas":64,"./_mapCacheSet":65}],25:[function(require,module,exports){
-var root = require('./_root');
-
-/** Built-in value references. */
-var Symbol = root.Symbol;
-
-module.exports = Symbol;
-
-},{"./_root":72}],26:[function(require,module,exports){
-var baseTimes = require('./_baseTimes'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isIndex = require('./_isIndex'),
-    isTypedArray = require('./isTypedArray');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray(value),
-      isArg = !isArr && isArguments(value),
-      isBuff = !isArr && !isArg && isBuffer(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = arrayLikeKeys;
-
-},{"./_baseTimes":35,"./_isIndex":51,"./isArguments":78,"./isArray":79,"./isBuffer":82,"./isTypedArray":92}],27:[function(require,module,exports){
-/**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-module.exports = arrayMap;
-
-},{}],28:[function(require,module,exports){
-var eq = require('./eq');
-
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function assocIndexOf(array, key) {
-  var length = array.length;
-  while (length--) {
-    if (eq(array[length][0], key)) {
-      return length;
-    }
-  }
-  return -1;
-}
-
-module.exports = assocIndexOf;
-
-},{"./eq":76}],29:[function(require,module,exports){
-var castPath = require('./_castPath'),
-    toKey = require('./_toKey');
-
-/**
- * The base implementation of `_.get` without support for default values.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @returns {*} Returns the resolved value.
- */
-function baseGet(object, path) {
-  path = castPath(path, object);
-
-  var index = 0,
-      length = path.length;
-
-  while (object != null && index < length) {
-    object = object[toKey(path[index++])];
-  }
-  return (index && index == length) ? object : undefined;
-}
-
-module.exports = baseGet;
-
-},{"./_castPath":38,"./_toKey":74}],30:[function(require,module,exports){
-var Symbol = require('./_Symbol'),
-    getRawTag = require('./_getRawTag'),
-    objectToString = require('./_objectToString');
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-module.exports = baseGetTag;
-
-},{"./_Symbol":25,"./_getRawTag":44,"./_objectToString":70}],31:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
-
-/**
- * The base implementation of `_.isArguments`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- */
-function baseIsArguments(value) {
-  return isObjectLike(value) && baseGetTag(value) == argsTag;
-}
-
-module.exports = baseIsArguments;
-
-},{"./_baseGetTag":30,"./isObjectLike":88}],32:[function(require,module,exports){
-var isFunction = require('./isFunction'),
-    isMasked = require('./_isMasked'),
-    isObject = require('./isObject'),
-    toSource = require('./_toSource');
-
-/**
- * Used to match `RegExp`
- * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
- */
-var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
-/** Used to detect host constructors (Safari). */
-var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to detect if a method is native. */
-var reIsNative = RegExp('^' +
-  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-);
-
-/**
- * The base implementation of `_.isNative` without bad shim checks.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function,
- *  else `false`.
- */
-function baseIsNative(value) {
-  if (!isObject(value) || isMasked(value)) {
-    return false;
-  }
-  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
-  return pattern.test(toSource(value));
-}
-
-module.exports = baseIsNative;
-
-},{"./_isMasked":54,"./_toSource":75,"./isFunction":83,"./isObject":87}],33:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isLength = require('./isLength'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    funcTag = '[object Function]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    objectTag = '[object Object]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values of typed arrays. */
-var typedArrayTags = {};
-typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
-typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
-typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
-typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
-typedArrayTags[uint32Tag] = true;
-typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
-typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
-typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
-typedArrayTags[errorTag] = typedArrayTags[funcTag] =
-typedArrayTags[mapTag] = typedArrayTags[numberTag] =
-typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
-typedArrayTags[setTag] = typedArrayTags[stringTag] =
-typedArrayTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.isTypedArray` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- */
-function baseIsTypedArray(value) {
-  return isObjectLike(value) &&
-    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
-}
-
-module.exports = baseIsTypedArray;
-
-},{"./_baseGetTag":30,"./isLength":84,"./isObjectLike":88}],34:[function(require,module,exports){
-var isPrototype = require('./_isPrototype'),
-    nativeKeys = require('./_nativeKeys');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeys(object) {
-  if (!isPrototype(object)) {
-    return nativeKeys(object);
-  }
-  var result = [];
-  for (var key in Object(object)) {
-    if (hasOwnProperty.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = baseKeys;
-
-},{"./_isPrototype":55,"./_nativeKeys":68}],35:[function(require,module,exports){
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-module.exports = baseTimes;
-
-},{}],36:[function(require,module,exports){
-var Symbol = require('./_Symbol'),
-    arrayMap = require('./_arrayMap'),
-    isArray = require('./isArray'),
-    isSymbol = require('./isSymbol');
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if (isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return arrayMap(value, baseToString) + '';
-  }
-  if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = baseToString;
-
-},{"./_Symbol":25,"./_arrayMap":27,"./isArray":79,"./isSymbol":91}],37:[function(require,module,exports){
-/**
- * The base implementation of `_.unary` without support for storing metadata.
- *
- * @private
- * @param {Function} func The function to cap arguments for.
- * @returns {Function} Returns the new capped function.
- */
-function baseUnary(func) {
-  return function(value) {
-    return func(value);
-  };
-}
-
-module.exports = baseUnary;
-
-},{}],38:[function(require,module,exports){
-var isArray = require('./isArray'),
-    isKey = require('./_isKey'),
-    stringToPath = require('./_stringToPath'),
-    toString = require('./toString');
-
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if (isArray(value)) {
-    return value;
-  }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
-}
-
-module.exports = castPath;
-
-},{"./_isKey":52,"./_stringToPath":73,"./isArray":79,"./toString":96}],39:[function(require,module,exports){
-var root = require('./_root');
-
-/** Used to detect overreaching core-js shims. */
-var coreJsData = root['__core-js_shared__'];
-
-module.exports = coreJsData;
-
-},{"./_root":72}],40:[function(require,module,exports){
-(function (global){
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-module.exports = freeGlobal;
-
-}).call(this,typeof __webpack_require__.g !== "undefined" ? __webpack_require__.g : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],41:[function(require,module,exports){
-var isKeyable = require('./_isKeyable');
-
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData(map, key) {
-  var data = map.__data__;
-  return isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
-}
-
-module.exports = getMapData;
-
-},{"./_isKeyable":53}],42:[function(require,module,exports){
-var baseIsNative = require('./_baseIsNative'),
-    getValue = require('./_getValue');
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = getValue(object, key);
-  return baseIsNative(value) ? value : undefined;
-}
-
-module.exports = getNative;
-
-},{"./_baseIsNative":32,"./_getValue":45}],43:[function(require,module,exports){
-var overArg = require('./_overArg');
-
-/** Built-in value references. */
-var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-module.exports = getPrototype;
-
-},{"./_overArg":71}],44:[function(require,module,exports){
-var Symbol = require('./_Symbol');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
-function getRawTag(value) {
-  var isOwn = hasOwnProperty.call(value, symToStringTag),
-      tag = value[symToStringTag];
-
-  try {
-    value[symToStringTag] = undefined;
-    var unmasked = true;
-  } catch (e) {}
-
-  var result = nativeObjectToString.call(value);
-  if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag] = tag;
-    } else {
-      delete value[symToStringTag];
-    }
-  }
-  return result;
-}
-
-module.exports = getRawTag;
-
-},{"./_Symbol":25}],45:[function(require,module,exports){
-/**
- * Gets the value at `key` of `object`.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function getValue(object, key) {
-  return object == null ? undefined : object[key];
-}
-
-module.exports = getValue;
-
-},{}],46:[function(require,module,exports){
-var nativeCreate = require('./_nativeCreate');
-
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
-function hashClear() {
-  this.__data__ = nativeCreate ? nativeCreate(null) : {};
-  this.size = 0;
-}
-
-module.exports = hashClear;
-
-},{"./_nativeCreate":67}],47:[function(require,module,exports){
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function hashDelete(key) {
-  var result = this.has(key) && delete this.__data__[key];
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-module.exports = hashDelete;
-
-},{}],48:[function(require,module,exports){
-var nativeCreate = require('./_nativeCreate');
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function hashGet(key) {
-  var data = this.__data__;
-  if (nativeCreate) {
-    var result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty.call(data, key) ? data[key] : undefined;
-}
-
-module.exports = hashGet;
-
-},{"./_nativeCreate":67}],49:[function(require,module,exports){
-var nativeCreate = require('./_nativeCreate');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function hashHas(key) {
-  var data = this.__data__;
-  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
-}
-
-module.exports = hashHas;
-
-},{"./_nativeCreate":67}],50:[function(require,module,exports){
-var nativeCreate = require('./_nativeCreate');
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
-function hashSet(key, value) {
-  var data = this.__data__;
-  this.size += this.has(key) ? 0 : 1;
-  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
-  return this;
-}
-
-module.exports = hashSet;
-
-},{"./_nativeCreate":67}],51:[function(require,module,exports){
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-module.exports = isIndex;
-
-},{}],52:[function(require,module,exports){
-var isArray = require('./isArray'),
-    isSymbol = require('./isSymbol');
-
-/** Used to match property names within property paths. */
-var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
-    reIsPlainProp = /^\w*$/;
-
-/**
- * Checks if `value` is a property name and not a property path.
- *
- * @private
- * @param {*} value The value to check.
- * @param {Object} [object] The object to query keys on.
- * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
- */
-function isKey(value, object) {
-  if (isArray(value)) {
-    return false;
-  }
-  var type = typeof value;
-  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
-      value == null || isSymbol(value)) {
-    return true;
-  }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
-    (object != null && value in Object(object));
-}
-
-module.exports = isKey;
-
-},{"./isArray":79,"./isSymbol":91}],53:[function(require,module,exports){
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
-}
-
-module.exports = isKeyable;
-
-},{}],54:[function(require,module,exports){
-var coreJsData = require('./_coreJsData');
-
-/** Used to detect methods masquerading as native. */
-var maskSrcKey = (function() {
-  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-  return uid ? ('Symbol(src)_1.' + uid) : '';
-}());
-
-/**
- * Checks if `func` has its source masked.
- *
- * @private
- * @param {Function} func The function to check.
- * @returns {boolean} Returns `true` if `func` is masked, else `false`.
- */
-function isMasked(func) {
-  return !!maskSrcKey && (maskSrcKey in func);
-}
-
-module.exports = isMasked;
-
-},{"./_coreJsData":39}],55:[function(require,module,exports){
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-
-  return value === proto;
-}
-
-module.exports = isPrototype;
-
-},{}],56:[function(require,module,exports){
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
-function listCacheClear() {
-  this.__data__ = [];
-  this.size = 0;
-}
-
-module.exports = listCacheClear;
-
-},{}],57:[function(require,module,exports){
-var assocIndexOf = require('./_assocIndexOf');
-
-/** Used for built-in method references. */
-var arrayProto = Array.prototype;
-
-/** Built-in value references. */
-var splice = arrayProto.splice;
-
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function listCacheDelete(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    return false;
-  }
-  var lastIndex = data.length - 1;
-  if (index == lastIndex) {
-    data.pop();
-  } else {
-    splice.call(data, index, 1);
-  }
-  --this.size;
-  return true;
-}
-
-module.exports = listCacheDelete;
-
-},{"./_assocIndexOf":28}],58:[function(require,module,exports){
-var assocIndexOf = require('./_assocIndexOf');
-
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function listCacheGet(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  return index < 0 ? undefined : data[index][1];
-}
-
-module.exports = listCacheGet;
-
-},{"./_assocIndexOf":28}],59:[function(require,module,exports){
-var assocIndexOf = require('./_assocIndexOf');
-
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function listCacheHas(key) {
-  return assocIndexOf(this.__data__, key) > -1;
-}
-
-module.exports = listCacheHas;
-
-},{"./_assocIndexOf":28}],60:[function(require,module,exports){
-var assocIndexOf = require('./_assocIndexOf');
-
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
-function listCacheSet(key, value) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    ++this.size;
-    data.push([key, value]);
-  } else {
-    data[index][1] = value;
-  }
-  return this;
-}
-
-module.exports = listCacheSet;
-
-},{"./_assocIndexOf":28}],61:[function(require,module,exports){
-var Hash = require('./_Hash'),
-    ListCache = require('./_ListCache'),
-    Map = require('./_Map');
-
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
-function mapCacheClear() {
-  this.size = 0;
-  this.__data__ = {
-    'hash': new Hash,
-    'map': new (Map || ListCache),
-    'string': new Hash
-  };
-}
-
-module.exports = mapCacheClear;
-
-},{"./_Hash":21,"./_ListCache":22,"./_Map":23}],62:[function(require,module,exports){
-var getMapData = require('./_getMapData');
-
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function mapCacheDelete(key) {
-  var result = getMapData(this, key)['delete'](key);
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-module.exports = mapCacheDelete;
-
-},{"./_getMapData":41}],63:[function(require,module,exports){
-var getMapData = require('./_getMapData');
-
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function mapCacheGet(key) {
-  return getMapData(this, key).get(key);
-}
-
-module.exports = mapCacheGet;
-
-},{"./_getMapData":41}],64:[function(require,module,exports){
-var getMapData = require('./_getMapData');
-
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function mapCacheHas(key) {
-  return getMapData(this, key).has(key);
-}
-
-module.exports = mapCacheHas;
-
-},{"./_getMapData":41}],65:[function(require,module,exports){
-var getMapData = require('./_getMapData');
-
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
-function mapCacheSet(key, value) {
-  var data = getMapData(this, key),
-      size = data.size;
-
-  data.set(key, value);
-  this.size += data.size == size ? 0 : 1;
-  return this;
-}
-
-module.exports = mapCacheSet;
-
-},{"./_getMapData":41}],66:[function(require,module,exports){
-var memoize = require('./memoize');
-
-/** Used as the maximum memoize cache size. */
-var MAX_MEMOIZE_SIZE = 500;
-
-/**
- * A specialized version of `_.memoize` which clears the memoized function's
- * cache when it exceeds `MAX_MEMOIZE_SIZE`.
- *
- * @private
- * @param {Function} func The function to have its output memoized.
- * @returns {Function} Returns the new memoized function.
- */
-function memoizeCapped(func) {
-  var result = memoize(func, function(key) {
-    if (cache.size === MAX_MEMOIZE_SIZE) {
-      cache.clear();
-    }
-    return key;
-  });
-
-  var cache = result.cache;
-  return result;
-}
-
-module.exports = memoizeCapped;
-
-},{"./memoize":94}],67:[function(require,module,exports){
-var getNative = require('./_getNative');
-
-/* Built-in method references that are verified to be native. */
-var nativeCreate = getNative(Object, 'create');
-
-module.exports = nativeCreate;
-
-},{"./_getNative":42}],68:[function(require,module,exports){
-var overArg = require('./_overArg');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeKeys = overArg(Object.keys, Object);
-
-module.exports = nativeKeys;
-
-},{"./_overArg":71}],69:[function(require,module,exports){
-var freeGlobal = require('./_freeGlobal');
-
-/** Detect free variable `exports`. */
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Detect free variable `process` from Node.js. */
-var freeProcess = moduleExports && freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
-var nodeUtil = (function() {
-  try {
-    // Use `util.types` for Node.js 10+.
-    var types = freeModule && freeModule.require && freeModule.require('util').types;
-
-    if (types) {
-      return types;
-    }
-
-    // Legacy `process.binding('util')` for Node.js < 10.
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-  } catch (e) {}
-}());
-
-module.exports = nodeUtil;
-
-},{"./_freeGlobal":40}],70:[function(require,module,exports){
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/**
- * Converts `value` to a string using `Object.prototype.toString`.
- *
- * @private
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- */
-function objectToString(value) {
-  return nativeObjectToString.call(value);
-}
-
-module.exports = objectToString;
-
-},{}],71:[function(require,module,exports){
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-module.exports = overArg;
-
-},{}],72:[function(require,module,exports){
-var freeGlobal = require('./_freeGlobal');
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-module.exports = root;
-
-},{"./_freeGlobal":40}],73:[function(require,module,exports){
-var memoizeCapped = require('./_memoizeCapped');
-
-/** Used to match property names within property paths. */
-var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
-
-/** Used to match backslashes in property paths. */
-var reEscapeChar = /\\(\\)?/g;
-
-/**
- * Converts `string` to a property path array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the property path array.
- */
-var stringToPath = memoizeCapped(function(string) {
-  var result = [];
-  if (string.charCodeAt(0) === 46 /* . */) {
-    result.push('');
-  }
-  string.replace(rePropName, function(match, number, quote, subString) {
-    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
-  });
-  return result;
-});
-
-module.exports = stringToPath;
-
-},{"./_memoizeCapped":66}],74:[function(require,module,exports){
-var isSymbol = require('./isSymbol');
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/**
- * Converts `value` to a string key if it's not a string or symbol.
- *
- * @private
- * @param {*} value The value to inspect.
- * @returns {string|symbol} Returns the key.
- */
-function toKey(value) {
-  if (typeof value == 'string' || isSymbol(value)) {
-    return value;
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = toKey;
-
-},{"./isSymbol":91}],75:[function(require,module,exports){
-/** Used for built-in method references. */
-var funcProto = Function.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/**
- * Converts `func` to its source code.
- *
- * @private
- * @param {Function} func The function to convert.
- * @returns {string} Returns the source code.
- */
-function toSource(func) {
-  if (func != null) {
-    try {
-      return funcToString.call(func);
-    } catch (e) {}
-    try {
-      return (func + '');
-    } catch (e) {}
-  }
-  return '';
-}
-
-module.exports = toSource;
-
-},{}],76:[function(require,module,exports){
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-module.exports = eq;
-
-},{}],77:[function(require,module,exports){
-var baseGet = require('./_baseGet');
-
-/**
- * Gets the value at `path` of `object`. If the resolved value is
- * `undefined`, the `defaultValue` is returned in its place.
- *
- * @static
- * @memberOf _
- * @since 3.7.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned for `undefined` resolved values.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * var object = { 'a': [{ 'b': { 'c': 3 } }] };
- *
- * _.get(object, 'a[0].b.c');
- * // => 3
- *
- * _.get(object, ['a', '0', 'b', 'c']);
- * // => 3
- *
- * _.get(object, 'a.b.c', 'default');
- * // => 'default'
- */
-function get(object, path, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, path);
-  return result === undefined ? defaultValue : result;
-}
-
-module.exports = get;
-
-},{"./_baseGet":29}],78:[function(require,module,exports){
-var baseIsArguments = require('./_baseIsArguments'),
-    isObjectLike = require('./isObjectLike');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
-  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
-    !propertyIsEnumerable.call(value, 'callee');
-};
-
-module.exports = isArguments;
-
-},{"./_baseIsArguments":31,"./isObjectLike":88}],79:[function(require,module,exports){
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-module.exports = isArray;
-
-},{}],80:[function(require,module,exports){
-var isFunction = require('./isFunction'),
-    isLength = require('./isLength');
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength(value.length) && !isFunction(value);
-}
-
-module.exports = isArrayLike;
-
-},{"./isFunction":83,"./isLength":84}],81:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var boolTag = '[object Boolean]';
-
-/**
- * Checks if `value` is classified as a boolean primitive or object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a boolean, else `false`.
- * @example
- *
- * _.isBoolean(false);
- * // => true
- *
- * _.isBoolean(null);
- * // => false
- */
-function isBoolean(value) {
-  return value === true || value === false ||
-    (isObjectLike(value) && baseGetTag(value) == boolTag);
-}
-
-module.exports = isBoolean;
-
-},{"./_baseGetTag":30,"./isObjectLike":88}],82:[function(require,module,exports){
-var root = require('./_root'),
-    stubFalse = require('./stubFalse');
-
-/** Detect free variable `exports`. */
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
-
-module.exports = isBuffer;
-
-},{"./_root":72,"./stubFalse":95}],83:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isObject = require('./isObject');
-
-/** `Object#toString` result references. */
-var asyncTag = '[object AsyncFunction]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    proxyTag = '[object Proxy]';
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  if (!isObject(value)) {
-    return false;
-  }
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-}
-
-module.exports = isFunction;
-
-},{"./_baseGetTag":30,"./isObject":87}],84:[function(require,module,exports){
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-}
-
-module.exports = isLength;
-
-},{}],85:[function(require,module,exports){
-/**
- * Checks if `value` is `null` or `undefined`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
- * @example
- *
- * _.isNil(null);
- * // => true
- *
- * _.isNil(void 0);
- * // => true
- *
- * _.isNil(NaN);
- * // => false
- */
-function isNil(value) {
-  return value == null;
-}
-
-module.exports = isNil;
-
-},{}],86:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var numberTag = '[object Number]';
-
-/**
- * Checks if `value` is classified as a `Number` primitive or object.
- *
- * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
- * classified as numbers, use the `_.isFinite` method.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a number, else `false`.
- * @example
- *
- * _.isNumber(3);
- * // => true
- *
- * _.isNumber(Number.MIN_VALUE);
- * // => true
- *
- * _.isNumber(Infinity);
- * // => true
- *
- * _.isNumber('3');
- * // => false
- */
-function isNumber(value) {
-  return typeof value == 'number' ||
-    (isObjectLike(value) && baseGetTag(value) == numberTag);
-}
-
-module.exports = isNumber;
-
-},{"./_baseGetTag":30,"./isObjectLike":88}],87:[function(require,module,exports){
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
-}
-
-module.exports = isObject;
-
-},{}],88:[function(require,module,exports){
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-module.exports = isObjectLike;
-
-},{}],89:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    getPrototype = require('./_getPrototype'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var objectTag = '[object Object]';
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to infer the `Object` constructor. */
-var objectCtorString = funcToString.call(Object);
-
-/**
- * Checks if `value` is a plain object, that is, an object created by the
- * `Object` constructor or one with a `[[Prototype]]` of `null`.
- *
- * @static
- * @memberOf _
- * @since 0.8.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- * }
- *
- * _.isPlainObject(new Foo);
- * // => false
- *
- * _.isPlainObject([1, 2, 3]);
- * // => false
- *
- * _.isPlainObject({ 'x': 0, 'y': 0 });
- * // => true
- *
- * _.isPlainObject(Object.create(null));
- * // => true
- */
-function isPlainObject(value) {
-  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
-    return false;
-  }
-  var proto = getPrototype(value);
-  if (proto === null) {
-    return true;
-  }
-  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
-    funcToString.call(Ctor) == objectCtorString;
-}
-
-module.exports = isPlainObject;
-
-},{"./_baseGetTag":30,"./_getPrototype":43,"./isObjectLike":88}],90:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isArray = require('./isArray'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var stringTag = '[object String]';
-
-/**
- * Checks if `value` is classified as a `String` primitive or object.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a string, else `false`.
- * @example
- *
- * _.isString('abc');
- * // => true
- *
- * _.isString(1);
- * // => false
- */
-function isString(value) {
-  return typeof value == 'string' ||
-    (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
-}
-
-module.exports = isString;
-
-},{"./_baseGetTag":30,"./isArray":79,"./isObjectLike":88}],91:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
-}
-
-module.exports = isSymbol;
-
-},{"./_baseGetTag":30,"./isObjectLike":88}],92:[function(require,module,exports){
-var baseIsTypedArray = require('./_baseIsTypedArray'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
-
-/* Node.js helper references. */
-var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-/**
- * Checks if `value` is classified as a typed array.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- * @example
- *
- * _.isTypedArray(new Uint8Array);
- * // => true
- *
- * _.isTypedArray([]);
- * // => false
- */
-var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
-module.exports = isTypedArray;
-
-},{"./_baseIsTypedArray":33,"./_baseUnary":37,"./_nodeUtil":69}],93:[function(require,module,exports){
-var arrayLikeKeys = require('./_arrayLikeKeys'),
-    baseKeys = require('./_baseKeys'),
-    isArrayLike = require('./isArrayLike');
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-}
-
-module.exports = keys;
-
-},{"./_arrayLikeKeys":26,"./_baseKeys":34,"./isArrayLike":80}],94:[function(require,module,exports){
-var MapCache = require('./_MapCache');
-
-/** Error message constants. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/**
- * Creates a function that memoizes the result of `func`. If `resolver` is
- * provided, it determines the cache key for storing the result based on the
- * arguments provided to the memoized function. By default, the first argument
- * provided to the memoized function is used as the map cache key. The `func`
- * is invoked with the `this` binding of the memoized function.
- *
- * **Note:** The cache is exposed as the `cache` property on the memoized
- * function. Its creation may be customized by replacing the `_.memoize.Cache`
- * constructor with one whose instances implement the
- * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
- * method interface of `clear`, `delete`, `get`, `has`, and `set`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to have its output memoized.
- * @param {Function} [resolver] The function to resolve the cache key.
- * @returns {Function} Returns the new memoized function.
- * @example
- *
- * var object = { 'a': 1, 'b': 2 };
- * var other = { 'c': 3, 'd': 4 };
- *
- * var values = _.memoize(_.values);
- * values(object);
- * // => [1, 2]
- *
- * values(other);
- * // => [3, 4]
- *
- * object.a = 2;
- * values(object);
- * // => [1, 2]
- *
- * // Modify the result cache.
- * values.cache.set(object, ['a', 'b']);
- * values(object);
- * // => ['a', 'b']
- *
- * // Replace `_.memoize.Cache`.
- * _.memoize.Cache = WeakMap;
- */
-function memoize(func, resolver) {
-  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  var memoized = function() {
-    var args = arguments,
-        key = resolver ? resolver.apply(this, args) : args[0],
-        cache = memoized.cache;
-
-    if (cache.has(key)) {
-      return cache.get(key);
-    }
-    var result = func.apply(this, args);
-    memoized.cache = cache.set(key, result) || cache;
-    return result;
-  };
-  memoized.cache = new (memoize.Cache || MapCache);
-  return memoized;
-}
-
-// Expose `MapCache`.
-memoize.Cache = MapCache;
-
-module.exports = memoize;
-
-},{"./_MapCache":24}],95:[function(require,module,exports){
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
-}
-
-module.exports = stubFalse;
-
-},{}],96:[function(require,module,exports){
-var baseToString = require('./_baseToString');
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-module.exports = toString;
-
-},{"./_baseToString":36}],"airtable":[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var base_1 = __importDefault(require("./base"));
-var record_1 = __importDefault(require("./record"));
-var table_1 = __importDefault(require("./table"));
-var airtable_error_1 = __importDefault(require("./airtable_error"));
-var Airtable = /** @class */ (function () {
-    function Airtable(opts) {
-        if (opts === void 0) { opts = {}; }
-        var defaultConfig = Airtable.default_config();
-        var apiVersion = opts.apiVersion || Airtable.apiVersion || defaultConfig.apiVersion;
-        Object.defineProperties(this, {
-            _apiKey: {
-                value: opts.apiKey || Airtable.apiKey || defaultConfig.apiKey,
-            },
-            _apiVersion: {
-                value: apiVersion,
-            },
-            _apiVersionMajor: {
-                value: apiVersion.split('.')[0],
-            },
-            _customHeaders: {
-                value: opts.customHeaders || {},
-            },
-            _endpointUrl: {
-                value: opts.endpointUrl || Airtable.endpointUrl || defaultConfig.endpointUrl,
-            },
-            _noRetryIfRateLimited: {
-                value: opts.noRetryIfRateLimited ||
-                    Airtable.noRetryIfRateLimited ||
-                    defaultConfig.noRetryIfRateLimited,
-            },
-            _requestTimeout: {
-                value: opts.requestTimeout || Airtable.requestTimeout || defaultConfig.requestTimeout,
-            },
-        });
-        if (!this._apiKey) {
-            throw new Error('An API key is required to connect to Airtable');
-        }
-    }
-    Airtable.prototype.base = function (baseId) {
-        return base_1.default.createFunctor(this, baseId);
-    };
-    Airtable.default_config = function () {
-        return {
-            endpointUrl:  false || 'https://api.airtable.com',
-            apiVersion: '0.1.0',
-            apiKey: "",
-            noRetryIfRateLimited: false,
-            requestTimeout: 300 * 1000,
-        };
-    };
-    Airtable.configure = function (_a) {
-        var apiKey = _a.apiKey, endpointUrl = _a.endpointUrl, apiVersion = _a.apiVersion, noRetryIfRateLimited = _a.noRetryIfRateLimited, requestTimeout = _a.requestTimeout;
-        Airtable.apiKey = apiKey;
-        Airtable.endpointUrl = endpointUrl;
-        Airtable.apiVersion = apiVersion;
-        Airtable.noRetryIfRateLimited = noRetryIfRateLimited;
-        Airtable.requestTimeout = requestTimeout;
-    };
-    Airtable.base = function (baseId) {
-        return new Airtable().base(baseId);
-    };
-    Airtable.Base = base_1.default;
-    Airtable.Record = record_1.default;
-    Airtable.Table = table_1.default;
-    Airtable.Error = airtable_error_1.default;
-    return Airtable;
-}());
-module.exports = Airtable;
-
-},{"./airtable_error":2,"./base":3,"./record":15,"./table":17}]},{},["airtable"])("airtable")
-});
-
-
-/***/ }),
-
-/***/ 605:
+/***/ 475:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Kj": () => (/* binding */ getTarotCards)
-/* harmony export */ });
-/* unused harmony exports getSearchData, getArticles, getFortuneTellings */
-/* harmony import */ var airtable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(829);
-/* harmony import */ var airtable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(airtable__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _images_tarotcard1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(552);
-/* harmony import */ var _images_tarotcard2_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(596);
-/* harmony import */ var _images_tarotcard3_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(673);
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
-
-
-var token = 'patTX1cwSKVpDKQ63.5bd9c7552485e54487c6e17913b4e7f0e68bfedf725a360c2d80673b4fdf9d27';
-airtable__WEBPACK_IMPORTED_MODULE_0___default().configure({
-  endpointUrl: 'https://api.airtable.com',
-  apiKey: token
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  YF: () => (/* binding */ getTarotCards)
 });
-var base = airtable__WEBPACK_IMPORTED_MODULE_0___default().base('appcttjzPgvmm4Gdx'); //карты таро для генерации карточек
 
-function getTarotCards() {
-  return new Promise(function (resolve, reject) {
-    var tarotCards = [];
-    base('TarotCards').select({
-      maxRecords: 100
-    }).firstPage().then(function (result) {
-      result.forEach(function (record) {
-        var none = false;
+// UNUSED EXPORTS: getArticles, getFortuneTellings, getSearchData
 
-        if (record.fields['line1'] == undefined) {
-          none = true;
-        }
+;// ./src/data/articles.json
+const articles_namespaceObject = [];
+;// ./src/data/fortuneTellings.json
+const fortuneTellings_namespaceObject = [];
+;// ./src/data/tarotCards.json
+const tarotCards_namespaceObject = /*#__PURE__*/JSON.parse('[{"htmlname":"pentacles7","color":"pink","arcana":"pentacles","emoji":"VII","line1":"семерка","line2":"пентаклей","none":false,"link":"cards/pentacles7.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/1bEPpGPAv42aKdlQuRXa2g/G3J3QhqGjGxBObBz3my6reWS8MY7Yzrf74jYQnN5zeVdYVKl7nSeuFHV5kaJ7aH0yAhltjQcJKjo-yhao9Bb7lpdm-OpV0u_EAf1em2IetQpsmMFPqA-nMundrOGo7tzWcbCxM6BDFKtywuSHf-Awg/m2N39rzX76YugGAnIS9_uvCBBkLDGEDBYwtOedzSjiw","id":"tarotCard75","texttype":"Antiqua","name":"семерка пентаклей, pentakles7","basics":"цветочек, подожди немного, пирамиды тоже не сразу строились ","love":"проблемесы, но всё обсуждаемо","work":"успех придёт, не сомневайся, но надо повременить, обдумай всё ещё раз хорошенько","advice":"не спеши принимать решения","basicMeaning":"награда придёт, не волнуйся, всему своё время, а пока не пришла, можешь подкорректировать проделанную тобой работу, не торопись никуда","loveTelling":"если хочешь нормальных отношений, прими своего бойчика таким, какой он есть, даже если он не хочет смотреть с тобой турецкие сериалы ","answer":"терпи терпи терпи, будет всё","cardOfTheDay":"день ваще не для спешки, если не настроена что-то предпринимать, то и не надо перекури, зачилься в лофте под лоу фай радио на ютубе","adviceLong":"спрячь подальше в склад свою импульсивность, не торопись и взвесь своё финальное решение, а если оно тебя в чём-то не устраивает, то подумай еще пару тройку раз"},{"htmlname":"swords8","color":"pink","arcana":"swords","emoji":"VIII","line1":"восьмерка","line2":"мечей","none":false,"link":"cards/swords8.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/bwvyU8Mnz8hkK_FQ9kN7iQ/FIlq3vSlx8RQ9U5yGQnFg3HDZimm5ixeRI5XqTNu9R2bacuq4fvLaXu2xDusyx8ENt9JpnhSPyhDoo_wyWKwADfKXf8zAMAcAPduVS5sSJQstYJhFCf9ekdWOwaazH4zDLHsKHV_TvlEraalX-wiNQ/qUXxZR7_4FLoqb6b_CH5QaawvBzSqKDN4XgXLV2ruJs","id":"tarotCard63","texttype":"Antiqua","name":"восьмерка мечей, swords8","basics":"сомнения","love":"отдаляетесь друг от друга","work":"трудности","advice":"зай побеседуй ка ты с подружкой на все эти темы","basicMeaning":"ты пока не свободна от судьбы и обстоятельств, ты мудрая и к проблемам отнесешься по-философски и вынесешь для себя урок","loveTelling":"нельзя удержать людей вместе, если они не любят друг друга","answer":"грядут непредвиденные обстоятельства, которые невозможно избежать","cardOfTheDay":"скованный день, будешь чувствовать себя зажатой, возможно ты проявишь свои комплексы, но надо перебороть это зайка","adviceLong":"сфокусируйся на одном деле, не надо распыляться на многое, сейчас нужно поработать, отдых потом кис"},{"htmlname":"theDevil","color":"black","arcana":"major","emoji":"👹","line1":"","line2":"дьявол","none":true,"link":"cards/theDevil.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/Nf6CnZnqgJg3zQ--iDwsRA/-s5q14DdosHKjjaYf1R_7EHEBI3IJNDryAIgPDy3Em-gUciwjScW8g79PT2fGIzC66Q0FnhN3BoUroUKvXSaFHDzF6vU6ZzOvLWOozSFtGmytwZOT7DeTZr_4arTRwbCcwuw6PD_MC3DVtTEPjBtYA/5j5EJDA0EiW0pelfMGy6C3STP6TzcqyB-yffWWT74oo","id":"tarotCard20","texttype":"Emoji","name":"дьявол, devil","basics":"тебя ваще никто не спрашивал, но будь аккуратнее ","love":"никаких чувств, только секс и деньги ","work":"тю… тут все по черному, интриги, расследования, коррупция ","advice":"собраться с мыслями, поставить и зажечь свечу и начать разгребать дела","basicMeaning":"увлечения, которые появятся в ближайшем будущем не очень хорошие, стоит от них отказаться, а еще стоит отметить, что появится личность, которая сможет взять контроль над тобой, очень важно не подчиняться этому ","loveTelling":"нет искренних чувств и романтики, все основано на личной выгоде, мужикам скажи нет, сейчас вокруг одни тюбики, береги себя ","answer":"недобросовестные действия о которых ты будешь жалеть ","cardOfTheDay":"сегодня ты посмотришь на себя с другой стороны, будет немало искушений от которых стоит воздержаться ","adviceLong":"надо бороться со злом и несправедливостью, улыбайся и говори всем хорошего дня, держи в себе позитивный настрой!"},{"htmlname":"hermit","color":"black","arcana":"major","emoji":"💨","line1":"","line2":"отшельник ","none":true,"link":"cards/hermit.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/oa4Vn_wn_OebKMkOKovhNQ/xUnemDVDrkj-loiYcl5EQQzBc26Xc1uQqWV_0Af98X6y80VqVQz0Z8RDa8cCXFKyExxjDU8Or8ul88bevrl5AxO9uGkTpQ02GjVitgHYgdR3ht7w5FNMMklLTjKOBy0LG5CT-UkO9-J3aD0fHJa2rQ/aTFwwwlITLoAoyXooDoPychLEugKcVAUrdtFZk16btc","id":"tarotCard14","texttype":"Emoji","name":"отшельник, hermit","basics":"карта выпадает если ты реально любишь посидеть дома, а если и выходишь, то сразу поддаёшься влиянию внешних обстоятельств ","love":"ой в любви ваще лафа, если упал отшельник, то где-то тебя уже поджидает твоя идеальная половинка, осталось найти ","work":"в вопросах карьеры карта значит, что уже хорош, пора бы и честь знать, стать для кого-то наставником, ну или вовсе отчалить на пенсию ","advice":"сиди дома, кайфуй, забей на работу, полистай тиндер, может найдёшь себе наконец-то идеальную пару, такого же хиккана, как и ты сама ","basicMeaning":"ваще означает, что ты идейная личность, ищешь смысл жизни, секрет мироздания  и аля-улю, но на самом деле, все в курсе, что тебе просто впадлу из дома выходить","loveTelling":"указывает на чиловые отношения, без всякой суеты, ну тебе только такое и надо, забудь о прошлых душнилах, которые тащили тебя гулять в людные места","answer":"сиди дома, отшельничай, занимайся чем по кайфу, забей на всё, пис","cardOfTheDay":"если выпала карта дня, торгового ничего не скажу, сосредоточатся на себе, медитируй, если чото нужно сделать, то делай в соло, на других челов полагаться вообще не вариант","adviceLong":"думай сама, своей головой, думай о себе, тебе, в принципе, о других думать и неохота, если надо зачилить и уйти в тень, то дерзай, от тебя не убудет "},{"htmlname":"pentacles4","color":"pink","arcana":"pentacles","emoji":"IV","line1":"четверка","line2":"пентаклей","none":false,"link":"cards/pentacles4.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/mygdJUL3gVpd-LeEAG21eg/tkKlhg2ZwmRM0z1ha6lU544olkRiUNzvD0V572I0wGJHZiu3l9YllE5CTG1Md-P2ot4v9uAkKMSSHXm2Hh2dOMWRNJRDxOOHRyZxV1ELIu_7vrpBXUin3KFZxLpaLx_SPT7xB2bT6Xpv_8OkxBoEzg/ufddTSwa40-owRDdMuud0YjPfoPhdejaSXlW9Hn6qgI","id":"tarotCard72","texttype":"Antiqua","name":"четверка пентаклей, pentakles4","basics":"сделай распорядок дня","love":"медленное развитие отношений","work":"все ок","advice":"протри пыль и отложи сто рублев","basicMeaning":"здесь про расчетливость, финансовую грамотность и правильное распределение временем","loveTelling":"- Любишь?\\n- Люблю.\\n- Докажи!\\n- Докажу.\\n- А достанешь звезду?\\n- Да, достану, смогу.\\n- Ты солгал!\\n- Я не лгу!\\n- Ты не сможешь достать, до небес дотянуться, и как вишню сорвать.\\n- Я смогу!\\n«слезы асфальта»\\n\\n","answer":"тебя  интересует только кэш – вряд ли ты совершишь что-то значительное","cardOfTheDay":"подумай туда ли вбухиваешь свои силы, может это не напрвление","adviceLong":"не будь агрессором"},{"htmlname":"aceOfCups","color":"pink","arcana":"cups","emoji":"🌸","line1":"туз","line2":"кубков","none":false,"link":"cards/aceOfCups.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/BQgeWRpGrZfwSMKZZI70fg/HEfCKc_QSWkNjytNvgaxmecszZRp9AexHXl24ie33jHsWCGad6qna1HUujLX4gGrKwsfge89TqPuxdbNSRKkZnhkzIkZqPKxLq0y0OOabr7kOR80zQLBjC9Li-kkAAkUFlV8sb6kuq-MeqFWA96uRQ/DxchkEuSFyn8KqOfnCFmskpbKz40HayXQ_YWpeHk3AY","id":"tarotCard39","texttype":"Emoji","name":"туз жезлов, ace of cups","basics":"ура победа ура ура победа","love":"ну ты ваще шальная, скоро появится тот с кем ты обретешь счастье, а если уже такой есть то у тебя будет еще больше счастья!","work":"будет что-то важное","advice":"фоткай что-нибудь на протяжении всего дня","basicMeaning":"светлая добрая карточка, каре резать не надо","loveTelling":"это карточка про большую любовь, это сплошная любовь, ты его бета он твоя альфа, а вместе вы число пи, выпейте пива.","answer":"зай просто шрека посмотри и ты все поймешь","cardOfTheDay":"все, что ты загадывала в течение этого дня, обязательно сбудется. карточка указывает на перемены в любви.\\nчто-то произойдет связанное с человеком из окружения\\nесли ты хочешь с кем-то помириться, то сейчас самое время","adviceLong":"встреться с близкими, позвони тем, кому хотела позвонить, а лучше приезжай в гости! создавай счастье и не жадничай добром"},{"htmlname":"knightOfPentacles","color":"pink","arcana":"pentacles","emoji":"🧩","line1":"рыцарь","line2":"пентаклей","none":false,"link":"cards/knightOfPentacles.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/5owHzGIgvyIrqQUn1aM8OA/CaT1zobir94sWU2iR43Fmxuvju7bzN9inNTUUq1uQOH_Bv4RR_IaBzp1nOANkmHH8g36wGxdHQ0chKqjegAX-wKyOrnCvmU7aEacxuBw7Ln0dD79h_VOSdFL2jf6FD1TjXd4AyGKVmcROF6faNtjxg/9DdqKKSDBIEwe0pjfs924yAfc79ziVCJqRyjSziB8oQ","id":"tarotCard68","texttype":"Emoji","name":"рыцарь пентаклей, knight of pentacles","basics":"энергия прёт из всех щелей","love":"стабильно и надёжно, как чугунная сковородка","work":"деловая хватка и уверенность в завтрашнем дне, соу джаст ду ит","advice":"«не важно с какой скоростью ты двигаешься, главное не останавливайся, братишка» ©Кама Пуля","basicMeaning":"инициатор любого движняка, реалистичная и прагматичная, когда ты в ресурсе, то всем капец","loveTelling":"у вас с масиком сильное влечение друг к другу, карта еще подсказывает, что есть в планах завести бэбуса, класс","answer":"не останавливайся на достигнутом","cardOfTheDay":"не дай себя обмануть зайка, он на серьёзных может пускать тебе пыль в глаза, и никакой он не бизнесмен ","adviceLong":"ты построила себя сама, можешь с лёгкостью продолжать в том же духе, но если какой-то масик захочет вложиться в такой удачный проект, как ты, то не отказывайся "},{"htmlname":"wands3","color":"pink","arcana":"wands","emoji":"III","line1":"тройка ","line2":"жезлов ","none":false,"link":"cards/wands3.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/-CCZVhLlpemfMFV-QfRUsw/okinO5KKc433Ha92_D_fg7hNe9HbLlts973rLO9iJms4Ol4nQN9f63OIg1uIBxjVPnZfbl-c2Dehd_Sj5ROVDCDzQTRIWmT3k4Mo9b5HkS2HeyOx7wXYQzcXVFFI6xtSVma0x4TmhpTpn0SNoAeMOA/yrlFGpUc-Ya1N1FhPJQCUSNK0OWDGhwE9OIb8oAuiX4","id":"tarotCard31","texttype":"Antiqua","name":"тройка жезлов, wands3","basics":"money money полный липси ха","love":"начало любви","work":"деньги пахнут пуси а липси ха все в шоколаде","advice":"купи оверпраснутый кофе!","basicMeaning":"трудись и все будет супер, тут все просто","loveTelling":"первые шаги в любовь, если ты с кем-то встречаешься, значит у вас все будет заново, по-новому, очень нежно","answer":"будь уверена в себе ","cardOfTheDay":"соглашайся на любое предложение, сегодня день денег ","adviceLong":"отдохни, съезди на природу, послушай себя"},{"htmlname":"swords7","color":"pink","arcana":"swords","emoji":"VII","line1":"семерка","line2":"мечей","none":false,"link":"cards/swords7.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/dL40NkZ2Tlf1mb0swspIFw/6hsdK_yrXsVEYaej70MlGVSGy-zAd3-wl8kkI1r8zIGcDxffpMFQQB-VrgXF1N8-9H49SAHifzPEYwgkIV6orq9nEVLp8GsWCOe0dGr_k-b7WrHv0nGO8QarJ-UU3CCJ-9q2dU-SLsCnGQYcrfYd3A/hOtHEPUPLZC_dwvnRCLlog5ocAvprHTbdoblcp5Gqsk","id":"tarotCard62","texttype":"Antiqua","name":"семерка мечей, swords7","basics":"ама бэд бич липси деньги мани ха","love":"девки сучки берегитесь, ну у вас ваще кринг какойто.... лицемерие, никакой любви зай, амсори","work":"коллеги у тебя так себе, доверять некому","advice":"подыши маткой ей богу","basicMeaning":"карточка говорит, что может кража, ноне только материальная, возможно духовное истощение","loveTelling":"да кринж у вас, а не любовь, либо расставайтесь либо обговаривайте это говно, ну совсем все плохо зай","answer":"да я ангел, но крылья в ремонте\\nда я демон, но рога у бывших","cardOfTheDay":"сегодня нужно быть осторожной, поджидает где-то обман","adviceLong":"уффффф будь внимательнее, поделай добрые дела"},{"htmlname":"wands10","color":"pink","arcana":"wands","emoji":"X","line1":"десятка","line2":"жезлов","none":false,"link":"cards/wands10.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/wOn1BE-tLH18ez1zgujlVA/-aZ0kbLuEe0pfXxnhLXKKdTFuD76nIIg_fhoAd8mDwxHA7IJJw6xAgS0l4A3rzYKNTr8yKbrKaGhF6aYVwMVRetxLlK2PJCPt6b24Y7msW78XgiNOLPTCMzIoL1WA948cV90D4AcgP382ZzdN9SPmg/IBzp0YlynkXZzwbOH7CO2rD3SoN3zr7Ysf1mSiEiOio","id":"tarotCard38","texttype":"Antiqua","name":"десятка жезлов, wands10","basics":"ээээээ подруга ты конечно офигеть крутая, но притормози, ты слишком стараешься, так и до выгорания недалеко","love":"не хватает искренности, сходи на свидание!","work":"тебя ждет стлээссссс......котик нужно постепенно все делать","advice":"родная поспи","basicMeaning":"короче зай смотри, ты сделала уже очень много, ты хорошо потрудилась, но ты так упорно это делаешь, что результат тебя уже может и не порадовать, у тебя не будет сил буквально ни на что, притормози и отдохни","loveTelling":"над отношениями нужно работать вам двоих, кто-то из вас халявит, если ты одинока и влюблена, то питаешь слишком много чувств к этому человеку, зай он похоже тюбик","answer":"карточка говорит, что может начаться депрессия, поговори с близкими людьми, удели время внутреннему составляющему","cardOfTheDay":"сегодня будет сложный день, будет много дел, много проектов, однако ты благополучно с ним справишься, но устанешь как собака","adviceLong":"сейчас трудное время, потому что очень много всего нужно делать, бери руки в ноги и все будет ок"},{"htmlname":"pageOfSwords","color":"pink","arcana":"swords","emoji":"👺","line1":"паж","line2":"мечей","none":false,"link":"cards/pageOfSwords.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/gWfNY5jE9z5YIpUacXXD2A/KYMMK6mP1jSSUmMgNW6h0L7E0XIV-rRI6ZUrv8xFsfyWUnROPz9_6FmjMmatWJlsddv_f_xEvpLkD6ekWLvoOXRa7VFUybMkPjrJ4XH-PPZCGlirDma02ZV_a1lBsVocTNDnCd0adRyNYKDOf6stRQ/yv_-1KodEuRsqAkclYWXG9NZfgVPDgGLPCzvnXX1fsg","id":"tarotCard57","texttype":"Emoji","name":"паж мечей, page of swords","basics":"ну и характер.... тяжелый как облако","love":"разногласия и конфликты","work":"на работе могут быть ссоры ","advice":"твори добро","basicMeaning":"ну короче такая карта, предупреждает о проблемках, но их можно будет решить добротой, анекдотами и смехом, короче будь легкой","loveTelling":"тююю старые обиды проявятся, а еще холод в отношениях, если ты кого-то любишь, то он кактой-то не оч","answer":"вырасти растение с нуля","cardOfTheDay":"сегодня ты услышишь критику в свой адрес, которую нужно принять спокойно и прислушаться к ней, эта критика дельная","adviceLong":"у тебя очень сильная энергетика, не многие могут ее понять и справиться с ней, не скрывай свои эмоции, если чувствуешь раздраженность покажи ее"},{"htmlname":"wheelOfFortune","color":"black","arcana":"major","emoji":"🎱","line1":"","line2":"фортуна ","none":true,"link":"cards/wheelOfFortune.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/blv4S0mcq8lDVGuvo6J28w/x3H1ns09UwnxIUJWLrgv0TnmVaFEUTLv8VFpP9tU2jAnP2FFWU5pdJWKeEzQonTj-LWa1WgX4wRPfXv35GvZtFpKnCBVo4KRM30MIw6dd5MaM-svtRRG9xXORhx3YwoBIzL49CZME0UGChAVrqI89w/1Ea_dhIoDPxD04E4WM-lLbZVrQ_XoJOT4zcJgpNouOg","id":"tarotCard15","texttype":"Emoji","name":"колесо фортуны, фортуна, wheel fortune","basics":"не стоит ничего менять","love":"все само наладится ","work":"надо радоваться, не надо напрягаться","advice":"перебери свой гардероб","basicMeaning":"старые ситуации будут проявляться вновь, однако у тебя есть шанс обернуть все в свою сторону","loveTelling":"верь в себя и будь собой, и тогда все наладится, важно знать, что карта говорит о налаживании отношений ","answer":"ситуацию ты не сможешь изменить, оставь так","cardOfTheDay":"день будет нежный, однако стоит принимать все с благодарностью, можно положиться на судьбу, все решится, дорогая","adviceLong":"важно понимать, что не все зависит от нас, карта показывает бессилие человека перед судьбой, однако стоит принимать это в хорошем ключе "},{"htmlname":"wands8","color":"pink","arcana":"wands","emoji":"VIII","line1":"восьмерка","line2":"жезлов ","none":false,"link":"cards/wands8.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/eh6qdD5XNE9Ycc5Sth3GbA/ddLMldN2oSkPGfpYLrI75t8-cwNqwmvabZWT8nqzM2LilxD7gKxJt3zQUqinGSi9PfG_muVdk0R-TqwVo1gH2TmZ0vqkWPislGic0wJdp_gryYeGWrLnj9o5deASCAN9i1sEW6fuvO3L4gcuiv4qzw/0SkMNuMIIDc7k-KsVAoTjdn6UGnkeo6b3ncdW3_Z9rk","id":"tarotCard36","texttype":"Antiqua","name":"восьмерка жезлов, wands8","basics":"будь или не будь","love":"ватафак, похоже тебе напишет бывший, ","work":"ты все сможешь сделать сама, вумен супримаси","advice":"подари себе хризантему","basicMeaning":"многое произойдет намного раньше, чем ты на это расчитвваешь","loveTelling":"в целом в лбюбви все ок, нов всплевут старые отношения","answer":"все новое – все хорошее","cardOfTheDay":"сегодня хороший день, будут только положительные новости, выпей вкусного чаю","adviceLong":"моя хорошая, тут ваще без передышек пахать и пахать надо, но зато это все окупится"},{"htmlname":"moon","color":"black","arcana":"major","emoji":"🌙","line1":"","line2":"луна","none":true,"link":"cards/moon.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/U_LRlZmAXvcWSLVUbUqm6w/kayG1G1LzN-j9VhTUtBFvg7atzuQQpWsGE3QfstOGMfRc13FNbaiF5CSXqCkI_dximCn3_smkoQmgFX5wb5QTRqUuvxhFzaPboLUynVatW6VRtBpvIiG4jVSVcunucYSBJNNticEN9zoek8mqMV28w/0GHQN9m-w34iCBVuXzRz_n_apz40ND82eBdqH4nqcvk","id":"tarotCard22","texttype":"Emoji","name":"луна, moon","basics":"эта карта – твой оберег ","love":"моя хорошая, побудь одна, тебе лучше без мужчин, а если у тебя есть мужчина, то не верь иллюзиям и мечтам","work":"что-то тут не чисто, помойся ","advice":"сходи в душ, охладись, двигайся аккуратно ","basicMeaning":"короче ты отказываешься смотреть правде в глаза, потому что она неприятна, сейчас очень легко допустить ошибку, наступила темнота в определенных делах, и ответа пока что не видно","loveTelling":"карта говорит, что ты не уверена в своем партнере, стоит сбросить маски и посмотреть правде в глаза\\nон тебе не пара-не пара, вот такая вот запара-запара","answer":"ты считаешь, что у тебя недостаточно опыта для решения определенных вопросов, однако карта не знает права ли ты, стоит взглянуть на свои знания трезво","cardOfTheDay":"день может показаться неблагоприятным, однако стоит продолжать делать свои дела, прими этот день таким какой он есть","adviceLong":"перестань бояться, карта поможет тебе все исправить, она прямолинейна и говорит все как есть, но видит, что все наладится"},{"htmlname":"kingOfCups","color":"pink","arcana":"cups","emoji":"🤯","line1":"король","line2":"кубков","none":false,"link":"cards/kingOfCups.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/wSHCfFiSFZxZEIJGK4Fj4g/oML_FzyOdRcNvLu4kvYeAxfXZmM3_P47b_d6wQzDEGQjX48Q8tPpfxV_5akQSWpUfe95r5bk8bXZhZH9LfUrJYgoulCR9VQgb7JSTblOb7PQ0yEmrKmlnezH7q0MX_2Wkk4yKrs9xDHoFooxP7eaQA/2iRDS4NqeweYQeal1Z4F-qK8lZQQgl_LPNDThfc0LhM","id":"tarotCard40","texttype":"Emoji","name":"король кубков, king of cups","basics":"про дом, заботу и уют","love":"карта символизирует масика. сходи уже на свидание!","work":"все ровно","advice":"проведи вечер с семьей","basicMeaning":"тютютютютю пупупу мяу мяу мяу это карта милоты и добра, все хорошо, моя хорошая, все чего ты так хотела уже вот ну прям ну вот уже здесь, чууууток подожди","loveTelling":"ну ты ваще, соу хот, соу хорни, в отношениях все супир, а если их нет то пора открыть тиндер зай.........\\n","answer":"как бы это не звучало, но обрати внимание на мужчин, тебе дадут совет","cardOfTheDay":"все рядом все близко, думай головой, а не сердцем и все будет суперрррррррр, но не забывай про любимых, скажи им сегодня как сильно ты их любишь","adviceLong":"поддерживайте друг друга, соу визис лас уугугугу вис из лав, мужик у тебя что надо, подруга!"},{"htmlname":"cups2","color":"pink","arcana":"cups","emoji":"II","line1":"двойка ","line2":"кубков","none":false,"link":"cards/cups2.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/DV6oqwlVdTCCWl91eNfX2Q/YSc2JE_pntc6pkqAggo4DL4SdO6XcMV_Yr8bZxkhFsIx7h51vNLu00VIIs-ErIMaMh5VnkWe7sVmLUDnYQLBzgzZtVtmdqR9T9fKKaXjU4FRB4xNDhiQjbEZGO4NsLiW_-FqXAn9jrsir-yGCsOo3g/hWT0BgNQyORL0DchHFPd7Q2fyO2P_skZ3TxKOakrq2A","id":"tarotCard44","texttype":"Antiqua","name":"двойка кубков, cups2","basics":"заюш, если ты с кем-то поссорилась, то мир не за горами ","love":"романтичные встречи, схождение конфликтов на нет, взаимопонимание","work":"коллективная работа, успешный успех, уважение коллег","advice":"не надейся только на себя, поищи помощи у товарищей","basicMeaning":"сейчас лучшее время, чтобы помириться со своим масиком, отложи амбиции и обиды и сделай первый шаг к примирению","loveTelling":"карта вещает, что люди созданы друг для друга. обычно о таких людях говорят так: родственные души. сможете найти общий язык и ваще всё пучком у вас, смотрю и радуюсь","answer":"не имей 100 биткоинов а имей 100 друзей, с ними у тебя все пойдут как по маслу","cardOfTheDay":"день запомнится делами сердечными, будет любовь, примирение, пиво, чипсы, короче самое лучшее, что есть на свете","adviceLong":"обрати внимание на свое окружение, не надо пытаться всё сделать самой, твои близкие, твоя опора, не бойся когда ты одна, бойся, когда ты ноль "},{"htmlname":"kingOfSwords","color":"pink","arcana":"swords","emoji":"🤴","line1":"король","line2":"мечей","none":false,"link":"cards/kingOfSwords.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/xt93SHztGdqAzM3XyPopmA/duWrRtsOAdClUIj14R94BB_FMfx5hL88G-XSxMWVFwMHhlKFuOFUcISlQpxxQimBE0l4ZMjMwYc8PeA8sRAMfIJHzFOyom7PxWU3S5oh0tAiYgvSRKvaif2WrbxCCyobn0AGy6DsjXeIdf81AXaFPg/I-QL4KbgiJP2l_opjxKIXUrTUihcX4XQu1o7O-l0d0g","id":"tarotCard54","texttype":"Emoji","name":"король мечей, king of swords","basics":"ты осознаешь свою власть и лидерство, ты жоская личность","love":"ты абьюзерша, экспериментируешь над партнёром ","work":"ты невероятная бизнесменка, у тебя куча идей","advice":"используй все свои тузы в рукаве прямо сейчас","basicMeaning":"ты целеустремленная тётя к которой все обращаются за советом, ты серьёзный авторитет, в 90-е крышевала пару ларьков на арбате ","loveTelling":"может появиться ясность в отношениях, поставишь жоскую точку .","answer":"козыряй всем что есть, не стесняйся ","cardOfTheDay":"тебе приготовлено испытание, подготовься к нему получше используй всё, на войне все средства хороши ","adviceLong":"ты справишься со всем, на плюс морали, но не забивай о хорошей подготовке, без нее никуда"},{"htmlname":"wands6","color":"pink","arcana":"wands","emoji":"VI","line1":"шестерка","line2":"жезлов ","none":false,"link":"cards/wands6.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/l-NF90dLuw7qNAmwT17izQ/i6z5rZcaeD4qZMoj1Jym2q1hl55nLb-x45YRvxtbvsglS0cCGM25eL1_U2RKbk8PiBPAtjix-tPoeI_43bcELTYVz4AG-uW930PL0QQDY314gfI2uyg6jttKD6q2SwXfGa6q3eTpF3gJFGK9w_7MBQ/O-y3OlYSnKJmQka_aKljAk-br0Fd2CsFwKRiCeHkyeE","id":"tarotCard34","texttype":"Antiqua","name":"шестерка жезлов, wands6","basics":"ура победа победа ура победа","love":"ну тут что-то новенькое будет","work":"все долгие дела наконец-то завершатся!","advice":"позвони бабушке и маме","basicMeaning":"появится новое знакомство, которые поможет решить сложные задачи, эта карта про успех, но не на ровном месте, а про заслуженный успех, поэтому поднажми, моя хорошая ","loveTelling":"эта карта про любовь, если ты одинока, то скоро тебя ждет романтик вайбс, а если ты не одинока, то твои отношения будут супир, вы ваще нереальные, а еще карта говорит, что скоро поступит важный звоночек или просто придет хорошая информэйшн, стоит хорошо общаться с новыми знакомыми","answer":"карточка говорит, что придется принять какое-то важное решение, но ты займешься верную сторону ","cardOfTheDay":"сегодня будет успешное решение дел над которыми ты так давно ломаешь голову, сегодня будет много дел, которые пройдут хорошо, а еще ожидается денежка, которую лучше всего потратить с близкими тебе людьми ","adviceLong":"это добрая карточка говорит о белой полосочке в в твоей жизни, денежка будет"},{"htmlname":"world","color":"black","arcana":"major","emoji":"🌍","line1":"","line2":"мир","none":true,"link":"cards/world.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/xY4TQLKxl-UGJQgmWXP_Qw/5Ktt44n3TlkD0gdZYI5K8nDmtzcNIuFdieF1ka3TsL6kPQQCVW2JGBb6igyDKKs4Dr0QxnlcFLYejhefJJvgOpdE8SiClIYltyx1rh4snGAKTjwUhj_ttFfRNU8cFn-Be4I084qulHEVIdUoTjlTNg/oEnzQgb4XCXSLbP6i0fUnAMnSbU-tUKB-YgNl1Myjnc","id":"tarotCard25","texttype":"Emoji","name":"мир, world","basics":"это мирный житель","love":"подруга в любви все невероятно ","work":"ты знаешь чего хочешь от жизни, просто иди к этому и мир тебе поможет ","advice":"послушай тейлор свифт ","basicMeaning":"гармония с миром, полнейшая удовлетворенность, стоит принять факт того, что удача будет на твоей стороне","loveTelling":"вы ваще нереальные, подходите друг другу так, что ваще невозможно, это невероятная любовь ","answer":"удача будет рядом с тобой постоянно, все сложится воедино, ты ваще афигеешь","cardOfTheDay":"счастье, любовь, дружба, новый дом – похоже кто-то сегодня ночует не дома, стоит учитывать, что сегодня все супер круто ","adviceLong":"ищи новые цели и иди к их реализации"},{"htmlname":"cups3","color":"pink","arcana":"cups","emoji":"III","line1":" тройка","line2":"кубков","none":false,"link":"cards/cups3.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/ChZeJAGZ9FzN6qsvFdtB6A/8G2hg6_yJ_m7Pd2nowkbJkPZSrCE4_LTpADuzPVSgs5VNLMtLeHRRIIO0mZkSIMyWu5rGO_uqtwxWVwmBw9CWyJQLkaxn2M-GxykpkPZzfSHclSXjJ81dhZRQ2LLUCPQMkqa-LgNoctOmMBUR9jy6w/Tb6sPTGAqL4lpHIKkN8jKw6LlUmMEShf68T6E2eKESo","id":"tarotCard45","texttype":"Antiqua","name":"тройка кубков, cups3","basics":"хорошее время, чтобы вспомнить былое","love":"тупо на чилле на расслабоне","work":"на работе все ок, но повышений не будет ","advice":"позвони тем, кому ты так давно не звонила ","basicMeaning":"духовное умиротворение и спокойствие,   все новые дела будут успешными ","loveTelling":"вумен супримаси, крепкая женская дружба, не ставь мужчин на первое место ","answer":"будешь видеть выгоду в делах, тебя будут хвалить, ты ваше такая талантливая ","cardOfTheDay":"так ну день ваще кайф все по доброму, вспомни про близких, соберетесь вместе, не скупись на эмоции, возможно будет приятное знакомство, от которого не стоит отказываться ","adviceLong":"судьба тебя балует, все хорошо, все супер, все получается, построй планы на ближайшее время (неделя, месяц)"},{"htmlname":"lovers","color":"black","arcana":"major","emoji":"💕","line1":"","line2":"влюбленные","none":true,"link":"cards/lovers.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/GeihreMHgYg6YTqgOqv8uQ/Fp2dfDnRswczclbG1bzl_Jj6Tc7NZklQFIKSlg-30Ore8J2-npBIzZdQSf8RcTRntI8d0S842_pL5mibGGmXloR7EoNwi5elD81gsW6ITkOEDRv2EZg7vzkhR3yR0vE_1gmY6cclZRhE01FcqSGg0w/NZid-DDVJ1p8U3IaerwRVfe2wZy5rJiuQ3BxYzlV5LE","id":"tarotCard11","texttype":"Emoji","name":"влюбленные, lovers","basics":"постоянный выбор","love":"в любви все супер здесь и сейчас, а если никого рядом нет, то скоро обязательно появится!","work":"никакого лидерства, только взаимопомощь","advice":"желай всем хорошего дня и скажи комплименты окружающим ","basicMeaning":"тебе придется выбирать между умом и сердцем, главное, чтобы твои поступки были добрыми ","loveTelling":"ты любишь, тебя любят, все вокруг друг друга любят. сплошная любовь и взаимопонимание ","answer":"не веди себя безответственно","cardOfTheDay":" сегодня пора принять окончательное решение и расставить точки над и, чтобы получить й, короче все чики пуки будет, сегодня дедлайн выполнения старых дел","adviceLong":"без суеты, не мороси, прислушивайся к людям, они уже дали тебе ответ"},{"htmlname":"swords2","color":"pink","arcana":"swords","emoji":"II","line1":"двойка","line2":"мечей","none":false,"link":"cards/swords2.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/-x67BvFMgkD-To5WBb_bfg/yM_Z7h0Z6xyQYnTt-O8VHQv6nxVR-fuSNQAGdG8R5stv5k0fRKGVC5KrWbD9IC6ApIbY0tURScp3w9DzJ900_1RAPl-CN1M_pO5eSVNI7-tP5aPNNGuECjQrBWVpN2l8aRNQURtd5EAtrpfK_Jq3Xw/XYZs3fyuR1WRf_E4kw1C1H5WcosLppI920Aail23HH4","id":"tarotCard58","texttype":"Antiqua","name":"двойка мечей, swords2","basics":"затворник, закрылась от мира","love":"скоро будет примирение ","work":"скоро закончишь проектик","advice":"не вступай ни с кем в ссоры, даже если очень хочется ","basicMeaning":"все тебя бесят, все раздражают и от всех закрылась, сидишь сама себе на уме, мух считаешь, ну так и надо, не давай никому к тебе лезть ","loveTelling":"твой масик покажет тебе свои лучшие качества и возможно отвезёт в дубай на шоппинг","answer":"продемонстрируй, что ты на всех обиделась, но готова простить, если постараются ","cardOfTheDay":"чот сегодня тебя будут преследовать сомнеееения, тревоооооги, отложи лучше на завтра все решения ","adviceLong":"тебя будут провоцировать на конфликты, не ведись, держи себя уверенно, знай себе цену, ты себя не на помойке нашла, ты выше этого"},{"htmlname":"theHangedMan","color":"black","arcana":"major","emoji":"👀","line1":"","line2":"повешенный ","none":true,"link":"cards/theHangedMan.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/zASfB5ulPVeXHgK-m9ac4g/iCWPWkphIoq7wptEmD81UJN9KXuDDOPe5eTsIaS2n_g0GlO19oHw3ZSIIoKXRKBNygu7xLdkQpi2_tSDnqcVCFbwcyF4BTG6YPE9DsCf7JK2ZePYqPy5hCYCd9PZ1bCJKqrg51MrvS3p-DvMPpa8xg/MM4VhKhX63f6a9KajSApIst165uHGvAf_45zDIOxt2k","id":"tarotCard17","texttype":"Emoji","name":"повешенный, hanged man","basics":"озарение","love":"скорее всего это не тот самый","work":"зай притормози и ниче пока не делай, подумай и подуши носиком ","advice":"пропей курс витаминов и купи себе комнатное растение ","basicMeaning":"ты находишься под давлением ситуации или человека, пересмотри свои решения","loveTelling":"пока что все не чики-пуки, но и предпринимать ничего не надо, стоит смириться и ждать ","answer":"попробуй подумать о том, что от этого можно отказаться ","cardOfTheDay":"зайка плыви по течению и особо не вые, поменять сегодня мало что можно","adviceLong":" подчинись обстоятельствам и все будет ок"},{"htmlname":"pageCups","color":"pink","arcana":"cups","emoji":"😌","line1":"паж ","line2":"кубков","none":false,"link":"cards/pageCups.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/NDqMtIlg6ulEfuGjj-AGbA/-ZSEjlBgHlDUUCgGgTp_p26VLrJ-kWhj4A8oHiGxo1fXhejx3msashVPlfNN9JuVCn7s5tavMkqHJf261Z9k_kwqxawLP-GyUZyrkSgfdHaqrZnqP59D3MtlY0_D-GL4dRMp5nv5jOyd4bMt_gz8YA/Hmm-Qioq1upVtfNRgAVRYXtNI3FhJhEaG_dEg3f2D5g","id":"tarotCard43","texttype":"Emoji","name":"паж кубков, page of cups","basics":"тихая радость ","love":"драки будут не долгими ","work":"тебя будут хвалить, ты ваще умничка","advice":"сделай бутерброд с докторской колбасой и маслом ","basicMeaning":"ты ваще сама нежность, эта карта про любовь, любовь вокруг, все всех любят, все супер, благополучие ","loveTelling":"зай ну он конечно не масик, но и не тюбик, но довольно серьезный мен с серьезными намерениями, люби, но будь аккуратна ","answer":"стоит думать своей головой и положиться только на себя ","cardOfTheDay":"день будет полон маленькими радостями, не бойся принимать подарки судьбы ","adviceLong":"проекты, которыми ты занимаешься, лучше отложить, они не имеют сильного значения, доверься интуиции"},{"htmlname":"swords9","color":"pink","arcana":"swords","emoji":"IX","line1":"девятка","line2":"мечей","none":false,"link":"cards/swords9.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3Q8-M6VkSbL79QH0ClrW_w/T-Y_hATmmGJ_qdWZeZTsZUd_z6PqHPSwKdJ7oP9AOW1Uo6fJktL18FyI6s--RCcQ31i4DleErcYZzqFzHGUPjsy_GalaKBS4k75n4AlXDZq_0qCp8m4xkOMHFP1wfRHVF1hUa6a6OAHbZpPDXXsgYQ/8usDCY-eRhDYflP2qI40ct4BtQrKXoI5xodziyRNFn4","id":"tarotCard64","texttype":"Antiqua","name":"девятка мечей, swords9","basics":"бессилие перед неудачами","love":"кринж он","work":"паника в работе с коллективом","advice":"зай ты себя накручиваешь и загоняешься с ничего, релакс, выпей винчика с хачапурей","basicMeaning":"тебя будут мучать тревоги и неудачи, которые засели в подсознании, зай они уже в прошлом, забей, ничего уже не поменять, живи кайфуй дальше","loveTelling":"а мой мальчик ездит на девятке.. так он от тебя и уедет, дорогая, он тюбик, не печалься, купи лучше тюбик зубной пасты, от нее больше пользы","answer":"принимай только позитивные мысли, ищи поводы для радости","cardOfTheDay":"мама этот день как сон, но это будет кошмар БУ, но просто надо пережить это говно","adviceLong":"не стоит быть одной, стоит делиться чувствами с друзьями, поеделись!"},{"htmlname":"justice","color":"black","arcana":"major","emoji":"🤝","line1":"","line2":"справедливость ","none":true,"link":"cards/justice.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/Ig2sq1hDDeGaMdC02NCcWA/eGRbYC-125mbN_dDa9iqdZ8_EsQN8aIho3_2-bM4cEujoac4tqax3SL4-DOecQTpWfM1_EBnJqK-TCmxxRuG3tQkiPXFFBjWYv0zODI5Fv9sGCexyr38xJIPLArrdQSS91TpPd9Heg_PMbQSsltUBg/AFuJm4cPjvsbaUczFJtUUtQhXMuXKCmQyHt3dFq5UsY","id":"tarotCard16","texttype":"Emoji","name":"справедливость, правосудие, justice","basics":"штош пора взяться за дела","love":"скромно, тихо и без страсти, но хорошо","work":"чето точно прояснится ","advice":"выучи 5 новых слов на английском и наведи порядок в комнате ","basicMeaning":"ну короче прошлые поступки могут аукнуться, но надо понимать, что их можно обернуть в правильную сторону. а еще пора браться за свои дела, стоит навести порядок","loveTelling":"уважать своего партнера и любить его, сейчас тихий период, возможно без страсти, но тоже добрый, важно пройти все без обид","answer":"большая ответственность перед собой и окружающими","cardOfTheDay":"стоит быть внимательной и присматриваться к каждой детали, а еще сегодня надо будет много подумать ","adviceLong":"ответственность за свои действия, тут уже без судьбы, работай и смотри сама по-ситуации"},{"htmlname":"emperor","color":"black","arcana":"major","emoji":"🫃","line1":"","line2":"император","none":true,"link":"cards/emperor.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/cW_HrFYylwBkQEYgDgZCBw/4PE2h2U4w6dpUatA236l3a15iNprrYGHRK9b79bN5GTVpQQQeOE6QHvt4jiphvaEe098n9xZcpj7UY3H9NKhG8WgMMVCjAli_rK17qtBW8HeOXCJTyrcF86MadZX527NaO6CbqBc275N8U_fdOhRjQ/Lft4nN2rUQkq82xGF06eq-uKJPlIlVVHb6fQo6Cnljw","id":"tarotCard9","texttype":"Emoji","name":"император, emperor","basics":"рядом с&nbsp;тобой шуга деддик! какой-то сильный мужичина! осторожно! опасно! осторожно! осторожно! подумай! отец? брат? никита? прошу, аккуратней","love":"какой-то овен скорее всего. какой-то надежный партнер. это все про серьезные отношения, так что проработай на&nbsp;следующей сеансе с&nbsp;психотерапией свой паттерн с&nbsp;избеганием, чтобы не&nbsp;отпугнуть этого масика.&nbsp;но&nbsp;в&nbsp;целом, это все про стабильность и&nbsp;соулмейтов","work":"полное благополучие! займись только соушл нетворкингом по&nbsp;возможности, полистай новые вакансии на&nbsp;хедхантере и&nbsp;сходи по&nbsp;приколу на&nbsp;пару собесов. никогда не&nbsp;будет лишним, а&nbsp;так все в&nbsp;шоколаде!","advice":"пора расставить приоритеты с&nbsp;внешних на&nbsp;внутренние, проявить стойкость и&nbsp;терпение. тут висит ружье чехова&nbsp;&mdash; значит, скоро оно выстрелит","basicMeaning":"карта говорит обдумывать поступки, быть рассудительной, двигаться ровно и все будет супир","loveTelling":"долгие крепкие отношения, построенные на взаимоуважении, зайка это бинго","answer":"решения стоит принимать взвешенно, но быстро, эта карта про надежность и устойчивость, надо только подумать как и где ее правильно применить","cardOfTheDay":"сегодня дела идут хорошо, можно взяться за то, что так давно откладывалось, а если такого нет, то можно кучу всего заспидранить и оно будет отлично сделано","adviceLong":"стоит помнить о себе и быть рациональным, прежде чем помочь другому, стоит подумать не навредишь ли ты себе. а еще не стесняйся делать так, как считаешь нужным!"},{"htmlname":"pentacles8","color":"pink","arcana":"pentacles","emoji":"VIII","line1":"восьмерка","line2":"пентаклей","none":false,"link":"cards/pentacles8.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3xVt4aw3n9TJYF-0CexzgA/JU3nS_c2VVPk_PuOZwDmG1OgggzG9AsGN7BlwgNsBakCRE3fn8YbM-RvkMfpH4PzRZfdDOT3eIp4-RL1jv8cWP0l7-S0syYVhSWDlbZ6tvVqhmSxiX3s-sDbMXrrpyG6Y-qGBH0O42CAKdwcnXnM9Q/Sj7XPw-3JXHNm9aFgF3tpe43MMyY68JBFtyscFvz328","id":"tarotCard76","texttype":"Antiqua","name":"восьмерка пентаклей, pentakles8","basics":"нежность","love":"удачное развитие отношений","work":"попробуй че нить новое","advice":"жоско уберись в квартире под моргернштерна","basicMeaning":"ты свободна и успешна, только если не ищешь личную выгоду, будут новые знакомства, не бойся быть клоунесссой","loveTelling":"все ок, и если отношения есть – все ок, если отношений нет – тоже все будет ок, это карточка про людей и любовь","answer":"если ты все хорошо обдумаешь, то ты добьешься нереального уважения к себе","cardOfTheDay":"не переоцени себя, не бери слишком много забот, набирайся опыта","adviceLong":"подумай прежде чем сказать, будь терпелива к окружающим "},{"htmlname":"temperance","color":"black","arcana":"major","emoji":"⚖️","line1":"","line2":"умеренность ","none":true,"link":"cards/temperance.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/wHPd1WpZxtgf9JSL9YUudg/jMUi15QerramiT4nKXddaIXyj5JrKTIAroLcJ3GV_EOs6EumA-wJz4bpHM51OJk20MN9wUkly4ki4lX6iHwCGIWbXaFc8t5KV9FsF31i1oG380XKyzZRN8G7GN2yMV25c6RBBj0lnh77OOiFrbuogg/vqccam14uL_zI-bIUaaMeB25Tsh7wupqe4srCciyhgw","id":"tarotCard19","texttype":"Emoji","name":"умеренность, temperance","basics":"ой ваще добрая карта все хорошо","love":"в любви все спокойно и нежно, можно зайти в тиндер","work":"относить с добром, без суеты, и все будет хайп ","advice":"можешь делать че хочешь, поиграю в майнкрафт, посмотри что хочешь, погуляй с подружками, все ваще суперрррр","basicMeaning":"все супер, все пройдет гладко, все разногласия закончатся, все будет тихо мирно и спокойствие, уровень сложность на нуле ","loveTelling":"в отношениях все прекрасно, штиль, гармония и нежность, а если ты одинока, то карта дарит новое знакомство","answer":"доводи все начатые дела до конца","cardOfTheDay":"замечательный день, дорогая! ты сможешь наладить все, что тебя терзало, а еще твои советы крайне ценны сегодня, поэтому общайся побольше и говори о своей точке зрения!","adviceLong":"придет смысл, дружелюбие, взаимопонимание, не стоит конфликтовать и помни о спокойствии "},{"htmlname":"wands7","color":"pink","arcana":"wands","emoji":"VII","line1":"семерка ","line2":"жезлов ","none":false,"link":"cards/wands7.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/C67WWVYz0rsuGaIsJnTGbA/_mmD8XBDYfWIaovr3I6gtNkPq9t8sOW679R_G3zCrlxyC-AQnVWWOjCYPFwavftBzEhbIhpajUzG1SqCJZc5p5UZHiikIgL-H1BhmI8PKezvlrImv4m7tyvxBz96TdxCAwmpeYWA05THyZbEo252yg/csGOp2o6D7mVRIdraFUP43Jbo_i_ftuZAjA4QnU4NLE","id":"tarotCard35","texttype":"Antiqua","name":"семерка жезлов, wands7","basics":"ща будем драться со всеми твоими напастями ","love":"как-то все не ровно, будут трудности ","work":"самой тут не разобраться, стоит попросить о помощи, не бери на себя слишком много ","advice":"посмотри «драйв» с районом гослингом","basicMeaning":"карта хорошая, но говорит, чтобы это хорошее наступило надо будет пережить и побороть всякое говно, это продлится недолго","loveTelling":"карта в целом хорошая, говорит, что все будет окей, но вот каким путем. возможно стоит расстаться, а может надо проанализировать ситуацию и пережить эти трудности","answer":"прямо заявляй о себе и не бойся осуждения ","cardOfTheDay":"сегодня нужно позаниматься спортом, день очень активный ","adviceLong":"зай тут без героизма, попроси о помощи пжпжпжпж тебе так будет легче реально"},{"htmlname":"aceOfPentacles","color":"pink","arcana":"pentacles","emoji":"💋","line1":"туз","line2":"пентаклей","none":false,"link":"cards/aceOfPentacles.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/Y_qnOmCjOLTZHk2KfBecwQ/0nXqeHGhZL9ELaEYhAUwJuf-QfLo5TAuZz6LZeO7rClGLsZc3VhqrCZSYQF-ql2ZQ5CoGtWxkQhk12JMxr_qoahZz1a8AMUdsixalaA2U9iKzVThgVjX5IfrAMp2Rcj3xiKcxVj3oZFBeq75CaXTtQ/wW1dQl8KSBr94Ymd7eUp5BvGJsGMKwb57uulNcIuBJA","id":"tarotCard5","texttype":"Emoji","name":"туз пентаклей, ace of pentacles ","basics":"крепкая карта, скоро появится хорошая новость","love":"в любви все хорошо","work":"с денежками все супер, это ваще гениальная карта для материальных благ","advice":"поработай на улице и купи себе летний напиток","basicMeaning":"тот кого описывают этой картой просто нереалка. этот человек ваще гениальный, у него все супер, есть уверенность в завтрашнем дне полный хайп короче \\n","loveTelling":"в любви все супер, вы оба стремитесь объединиться, куча взаимопонимании и свободы, короче вы как шрек и фиона, нереальные и сладкие","answer":"штош пора начать то, что так давно откладывалось, дочитать книжку, сесть за английский и посмотреть в свой ту ду и понять, что работы будет много","cardOfTheDay":"МАММА МИЯ!! беги за лотерейным билетом, этот день невероятный, удача, хорошее настроение, никакой депрессии и ментал брейкдаунов","adviceLong":"считай, что это лучшая карта в колоде, реализуй все начинания! пуси джуси на тусе ты ваще, ну ваще и ну и карта, все просто нереально"},{"htmlname":"aceOfSwords","color":"pink","arcana":"swords","emoji":"🗡️","line1":"туз","line2":"мечей","none":false,"link":"cards/aceOfSwords.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/xTDmCSNb7d5UMzXLFzfopg/Jr3C7pZxy4jP_dHembk00TT82v7PI0Hr702ELrNVZ3S3CsxKyr1RuKFTogvNPRUus4yZn6HsuFjdGMzZ3GMiU2Zw6IZ0PYLA19pJ9H9rAFs5kSMtjICqY-w0A51EWXQmWO8Qx09XiCEiRA9kK3GL9Q/9EmTyDucdgxzfpMLBKsaiVRatuXNVoXxE3xfKeAfZr0","id":"tarotCard53","texttype":"Emoji","name":"туз мечей, ace of swords","basics":"аркан триумфа и победы, отставить сомнения","love":"кризис закончится, общий язык найдется ","work":"ты тратила силы и нервы не зря, скоро всё воздастся ","advice":"будь решительней, не ссы","basicMeaning":"есть новые планы? значит их надо воплощать в реальность. есть кризис? значит пройдёт","loveTelling":"внезапный разгар страсти, новые отношения, но избегай двусмысленности, говори лучше всё прямо, кому нужны эти ваши намёки","answer":"не стрессуй, не волнуйся и не сомневайся во всем и всё будет чики-пуки","cardOfTheDay":"сегодня выпадет шанс решить тяжкую задачку, которая не давала спать последние несколько недель","adviceLong":"быть решительной не так уж и сложно, как может показаться решение прийдет резко и само собой как понос"},{"htmlname":"priestess","color":"black","arcana":"major","emoji":"💅","line1":"","line2":"жрица","none":true,"link":"cards/priestess.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/9EE4-4TIIk-Gk-rnzwiqcQ/4Ph-rRaqLdK7iUv5l0b62vMMj7jEcxhzpSXN2LZ8NEkGTHy_ZgB4w_W-STbTNhIWW8G5sRoe2EJuaTWpW9p9m0pkQugV16rok8Rf9CWKx9oLDDV3M4xbXe4Hkht4J4meq5ikwb_knnw4KQWob7Y3Hw/NzKSXGbSykOYK9WKD8Pulke1H---EpigbCdfHT-_Q_A","id":"tarotCard3","texttype":"Emoji","name":"жрица, верховная жрица, priestess","basics":"ты&nbsp;что, дышишь маткой? тогда откуда такая мудрость и&nbsp;проницательность? можешь сделать свой инфопродукт об&nbsp;этом, потому что ты&nbsp;&mdash; сила, ты&nbsp;&mdash; красива. ❤️‍🔥 вокруг тебя окружает лишь успех, полный флекс.&nbsp;и&nbsp;все это не&nbsp;останется незамеченным!","love":"вокруг одни только траблы, подруга. полный непрогляд! ты&nbsp;будто главная героиня дурацкого фанфика, который так и&nbsp;не&nbsp;дописали, так что сейчас прислушийся к&nbsp;себе и&nbsp;делай, как тебе угодно","work":"выключай в&nbsp;себе конкуренцию, эта гонка никуда от&nbsp;тебя не&nbsp;денется! пора войти в&nbsp;поток и&nbsp;не&nbsp;надо спешить! ты&nbsp;все равно самая крутая герлллллл","advice":"&mdash;&nbsp;Никогда ничего не&nbsp;бойтесь! Живите здесь и&nbsp;сейчас! Кайфуйте. Жизнь одна... А&nbsp;мне так страшно, но&nbsp;я&nbsp;с&nbsp;Вами ничего не&nbsp;боюсь, слышите?!&thinsp;&copy;Ольга Бузова","basicMeaning":"остаемся дома, сидим в спокойствии, смотрим все что хотим, делаем все что хотим, главное быть умиротворенным и ждать, а ждать надо будет новой инфы, которая заставит посмотреть на ситуацию под другим углом\\n⠀\\nдуховная мудрость... короче ты ваще так преисполнился, что ваще....\\n⠀\\nстоит подумать над прошлым, вспомнить старые знания это может помочь для решения каких-либо задач, короче полистай свою галерею","loveTelling":"тюююююююю, отношения гавно, либо ты скрыто любишь, либо скрыто любят тебя, но в отношениях все не хайп от слова совсем, лучше сделай масочку для лица, сделай тренировочку и побудь с собой\\n⠀\\nкороче ты сильная и независимая, но и одникая.... нафик тебе эти мужики лучше поиграй в майнкрафт","answer":"так ну дела будут и очень даже хорошие, но торопиться не надо, только когда будешь чувствовать себя уверенно все, тогда и принимай решения и все будет супир\\n⠀\\nмедетируй!","cardOfTheDay":"вдох выход слушай себя, ты королева этой жизни, только ты знаешь как надо\\n⠀\\nкаких-то супер важных дел лучше не делать, если не хочешь чего-то делать – НЕ ДЕЛАЙ, сегодня стоит побольше подумать, чем что-либо делать","adviceLong":"наблюдай и следи за ситуацией"},{"htmlname":"cups6","color":"pink","arcana":"cups","emoji":"VI","line1":"шестерка","line2":"кубков","none":false,"link":"cards/cups6.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/mmiP5rG0K_5GZmRD2f5V9w/qCneF7Wltf2oMTf_C217ytNljCWQlOlt6KLotQ1hnbQEqJbw57UqMykF9pldA6rlxwrXlV_be6iFrjxHg6lo1cvk2pGr0sqDk2kSacF9559sQqcPmj8IM_L6m_nKuzyKlAkXIQqgaP7A2DfPwni0TQ/SyGYtyZvDqYMnexhpCC2pEjWa9oh7CqqFxKFZnSB8gM","id":"tarotCard48","texttype":"Antiqua","name":"шестерка кубков, cups6","basics":"ама бэд бич","love":"хайп хайп хайп ты ваще нереальная ","work":"ой мама все хайп","advice":"делай что делаешь, порешай судоку","basicMeaning":"все по-доброму, повезет в любых начинаниях, все ваще суперрррррр","loveTelling":"человек который с тобой рядом послан судьбой, чтобы ты была счастлива, еще будут новые знакомства ю ноу да","answer":"все люди как люди а я супер звезда ","cardOfTheDay":"побольше фотографируй в течение дня, этот день подарит добрые эмоции и воспоминания, что-то из старого вернется, человек, ручка потерянная несколько недель назад или вернут долг??? сегодня узнаешь","adviceLong":"будь с людьми, не сиди дома, сходи на тусовку и развейся, танцуй пока молодая девочка моя танцуй танцуй и верь в себя "},{"htmlname":"pageOfWands","color":"pink","arcana":"wands","emoji":"🕺 ","line1":"паж","line2":"жезлов ","none":false,"link":"cards/pageOfWands.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/vD4krohZkd34-OO49VPtHA/s7zz6m_o2OdNGyGZp_tw3aY_tXkqv-QSg53nsGWOTJn5AuvKBPuvG2EvKlJmzsi8VDH1rLJdW8M0DMg6OjkvKK7bqk-idZvWuDn26oLVtp-sCAxVbFVPhVjl7uEy18INKtmXesXPpj67A7ChwCsXsQ/W_0X68F3cs9t38wd_JJKnOQwqKuxHZEcOE4yv1QM2-U","id":"tarotCard30","texttype":"Emoji","name":"паж жезлов, page of wands","basics":"свежесть ","love":"это не любовь, а привязанность","work":"перспективы имеются ","advice":"ну такой вайб спелости и смелости, напиши карту желаний ","basicMeaning":"в твоей жизни появится какой-то новый человек ","loveTelling":"дорогая, тебе не нужен этот тюбик, это все влюбленность, не любовь ","answer":"есть возможет решить проблему, но как именно карта не скажет ","cardOfTheDay":"сегодня ждет яркое и неосновной событие, смотри в оба, вселенная даст тебе знаки, будет что-то смешное ","adviceLong":"стоит здраво оценивать свои силы, иначе жди беды "},{"htmlname":"pentacles9","color":"pink","arcana":"pentacles","emoji":"IX","line1":"девятка","line2":"пентаклей","none":false,"link":"cards/pentacles9.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/j8s8ibgsi_LKAQb_2xy83w/2i1BFmw81ORP7EF7OAkeUim4iA9li0JLbtqvUOXxk1TXB1abTmkdeVB03rEksoAizMuQRBRdHeLTpKJAtidaG_kZ1PHG497sthK3azsPBTve2IluiSe1Hc4wPGxds726nMmNN6MCXFWzphNBgtn6FQ/LxmEEJXn6aVXjh_vZGMQr-wY4WSdRhlbuw7IsZOiRO4","id":"tarotCard77","texttype":"Antiqua","name":"девятка пентаклей, pentakles9","basics":"нуждаешься в совете","love":"все ок","work":"денежка при тебе, котик","advice":"завари зеленый чай и побудь в тишине, а потом позвони друзьям по фэйстайму","basicMeaning":"конец долгой работы, но это еще не все, в тебе есть эгоизм и желание от всех отстраниться, что неправильно  ","loveTelling":"в отношениях новый уровень и судьбоносная встреча","answer":"материальный успех зависит не только от высоких доходов, но и от умения их сохранить","cardOfTheDay":"будут приятные известия, будь решительна в новых делах!","adviceLong":"поговори с людьми, не бойся спрашивать"},{"htmlname":"theMagician","color":"black","arcana":"major","emoji":"🔮","line1":"","line2":"маг","none":true,"link":"cards/theMagician.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/X1MU7ZMGV7KagRiIk64ncQ/AaISdCc3dD1YXFRzh0s9evyxxqVD2EBnZERG3DS8rT-rxRd-_6Gsx4wN9gKqnOLmlAR3-0Lf5hsjMdbJcWXGajgYRtRq4VIbCdxUlSJH-mJseajtxD7mKnHNV02kvHLvgEhow08ql3P_7m1QCtabVg/YPy-UB7pUtm1JBT7dQyf_Q6c21pLhH17wz2VTgVG3hw","id":"tarotCard2","texttype":"Emoji","name":"маг, волшебник, magician","basics":"вайб оби-вана из&nbsp;звездных войн, вот такой вот троп ментора. это все про духовное, траты денег по&nbsp;пушкинской карте и&nbsp;пролистывание литературных тиктоков. апостол петр вошел в&nbsp;чат","love":"открывай тиндер, это время для новых знакомств. пора забанить своего дединсайдика и&nbsp;начать искать масика вместо этого тюбика. это активное и&nbsp;быстрое время, так что придется писать первой","work":"забудь про бедное мышление и&nbsp;начинай читать &laquo;бедный папа, богатый папа&raquo;, &laquo;думай и&nbsp;богатей&raquo;, &laquo;илон маск&raquo;. напиши боссу о&nbsp;повышении в&nbsp;11:11, может прокатить","advice":"визуализации и&nbsp;аффирмации работают.<br>Я&nbsp;лью Cristal или Chandon Mo&euml;t <br>Мечтал&nbsp;&mdash; теперь моё💅😇","basicMeaning":"ну ты ваще полный доминант, карта говорит, что у тебя есть право брать верх над кем-то и добиваться всего \\n⠀\\nмаг является первой картой семерицы, поэтому представлена, как начало нового жизненного этапа. это пустой период, где нет совершенных дел, а значит нет и ошибок!","loveTelling":"картв символизирует очаровательного человека, стоит проявить решительность (если гадаешь на себя), а если на кого-то(надеюсь уж точно на масика) то тут все кайф, жди его, он проявит первый шаг\\n⠀\\nкороче все ваще секси в отношениях, все будет, все друг друга понимают, ну ваще нежность","answer":"стоит рискнуть и&nbsp;все будет супир","cardOfTheDay":"короче, если чувствуешь, что все идет по плану и видишь логику каждого действия, то рискуй! день будет хорошим\\n⠀\\nне скромничай и не бойся показать себя, все будет проходить супир, если не будешь надевать маску и скрывать себя. рискуй!!!\\n⠀ \\nиди гулять, смотри на деревья, сфоткай все синие предметы по пути","adviceLong":"обрати внимание на свои таланты и на то, что тебе нравится, нужно полюбить себя и услышать себя\\n⠀\\nготовь себя к успеху, карта говорит открыться, выйди погулять, сходи в музей, кафе, выставку, куда угодно"},{"htmlname":"swords6","color":"pink","arcana":"swords","emoji":"VI","line1":"шестерка","line2":"мечей","none":false,"link":"cards/swords6.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/rkazDQ3aoIdiA5zZ8JanfA/gBSyxs2b1SNUh-_Dao1UNZxcPLveYgpQ66lRX4zvCZhlvFW8MBWiyPJCqmrNO2eA5Yt1kWsKaFuiYNmEfKUY_w0nu3KpmUMuKsGi5t-XYAYvMw6SrfEnvANqtd3fWQ8gKTBAKCmY_6eY-XIhZTuZhA/KCzjYSJ2lKdqPKegHCxJR93URj9hvAxLu_OAufOP7WU","id":"tarotCard61","texttype":"Antiqua","name":"шестерка мечей, swords6","basics":"пора меняться ","love":"большие перемены","work":"все спокойно, все ровно, прямо как y=x","advice":"делай то, что ты никогда не делала","basicMeaning":"карта видит в тебе желание перемен, но ты этого стремаишься, не бойся, это откроет дорогу для счастья в твоей жизни","loveTelling":"это может быть расставанием, а может выходом отношений на новый уровень, новое знакомство точно будет","answer":"ты многое можешь, нужно \\n«вчера я был умным, и поэтому я хотел изменить мир. сегодня я стал мудрым, и поэтому я меняю себя» Джалаладдин Руми","cardOfTheDay":"интересный день и ничего плохого","adviceLong":"емае в тебе много не реализованных талантов, подумай над этим!!"},{"htmlname":"death","color":"black","arcana":"major","emoji":"⚰️","line1":"","line2":"смерть","none":true,"link":"cards/death.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/BmAyG12KaFyzfByIYBqpyg/7xfQoG4-NdfXBfFz0mEkoFZGPvBG_oubKKTHyyhcXvj0Cg5-vP5LTucpBt1klhXgDAAgA4TrpZo3UIoeY45gOu1ptiy971mWoThRCEhw2zvIZ3Z0wr5Lia90pHBkgz4dM8qEqv14R5WtRzG4ijwMHQ/_jzcX6XkB5ZkyeaT93A7OihFWJm7a3kh-LfU6AI4RJw","id":"tarotCard18","texttype":"Emoji","name":"смерть, death","basics":"штош что-то пришло к логическому завершению дорогая ","love":"этап расставаний и начала новых отношений","work":"новая работа, завершение проектов ","advice":"вдох-выдох идем дальше, сделай небольшую паузу ","basicMeaning":"новая жизнь, и не факт, что с понедельника!","loveTelling":"если ты одинока, скоро будет новый этап, а если ты думала о расставании и прекращении дружбы с кем-либо, подруга, пора действовать","answer":"в делах в н измениться, это может быть новый проект, новая должность, а вот со здоровьем тут не ладно","cardOfTheDay":"нет смысла воротить прошлое, отпусти его, сегодня завершится какой-то этап и к нему уже будет не вернуться ","adviceLong":"тебя ждут жоские перемены, будь готова к чему-то новому"},{"htmlname":"cups8","color":"pink","arcana":"cups","emoji":"VIII","line1":"восьмерка","line2":"кубков","none":false,"link":"cards/cups8.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/AfEt4R9-wLEsVvnkH8pseQ/SpEvK7oy_GybyQ_lBsv_3ZvCuLesr-lrcgoSkZrlZOnqA9IR2tHBAtzIPOSn8KlnwsDUYpI3lk0hBQGhX69uc__RrGlKRibdwwvY_c1l7PVIlsZlp261QVJ6zFQsKvkt5dgbRAu9vafXlt3JSPg5Tg/n-uUSzBwjakGfSkb6YRghMKW2k9OKE4oBWPwlNNSwGk","id":"tarotCard50","texttype":"Antiqua","name":"восьмерка кубков, cups8","basics":"поиск нового, теряя старое ","love":"ну такое себе, не очень все","work":"новая обстановка и все будет супер","advice":"нарисуй картину по урокам боба росса","basicMeaning":"то что ты ищешь у тебя под носом:/ ищи новые возможности, новые увлечения, будь скромной и не лги и все проблемы решаться ","loveTelling":"ты думаешь только о новом, старое тебя не привлекает, похоже у тебя остались чувства к твоему партнеру, рутина вымотала, если ты одинока, значит пока у тебя не будет сильной любви ","answer":"для многих дел стоит сменить обстановку, куда-то уехать, поменять взгляды на мир","cardOfTheDay":"зай не тупи сегодня, попробуй поездить маршрутами, которых ты не знаешь, делай так как непривычно, сегодня максимально надо вести себя не так как обычно, добавь драйва","adviceLong":"сама ситуация никак не разрешится, никто не поможет, только ты своими силами способна ее решить"},{"htmlname":"pentacles3","color":"pink","arcana":"pentacles","emoji":"III","line1":"тройка","line2":"пентаклей","none":false,"link":"cards/pentacles3.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3MsNXH7gtTzFybIPzuwmPg/MO5Md8AH8tfmxEXzmdHDVxlLa3lrWyvEaR4FkdJHz1mLLRiTw7ulaWM040PayFihNwV6H7504pVUjPCr35M0VEAhOuOUs9O8SJHhWSIoTxNyxyIo6JoWb2q7GmVSqIHsL3IgGHICG-8oqUkOAl6BBg/p3jRyOyiLNJKMT7le8QqrXOVbvje0hNMFDMYkYodz_s","id":"tarotCard71","texttype":"Antiqua","name":"тройка пентаклей, pentakles3","basics":"прогресс","love":"обычно эта карта про свадьбу","work":"все в ажуре\\nбыстрый и верный успех","advice":"все чики пуки делай как делаешь","basicMeaning":"не стоит полагаться только на себя, прими помощь от окружающих, аркан предупреждает об излишней самодеятельности","loveTelling":"серьезные отношения, судьба никак н влияет на тебя, ты сама контролируешь ситуацию, поэтому все будет только так как ты сделаешь","answer":"улучшения не будет, но и ухудшения тоже!! все нормисно","cardOfTheDay":"хватит думать о прошлом, закончиться долгий рутинный этап","adviceLong":"нужно делать хорошо любое дело и не зацикливаться на нем"},{"htmlname":"star","color":"black","arcana":"major","emoji":"⭐️ ","line1":"","line2":"звезда ","none":true,"link":"cards/star.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/wxoyyiftzfq1QgWRez52dw/ELVu13b2_urLxnA9HTTnB8C_wHtM2lUzt1iyj29XIcLiIdQ4Xkr8TMnTCmAddvjVd1nETjxQhia3B_QxFUrZDJEhzniq390P_725Bg_QmAVcSWfcNE6FG-HwqhO2e4dnP0aDKZsIjRCCJN8LgP-6EA/dFX0GApPag1f8DKjzRcjQi2PNYRXYM0tUv6Y34kaq8w","id":"tarotCard21","texttype":"Emoji","name":"звезда, star","basics":"это замечательная карточка – твоя подружка, которая говорит, что все будет хорошо, это твоя передышка","love":"если ты одна, то скоро кто-то появится, если ты не одна, то отношения будут долгими и нежными","work":"все улучшится на работе","advice":"почитай книжку про космос и звезды","basicMeaning":"есть что-то выше обыденного и материальной суеты, что-то сакральное, карта говорит о спокойствии и умиротворении, нет ничего недоступного, все в твоих руках","loveTelling":"произойдет свидание с расчетом на долгие отношения, короче лав лав лав и только","answer":"все чики пуки все супер вот так как ты думаешь все так и будет, поэтому думай, что все будет хорошо","cardOfTheDay":" цени свои возможности, да ты увидишь трудности, но ты сразу увидишь и их решение","adviceLong":"возможно ты слишком много взяла на себя, не стоило этого делать, однако верь в себя до конца, иди дальше по намеченным планам!"},{"htmlname":"wands4","color":"pink","arcana":"wands","emoji":"IV","line1":"четверка ","line2":"жезлов ","none":false,"link":"cards/wands4.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/keiBXFUTocOdi1YRpjmwCg/2P3hGOBUT53jtFKJB4H211A2_HMig3N871Tx6ubCD8-RhY-SlSPZrFbW9xweOxk_zHzy8RnVL0iijJIQP6wT2_d0CLdCbPPgLiHr5nj7d-lRXhGRMZrAy-deXFBxvs-dPUt20vQCSnsRjyAGXX3AAA/fmxQv4xsWHycg5GZNLJDAIYrwsiJygIRcEIf56AJ0x8","id":"tarotCard32","texttype":"Antiqua","name":"четверка жезлов, wands4","basics":"супер удачная карточка","love":"наслаждайся любовью","work":"ну че можно открыть хх.ру и почесать вакансии на должности выше своей, а еще можешь купить себе лотерейный билетик","advice":"сейчас все по-доброму, желай всем добра, сделай комплимент","basicMeaning":"гармония,  мир, процветание, переезд – это все про эту карту, ты открытая и добрая, к тебе тянутся люди, стоит им помочь, сейчас легкиц этап в жизни","loveTelling":"сейчас период наслаждения временем, проверенным вдвоем \\nстоит ждать незабываемого свидания\\nсходите вдвоем на пикник!","answer":"все складывается наилучшим образом для тебя, даже если ты сейчас так не считаешь, подожди немного и ты увидишь, что все супииир и ты ваще нереалка","cardOfTheDay":"хммммммм это прекрасный день для знакомств с новыми людьми! можно встретить новых друзей, а любимым сегодня лучше сделать подарок!\\nне грусти, а то попа не будет расти ","adviceLong":"доверься интуиции, если хочешь отдохнуть – бери отгул, хочешь сказать о своих чувствах – говори, ты конфета и все у тебя получается"},{"htmlname":"cups9","color":"pink","arcana":"cups","emoji":"IX","line1":"девятка","line2":"кубков","none":false,"link":"cards/cups9.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/1yRsRQ0UbGd9PPKGox-foA/f43Fu5pzzWNnTlZOzB792XKBQXdfG3XNgnOiNQyuf9thWVsrSJ2lmju1DDeDVOlBTBKehGFskLv9tbAB3HiKl4r6_JWAxoroJvw3Q92I9y6jBLWJmmNKeKyciIzqqXnbE26kF-l75XXF7WqcY8hiYg/JCH_D6sOkVD1xk5pBClqCbDXNUppUURmk9QM7EKNlW4","id":"tarotCard51","texttype":"Antiqua","name":"девятка кубков, cups9","basics":"это карта такая же приятная как та соточка в кармане зимней куртки….","love":"любовь сладкая как мед","work":"деньги давайте сюда бумажные ","advice":"соберитесь на паверпоинт пати, расскажи анекдоты","basicMeaning":"карта добра, в большей части она про денежку, которая придет и будет, все короче у тебя хорошо\\n—как дела у кошечки?\\n—она сказала зае**сь","loveTelling":"счастливая и крепкая любовь, ну я говорю тут ваще масик просто обеспечен, тиндер открывай, каблучок повыше, юбку покороче ","answer":"вайб миранды из дьявол носит прада ","cardOfTheDay":"пора в отпуск! сходи в ресторан, проведи этот вечер с важным человеком, он тебе поможет в будущем","adviceLong":"так смари, удача очень быстро ворвалась в твою жизнь, но так же быстро, она может и уйти, особо не налегай на нее"},{"htmlname":"wands2","color":"pink","arcana":"wands","emoji":"II","line1":"двойка","line2":"жезлов","none":false,"link":"cards/wands2.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/qBXuQrPHnjM2-ej4RovhbQ/A8c5vk8JZaXWXOf7tSoBjGHH7xI5BozTLE1dtghz-G6MFduygtfRCcirptUCDs3bsi2KT3Hvj0RpfkSeP3KDAA11ZyXsDMCbNeJX3HU2A2xtcb7UDrKyvUUWoa_Z-k-c57cFWrtD6b_V_tbeo39E4w/xFKorQKI7kyznnA0xA_DLWQTyY-xuetdn1vdKcTZVuk","id":"tarotCard4","texttype":"Antiqua","name":"двойка жезлов, wands2","basics":"ну ты ваще.... владыка желания, произойдет что-то новое","love":"в любви все холодно, ты к нему нейтральна, а зачем он тебе, если с ним тебе некомфортно и нет искр, лучше не начинать сечйас отношения","work":"в работе ваще все хайп, денежка присутствует ","advice":"стоит быть внимательнее, разложи пасьянс","basicMeaning":"«Кто сказал, что ты должен чего-то добиться?\\nОткуда такие долги, ты долгов не брал\\nЗакричи: \\"Ничего не хочу, помогите, полиция!\\"»\\nдайте танк/ впереди","loveTelling":"тихая и скучная любовная жизнь, пока что все воспринимается несерьезно, но если не заняться проблемой, это может перерасти во что-то большое и плохое\\nты можешь расчитывать на новую встречу и како-нибудь сюрприз","answer":"зай просто тупо жди","cardOfTheDay":"от тебя будут требовать больше, чем ты сможешь сделать. пошли все на небо за звездочкой и отдохни. пора уже расслабиться и подождать","adviceLong":"ты сильная личность, но сейчас у тебя нет достаточного количества информации и ресурсов, чтобы решить свою ситуацию. стоит отложить этот вопрос и подумать о другом go little rockstar "},{"htmlname":"swords10","color":"pink","arcana":"swords","emoji":"X","line1":"десятка","line2":"мечей","none":false,"link":"cards/swords10.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/i0DQTUexFnozlfCpxPG5Sg/uzFKpOB3PHLkQXG2ElOy13YIOaiNVojtZ3inXu1hVUdnL5uYFcZehfO0ybdwkN7dXkLHCR_LzHp8hBsyZhOokh8rkDuv-wmrStfKR_QFB1hEGkZyLRCJAShBiUjcBuFSm1vUUzoHlbikRaoqU0oM4Q/tkVNYz9bbmAV5ZF_aI3RkxqqDd2OXx2atmHYo-znMts","id":"tarotCard65","texttype":"Antiqua","name":"десятка мечей, swords10","basics":"самая страшная карта","love":"башня это не пи***ц, вот это пи***ц ","work":"башня это не пи***ц, вот это пи***ц ","advice":"зай поспи просто, ну это же должно когда-то закончиться","basicMeaning":"другие арканы говорят о временных неудачах, но с этой картой ты в полной жопе)))))","loveTelling":"разрыв отношений, никаких отношений, короче это ну не до отношений тебе зайка","answer":"ты жертва стресса и из-за этого ведешь себя безответственно, не вини себя, сейчас тебе тяжело","cardOfTheDay":"избавь себя от негатива и и нежелательного общения и день будет кайф","adviceLong":"различай мнимые и истинные ценности, стоит иногда сжигать мосты"},{"htmlname":"swords3","color":"pink","arcana":"swords","emoji":"III","line1":"тройка","line2":"мечей","none":false,"link":"cards/swords3.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/xY7nDZapTVKcMjKRStJuDw/YdPbwYIRRoVFvlvfXxJCxdFSOtytfFPu1ATpE56AbGzoeC_JkT1c-0_UridVffxiX0kum5L0EFgKmbXieFjmUCKirThnIcSzMquJT--FjAtb5LY-m8UQNjFTXewvvpKmwD5PJWz4z6wrxix1qJBLpw/y3J3s9x-Z-vvnvZVxtmUsu4mnhFcevpoI1a8WGBsUFQ","id":"tarotCard59","texttype":"Antiqua","name":"тройка мечей, swords3","basics":"тотальный депресс","love":"сердце разбито, ты одинока навечно…","work":"увольнение, сокращение, расстрел ","advice":"зайка, только смириться и пережить, дальше обязательно будет белая полоса","basicMeaning":"боль, слёзы, горе, потерю близкого человека, тревоги, разочарования, что может вызвать сильную депрессию","loveTelling":"ссоры, недопонимания, грубость, разбитые тарелки, это всё не за горами…","answer":"как только всё поймёшь и осознаешь, то сразу жить станет чуточку полегче","cardOfTheDay":"сегодня абсолютно не твой день, венера в весах, ретроградный меркурий и всякое такое, посылаю тебе моральных сил справиться ","adviceLong":"Я скажу то, что для тебя не новость: мир не такой уж солнечный и приветливый. Это очень опасное, жесткое место, и если только дашь слабину, он опрокинет с такой силой тебя, что больше уже не встанешь. Ни ты, ни я, никто на свете, не бьёт так сильно, как жизнь! Совсем не важно, как ты ударишь, а важно, какой держишь удар, как двигаешься вперёд. Будешь идти — ИДИ! Если с испугу не свернёшь... Только так побеждают!\\nЕсли знаешь, чего ты стоишь — иди и бери своё! Но будь готов удары держать, а не плакаться и говорить: «Я ничего не добился из-за него, из-за неё, из-за кого-то!» Так делают трусы! А ты не трус! Быть этого не может!"},{"htmlname":"priest","color":"black","arcana":"major","emoji":"👽","line1":"","line2":"жрец","none":true,"link":"cards/priest.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3mRrbh3pLqf_XbrlW7Mz3A/BHy-n6CFgX7nw4q8PhFyUaw722ITGn7lEzBYxiEg7Y5tAjjMv7VkFHgxcR1-86e2hhkIswYQYl9oZkyt5U8DeoHeBGqHH44HnjulXkOpwXlUSUBTWaZouc1Pp5Acq6O6PaheE5GXmcNesfvuQ2O1Qg/KvptzF7z_PQvuvQHhImN2XHG8oxfV_HEaoNIzB9RP1A","id":"tarotCard10","texttype":"Emoji","name":"жрец, верховный жрец, priest","basics":"до-ро-гу пе-да-го-гу, тебя всему научат, все расскажут и покажут, а потом с подружкой будешь на бали тусить","love":"твоя жизнь станет похожа жевачау лав  из","work":"короче тут все как со шкафом в икее, следуешь по инструкции и все четко, отходишь и все не очень..","advice":"тебе нужно найти себя и погрузиться в себя, съешь печеньку с предсказанием  и сделай зарядку","basicMeaning":"двигайся ровно и не подавай виду, помни про правила, сейчас нужно следовать указаниям и правилам, не стоит выделяться из толпы пока что","loveTelling":"свадьба свадьба свадьба, карта кричит о свадьбе!!! все хорошо в отношениях, будьте добры друг к дуругу, и вы многому научитесь друг у друга","answer":"не бойся спрашивать, тебе скажут что-то важное","cardOfTheDay":"все идет по плану. встретишь новых знакомых. а еще если был конфликт, то он разрешится благодаря знаниям! ","adviceLong":"возможно то что тебя учили неправильно, поэтому стоит посмотреть на ситуацию с другой стороны🤧"},{"htmlname":"pentacles10","color":"pink","arcana":"pentacles","emoji":"X","line1":"десятка","line2":"пентаклей","none":false,"link":"cards/pentacles10.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/x0LfIpFd0SB4_1chOZG62w/K5t_OGBnLicQCg_VvOROFj1QoVLloYbUX5C2tkOh5i3eWmJvx2NFiwKV5hLDU2rK_mlClbuJafZlQktnWFn98VYqaj2icPFBcXVhdC5NcumbnN1b6yIvrqk5PQbdIZ5JLJSP5usPw6cVghAuvNZMOA/PP8ULBB8MveR3HY5ckwcSdyundTctSsut2gwaoI-B04","id":"tarotCard78","texttype":"Antiqua","name":"десятка пентаклей, pentakles10","basics":"нот э матириал герл","love":"благополучие","work":"создать бизнес, пойти в крипту????","advice":"кайф ты поймала тебе всегда мало ты не представляешь как мне тебя не хватало","basicMeaning":"да ок все, работаешь, трудишься, духовная составляющая сейчас очень важна и ты ее развиваешь, умница","loveTelling":"серьезные отношения, все короче ваще флекс, очень добрая карточка","answer":"полнейшее духовное развитие","cardOfTheDay":"подведи итоги проделанной работы, а вот кто знает за день, неделю или ваще всю жизнь","adviceLong":"осознай собственный потенциал ИТ ХЭС А ПОТЕШИАЛ"},{"htmlname":"fool","color":"black","arcana":"major","emoji":"🕊️","line1":"","line2":"дурак","none":true,"link":"cards/fool.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3SPwiU_d2jt1ryZG2hYOkQ/ukYK0DRCKJ1wHmqGDX8Kh34-E71OjE34k2R_cdjNDMgbjcgx7GVM-2EdwDWAXJV2wUZX_oagipjdMaX1zgko5W2R7Wl9ce8Z_VcTWKtkss1pTBjOmdxAkLCz9THhKVRcTUYTl48Jcd7YE3IBj-WLlw/5hk3Gn2QJBDP-_FZWFsMAjC9NdiPY3ZtKGb6N9REVB4","id":"tarotCard1","texttype":"Emoji","name":"шут, дурак, fool","basics":"очень стремительно и&nbsp;необдуманно.&nbsp;ну, кто-то из&nbsp;вас точно дурак. только не&nbsp;нужно блин этой драмы, как обычно, пожалуйста.&nbsp;ты, конечно, драма квин, но&nbsp;уже ту&nbsp;мач","love":"в любви все хорошо","work":"поле для новых возможностей! может, пора сновать открыть хх.ру? или тиндер, тут как ляжет карта! короче просто ворк хард, а&nbsp;остальное само приложится, если работать по&nbsp;помидорам под лоу-фай в&nbsp;кофейне","advice":"Мы&nbsp;разрисуем все заборы своими стихами <br>Достань, пожалуйста, краску из&nbsp;рюкзака <br>Нам ни&nbsp;к&nbsp;чему учителя&nbsp;&mdash; мы&nbsp;придумаем сами<br>Правила русского языка","basicMeaning":"стоит принимать все легче и&nbsp;слушать свою интуицию","loveTelling":"эта карта означает перемены, кто-то хочет сделать шаг навстречу, а тебе стоит смело его принять и поменять взаимоотношения\\n⠀\\nдурак это про легкого человека, который никогда не думает об ответственности. его взаимоотношения легкие и свободные. у него офигенное чувство юмора\\n⠀\\nв перевернутом положении карта говорит, что партнер лох и эгоист, он делает все для себя и не стремиться к переменам\\n⠀\\nесли это про двоих, то вы не хотите работать над отношениями и ничего не делаете друг для друга. карта говорит о том, что будет отношения начнутся заново, или же кто-то собирается сделать шаг навстречу, и тебе стоит принять смелое решение, чтобы все поменять","answer":"в ситуации карта говорит о нежном и хорошем человеке\\n⠀\\nв деловых делах все стоит делать быстро, карточка говорит, что появятся новые проекты, которые стоит делать не задумываясь\\n⠀\\nрасклад на деятельность человека говорит о том, что такой человек генерит идеи\\n⠀\\nв денежном раскладе говорится, что денежка придет, но так же быстро и уйдет\\n⠀\\nдля лечения лучше использовать нетрадиционные методы","cardOfTheDay":"короче буде много крутых темок, веди себя как добрый клоун, веселись, радуйся, приноси счастье и добро и все будет супир\\nстоит избегать предвзятости, делай все с приколом, ничего страшного, если придется что-то сделать заново\\nговори комплименты, желай хорошего дня, делай маленькие сюрпризы и радуйся!","adviceLong":"ам кржйзи райт нау, бат ам фри\\n\\nбудь дуроком! НО СМЕШНЫМ"},{"htmlname":"pentacles6","color":"pink","arcana":"pentacles","emoji":"VI","line1":"шестерка","line2":"пентаклей","none":false,"link":"cards/pentacles6.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/kc0DjvHSoqhQnk4cMvvudA/QkyKPGwHSMPWGROnXodwFX0K8QIFTA3Pn5TSftqm-l9WY8jKZKlaaxjDLUPktYW3ii2rQ93uWYwib5cHQFmGQMoqKh-JQ-mcI7nZkBOogdG4CLtYDr5FX-AJ85HlzWCuFUpnG4pfbTlseytAlVilUA/7fy2UVMgmeeL_q6XmeZik8pAkgQoe2nx8JJ9oBxahDY","id":"tarotCard74","texttype":"Antiqua","name":"шестерка пентаклей, pentakles6","basics":"кисунь, я понимаю, что ты королева, но поубавь чсв ","love":"любовные дела в полном поряде ","work":"зайка, сегодня благотворительный день, помогай другим, выслушивай проблемы и тебе воздастся ","advice":"действуй смело зайка, если бить то до крови, если любить то гроба, если курить, то до фильтра","basicMeaning":"малышка ты зазналась, не строгий из себя ту, кем не являешься, иди лучше помоги страждущим","loveTelling":"эмоции, интим, любовь, всё как в сказке, все рады, все получают того, чего хотят","answer":"будь добрее к людям","cardOfTheDay":"поработай над собственным эгоизмом, ты не пуп земли, если получила прибавку, проставься, своди подружек в кофеманию ","adviceLong":"налаживай отношения с тем, с кем они натянуты, возможно тебе скоро нужен будет хелп именно от этого человечка "},{"htmlname":"cups7","color":"pink","arcana":"cups","emoji":"VII","line1":"семерка","line2":"кубков","none":false,"link":"cards/cups7.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/BPQ_DAvmEsw89hNsKxF5NQ/I61XDrRkyrZjoFyiDD93EiQid-CqaSP0-0_qzPDU8kWoz1rr334Q3T5Lr7_u1S_-PVH3haNbVdfDILn64vtAmDuFq149FFykSZMrvSUudK1hoh0oVDqHrxpC5wXzKfs8c1WXkpLA4LdeFJNkduYt2Q/IOchoSsUjYlV152weDPWMEdcJjyKZOHZs2AZcGEy2W4","id":"tarotCard49","texttype":"Antiqua","name":"семерка кубков, cups7","basics":"у тебя выбор без выбора, судьба уже всё решила за тебя","love":"«синий туман, похож на обман» ты занимаешься самообманом, зайка, остановись, пока остановка не стала последней ","work":"перед тобой сложный выбор, карта говорит, иди на компромисс ","advice":"аккуратно шагай, внимательной будь, осторожной","basicMeaning":"семерка кубков иногда является символом человека, который живет мечтами, не желая находится в реальности","loveTelling":"сними розовые очки, твой партнёр ваще не идеал, а ты не можешь сама в это поверить, посмотри на всё объективно заюш","answer":"всегда всё перепроверяй, лишним не будет","cardOfTheDay":"сегодня надо быть на чеку, не соглашайся на всякие авантюры, не пей, не кури, сегодня двигаемся на ясном, нето разведут тебя","adviceLong":"с особым вниманием относись к каждому своему шагу, иначе сможешь угодить в бездну собственных неудач, из которой тяжеловато выбираться"},{"htmlname":"cups5","color":"pink","arcana":"cups","emoji":"V","line1":"пятерка","line2":"кубков","none":false,"link":"cards/cups5.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/bNTNAb9uIotDV7MarRst_A/4D3SujTIUQjaPwzhgW0GzmwXcBtscQXGAWtAeTjm_a91YZMGLqHtKUox85GVlhyqu4UopLDpdNA26GILpcXigrEEEeN358QWQ4AyuOAeVJq15KyUNPtV6RO574LsHaADpXu3CZ3VjJkbwqcpxcSC7A/_8lKZWqkjwRKOWgnDNTX025M-6yJGcv-NFLAvOAQcOI","id":"tarotCard47","texttype":"Antiqua","name":"пятерка кубков, cups5","basics":"грустная карточка","love":"грустно все в любви, неразбериха ","work":"и на работе все грустно, фальш","advice":"зай ну бывает и такое, бывает грусть, ну ниче, ниче, поешь сладенького, позвони друзьям, попроси о поддержке","basicMeaning":"да блин грустная карта, о том, что дела провалились, черная полоса настала, сейчас трудный период в жизни, но без трудностей никуда, через тернии к звездам ауф","loveTelling":"лучше не погружайся сильно в любовные истории, удели внимание себе и тому, что приносит тебе счастье, а это уж точно не мужчины ","answer":"да емае ну да. ну грустно, ну а кто хороший, релакс, плохие дни бывают, но их все переживают, помни, что у тебя есть поддержка ","cardOfTheDay":"огорчения будут, но прими их достойно, не скрывай свою грусть, будь искренней и открытой, тебе помогут ","adviceLong":"не погружайся полностью в свои мысли, помни об окружающих, думай позитивно, стакан всегда наполовину полон"},{"htmlname":"knightOfSwords","color":"pink","arcana":"swords","emoji":"🏌🏻‍♂️","line1":"рыцарь","line2":"мечей","none":false,"link":"cards/knightOfSwords.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/LU_T_fxDjKfKfZ7wUnGl2w/12MvAAxxcbmrh7PoMRjDdEH5Fe61dvPEvWoKWorPOpFIBLRUJx3Uj4kRg9sghJht52nnJSAtPzHTv7lGvvaJGTHYoIi4fahLJPajtxNLVhb3rOxXaaKr3Yw_KRMOvl7x/_3lIVIWDwCQmsbgd_MbVT2l8E1eTVOkQD6sUDR3lf24","id":"tarotCard56","texttype":"Emoji","name":"рыцарь мечей, knight of swords","basics":"технократ и циник","love":"охлаждение чувств, дорогуша, возможно прекращение отношений","work":"есть проблемы, которые ты сама себе насоздовала","advice":"приведи мысли в порядок, у тебя хаос","basicMeaning":"твой большой потенциал истрактуют как бунт, или несогласие, ты не пытаешься себя зарекомендовать, оттого твой талант и не воспринимают как что-то доброе","loveTelling":"тебе хочется личного пространства, а твой партнёр этого не понимает, и из-за этого отношения теряют теплоту и кирдык","answer":"распределяй правильно свои силы и время, будь чуть добрее к людям","cardOfTheDay":"у тебя какой-то конфликт, постарайся не хипишевать, а урегулировать его адекватно, сложно, понимаю, но надо ","adviceLong":"прими мнение окружающих, не надо ко всем относиться с агрессией, никто тебе не хочет навредить, а ты только себе это сама надумала, чилл "},{"htmlname":"swords4","color":"pink","arcana":"swords","emoji":"IV","line1":"четверка","line2":"мечей","none":false,"link":"cards/swords4.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/38QesbXdM05V6d-zDiIFnQ/SzxPBkKUjrvOLnFBw_D8pg27liK0itQK59e3D5ajzO6OXYmt0vLZeY6mJlIwSwEIKX5zMzqvSFBw7JWuBKEopMPwB-fGzr5C4rXO9hyMzAKybPtW7C7-j_fGuio_nCdVcj4g0mOFiUlFJtOZ9IpLpA/3cYz2PvwQOfAWOu5KOUgnaHPYSonR9kJ-5Er-Vbv8xk","id":"tarotCard60","texttype":"Antiqua","name":"четверка мечей, swords4","basics":"всё валиться из рук и ты залегла на дно","love":"кризис из-за недосказанности ","work":"бесперспективняк ","advice":"побудь наедине с собой","basicMeaning":"ты видимо перетрудилась, заюш, отдохни, набери роднулькам, пусть поддержат, только не уходи в себя","loveTelling":"ребят, сходите к семейному психологу, у вас не всё в порядке, вы накапливаете негатив","answer":"ты львица ты королева ты ваще по жизни победительница","cardOfTheDay":"зай ну сегодня уже нужно окончательно поставить во всем точку, пора решать эти вопросики, все обкашлять","adviceLong":"калм даун, релакс, побудь одна, наедине с собой, подумай о себе"},{"htmlname":"queenOfCups","color":"pink","arcana":"cups","emoji":"🟢","line1":"королева","line2":"кубков","none":false,"link":"cards/queenOfCups.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/2MZBMwZpP-1oTlislQgYuw/cVW-Ea01YfZ5zGgypYtJ3JTOir6TXp90CfVjsZV0M6nGPaU_Xy654sEDFeaT5cLEAqSU4GMQ0FkB95QpRlQDJfwmmVFmylKngnGKYZYOaVE1ywmbqjvohlzVps-cQ1OGb0dh6mSm29WuUOYshdXXrw/mf94Xld_CtXaXUW7TGbqsAhXlRW-FiJBOErO7xv3Tho","id":"tarotCard41","texttype":"Emoji","name":"королева кубков, queen of cups","basics":"про вдохновение ","love":"вы друг друга лова лова ","work":"если че, то попроси совет у близкого человека ","advice":" испеки печенье и поделись им","basicMeaning":" карточка про улучшения отношений с партнером и/или необходимость в близком человеке ","loveTelling":"принимать любовь и давать ее в ответ🧐","answer":"послушай тэйлор свифт","cardOfTheDay":"такой сладкий, такооой хороший день, я бы его СЪЕЕЕЛЛААА сегодня все суп, добрый день, когда можно начать что-то новое и не боятся о последствиях","adviceLong":"тут непонятно, вроде бы эмоциональность это хорошо, но может быть осуждаема. как ее правильно применить подскажет интуиция "},{"htmlname":"wandsAce","color":"pink","arcana":"wands","emoji":"☁️","line1":"туз","line2":"жезлов ","none":false,"link":"cards/wandsAce.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/o1gYadSiR86jnGhBFeIFBw/jUsSSKxVZ7dxXoKdCty5qlG4JCwxifX2RN0sXaZ5QMvDLCIOGo2_z_zYpcnioAknGTBwaFpuYX2ZfNWDCbVUxUBgCzIJtgUcauJshTsPPImu9CB-DokKdIKzDLS5eJMXvlFo8zOvtJruu5yg7EqJjA/R-LK65ZSpJdjctlybOl6G5dlCvWGfVtgBu1-0NJAT6c","id":"tarotCard26","texttype":"Emoji","name":"туз жезлов, ace of wands","basics":"мен энерджи","love":"для любви все хорошо","work":"пора проработать все трудности ","advice":"сделай тренировочку и приготовь себе вкусную еду","basicMeaning":"тут про перспективы и что все будет хорошо, это добрая карта, она говорит, что произойдет что-то новое ","loveTelling":"новый этап в отношениях","answer":"ты поймешь свое жизненное предназначение ","cardOfTheDay":"локал инфа, которая поможет увеличить денежный доход ","adviceLong":"сложности будут, но стоит быть достаточно смелой, чтобы решить их. рассчитывай коллег и друзей, тебе помогут "},{"htmlname":"wands9","color":"pink","arcana":"wands","emoji":"IX","line1":"девятка","line2":"жезлов","none":false,"link":"cards/wands9.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/3fgoNA0rTPTqx9AjEXhiVA/gzh-Sak7-oGLQbIDiGNE6Sn_LXHelh3S22Z4q1_GV_JM49IScQRpDj5Wtx6bZPlKkV_eSThsQfomC_wScIyWhGKNJFLgzYmbZ2BjQje4hoivC9aRxKk60hU_50yy_YTZFdDCefdHxC3VscblWei92Q/D943hZaf5b5_R9xZXxn14mVmK4yMHPVNobZWc-A9hdI","id":"tarotCard37","texttype":"Antiqua","name":"девятка жезлов, wands9","basics":"interesting reaction","love":"заяяяяя карточка говорит, что все ок с твоим меном, откройся новым чувствам, ","work":"много новых возможностей","advice":"переверни сегодня пару кружек пива или волчка","basicMeaning":"ужас моя хорошая ты столько всего сделала и через многое прошла, что теперь тебе нечего боятся, ты потрудилась на славу, теперь осталось дело за малым, посмотреть на проделанную работу и поверить в свои силы","loveTelling":"если ты только вышла из кхм ПЛОХИХ отношений, то карта говорит, что скоро ты совсем совсем успокоишься и забудешь об этом дол.. а эм плохом человеке))) если отношения есть, то все ок, и если их то все тоже ок, все сложится, главное не забывай о себе","answer":"Мне нравится тут, нравится быть\\nСреди отстающих\\n\\nМне нравится жизнь, нравится смерть\\nЩедрой рукой\\nМне нравится ждать, нравится знать\\nКто я такой\\n\\nВесна\\nГр. Полухутенко","cardOfTheDay":"капец ты мышь, сегодня ваще никому не говори о своих планах, лучше послушай че другие говорят, а лучше ваще останься дома зай","adviceLong":"не иди туда, где тебя не ждут, не напрашивайся к людям, побудь одна"},{"htmlname":"queenOfWands","color":"pink","arcana":"wands","emoji":"💋","line1":"королева","line2":"жезлов","none":false,"link":"cards/queenOfWands.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/q6jRZ7r4O2fbrD0Ekvt9ww/yjY6PptpYEoCeYnirMmPFS5EveSZso0JNdScE0KVvdDib6zWSAbMnW2BGVROOOa4O9_iLOMtA8mWKeOxL_3opGcVmfRw-8CIIlYFtsoXHpiw-M-l--tw85Z0LCBHjIK3bzLqYT82E4WgpC_X--2Ihg/hIaIGnVt-B58FRxbTB-C2pZK5VrjUyS--_cI-KmR8Hw","id":"tarotCard28","texttype":"Emoji","name":"королева жезлов, queen of wands","basics":"сильная и независимая","love":"гаддэм ну тут все по маслу","work":"перспективы имеются, но все нужно распланировать","advice":"купи ежедневник и наклейки с котикам ","basicMeaning":"гордая и смелая, ты ваще вишенка на тортике, но съесть тебя нельзя, да и не стоит, ведь тебя столько хорошего ждут впереди","loveTelling":"можешь расчитывать на бурные отношения, он тебя любит ","answer":"эта карта про успех, роскошь и справедливость, ты ваще королева, вся в бархате и жемчугах, роковая женщина емае","cardOfTheDay":"поддерживай окружающих, сегодня будет много работы, но ты все сможешь сделать","adviceLong":"поспрашивай совет у друзей и близких, ты знаешь чего хочешь, стоит обратить внимание на свои желания и прислушаться к ним"},{"htmlname":"cups10","color":"pink","arcana":"cups","emoji":"X","line1":"десятка","line2":"кубков","none":false,"link":"cards/cups10.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/f_8xLSNvocfgH9MYjjESLA/NCcEz6Z7KYGt78O72faSLqdD5cA0iaa-XQpsug31S41GTC_fGe0dc6N_IwhtZlBmnrNFQWYgGb84AUxWhAG7zDrmouHB8TFsOIX1YIB0aqqUfKa0ZdekkfxP9UqTWdyZd1wXMZXrq-U53cXfTJIA2w/qesiQ6XI2OAh50FoQtlH-DqICtJnWJy9PBDb9JXE2kY","id":"tarotCard52","texttype":"Antiqua","name":"десятка кубков, cups10","basics":"счастливый конец текущего этапа и начало нового перспективняка ","love":"жесть, погон счастье, гармония, это ваще, завидую…","work":"ууу, дополнительный заработок, духовный рост, пересмотр жизненных ценностей, короче преисполнишься ","advice":"если переутомилась, то с кайфом возьми отпуск и отдохни, тебе будет на пользу","basicMeaning":"открыта к общению, позитив, радость при любых взаимодействиях с людьми, а эти взаимодействия еще и окажутся плодотворными","loveTelling":"у тебя уже всё супергуд в отношениях, а если нет, то вот этот переломный момент настал","answer":"у тебя ваще всё так хорошо, чо ты вообще гадать припёрлась, беги жизнью наслаждаться","cardOfTheDay":"любовные встречи, повышения, радость, халява, это всё сегодня, не прогляди","adviceLong":"у тебя жизнь бьёт ключом, полные штаны позитива, но ты только сильно не привыкай, а то потом от камешка в ботинке впадёшь в депрессию "},{"htmlname":"cups4","color":"pink","arcana":"cups","emoji":"IV","line1":"четверка","line2":"кубков","none":false,"link":"cards/cups4.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/Y5mnNzvbibuljblpVJpPXQ/BGbED1d27do6axgOMRPzEDVomilcRcoGotJIQcyrV6HFhrx2gYev_0coCVBQVY9K6D-quQhOTSTZIedPIp_nAo-sz_4C9sXXUH-f2kk1APCxFBfc7Euc2M0ySK8ReCh6esKKT37R9yu1A7W92BLd0A/axKD6kp5vMFATLji68QfGkxy08aTH3hAFUn6WffW2NQ","id":"tarotCard46","texttype":"Antiqua","name":"четверка кубков, cups4","basics":"ооой, зайчик, ты упускаешь большие возможности","love":"чот у тебя никак не получается построить отношения с мальчиками, может, подумаешь о девочках?","work":"апатия ко всему, и личные проблемы, какая уж тут работа","advice":"хорош во всём сомневаться, судьба подкидывает тебя возможности, на которые ты почему-то забила","basicMeaning":"ты чот на всех обижена, считаешь себя выше остальных, но при этом так же собой недовольна, отсюда и неуверенность, комплексы, страхи","loveTelling":"сама виновата, что ничего не складывается, переосмысли своё отношение к отношениям, не будь такой дотошной, идеал ты фиг найдешь ","answer":"зайка, сделай переоценку ценностей, не душись лишними проблемами, может то, от чего тебе грустно, тебе и не надо","cardOfTheDay":"сегодня тебя ваще всё бесит, и из-за этой тоски даже заболеть можно, не увлекайся тоской и смотри на мир с позитивом","adviceLong":"не тупи, мир прекрасен, а ты депрессуешь по всякой ерунде, это же так просто, если чото бесит, так не занимайся этим "},{"htmlname":"kingOfWands","color":"pink","arcana":"wands","emoji":"👑","line1":"король","line2":"жезлов","none":false,"link":"cards/kingOfWands.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/6p5RbbPD3jyzslLYtT3J5A/cNrVf9vkarUXbbMU4J3x6MPAunV9q4QenraWXBR6M_PT1_4qMIiuUOrOOtBKGPYf3wOOmEC4zmgZHJ25KyJp4zqlAw2jbfiBI1qHya1Dk1bm2PQkxeeMTqpxkaz9r2qOly24erruZhr11udugUWQMw/xZAkEc8BkQshR23x9uPZ5-tFD9f0ru6j3-pDIAHGAiU","id":"tarotCard27","texttype":"Emoji","name":"король жезлов, king of wands","basics":"настройся на перемены","love":"здесь про верность ","work":"все супир, без преград ","advice":"мяу мяу мяу посмотри смешные видео с котятами ","basicMeaning":"карточка говорит, что все у тебя улучшиться, ты ваще бомба и все знаешь, все умеешь, ты ваще лидер","loveTelling":"не ну тут ваще все хайп, отношения становятся крепче, а одиноким попадется новое знакомство ","answer":"работать работать пахать и работать и всееее будет супер","cardOfTheDay":"зай жди сегодня встречу с масиком, день нереальный ","adviceLong":"не иди на месте, а то твоя удачливость улетит другому"},{"htmlname":"knightOfWands","color":"pink","arcana":"wands","emoji":"🌪️ ","line1":"рыцарь","line2":"жезлов ","none":false,"link":"cards/knightOfWands.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/9_3pPBJf9HzjLPLMCxXENg/P7PhMAFLZLT7KKTjpuO4Hm8xoHjRxYtt6Wn4vz_QVd0y6boyGx8_HmOjJfpevC-Ys-BILVDpI5d12VYqvxNz5JbntWo8IDYye2e-0Wpc3JyNTTj6H6Nz_3XzKXw-WiOrGn67A8O9q3QbLB_06rtmCA/9npX6-TrQICit38MsCI8AuzumN1K-rwgMsbU6Nx5ydQ","id":"tarotCard29","texttype":"Emoji","name":"рыцарь, knight of wands","basics":"наведешь ты суеты, дорогая","love":"кто-то слишком хорни","work":"какая-то поездка","advice":"выпей чаю дорогая и успокойся ","basicMeaning":"ты очаровашка, не бойся рисковать и не грусти из-за потерь, они компенсируются ","loveTelling":"Если хочешь, давай, себя на всех раздавай\\nЕсли ты не мужчина, а Wi-Fi\\nНо со мной тебе точно ничего не словить\\nТы всё знаешь о сексе, но не о любви\\nолечка бузова ","answer":"меньше слов и больше дела!","cardOfTheDay":"calm down, сегодня стоит закрыть свой ротик на замочек и выкинуть ключик, побудь наблюдателем ","adviceLong":"о своих планах на будущее никому не говори, рискуй, и не расстраивайся, сегодня задуманное не случится:/"},{"htmlname":"swords5","color":"pink","arcana":"swords","emoji":"V","line1":"пятерка","line2":"мечей","none":false,"link":"cards/swords5.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/qDPCww0gcfONfJWsnr_N9w/bknRHtlhiGGFGLPnb0J-F-JSKIiAA96aq5XAEaZhnldqgCdGnVyqZSkT8HPzFkNnhysZ3M6eGglJGhwYU7q6l1BLYsKMEtxdW6p2UlcRegDAp1zcIDz_jdX7B0AaaWM4yjwe4sKr5IJsZO6MA7HPVg/fAnhvInoufNGPkifNy89LNmZTnUNNowTlOgtvA8Y7kE","id":"tarotCard6","texttype":"Antiqua","name":"пятерка мечей, swords5 ","basics":"грустная карта","love":"в любви стрессы, ссоры и конфликты жоский абьюз","work":"чето все ухудшается","advice":"сходи к психологу и уйди от задуманного","basicMeaning":"похоже ты в склонности  обвинять других людей в собственных неудачах или тот на кого ты гадаешь делает это🙁\\nесть риск стать жертвой","loveTelling":"уход и расставание с кем-то, в отношениях какой-то кринж, сплошные слезы и недопонимания","answer":"короче по-умному: предстоит какая-то борьба, исход которой неясен, а цена слишком высока","cardOfTheDay":"эмоционально тяжелый день, но помни, что каждая неудача дает новый шанс","adviceLong":"будет что-то плохое, но помни, что потом будет и хорошее, это надо пережить"},{"htmlname":"queenOfSwords","color":"pink","arcana":"swords","emoji":" 🥷🏻","line1":"королева","line2":"мечей","none":false,"link":"cards/queenOfSwords.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/PBJ9gg6M7nEYSFVWcNhceg/mPcVijlA8SZNhyTz6Wz-rbKd4htYT6eklMj-4aN689Itip7d9eMVZaWdYM8QpSi1PwCS_ySOcI8BbzJ8JP4NSBTVq6bZQ8rVjtUkX9syP3UOZAa9gonF3-cHEyj6yWw3/gw29VUaSiIJxpcpybxe1uz-MscA73axcG3wVzfqzc6g","id":"tarotCard55","texttype":"Emoji","name":"королева мечей, queen of swords","basics":"сильная, независимая, умная и сердитая","love":"побудь одна","work":"ой на работе ваще все супер!!!","advice":"посмотри 4 свадьбы","basicMeaning":"нифига ты умная, ваще айкью тыща, двигайся вперед, но не выходя за рамки, но сейчас тебе тяжело слушать интуицию и с добротой натянуто, агрессивная ты","loveTelling":"если ты одна, то любовь тебе пока не светит, а если ты в отношениях, то пока что все нейтрально, ниче нового","answer":"неприятности обойдут стороной, любые дела пройдут на супер","cardOfTheDay":"ты очень смелая и самостоятельная сегодня, но помни, все должно быть в меру, не бойся попросить о помощи","adviceLong":"доверься интуиции и не сдерживайся ни в чем, стань роковой женщиной"},{"htmlname":"kingOfPentacles","color":"pink","arcana":"pentacles","emoji":"🌺","line1":"король","line2":"пентаклей","none":false,"link":"cards/kingOfPentacles.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/0fLgu1CAD5IsLWPoodtojA/-c7McxIvhh4bmCHCaDHXEdnzWvymVayzqidIn0mKWemvcS1olXQ6JN6WHX_NGRgB3DYEIFvJ24XaObbnWdISHfrNHQ6JuBAPzujPwsYV08_4RzjUqyxns9XjkQtnB-yJ6BGUmbr9PFsjbcDMnjEX9g/ghp2CrNPg3lQ6gRY7Ut4o7n6epjsnnoGE7caqDWzaqU","id":"tarotCard66","texttype":"Emoji","name":"король пентаклей, king of pentacles","basics":"красотка, спортсменка, комсомолка","love":"всё сладко, страсть, любовь, надёжность","work":"стабильность и уверенность, мамина бизнесменша, ведёшь курсы по ноготочкам","advice":"расслабься и получай удовольствие ","basicMeaning":"надо немного постараться зайка и всё будет на мази, прислушивайся к себе, тогда успех не заставит долго ждать ","loveTelling":"отказываемся от легкомысленности и настраиваемся на серьёзное течение дел, тогда о вашей ячейке общества будут говорить как о сыне маминой подруги","answer":"заюш, ты вообще можешь всё, главное не ленись ","cardOfTheDay":"подведи итоги своей работы, порадуйся за себя и берись за новые свершения ","adviceLong":"жизнь – это не замкнутый круг из проблем. не стоит постоянно создавать вопросы на ровном месте, задумываться о том, как их решить. позволяй себе время от времени отдыхать, чтобы не навредить собственному здоровью."},{"htmlname":"pentacles2","color":"pink","arcana":"pentacles","emoji":"II","line1":"двойка","line2":"пентаклей","none":false,"link":"cards/pentacles2.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/yiqouSB_rhYfJO6Bm4RaWQ/fnTkmX9Tfnm4rxO2AcKCXW-L_Nd-MLOl5oruJETMfixhxkir-3JrHSEnKEJvQZzhcMAuIAmPsEDJ5yB_a90ysKcr5BpfOAZMu5xdoY4kJIYn6aKOLtU2YttWRDYBNU8cjOD7rsAmRXVwe3cJduY5Og/I9ygZlu9sO0FxD60G-f7knQRtCghHFBFmt4h3Hx3ALI","id":"tarotCard70","texttype":"Antiqua","name":"двойка пентаклей, pentakles2","basics":"ожидаются хорошие, сочные перемены","love":"новая волна романтики на горизонте","work":"перспективная смена должности","advice":"задумайся, потянешь такие изменения?","basicMeaning":"в ближайшее время будет радостная новость, но не хватайся за всё сразу, сначала грамотно закончи начатые делишки","loveTelling":"снова приятный лёгкий флирт, бокалы просеко в летниках, прогулки по парку, смех и веселье, спонтанные поездки","answer":"подумай хорошенько, на сколько приятных дел одновременно тебя хватит","cardOfTheDay":"в своих заботах можешь расслабиться и веселиться, сегодня ты никак не накосячишь, развлекайся, могут даже за это приплатить ","adviceLong":"живи полной грудью, дыши полной жизнью, ты полна энергии и не стесняйся её тратить как тебе угодно "},{"htmlname":"bashnya","color":"black","arcana":"major","emoji":"💀","line1":"","line2":"башня","none":true,"link":"cards/bashnya.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/P5zvFkaLvXxEL-t0WiOD8A/aKlvfUfo-UtyyGEtJixbv3WRf5TmnLGrTTVXvuaMYN0aWYAugwgJxx0oHAwhlGRx5790QOzG-M4Fh6rqKO7yfhziNXw6fOlj1MifP1FvEgUiFMX9Um5AvOuG-PLcFu0n8NZuWOCscYYmWeZhIcsg_A/Vyv7syHHowaRTbBsObqJEOQr0At44Q55pvS862CnT9c","id":"tarotCard7","texttype":"Emoji","name":"башня, tower, the tower","basics":"пи***ц перемены","love":"освобождение копившихся чувств","work":"на работе все сменится","advice":"перемен не избежать, подумай о будущем, зажги свечку","basicMeaning":"я больше не могу когда же я наконец стану счастливой – эта карта говорит, что сейчас у вас есть трудности и они будут меняться, но этот этап будет довольно тяжелым, однако потом ты станешь наконец счастливой","loveTelling":"если в отношениях был тупик или их совсем не было, то башня означает, что сейчас все резко изменится, понять масштаб перемен довольно сложно, но ясно будет одно, жизнь разделится на «до» и «после»","answer":"негативные перемены – путь к новой жизни, где все доброе и хорошее","cardOfTheDay":"день вершит жизнь, очень много важного сегодня произойдет, будет много изменений","adviceLong":"тебе необходимы изменения и они будут"},{"htmlname":"judgement","color":"black","arcana":"major","emoji":"👩‍⚖️","line1":"","line2":"суд","none":true,"link":"cards/judgement.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/U--URcaWM8MgwVyzlbBi5g/uYJIl8EynkfT7ULVFafjGTx8HA74jreJIT-13rs11lLop3pdfKUJlqkyi3rIrQ8hG5xVlsyWSTm50nGgUFjZnzJIZlYDlxBj1LfJvTrbj-TmoB1sOlmlX553vpDz3ySe_cTuu1yq_zVpFMW-9MqUmQ/dbvvp6-tvD6Pe1RsTMy_VFL8Np8qluK1RNlXLXsCbbI","id":"tarotCard24","texttype":"Emoji","name":"суд, judgement","basics":"сеть новое будет","love":"все гут отношения будут хорошие","work":"тут тоже все гут, денежка будет ","advice":"купи себе вкусняшку ","basicMeaning":"карта говорит, что намеченная цель уже достигнута, хоть этого и не видно (пока что), а еще впереди будут перемены и новые открытия, вы освободитесь от старых убеждений ","loveTelling":"отношения выходят на новый уровень, если отношений нет, значит скоро будут ","answer":"карта говорит урегулировать старую проблему","cardOfTheDay":"сегодня ты сможешь решить любую проблему ","adviceLong":"не нужно бояться перемен "},{"htmlname":"wands5","color":"pink","arcana":"wands","emoji":"V","line1":"пятерка","line2":"жезлов","none":false,"link":"cards/wands5.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/zphZeVHEk4OWHD3oK7ILRQ/FS392eaRma21jI3DxMTVB0JYZGuUeVoWSlzpVeQdsfPo5fm9Pwp8pZt66PgukvFoLV55P_Mvq6Y4-3ZSR--n5CZE8nH9ixX6bQWVNz0Fx9iawNxuzJ2utQ3Re5oheTBB3Eal1Bzpjl1Yk-36XBmeIA/MRnd7Qf1bo2HFFU7HcTTn_XPX5jpzW25GfIV9F1QbPk","id":"tarotCard33","texttype":"Antiqua","name":"пятерка жезлов, wands5","basics":"соперничество ","love":"ну такое, чето разногласия какие-то есть","work":"тюююю одни конфликты какие-то на работе ","advice":"дышим носиком, не кричим, сидим спокойно как мышки, нужно успокоится","basicMeaning":"карточка говорит, что сейчас есть какой-то конфликт, тебе стоит с ним разобраться, и карточка знает, что ты это сделаешь, главное идти до конца ","loveTelling":"тут ваще какая-то буря, то ссоры, то страсти, спокойствия пока что не будет ","answer":"агрессивное поведение, однако оно может помочь с успехами, главное знать меру","cardOfTheDay":"сегодня тебя ждет испытание, экзамен на хантера, однако его не стоит боятся, на его итогам ты сделаем выводы о себе и о ситуации ","adviceLong":"бро иди до конца, не сдавайся и все будет супер "},{"htmlname":"strength","color":"black","arcana":"major","emoji":"💪","line1":"","line2":"сила","none":true,"link":"cards/strength.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/6iYlQd5ehICTKkJ8tTeL0w/c_gldSg9I_oL_WymMXd1qYdkNrth_4uJUxC0_JHOYMEPJoWBugbSyMi7PcctIEhf0C7qqbxuIGzSKFZQj45S15h-xiwEOo8UZgYg_O2tGYMvibjmB7sxqNYlN_cOUX9lKyo2uhSRl3kKfdihaDQcCg/MWllYJ12wReFWaNVyX2xHLiloQXwXkodZQ84F48Z65g","id":"tarotCard13","texttype":"Emoji","name":"сила, strength","basics":"вумен супримаси, пуси павэр ","love":"ты горишь как огонь я у меня агония это любовь или ДА! это любовь❤️","work":"жоско поработала, жоско получила деньги, все честно без обмана, деньги есть ","advice":"послушай свою любимую музыку и посмотри 4 свадьбы ","basicMeaning":"уверенность в своей правоте, ты ваще нереалка, все знаешь как надо, куда надо, зачем. обрати внимание на природу и творчество, там может быть подсказка ","loveTelling":"ну ты и горячая штучка, тут намечается какая-то страсть, если ее все еще не было, а в семенной жизни все супир, быт дается легко ","answer":"стоит от чего-то отказаться, чтоы получить лучшее","cardOfTheDay":"сил хватит на все, активируй все что угодно, доставай все дела, как личные, так и рабочие, сегодня будет сделано все. действуй без агрессии и решительно","adviceLong":"чувству себя готкой, потому что черные полосы тебе не страшны, делай все с полной самоотдачей "},{"htmlname":"empress","color":"black","arcana":"major","emoji":"👑","line1":"","line2":"императрица","none":true,"link":"cards/empress.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/I1uCfAwcy_Z1dUgywvdmGQ/QLZ6BDec82yfVmtvlX6JZY0RiCK58CzpfqKlinwRyrRy2dJTra-LDMmy-UeqRVHKsY4bgkXDbnp3c59RPoP8d6oEhL-ex5sUWd9yhxCxTq9NFBALwObH0apRQ85HJYMqHsToKQQr8EUuSopNrmMI-Q/_gss5lIVMjYyuZjXoTRyeJ_ExWhFROwDeQrxjkL384g","id":"tarotCard8","texttype":"Emoji","name":"empress, императрица","basics":"ну&nbsp;ты&nbsp;мамми! вайб инстасамки на&nbsp;сегодня обеспечен. все роскошно, шик блеск, красота, счастье и&nbsp;сестринство! проведи этот день в&nbsp;компании прекрасных подруг, включай свою вумен пауэр и&nbsp;все будет суп!","love":"женская энергия просто на&nbsp;высоте, моя хорошая, моя ты&nbsp;бубочка! такая ты&nbsp;прямо роковая, будто&nbsp;бы фем фаталь, так что будь аккуратнее, чтобы не&nbsp;травмировать какого-то очередного тюбика.&nbsp;а&nbsp;если ты&nbsp;одинока, то&nbsp;это ненадолго! скоро в&nbsp;твоей жизни появится кто-то новый, присмотрись","work":"все круто, особенно, если ты&nbsp;работаешь с&nbsp;женщинами! только женская солидарность, никакого стеклянного потолка, долой белых цис мужчин и&nbsp;патрирхат! на&nbsp;костер!","advice":"свари пельменей и сделай масочку","basicMeaning":"вумен пауер, люби себя, принимай себя, будь собой, ты ваще только ты ты ты, ты нереальная, надо быть наедине с собой, забйдь про комплексы, про буллинг, ты прекрасна, береги себя","loveTelling":"штош присмотришь к коллегам, возможно кто-то из них твоя судьба. отношения которые предстоят (или есть сейчас) будут крепкими и без абьюза. полнейшая нежность","answer":"все дела идут к развязке, скоро будет виден ответ. стоит положиться на судьбу и плыть по течению","cardOfTheDay":"дорогая.. тебе нужно на природу, детокс от телефона, бери друзей или одна, сходи в лес, в парк, сядь на электричку и съезди куда-нибудь. старые дела, о которых ты забыла сегодня найдут решение, все будет хорошо, это невероятно добрый день, наполненный любовью к себе и к окружающим! люби себя, будь женщиной","adviceLong":"замечательная карта, замечательная ты, замечательная жизнь, верь в себя и в судьбу!"},{"htmlname":"sun","color":"black","arcana":"major","emoji":"🌞","line1":"","line2":"солнце","none":true,"link":"cards/sun.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/ZZB1seeaRHmny7lSUhTQVg/upfi759hjEBZ4d8CiRV4sunxvXbRmU_HAPYwLNxPYit9g5kCWChQGfHhrhUIiLMY_tU6_M9l7i2VxkxlWD97wtNic88rWEBcfrvjfoHCG3apG3n3hHOVzNJOAAL_wgoc9te1n5-ll-n-rfNZdPqGxA/_5FLEuaKOtDEVYu9aEqDFeTmed5DCuoWVV_ApcG3k0c","id":"tarotCard23","texttype":"Emoji","name":"солнце, sun","basics":"хорошая карта","love":"добрый период, где происходит что-то новое","work":"на работе все супер","advice":"жить жить жить пожить! живи, у тебя все хорошо получается, делай как делаешь","basicMeaning":"сейчас все трудности даются легко, жизнь воспринимается легкой и солнечной\\nсамбо белого мотылька, у открытого огонька, ты как мотылек который летит на яркое солнышко и пускай мотылек может сгореть, у тебя все суп","loveTelling":"полностью отсутствуют проблемы в отношениях и любви ","answer":"любые твои начинания перспективные ","cardOfTheDay":"добрый добрый день, следует взяться за новое занятие и затащить туда хороших людей ","adviceLong":"ты все знаешь, ты все можешь, верь в себя "},{"htmlname":"pentacles5","color":"pink","arcana":"pentacles","emoji":"V","line1":"пятерка","line2":"пентаклей","none":false,"link":"cards/pentacles5.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/cZn-Bz1_Ki_pXhzQamL6lw/6XDkYxHDWR7Hlb6OyO6PS8lysYVMojqtFg61SZNG8tXCgXuWHVGZHaUgun2GZJ7kUnXSZ4I7TupNaaXLGmXrxG9bAiDGfPXC5OOK_JlMtJamVAYjtcQR13Jn3kTPhEte6U57s_NQQLv8_Y9AM4se5g/_pu6G70BozTzT8sKG8SeRxTgNzuAzD7kG5cs9N2_XbI","id":"tarotCard73","texttype":"Antiqua","name":"пятерка пентаклей, pentakles5","basics":"кому-то пора проработать тревогу и фобии","love":"зай, у тебя не в порядке эмоциональный фон, необоснованная ревность и т.п.","work":"ты в неустойчивом положении, прийдется что-то пережить, повышение, или сокращение, на выбор","advice":"относись ко всем трудностям философски","basicMeaning":"придется на серьёзных щщах принять удар и испытание, но это норм, просто новый период жизни","loveTelling":"кто-то из вас нагнетает обстановочку, из-за этого отношения болеют, хватить всё запрещать","answer":"не паникуй раньше времени, всё, что не делается, всё к лучшему ","cardOfTheDay":"ожидается неблагоприятная полоса, на сегодня лучше планов не строить, беттер будет подумать о дальнейшей жизни","adviceLong":"возможно, что предстоящие трудности не так уж и страшны, как их малюют, прими удар достойно"},{"htmlname":"pageOfPentacles","color":"pink","arcana":"pentacles","emoji":"🎨","line1":"паж","line2":"пентаклей","none":false,"link":"cards/pageOfPentacles.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/ueMCkuLQ7daoFh2iCV8mjA/JXSWaKIO-tvQZ_tSu25EGIBqNnWICaduie9UnNHd8XFPyb8Ili-urq060fXVxbvfUNHocJhMKUg4TOyTr2pINpu39-gUxxAAqfF-IwnUhgdv1c9_ieB7Ztwf1k198MP_HuTnYZGEowsLB2YcO79a0Q/t3dq1N6pgDI9Y_eERONvi9DMyr-JKL6vnOOF45e8xlY","id":"tarotCard69","texttype":"Emoji","name":"паж пентаклей, page of pentakles","basics":"благоприятно влияет на повседневные дела","love":"нужно изучить того, о ком мечтаешь","work":"новые знания","advice":"полепи из пластилина или глины","basicMeaning":"сейчас стоит обратить внимание на то, что ты делаешь ручками","loveTelling":"если хочешь любви, то действуй","answer":"тут говорится про хороший урожай, штош, мб посади рассаду?!!?!?!??!","cardOfTheDay":"сегодня решаться дела и споры, которые копились годами","adviceLong":"есть вероятность получить фейк инфу, доверяй только проверенной инфе\\nне отказывайся от работы ручками"},{"htmlname":"chariot","color":"black","arcana":"major","emoji":"🎡","line1":"","line2":"колесница","none":true,"link":"cards/chariot.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/ErxLxr9hDX6lksbuJ17g6w/ShLQw5-DIGNE4K-k95_je1Gz0AJAQYuRkYN60T67Vb0vuYwgnBr7JCF-OANtYNVc9YcAjS399GQaQ48rLb2cWcJh_wk8p4M9dXErwcSrZx36mu6qZLjp54wUpnkSqHK7QP7IEZgRYrIEwe1BsnMqZA/RYCbMGcePeYvvm-Joo9leqEjVD81ol_fzpEd5jlfJMU","id":"tarotCard12","texttype":"Emoji","name":"колесница, chariot","basics":"короче всё у тебя попрёт ту зе мун, впереди нереальные высоты, и масштабные свершения, типа покупки фисташек","love":"если ты одна, то тебе никого и не надо, если ты два, то у вас всё чики-пуки","work":"не сбавляй темп и раскрутишься как следует, нельзя терять хватку, а ваще в целом всё хорошо, шоу мас гоу он ","advice":"в целом всё примерно так: хочешь скажу фразу, всё будет, но не сразу, хочешь что-то заработать, иди работать ","basicMeaning":"успех, победа, цель, рывок вперед, ты способна преодолевать препятствия, у тебя появляется уверенность в себе и собственных силах, как будто хлопнула перед заданием стаканчик нефильтрованного","loveTelling":"нефиг думать обо всяких там шурах-мурах, сконцентрируйся на цели и души до конца, а эти любовные дела только отвлекать будут, ну, ладно, максимум курортный романчик ","answer":"делай как надо и всё будет как надо, всё просто","cardOfTheDay":"надо стартовать сейчас, дам совет, самое худшее время для старта, это любое, кроме «сейчас», отбрось сомнения и судьба сама тебе подскажет чего делать, погнали","adviceLong":"если уж выпала колесница, значит по-любому нужно поднажать райт нау, это литерали тот самый знак, который ты  так долго ждала, всё, пути назад нет, ты уже на пол пути к успеху, осталось только не тупить "},{"htmlname":"cupsKnight","color":"pink","arcana":"cups","emoji":"🤺","line1":"рыцарь","line2":"кубков","none":false,"link":"cards/cupsKnight.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/gKhmupOVmkyiWdrWaKa6rw/QmA0nzD4tiygXiankHEHa6Ta1ucHXg2DFXN3qBNJ0-PY7A_wJ4q9BryC8Do1Bu_Utm5xZuGVA_xHbPQaICpKxSqWREX-jOWc3unuyKnbRaYKti9j7ncIAqzoQeROmLtuAX3IbXJ1BDbHX2UpkurEbQ/26mL6J4vrnIGyvJxm1spBdhS2WjIZEm3XzGNyMb6NTI","id":"tarotCard42","texttype":"Emoji","name":"рыцарь кубков, knight of cups","basics":"романтичная целеустремлёнка, рыцарка","love":"малышка да ты влюблена и хочешь посвятить себя этому человеку","work":"какая может быть работа возлюбленный на подходе, а может он будет ждать тебя на деловой встрече?","advice":"не надо хапать всё сразу, делай постепенно и по порядку ","basicMeaning":"ты уже взрослая, но еще не зрелая, летаешь в облаках и ждёшь своего рыцаря, но ничо в этом плохого нет, кто хочет, тот получит","loveTelling":"тебя влечёт к новому партнёру, а если партнёр есть, то всё у вас наладится и в духовном и в моральном и в интимном","answer":"строй реальные планы, цели, прорабатывай желания, витать в облаках конечно классно, но особого результата не принесёт, посмотри пару мотивационных роликов на ютубчике","cardOfTheDay":"день будет довольно светлым и наполненным событиями. настроение и самочувствие прекрасное, а энергия бьет ключом. используй день по назначению, реши дела, на которые давно не хватало времени и сил","adviceLong":"лишние проблемы – это тока нагрузка на организм, душу и разум, оставь их в другом дне, сегодня устрой себе праздник, сабантуйчик "},{"htmlname":"queenOfPentacles","color":"pink","arcana":"pentacles","emoji":"✨","line1":"королева","line2":"пентаклей","none":false,"link":"cards/queenOfPentacles.html","image":"https://v5.airtableusercontent.com/v3/u/33/33/1728396000000/G6mOk5JasHUxlrjxP_k4uA/rhR9hRnum3LXrTaTGEORAqLV9V5cyt9X_w9B-vOdPzForCYUY5AvFmLf_FeMHDMz8v-fQLhoDB9aDxD_tqMiWNoB3xPY8piwQS-hc9fcw6Nl5vWpt8VNMtL778gHB1M-IqIsPb8dVECptbai_aK3yA/mS22O7SsOoRoVSxN9hAuYVjH4OYaN9PeUzu6BOhQse4","id":"tarotCard67","texttype":"Emoji","name":"королева пентаклей, queen of pentacles","basics":"ты зрелая самодостаточная тётя","love":"твой мужик ещё не в курсе, но ты уже готова нацепить кольцо на пальчик","work":"сильным характером пушишь все рабочие моментики ","advice":"никого не слушай, ты сама королева","basicMeaning":"мне мало лет, я мало жил, на ваш закон я х*й ложил - это про тебя, ты умна не по годам и тебе ваще по на мнение окружающих","loveTelling":"в отношениях ты настроена серьёзнее некуда и это гуд, ты себя в них ощущаешь комфортнее некуда","answer":"никого не слушай, ты прекрасна и сама это знаешь","cardOfTheDay":"никому не давай тобой помыкать, всё зависит сегодня только от тебя, так же вещают, что сегодня может встретиться на пути такая же сильная и независимая, как и ты","adviceLong":"любые дела выполняй не суетясь, суетятся пусть все остальные, ты действуй по своему четкому плану"}]');
+;// ./src/airtableData.js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-        var texttype = 'Emoji';
-        var icon = record.fields['icon'];
 
-        if (icon.includes('I') || icon.includes('V') || icon.includes('X') || icon.includes('L') || icon.includes('C')) {
-          texttype = 'Antiqua';
-        }
 
-        var color = 'pink';
 
-        if (record.fields['arcana'] == 'major') {
-          color = 'black';
-        }
-
-        var link = 'cards/' + record.fields['htmlPage'] + '.html';
-        tarotCards.push({
-          htmlname: record.fields['htmlPage'],
-          color: color,
-          arcana: record.fields['arcana'],
-          emoji: record.fields['icon'],
-          line1: record.fields['line1'],
-          line2: record.fields['line2'],
-          none: none,
-          link: link,
-          image: record.fields['image'][0]['url'],
-          id: record.fields['id'],
-          texttype: texttype,
-          name: record.fields['name'],
-          basics: record.fields['basics'],
-          love: record.fields['love'],
-          work: record.fields['work'],
-          advice: record.fields['advice'],
-          basicMeaning: record.fields['basicMeaning'],
-          loveTelling: record.fields['loveTelling'],
-          answer: record.fields['answer'],
-          cardOfTheDay: record.fields['cardOfTheDay'],
-          adviceLong: record.fields['adviceLong'],
-          history: record.fields['history']
-        });
-      });
-      resolve(tarotCards);
-    });
-  });
-}
-
-function getFortuneTellings() {
-  return new Promise(function (resolve, reject) {
-    var fortuneTellings = [];
-    base('fortuneTellings').select({
-      maxRecords: 100
-    }).firstPage().then(function (result) {
-      result.forEach(function (record) {
-        var link = 'fortunetellings/' + record.fields['htmlPage'] + '.html';
-        fortuneTellings.push({
-          color: 'black',
-          line1: record.fields['line1'],
-          line2: record.fields['line2'],
-          image: record.fields['image'][0]['url'],
-          link: link,
-          id: record.fields['id'],
-          emoji: record.fields['icon'],
-          none: false,
-          texttype: 'Emoji'
-        });
-      });
-      resolve(fortuneTellings);
-    });
-  });
-}
-
+// Функция для получения статей
 function getArticles() {
-  return new Promise(function (resolve, reject) {
-    var Articles = [];
-    base('Articles').select({
-      maxRecords: 100
-    }).firstPage().then(function (result) {
-      result.forEach(function (record) {
-        var link = 'articles/' + record.fields['htmlPage'] + '.html';
-        Articles.push({
-          title: record.fields['Заголовок'],
-          description: record.fields['Описание'],
-          id: record.fields['id'],
-          link: link,
-          image: record.fields['image'][0]['url']
-        });
-      });
-      resolve(Articles);
-    });
+  return new Promise(function (resolve) {
+    resolve(articles);
   });
-} //все базы для поиска
+}
 
+// Функция для получения предсказаний
+function getFortuneTellings() {
+  return new Promise(function (resolve) {
+    resolve(fortuneTellings);
+  });
+}
 
+// Функция для получения карт Таро
+function getTarotCards() {
+  return new Promise(function (resolve) {
+    resolve(tarotCards_namespaceObject);
+  });
+}
+
+// Функция для поиска данных
 function getSearchData() {
-  return _getSearchData.apply(this, arguments);
+  return new Promise(function (resolve) {
+    var searchData = [].concat(_toConsumableArray(articles), _toConsumableArray(fortuneTellings), _toConsumableArray(tarotCards)); // Или какой-то другой способ объединения данных
+    resolve(searchData);
+  });
 }
-
-function _getSearchData() {
-  _getSearchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var counter;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            counter = 0;
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              var searchData = [];
-              base('Articles').select({
-                maxRecords: 100
-              }).firstPage().then(function (result) {
-                result.forEach(function (record) {
-                  var link = 'articles/' + record.fields['htmlPage'] + '.html';
-                  searchData.push({
-                    title: record.fields['Заголовок'],
-                    description: record.fields['Описание'],
-                    id: record.fields['id'],
-                    link: link,
-                    image: record.fields['image'][0]['url'],
-                    similarWords: record.fields['для поиска']
-                  });
-                });
-                counter += 1;
-
-                if (counter === 3) {
-                  resolve(searchData);
-                }
-              });
-              base('FortuneTellings').select({
-                maxRecords: 100
-              }).firstPage().then(function (result) {
-                result.forEach(function (record) {
-                  var link = 'fortunerellings/' + record.fields['htmlPage'] + '.html';
-                  searchData.push({
-                    color: 'black',
-                    line1: record.fields['line1'],
-                    line2: record.fields['line2'],
-                    image: record.fields['image'][0]['url'],
-                    link: link,
-                    id: record.fields['id'],
-                    emoji: record.fields['icon'],
-                    none: false,
-                    texttype: 'Emoji',
-                    similarWords: record.fields['для поиска']
-                  });
-                });
-                counter += 1;
-
-                if (counter === 3) {
-                  resolve(searchData);
-                }
-              });
-              base('TarotCards').select({
-                maxRecords: 100
-              }).firstPage().then(function (result) {
-                result.forEach(function (record) {
-                  // let title = record.fields['line1']
-                  // if (title === undefined) {
-                  //   title = ' '
-                  // }
-                  // searchData.push({
-                  //   title,
-                  //   description: record.fields['line2'],
-                  //   id: record.fields['id']
-                  var none = false;
-                  var line1 = record.fields['line1'];
-
-                  if (line1 == undefined) {
-                    none = true;
-                    line1 = ' ';
-                  }
-
-                  var texttype = 'Emoji';
-                  var icon = record.fields['icon'];
-
-                  if (icon.includes('I') || icon.includes('V') || icon.includes('X') || icon.includes('L') || icon.includes('C')) {
-                    texttype = 'Antiqua';
-                  }
-
-                  var color = 'pink';
-
-                  if (record.fields['arcana'] == 'major') {
-                    color = 'black';
-                  }
-
-                  var link = 'cards/' + record.fields['htmlPage'] + '.html';
-                  searchData.push({
-                    color: color,
-                    arcana: record.fields['arcana'],
-                    emoji: icon,
-                    line1: line1,
-                    line2: record.fields['line2'],
-                    none: none,
-                    link: link,
-                    image: record.fields['image'][0]['url'],
-                    id: record.fields['id'],
-                    texttype: texttype,
-                    name: record.fields['name'],
-                    similarWords: record.fields['для поиска']
-                  });
-                });
-                counter += 1;
-
-                if (counter === 3) {
-                  resolve(searchData);
-                }
-              });
-            }));
-
-          case 2:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _getSearchData.apply(this, arguments);
-}
-
-
-
-
-
 
 /***/ }),
 
-/***/ 184:
+/***/ 485:
 /***/ ((module, exports) => {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4092,7 +127,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 448:
+/***/ 551:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -4108,7 +143,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(294),ca=__webpack_require__(840);function p(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var da=new Set,ea={};function fa(a,b){ha(a,b);ha(a+"Capture",b)}
+var aa=__webpack_require__(540),ca=__webpack_require__(982);function p(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var da=new Set,ea={};function fa(a,b){ha(a,b);ha(a+"Capture",b)}
 function ha(a,b){ea[a]=b;for(a=0;a<b.length;a++)da.add(b[a])}
 var ia=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ja=Object.prototype.hasOwnProperty,ka=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,la=
 {},ma={};function oa(a){if(ja.call(ma,a))return!0;if(ja.call(la,a))return!1;if(ka.test(a))return ma[a]=!0;la[a]=!0;return!1}function pa(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -4423,23 +458,23 @@ exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!pl(c))throw Er
 
 /***/ }),
 
-/***/ 745:
+/***/ 338:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 var __webpack_unused_export__;
 
 
-var m = __webpack_require__(935);
+var m = __webpack_require__(961);
 if (true) {
-  exports.s = m.createRoot;
+  exports.H = m.createRoot;
   __webpack_unused_export__ = m.hydrateRoot;
 } else { var i; }
 
 
 /***/ }),
 
-/***/ 935:
+/***/ 961:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -4468,13 +503,13 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(448);
+  module.exports = __webpack_require__(551);
 } else {}
 
 
 /***/ }),
 
-/***/ 408:
+/***/ 287:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -4508,20 +543,20 @@ exports.useTransition=function(){return U.current.useTransition()};exports.versi
 
 /***/ }),
 
-/***/ 294:
+/***/ 540:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(408);
+  module.exports = __webpack_require__(287);
 } else {}
 
 
 /***/ }),
 
-/***/ 53:
+/***/ 463:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -4548,40 +583,16 @@ exports.unstable_shouldYield=M;exports.unstable_wrapCallback=function(a){var b=y
 
 /***/ }),
 
-/***/ 840:
+/***/ 982:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(53);
+  module.exports = __webpack_require__(463);
 } else {}
 
-
-/***/ }),
-
-/***/ 552:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-module.exports = __webpack_require__.p + "images/8f0ee3aee9af7277fbd5.png";
-
-/***/ }),
-
-/***/ 596:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-module.exports = __webpack_require__.p + "images/c1944c343533bae6b257.png";
-
-/***/ }),
-
-/***/ 673:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-module.exports = __webpack_require__.p + "images/a11ee416c5119613c769.png";
 
 /***/ })
 
@@ -4659,11 +670,14 @@ module.exports = __webpack_require__.p + "images/a11ee416c5119613c769.png";
 /******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
 /******/ 		var document = __webpack_require__.g.document;
 /******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
+/******/ 				scriptUrl = document.currentScript.src;
 /******/ 			if (!scriptUrl) {
 /******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
 /******/ 			}
 /******/ 		}
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
@@ -4680,61 +694,44 @@ var __webpack_exports__ = {};
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(294);
-// EXTERNAL MODULE: ./src/airtableData.js
-var airtableData = __webpack_require__(605);
+var react = __webpack_require__(540);
+// EXTERNAL MODULE: ./src/airtableData.js + 3 modules
+var airtableData = __webpack_require__(475);
 // EXTERNAL MODULE: ./node_modules/react-dom/client.js
-var client = __webpack_require__(745);
+var client = __webpack_require__(338);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(184);
+var classnames = __webpack_require__(485);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-;// CONCATENATED MODULE: ./src/components/A_Text/A_Text.jsx
+;// ./src/components/A_Text/A_Text.jsx
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
 
 
 
 var A_Text = /*#__PURE__*/function (_React$Component) {
   _inherits(A_Text, _React$Component);
-
   var _super = _createSuper(A_Text);
-
   function A_Text() {
     _classCallCheck(this, A_Text);
-
     return _super.apply(this, arguments);
   }
-
   _createClass(A_Text, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          texttype = _this$props.texttype,
-          starShowing = _this$props.starShowing,
-          text = _this$props.text;
+        texttype = _this$props.texttype,
+        starShowing = _this$props.starShowing,
+        text = _this$props.text;
       var textClasses = classnames_default()(_defineProperty({}, "".concat(texttype), true));
       var iconClasses = classnames_default()({
         Q_StarIcon: true,
@@ -4751,50 +748,32 @@ var A_Text = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }]);
-
   return A_Text;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/components/M_FortuneTellingReading/M_FortuneTellingReading.jsx
+;// ./src/components/M_FortuneTellingReading/M_FortuneTellingReading.jsx
 function M_FortuneTellingReading_typeof(obj) { "@babel/helpers - typeof"; return M_FortuneTellingReading_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, M_FortuneTellingReading_typeof(obj); }
-
 function M_FortuneTellingReading_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function M_FortuneTellingReading_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function M_FortuneTellingReading_createClass(Constructor, protoProps, staticProps) { if (protoProps) M_FortuneTellingReading_defineProperties(Constructor.prototype, protoProps); if (staticProps) M_FortuneTellingReading_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function M_FortuneTellingReading_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) M_FortuneTellingReading_setPrototypeOf(subClass, superClass); }
-
 function M_FortuneTellingReading_setPrototypeOf(o, p) { M_FortuneTellingReading_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return M_FortuneTellingReading_setPrototypeOf(o, p); }
-
 function M_FortuneTellingReading_createSuper(Derived) { var hasNativeReflectConstruct = M_FortuneTellingReading_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = M_FortuneTellingReading_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = M_FortuneTellingReading_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return M_FortuneTellingReading_possibleConstructorReturn(this, result); }; }
-
 function M_FortuneTellingReading_possibleConstructorReturn(self, call) { if (call && (M_FortuneTellingReading_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return M_FortuneTellingReading_assertThisInitialized(self); }
-
 function M_FortuneTellingReading_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function M_FortuneTellingReading_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function M_FortuneTellingReading_getPrototypeOf(o) { M_FortuneTellingReading_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return M_FortuneTellingReading_getPrototypeOf(o); }
-
-
 
 
 
 
 var M_FortuneTellingReading = /*#__PURE__*/function (_React$Component) {
   M_FortuneTellingReading_inherits(M_FortuneTellingReading, _React$Component);
-
   var _super = M_FortuneTellingReading_createSuper(M_FortuneTellingReading);
-
   function M_FortuneTellingReading() {
     M_FortuneTellingReading_classCallCheck(this, M_FortuneTellingReading);
-
     return _super.apply(this, arguments);
   }
-
   M_FortuneTellingReading_createClass(M_FortuneTellingReading, [{
     key: "render",
     value: function render() {
@@ -4810,60 +789,40 @@ var M_FortuneTellingReading = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }]);
-
   return M_FortuneTellingReading;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/components/A_HighlightHeading4/A_HighlightHeading4.jsx
+;// ./src/components/A_HighlightHeading4/A_HighlightHeading4.jsx
 function A_HighlightHeading4_typeof(obj) { "@babel/helpers - typeof"; return A_HighlightHeading4_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_HighlightHeading4_typeof(obj); }
-
 function A_HighlightHeading4_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function A_HighlightHeading4_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function A_HighlightHeading4_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function A_HighlightHeading4_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_HighlightHeading4_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_HighlightHeading4_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function A_HighlightHeading4_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_HighlightHeading4_setPrototypeOf(subClass, superClass); }
-
 function A_HighlightHeading4_setPrototypeOf(o, p) { A_HighlightHeading4_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_HighlightHeading4_setPrototypeOf(o, p); }
-
 function A_HighlightHeading4_createSuper(Derived) { var hasNativeReflectConstruct = A_HighlightHeading4_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_HighlightHeading4_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_HighlightHeading4_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_HighlightHeading4_possibleConstructorReturn(this, result); }; }
-
 function A_HighlightHeading4_possibleConstructorReturn(self, call) { if (call && (A_HighlightHeading4_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_HighlightHeading4_assertThisInitialized(self); }
-
 function A_HighlightHeading4_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function A_HighlightHeading4_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function A_HighlightHeading4_getPrototypeOf(o) { A_HighlightHeading4_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_HighlightHeading4_getPrototypeOf(o); }
-
-
 
 
 
 var A_HighlightHeading4 = /*#__PURE__*/function (_React$Component) {
   A_HighlightHeading4_inherits(A_HighlightHeading4, _React$Component);
-
   var _super = A_HighlightHeading4_createSuper(A_HighlightHeading4);
-
   function A_HighlightHeading4() {
     A_HighlightHeading4_classCallCheck(this, A_HighlightHeading4);
-
     return _super.apply(this, arguments);
   }
-
   A_HighlightHeading4_createClass(A_HighlightHeading4, [{
     key: "render",
     value: function render() {
       var _classnames;
-
       var _this$props = this.props,
-          text = _this$props.text,
-          texttype = _this$props.texttype,
-          none = _this$props.none;
+        text = _this$props.text,
+        texttype = _this$props.texttype,
+        none = _this$props.none;
       var classes = classnames_default()((_classnames = {
         A_HighlightHeading4: true
       }, A_HighlightHeading4_defineProperty(_classnames, "".concat(texttype), true), A_HighlightHeading4_defineProperty(_classnames, "None", none), _classnames));
@@ -4873,43 +832,29 @@ var A_HighlightHeading4 = /*#__PURE__*/function (_React$Component) {
       }, text);
     }
   }]);
-
   return A_HighlightHeading4;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/images/tarotcard6.png
+;// ./src/images/tarotcard6.png
 const tarotcard6_namespaceObject = __webpack_require__.p + "images/e0e31ac074260753be3d.png";
-// EXTERNAL MODULE: ./src/images/tarotcard1.png
-var tarotcard1 = __webpack_require__(552);
-// EXTERNAL MODULE: ./src/images/tarotcard2.png
-var tarotcard2 = __webpack_require__(596);
-// EXTERNAL MODULE: ./src/images/tarotcard3.png
-var tarotcard3 = __webpack_require__(673);
-;// CONCATENATED MODULE: ./src/components/A_TarotCardImage/A_TarotCardImage.jsx
+;// ./src/images/tarotcard1.png
+const tarotcard1_namespaceObject = __webpack_require__.p + "images/8f0ee3aee9af7277fbd5.png";
+;// ./src/images/tarotcard2.png
+const tarotcard2_namespaceObject = __webpack_require__.p + "images/c1944c343533bae6b257.png";
+;// ./src/images/tarotcard3.png
+const tarotcard3_namespaceObject = __webpack_require__.p + "images/a11ee416c5119613c769.png";
+;// ./src/components/A_TarotCardImage/A_TarotCardImage.jsx
 function A_TarotCardImage_typeof(obj) { "@babel/helpers - typeof"; return A_TarotCardImage_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_TarotCardImage_typeof(obj); }
-
 function A_TarotCardImage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function A_TarotCardImage_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function A_TarotCardImage_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_TarotCardImage_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_TarotCardImage_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function A_TarotCardImage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_TarotCardImage_setPrototypeOf(subClass, superClass); }
-
 function A_TarotCardImage_setPrototypeOf(o, p) { A_TarotCardImage_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_TarotCardImage_setPrototypeOf(o, p); }
-
 function A_TarotCardImage_createSuper(Derived) { var hasNativeReflectConstruct = A_TarotCardImage_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_TarotCardImage_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_TarotCardImage_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_TarotCardImage_possibleConstructorReturn(this, result); }; }
-
 function A_TarotCardImage_possibleConstructorReturn(self, call) { if (call && (A_TarotCardImage_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_TarotCardImage_assertThisInitialized(self); }
-
 function A_TarotCardImage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function A_TarotCardImage_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function A_TarotCardImage_getPrototypeOf(o) { A_TarotCardImage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_TarotCardImage_getPrototypeOf(o); }
-
-
 
 
 
@@ -4919,15 +864,11 @@ function A_TarotCardImage_getPrototypeOf(o) { A_TarotCardImage_getPrototypeOf = 
 
 var A_TarotCardImage = /*#__PURE__*/function (_React$Component) {
   A_TarotCardImage_inherits(A_TarotCardImage, _React$Component);
-
   var _super = A_TarotCardImage_createSuper(A_TarotCardImage);
-
   function A_TarotCardImage() {
     A_TarotCardImage_classCallCheck(this, A_TarotCardImage);
-
     return _super.apply(this, arguments);
   }
-
   A_TarotCardImage_createClass(A_TarotCardImage, [{
     key: "render",
     value: function render() {
@@ -4938,37 +879,22 @@ var A_TarotCardImage = /*#__PURE__*/function (_React$Component) {
       });
     }
   }]);
-
   return A_TarotCardImage;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/components/M_TarotCard/M_TarotCard.jsx
+;// ./src/components/M_TarotCard/M_TarotCard.jsx
 function M_TarotCard_typeof(obj) { "@babel/helpers - typeof"; return M_TarotCard_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, M_TarotCard_typeof(obj); }
-
 function M_TarotCard_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function M_TarotCard_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function M_TarotCard_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function M_TarotCard_createClass(Constructor, protoProps, staticProps) { if (protoProps) M_TarotCard_defineProperties(Constructor.prototype, protoProps); if (staticProps) M_TarotCard_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function M_TarotCard_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) M_TarotCard_setPrototypeOf(subClass, superClass); }
-
 function M_TarotCard_setPrototypeOf(o, p) { M_TarotCard_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return M_TarotCard_setPrototypeOf(o, p); }
-
 function M_TarotCard_createSuper(Derived) { var hasNativeReflectConstruct = M_TarotCard_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = M_TarotCard_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = M_TarotCard_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return M_TarotCard_possibleConstructorReturn(this, result); }; }
-
 function M_TarotCard_possibleConstructorReturn(self, call) { if (call && (M_TarotCard_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return M_TarotCard_assertThisInitialized(self); }
-
 function M_TarotCard_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function M_TarotCard_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function M_TarotCard_getPrototypeOf(o) { M_TarotCard_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return M_TarotCard_getPrototypeOf(o); }
-
-
 
 
 
@@ -4976,27 +902,23 @@ function M_TarotCard_getPrototypeOf(o) { M_TarotCard_getPrototypeOf = Object.set
 
 var M_TarotCard = /*#__PURE__*/function (_React$Component) {
   M_TarotCard_inherits(M_TarotCard, _React$Component);
-
   var _super = M_TarotCard_createSuper(M_TarotCard);
-
   function M_TarotCard() {
     M_TarotCard_classCallCheck(this, M_TarotCard);
-
     return _super.apply(this, arguments);
   }
-
   M_TarotCard_createClass(M_TarotCard, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          color = _this$props.color,
-          emoji = _this$props.emoji,
-          line1 = _this$props.line1,
-          line2 = _this$props.line2,
-          image = _this$props.image,
-          none = _this$props.none,
-          texttype = _this$props.texttype,
-          link = _this$props.link;
+        color = _this$props.color,
+        emoji = _this$props.emoji,
+        line1 = _this$props.line1,
+        line2 = _this$props.line2,
+        image = _this$props.image,
+        none = _this$props.none,
+        texttype = _this$props.texttype,
+        link = _this$props.link;
       var classes = classnames_default()(M_TarotCard_defineProperty({
         M_TarotCard: true
       }, "".concat(color), true));
@@ -5023,49 +945,31 @@ var M_TarotCard = /*#__PURE__*/function (_React$Component) {
       })))));
     }
   }]);
-
   return M_TarotCard;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/components/O_ThreeCards/O_ThreeCards.jsx
+;// ./src/components/O_ThreeCards/O_ThreeCards.jsx
 function O_ThreeCards_typeof(obj) { "@babel/helpers - typeof"; return O_ThreeCards_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, O_ThreeCards_typeof(obj); }
-
 function O_ThreeCards_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function O_ThreeCards_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function O_ThreeCards_createClass(Constructor, protoProps, staticProps) { if (protoProps) O_ThreeCards_defineProperties(Constructor.prototype, protoProps); if (staticProps) O_ThreeCards_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function O_ThreeCards_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) O_ThreeCards_setPrototypeOf(subClass, superClass); }
-
 function O_ThreeCards_setPrototypeOf(o, p) { O_ThreeCards_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return O_ThreeCards_setPrototypeOf(o, p); }
-
 function O_ThreeCards_createSuper(Derived) { var hasNativeReflectConstruct = O_ThreeCards_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = O_ThreeCards_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = O_ThreeCards_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return O_ThreeCards_possibleConstructorReturn(this, result); }; }
-
 function O_ThreeCards_possibleConstructorReturn(self, call) { if (call && (O_ThreeCards_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return O_ThreeCards_assertThisInitialized(self); }
-
 function O_ThreeCards_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function O_ThreeCards_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function O_ThreeCards_getPrototypeOf(o) { O_ThreeCards_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return O_ThreeCards_getPrototypeOf(o); }
-
-
 
 
 
 var O_ThreeCards = /*#__PURE__*/function (_React$Component) {
   O_ThreeCards_inherits(O_ThreeCards, _React$Component);
-
   var _super = O_ThreeCards_createSuper(O_ThreeCards);
-
   function O_ThreeCards() {
     O_ThreeCards_classCallCheck(this, O_ThreeCards);
-
     return _super.apply(this, arguments);
   }
-
   O_ThreeCards_createClass(O_ThreeCards, [{
     key: "render",
     value: function render() {
@@ -5091,69 +995,49 @@ var O_ThreeCards = /*#__PURE__*/function (_React$Component) {
       }), threeCards[2]);
     }
   }]);
-
   return O_ThreeCards;
 }(react.Component);
 
-
-;// CONCATENATED MODULE: ./src/components/A_Button/A_Button.jsx
+;// ./src/components/A_Button/A_Button.jsx
 function A_Button_typeof(obj) { "@babel/helpers - typeof"; return A_Button_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, A_Button_typeof(obj); }
-
 function A_Button_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function A_Button_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function A_Button_createClass(Constructor, protoProps, staticProps) { if (protoProps) A_Button_defineProperties(Constructor.prototype, protoProps); if (staticProps) A_Button_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function A_Button_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) A_Button_setPrototypeOf(subClass, superClass); }
-
 function A_Button_setPrototypeOf(o, p) { A_Button_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return A_Button_setPrototypeOf(o, p); }
-
 function A_Button_createSuper(Derived) { var hasNativeReflectConstruct = A_Button_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = A_Button_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = A_Button_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return A_Button_possibleConstructorReturn(this, result); }; }
-
 function A_Button_possibleConstructorReturn(self, call) { if (call && (A_Button_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return A_Button_assertThisInitialized(self); }
-
 function A_Button_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function A_Button_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function A_Button_getPrototypeOf(o) { A_Button_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return A_Button_getPrototypeOf(o); }
-
-
 
 
 
 var A_Button = /*#__PURE__*/function (_React$Component) {
   A_Button_inherits(A_Button, _React$Component);
-
   var _super = A_Button_createSuper(A_Button);
-
   function A_Button() {
     A_Button_classCallCheck(this, A_Button);
-
     return _super.apply(this, arguments);
   }
-
   A_Button_createClass(A_Button, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          text = _this$props.text,
-          handleClick = _this$props.handleClick;
+        text = _this$props.text,
+        handleClick = _this$props.handleClick;
       return /*#__PURE__*/react.createElement("div", {
         className: "A_Button",
         onClick: handleClick
       }, "\u043F\u043E\u0433\u0430\u0434\u0430\u0442\u044C \u0441\u043D\u043E\u0432\u0430!");
     }
   }]);
-
   return A_Button;
 }(react.Component);
 
+;// ./src/fortunetellings/future.jsx
 
-;// CONCATENATED MODULE: ./src/fortunetellings/future.jsx
- // import './fool.css'
-
+// import './fool.css'
 
 
 
@@ -5161,17 +1045,17 @@ var A_Button = /*#__PURE__*/function (_React$Component) {
 
 document.addEventListener('DOMContentLoaded', function () {
   var telling = 'сессия всегда сопряжена с трудностями. здесь ты можешь получить своё экспресс-гадание. просто нажми на кнопку и получи расклад с кратким описанием. помни, что главное — чтобы расклад тебе откликался. сессия всегда сопряжена с трудностями. здесь ты можешь получить своё экспресс-гадание. просто нажми на кнопку и получи расклад с кратким описанием. помни, что главное — чтобы расклад тебе откликался. сессия всегда сопряжена с трудностями. здесь ты можешь получить своё экспресс-гадание. просто нажми на кнопку и получи расклад с кратким описанием. помни, что главное — чтобы расклад тебе откликался';
-  var root = (0,client/* createRoot */.s)(document.querySelector('.W_FortuneTellingResult'));
-  root.render( /*#__PURE__*/react.createElement(M_FortuneTellingReading, {
+  var root = (0,client/* createRoot */.H)(document.querySelector('.W_FortuneTellingResult'));
+  root.render(/*#__PURE__*/react.createElement(M_FortuneTellingReading, {
     telling: telling
   }));
 });
-var tarotCards;
+var future_tarotCards;
 var N = 3;
 document.addEventListener('DOMContentLoaded', function () {
-  (0,airtableData/* getTarotCards */.Kj)().then(function (data) {
+  (0,airtableData/* getTarotCards */.YF)().then(function (data) {
     tarotCards = data;
-    var root = (0,client/* createRoot */.s)(document.querySelector('.W_ContentTarotReading'));
+    var root = (0,client/* createRoot */.H)(document.querySelector('.W_ContentTarotReading'));
     var requiredCards = [];
     var tarotCards = data.slice(); // Make a copy of the original array
 
@@ -5181,12 +1065,12 @@ document.addEventListener('DOMContentLoaded', function () {
       requiredCards.push(randomCard);
       tarotCards.splice(randomIndex, 1); // Remove the selected card
     }
-
-    root.render( /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_ThreeCards, {
+    root.render(/*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(O_ThreeCards, {
       data: requiredCards
     })));
   });
-}); // document.addEventListener('DOMContentLoaded', () => {
+});
+// document.addEventListener('DOMContentLoaded', () => {
 //     const root = createRoot(document.querySelector('.W_Button'))
 //   root.render(
 //     <div>

@@ -1,0 +1,30 @@
+name: Update Airtable Data
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Запуск каждый день в полночь
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run data update script
+        run: node scripts/updateAirtableData.js
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ./src/data/*.json
+          git commit -m "Update Airtable data"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
