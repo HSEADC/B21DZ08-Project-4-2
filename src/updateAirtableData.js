@@ -1,5 +1,7 @@
 const fs = require('fs')
 const Airtable = require('airtable')
+const axios = require('axios')
+const path = require('path')
 
 // Используй твой токен и базу данных
 const token =
@@ -11,7 +13,7 @@ Airtable.configure({
 
 const base = Airtable.base('appcttjzPgvmm4Gdx')
 
-// Функция для получения данных и записи их в JSON
+// Функция для получения данных и записи их в JSON и локальные изображения
 async function fetchAndSaveData() {
   const tarotCards = []
   const fortuneTellings = []
@@ -22,7 +24,21 @@ async function fetchAndSaveData() {
     const tarotResult = await base('TarotCards')
       .select({ maxRecords: 100 })
       .firstPage()
-    tarotResult.forEach((record) => {
+
+    for (let record of tarotResult) {
+      const imageUrl = record.fields['image'][0]['url']
+      const mimeType = record.fields['image'][0]['type'] // Проверяем MIME-тип
+      const extension = mimeType.split('/')[1] // Получаем расширение из MIME-типа
+      const imageFileName = `${record.fields['id']}.${extension}` // Имя файла с расширением
+
+      // Скачиваем и сохраняем изображение локально
+      const imageResponse = await axios({
+        url: imageUrl,
+        responseType: 'stream'
+      })
+      const imagePath = path.join(__dirname, 'data', imageFileName)
+      imageResponse.data.pipe(fs.createWriteStream(imagePath))
+
       tarotCards.push({
         htmlname: record.fields['htmlPage'],
         color: record.fields['arcana'] === 'major' ? 'black' : 'pink',
@@ -32,7 +48,7 @@ async function fetchAndSaveData() {
         line2: record.fields['line2'],
         none: !record.fields['line1'],
         link: `cards/${record.fields['htmlPage']}.html`,
-        image: record.fields['image'][0]['url'],
+        image: imageFileName, // Используем локальное изображение
         id: record.fields['id'],
         texttype: record.fields['icon'].match(/[IVXLCDM]/)
           ? 'Antiqua'
@@ -49,39 +65,9 @@ async function fetchAndSaveData() {
         adviceLong: record.fields['adviceLong'],
         history: record.fields['history']
       })
-    })
+    }
 
-    const fortuneResult = await base('fortuneTellings')
-      .select({ maxRecords: 100 })
-      .firstPage()
-    fortuneResult.forEach((record) => {
-      fortuneTellings.push({
-        color: 'black',
-        line1: record.fields['line1'],
-        line2: record.fields['line2'],
-        image: record.fields['image'][0]['url'],
-        link: `fortunetellings/${record.fields['htmlPage']}.html`,
-        id: record.fields['id'],
-        emoji: record.fields['icon'],
-        none: false,
-        texttype: 'Emoji'
-      })
-    })
-
-    const articlesResult = await base('Articles')
-      .select({ maxRecords: 100 })
-      .firstPage()
-    articlesResult.forEach((record) => {
-      articles.push({
-        title: record.fields['Заголовок'],
-        description: record.fields['Описание'],
-        id: record.fields['id'],
-        link: `articles/${record.fields['htmlPage']}.html`,
-        image: record.fields['image'][0]['url']
-      })
-    })
-
-    // Сохраняем все данные в JSON файл
+    // Сохраняем данные в JSON файл
     fs.writeFileSync(
       './src/data/tarotCards.json',
       JSON.stringify(tarotCards, null, 2)
@@ -95,7 +81,7 @@ async function fetchAndSaveData() {
       JSON.stringify(articles, null, 2)
     )
 
-    console.log('Данные успешно сохранены!')
+    console.log('Данные успешно сохранены и изображения загружены!')
   } catch (error) {
     console.error('Ошибка получения данных:', error)
   }
