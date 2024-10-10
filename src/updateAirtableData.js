@@ -20,7 +20,7 @@ async function fetchAndSaveData() {
   const articles = []
 
   try {
-    // Получаем данные для всех таблиц
+    // Получаем данные для таблицы TarotCards
     const tarotResult = await base('TarotCards')
       .select({ maxRecords: 100 })
       .firstPage()
@@ -67,7 +67,64 @@ async function fetchAndSaveData() {
       })
     }
 
-    // Сохраняем данные в JSON файл
+    // Получаем данные для таблицы FortuneTellings
+    const fortuneResult = await base('FortuneTellings')
+      .select({ maxRecords: 100 })
+      .firstPage()
+
+    for (let record of fortuneResult) {
+      const imageUrl = record.fields['image'][0]['url']
+      const mimeType = record.fields['image'][0]['type']
+      const extension = mimeType.split('/')[1]
+      const imageFileName = `${record.fields['id']}.${extension}`
+
+      // Скачиваем и сохраняем изображение локально
+      const imageResponse = await axios({
+        url: imageUrl,
+        responseType: 'stream'
+      })
+      const imagePath = path.join(__dirname, 'data', imageFileName)
+      imageResponse.data.pipe(fs.createWriteStream(imagePath))
+
+      fortuneTellings.push({
+        emoji: record.fields['icon'],
+        line1: record.fields['line1'],
+        line2: record.fields['line2'],
+        image: imageFileName,
+        id: record.fields['id'],
+        htmlPage: record.fields['htmlPage']
+      })
+    }
+
+    // Получаем данные для таблицы Articles
+    const articlesResult = await base('Articles')
+      .select({ maxRecords: 100 })
+      .firstPage()
+
+    for (let record of articlesResult) {
+      const imageUrl = record.fields['image'][0]['url']
+      const mimeType = record.fields['image'][0]['type']
+      const extension = mimeType.split('/')[1]
+      const imageFileName = `${record.fields['id']}.${extension}`
+
+      // Скачиваем и сохраняем изображение локально
+      const imageResponse = await axios({
+        url: imageUrl,
+        responseType: 'stream'
+      })
+      const imagePath = path.join(__dirname, 'data', imageFileName)
+      imageResponse.data.pipe(fs.createWriteStream(imagePath))
+
+      articles.push({
+        title: record.fields['title'],
+        id: record.fields['id'],
+        description: record.fields['description'],
+        htmlPage: record.fields['htmlPage'],
+        image: imageFileName
+      })
+    }
+
+    // Сохраняем данные в JSON файлы
     fs.writeFileSync(
       './src/data/tarotCards.json',
       JSON.stringify(tarotCards, null, 2)

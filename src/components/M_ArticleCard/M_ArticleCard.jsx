@@ -9,7 +9,7 @@ export default class M_ArticleCard extends React.Component {
       return (
           <a href={link}>
                   <div className="M_CardArticle">
-                      <div className='A_CardArticleImage' style={{ backgroundImage: `url(${image})` }}>
+                      <div className='A_CardArticleImage' style={{ backgroundImage: `url(${require('../../data/' + image)})` }}>
                         <div className="Q_CardArticlesImageGradient"></div>
                       </div>
                     <div className='A_Heading5' dangerouslySetInnerHTML={{ __html: title }}></div>

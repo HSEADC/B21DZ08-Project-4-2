@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "emoji": "💰",
+    "line1": "погадать",
+    "line2": "на работу",
+    "image": "fortuneTelling2.png",
+    "id": "fortuneTelling2",
+    "htmlPage": "work"
+  },
+  {
+    "emoji": "👀",
+    "line1": "карта",
+    "line2": "дня",
+    "image": "fortuneTelling3.png",
+    "id": "fortuneTelling3",
+    "htmlPage": "cardoftheday"
+  },
+  {
+    "emoji": "🤍",
+    "line1": "расклад",
+    "line2": "на любовь",
+    "image": "fortuneTelling1.png",
+    "id": "fortuneTelling1",
+    "htmlPage": "love"
+  }
+]

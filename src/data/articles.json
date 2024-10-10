@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "title": "что значат четверки в&nbsp;колоде таро",
+    "id": "article2",
+    "description": "стабильность, ограничения и&nbsp;фундамент: символики четверок в&nbsp;колоде таро",
+    "htmlPage": "foursInTarot",
+    "image": "article2.png"
+  },
+  {
+    "title": "что такое таро уэйта",
+    "id": "article1",
+    "description": "что скрывает за&nbsp;собой одна из&nbsp;самых известных колод таро, и&nbsp;что делает ее&nbsp;такой классной",
+    "htmlPage": "waiteTarot",
+    "image": "article1.png"
+  },
+  {
+    "title": "твоя первая колода",
+    "id": "article3",
+    "description": "как подобрать свою первую колоду таро так, чтобы стать гуру тарологиней в&nbsp;инстаграме",
+    "htmlPage": "yourFirstTarotCards",
+    "image": "article3.png"
+  }
+]
