@@ -1,20 +1,14 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 475:
-/***/ (() => {
+/***/ 3772:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-// UNUSED EXPORTS: getArticles, getFortuneTellings, getSearchData, getTarotCards
-
-;// ./src/data/articles.json
-const articles_namespaceObject = [];
-;// ./src/data/fortuneTellings.json
-const fortuneTellings_namespaceObject = [];
-;// ./src/data/tarotCards.json
-const tarotCards_namespaceObject = [];
-;// ./src/airtableData.js
+/* unused harmony exports getArticles, getFortuneTellings, getTarotCards, getSearchData */
+/* harmony import */ var _data_articles_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5909);
+/* harmony import */ var _data_fortuneTellings_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8689);
+/* harmony import */ var _data_tarotCards_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3029);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -56,7 +50,7 @@ function getSearchData() {
 
 /***/ }),
 
-/***/ 485:
+/***/ 2485:
 /***/ ((module, exports) => {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -122,7 +116,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 551:
+/***/ 2551:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -138,7 +132,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(540),ca=__webpack_require__(982);function p(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var da=new Set,ea={};function fa(a,b){ha(a,b);ha(a+"Capture",b)}
+var aa=__webpack_require__(6540),ca=__webpack_require__(9982);function p(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var da=new Set,ea={};function fa(a,b){ha(a,b);ha(a+"Capture",b)}
 function ha(a,b){ea[a]=b;for(a=0;a<b.length;a++)da.add(b[a])}
 var ia=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ja=Object.prototype.hasOwnProperty,ka=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,la=
 {},ma={};function oa(a){if(ja.call(ma,a))return!0;if(ja.call(la,a))return!1;if(ka.test(a))return ma[a]=!0;la[a]=!0;return!1}function pa(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -453,7 +447,7 @@ exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!pl(c))throw Er
 
 /***/ }),
 
-/***/ 338:
+/***/ 5338:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -498,13 +492,13 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(551);
+  module.exports = __webpack_require__(2551);
 } else {}
 
 
 /***/ }),
 
-/***/ 287:
+/***/ 5287:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -538,20 +532,20 @@ exports.useTransition=function(){return U.current.useTransition()};exports.versi
 
 /***/ }),
 
-/***/ 540:
+/***/ 6540:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(287);
+  module.exports = __webpack_require__(5287);
 } else {}
 
 
 /***/ }),
 
-/***/ 463:
+/***/ 7463:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -578,16 +572,40 @@ exports.unstable_shouldYield=M;exports.unstable_wrapCallback=function(a){var b=y
 
 /***/ }),
 
-/***/ 982:
+/***/ 9982:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(463);
+  module.exports = __webpack_require__(7463);
 } else {}
 
+
+/***/ }),
+
+/***/ 5909:
+/***/ ((module) => {
+
+"use strict";
+module.exports = [];
+
+/***/ }),
+
+/***/ 8689:
+/***/ ((module) => {
+
+"use strict";
+module.exports = [];
+
+/***/ }),
+
+/***/ 3029:
+/***/ ((module) => {
+
+"use strict";
+module.exports = [];
 
 /***/ })
 
@@ -689,13 +707,13 @@ var __webpack_exports__ = {};
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(540);
-// EXTERNAL MODULE: ./src/airtableData.js + 3 modules
-var airtableData = __webpack_require__(475);
+var react = __webpack_require__(6540);
+// EXTERNAL MODULE: ./src/airtableData.js
+var airtableData = __webpack_require__(3772);
 // EXTERNAL MODULE: ./node_modules/react-dom/client.js
-var client = __webpack_require__(338);
+var client = __webpack_require__(5338);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(485);
+var classnames = __webpack_require__(2485);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// ./src/components/A_MenuElement/A_MenuElement.jsx
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
